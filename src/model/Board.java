@@ -9,11 +9,13 @@ import java.awt.Color;
  *
  */
 public class Board {
+	
+	public static final int ROWCOL = 30;
 
 	/**
 	 * Stores the data of characters on the board.
 	 */
-	private char[][] boardData = new char[20][20];
+	private char[][] boardData = new char[ROWCOL][ROWCOL];
 
 	private MyCharacter character;
 

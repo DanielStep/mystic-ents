@@ -22,7 +22,8 @@ public class GameBoard extends JFrame {
 		start();
 	}
 
-	public void start() {		
+	public void start() {
+		setResizable(false);
 		setVisible(true);
 		setupGUI();
 	}
