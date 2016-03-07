@@ -1,4 +1,4 @@
-package test;
+package controller;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;

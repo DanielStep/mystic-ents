@@ -1,9 +1,6 @@
 package view;
 
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * Graphical representation of the board. Responsible for managing GUI
@@ -13,6 +10,10 @@ import javax.swing.JPanel;
  */
 public class GameBoard extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** Draws the shape. */
 	private GamePanel gamePanel;
 
