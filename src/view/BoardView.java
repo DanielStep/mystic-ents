@@ -8,18 +8,18 @@ import javax.swing.JFrame;
  * @author skh
  *
  */
-public class GameBoard extends JFrame {
+public class BoardView extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	/** Draws the shape. */
-	private GamePanel gamePanel;
+	private PanelView gamePanel;
 
-	public GameBoard() {
+	public BoardView() {
 		super("OurGame");
-		gamePanel = new GamePanel();
+		gamePanel = new PanelView();
 		start();
 	}
 

@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Color;
 
-public abstract class CharacterBase {
+public abstract class Piece {
 
 	/** Current x coordinate **/
 	private int cX;

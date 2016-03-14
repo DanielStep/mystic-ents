@@ -1,13 +1,13 @@
-package controller;
+package main;
 
 import model.Board;
-import view.GameBoard;
+import view.BoardView;
 
-public class GameMain {
+public class GameMain implements Runnable {
 	/** Data **/
 	private static Board dataBoard;
 	/** GUI **/
-	private static GameBoard guiBoard;
+	private static BoardView guiBoard;
 
 	public static void main(String[] args) {
 		// Model - BACK END logic
@@ -15,7 +15,13 @@ public class GameMain {
 		System.out.println(dataBoard);
 		
 		// Model - FRONT END logic
-		guiBoard = new GameBoard();
+		guiBoard = new BoardView();
 		guiBoard.start();
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
