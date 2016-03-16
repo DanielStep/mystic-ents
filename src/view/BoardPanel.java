@@ -10,7 +10,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -18,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
+import controller.PieceActionController;
 import model.Board;
 
 /**
@@ -26,42 +26,42 @@ import model.Board;
  * @author skh
  *
  */
-public class PanelView extends JPanel implements MouseListener {
+public class BoardPanel extends JPanel {
 
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
+	private PieceActionController pieceActionController;
 	private int timerDelay = 1000;
 	private final Timer gameTimer;
+	// Testing piece for demo
 	private JLabel piece;
 
-	public PanelView() {
+	public BoardPanel(PieceActionController pieceActionController) {
 		super();
 
 		this.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-		// this.setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
-		this.setLayout(new GridLayout(Board.ROWCOL, Board.ROWCOL));
-		addMouseListener(this);
+		this.setLayout(new GridLayout(Board.ROW_COL, Board.ROW_COL));
+		addMouseListener(pieceActionController);
 
 		setupSquares();
 
 		// Updater of the view
 		gameTimer = new Timer(timerDelay, timerListener);
-		gameTimer.start();
+		//gameTimer.start();
 	}
 
 	/**
-	 * Draws the square
+	 * Draw the squares
 	 */
 	private void setupSquares() {
 
-		for (int i = 0; i < Board.ROWCOL * Board.ROWCOL; i++) {
+		for (int i = 0; i < Board.ROW_COL * Board.ROW_COL; i++) {
 			JPanel square = new JPanel(new BorderLayout());
 			square.setBorder(new LineBorder(Color.BLACK, 1));
 			this.add(square);
 		}
-
 	}
 
 	public void paintComponent(Graphics g) {
@@ -98,30 +98,6 @@ public class PanelView extends JPanel implements MouseListener {
 		piece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
 		piece.setSize(piece.getWidth(), piece.getHeight());
 		add(piece, JLayeredPane.DRAG_LAYER);
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

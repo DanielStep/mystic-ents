@@ -1,22 +1,17 @@
 package main;
 
+import controller.PieceActionController;
 import model.Board;
-import view.BoardView;
+import view.OuterFrame;
 
 public class GameMain implements Runnable {
-	/** Data **/
-	private static Board dataBoard;
-	/** GUI **/
-	private static BoardView guiBoard;
+	
 
-	public static void main(String[] args) {
-		// Model - BACK END logic
-		dataBoard = new Board();		
-		System.out.println(dataBoard);
+	public static void main(String[] args) {		
 		
-		// Model - FRONT END logic
-		guiBoard = new BoardView();
-		guiBoard.start();
+		//TODO: 1. GameController
+		
+
 	}
 
 	@Override

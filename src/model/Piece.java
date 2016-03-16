@@ -1,14 +1,47 @@
 package model;
 
-import java.awt.Color;
+public abstract class Piece implements Skill, IAttack {
 
-public abstract class Piece {
-
+	protected int id;
 	/** Current x coordinate **/
-	private int cX;
+	protected int cX;
 	/** Current x coordinate **/
-	private int cY;
+	protected int cY;	
 
-	private Color cColor;
+	protected int movementDist;
+	// Team color
+	protected Team team;
+
+	public int getcX() {
+		return cX;
+	}
+
+	public void setcX(int cX) {
+		this.cX = cX;
+	}
+
+	public int getcY() {
+		return cY;
+	}
+
+	public void setcY(int cY) {
+		this.cY = cY;
+	}
+
+	public int getMovementDist() {
+		return movementDist;
+	}
+
+	public void setMovementDist(int movementDist) {
+		this.movementDist = movementDist;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
 
 }
