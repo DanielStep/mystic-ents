@@ -38,7 +38,7 @@ public class Board {
 	public Object[][] getBoardData() {
 		
 		for (int i = 0; i < boardData.length; i++) {
-			for (int j = 0; j < boardData[i].length; j++) {		
+			for (int j = 0; j < boardData[i].length; j++) {
 				boardData[i][j] = null;// blank
 			}
 		}
