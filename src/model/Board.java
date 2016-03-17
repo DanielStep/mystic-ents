@@ -1,25 +1,24 @@
 package model;
 
+import java.util.Observable;
+
 /**
- * Responsible for doing majority of back-end work. It does not display
+ * Entire board contains all pieces and squares
  * 
  * @author skh
  *
  */
 
 //TODO: Game generator, type for piece for PieceView observer pattern
-public class Board {
+public class Board extends Observable {
 
 	public static final int ROW_COL = 30;
 
 	/**
-	 * Stores the data of characters on the board.
+	 * Stores the locations of pieces and squares on the board.
 	 */
 	private Object[][] boardData = new Object[ROW_COL][ROW_COL];
-
-	/**
-	 * Constructor of the class
-	 */
+	
 	public Board() {
 
 	}

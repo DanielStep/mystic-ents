@@ -16,9 +16,9 @@ public class OuterFrame extends JFrame {
 	/** Draws the shape. */
 	private BoardPanel gamePanel;
 
-	public OuterFrame(PieceActionController pieceActionController) {
+	public OuterFrame(PieceActionController pieceActionController, Object[][] boardData) {
 		super("OurGame");
-		gamePanel = new BoardPanel(pieceActionController);
+		gamePanel = new BoardPanel(pieceActionController, boardData);
 		start();
 	}
 

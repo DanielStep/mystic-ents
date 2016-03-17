@@ -18,7 +18,7 @@ public class PieceCreationController {
 		dataBoard = new Board();
 		
 		// Model - FRONT END logic
-		guiBoard = new OuterFrame(pac);
+		guiBoard = new OuterFrame(pac, dataBoard.getBoardData());
 		guiBoard.start();
 	}
 

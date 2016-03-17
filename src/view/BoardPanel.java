@@ -10,6 +10,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -26,7 +28,7 @@ import model.Board;
  * @author skh
  *
  */
-public class BoardPanel extends JPanel {
+public class BoardPanel extends JPanel implements Observer {
 
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
@@ -36,7 +38,7 @@ public class BoardPanel extends JPanel {
 	// Testing piece for demo
 	private JLabel piece;
 
-	public BoardPanel(PieceActionController pieceActionController) {
+	public BoardPanel(PieceActionController pieceActionController, Object[][] boardData) {
 		super();
 
 		this.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
@@ -45,22 +47,28 @@ public class BoardPanel extends JPanel {
 		this.setLayout(new GridLayout(Board.ROW_COL, Board.ROW_COL));
 		addMouseListener(pieceActionController);
 
-		setupSquares();
+		setupSquares(boardData);
 
 		// Updater of the view
 		gameTimer = new Timer(timerDelay, timerListener);
-		//gameTimer.start();
+		// gameTimer.start();
 	}
 
 	/**
 	 * Draw the squares
 	 */
-	private void setupSquares() {
+	private void setupSquares(Object[][] board) {
 
-		for (int i = 0; i < Board.ROW_COL * Board.ROW_COL; i++) {
-			JPanel square = new JPanel(new BorderLayout());
-			square.setBorder(new LineBorder(Color.BLACK, 1));
-			this.add(square);
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				Component comp=null;
+				if(board[i][j]==null){
+					comp = new SquareView();
+				}else{
+					comp = new PieceView(Color.BLUE, true);
+				}
+				this.add(comp);
+			}
 		}
 	}
 
@@ -98,6 +106,12 @@ public class BoardPanel extends JPanel {
 		piece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
 		piece.setSize(piece.getWidth(), piece.getHeight());
 		add(piece, JLayeredPane.DRAG_LAYER);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
