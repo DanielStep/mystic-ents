@@ -1,6 +1,16 @@
 package controller;
 
+/**
+ * Responsible for turn handling and computing the winner team
+ * @author skh
+ *
+ */
+
 public class GameController {
 
-	//TODO: At the end it will call start game
+	//TODO: Create other controllers
+	
+	public GameController() {
+		
+	}
 }
