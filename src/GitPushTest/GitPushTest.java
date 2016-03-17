@@ -1,5 +1,4 @@
 package GitPushTest;
 
 //Testing Eclipse Git, committing and pushing.
-//Feel free to delete or roll back
-//Test
+//Please confirm that you see this, and we will delete it later
