@@ -9,6 +9,7 @@ public class GameMain implements Runnable {
 		
 		//TODO: 1. GameController
 		GameController gameController = new GameController();	
+		gameController.control();
 		
 
 	}

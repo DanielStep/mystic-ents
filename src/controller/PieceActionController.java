@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -8,7 +9,7 @@ public class PieceActionController implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("Mouse clicked");
+			
 	}
 
 	@Override
