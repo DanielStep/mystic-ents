@@ -10,22 +10,23 @@ package model;
 public class Square {
 
 	private Piece occupyingPiece;
-	private boolean accessable;
 
-	public Piece getOccupyingPiece() {
+	private Boolean accessible = true;
+
+	public void setAccessible(Boolean pm) {
+		accessible = pm;
+	}
+
+	public Boolean getAccessible() {
+		return accessible;
+	}
+
+	public void setOccupant(Piece pm) {
+		occupyingPiece = pm;
+	}
+
+	public Piece getOccupant() {
 		return occupyingPiece;
-	}
-
-	public void setOccupyingPiece(Piece occupyingPiece) {
-		this.occupyingPiece = occupyingPiece;
-	}
-
-	public boolean isAccessable() {
-		return accessable;
-	}
-
-	public void setAccessable(boolean accessable) {
-		this.accessable = accessable;
 	}
 
 }

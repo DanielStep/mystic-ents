@@ -3,6 +3,7 @@ package view;
 import javax.swing.JFrame;
 
 import controller.PieceActionController;
+import model.Board;
 
 /**
  * Outer container of the board.
@@ -10,15 +11,15 @@ import controller.PieceActionController;
  * @author skh
  *
  */
-public class OuterFrame extends JFrame {
+public class BoardFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	/** Draws the shape. */
 	private BoardPanel gamePanel;
 
-	public OuterFrame(PieceActionController pieceActionController, Object[][] boardData) {
+	public BoardFrame(PieceActionController pieceActionController, Object[][] boardState) {
 		super("OurGame");
-		gamePanel = new BoardPanel(pieceActionController, boardData);
+		gamePanel = new BoardPanel(pieceActionController, boardState);
 		start();
 	}
 

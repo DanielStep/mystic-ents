@@ -1,10 +1,8 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -29,6 +27,7 @@ public class BoardPanel extends JPanel implements Observer, MouseListener {
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
 	// private PieceActionController pieceActionController;
+
 	private int timerDelay = 1000;
 	private final Timer gameTimer;
 
@@ -39,9 +38,13 @@ public class BoardPanel extends JPanel implements Observer, MouseListener {
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridLayout(Board.ROW_COL, Board.ROW_COL));
+
 		addMouseListener(this);
 
-		setupSquares(boardData);
+		drawBoard(boardData);
+		addMouseListener(pieceActionController);
+
+		// drawBoard(boardData);
 
 		// Updater of the view
 		gameTimer = new Timer(timerDelay, timerListener);
@@ -51,12 +54,12 @@ public class BoardPanel extends JPanel implements Observer, MouseListener {
 	/**
 	 * Draw the squares
 	 */
-	private void setupSquares(Object[][] board) {
+	private void drawBoard(Object[][] board) {
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				SquareView sqr = new SquareView();
-				if (board[i][j] != null) {					
+				if (board[i][j] != null) {
 					sqr.add(new PieceView(Color.RED, true));
 				}
 				this.add(sqr);
@@ -73,7 +76,7 @@ public class BoardPanel extends JPanel implements Observer, MouseListener {
 	};
 
 	public void mousePressed(MouseEvent e) {
-		
+
 	}
 
 	@Override

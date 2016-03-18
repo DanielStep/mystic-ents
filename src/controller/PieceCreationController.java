@@ -1,14 +1,14 @@
 package controller;
 
 import model.Board;
-import view.OuterFrame;
+import view.BoardFrame;
 
 public class PieceCreationController {
 	/** Data **/
 	private static Board dataBoard;
 
 	/** GUI **/
-	private static OuterFrame guiBoard;
+	private static BoardFrame guiBoard;
 
 	public PieceCreationController() {
 		
@@ -18,8 +18,8 @@ public class PieceCreationController {
 		dataBoard = new Board();
 		
 		// Model - FRONT END logic
-		guiBoard = new OuterFrame(pac, dataBoard.getBoardData());
-		guiBoard.start();
+		//guiBoard = new BoardFrame(pac, dataBoard.getBoardData());
+		//guiBoard.start();
 	}
 
 }

@@ -12,6 +12,7 @@ public class SquareView extends JPanel {
 	private int ID;
 	
 	public SquareView() {
+		System.out.print("square");
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(Color.BLACK, 1));
 	}
