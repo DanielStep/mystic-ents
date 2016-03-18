@@ -30,24 +30,26 @@ import model.Board;
  */
 public class BoardPanel extends JPanel implements Observer {
 
-	private static final int DEFAULT_WIDTH = 700;
-	private static final int DEFAULT_HEIGHT = 700;
+	private static final int DEFAULT_WIDTH = 1000;
+	private static final int DEFAULT_HEIGHT = 1000;
 	private PieceActionController pieceActionController;
 	private int timerDelay = 1000;
 	private final Timer gameTimer;
 	// Testing piece for demo
 	private JLabel piece;
 
-	public BoardPanel(PieceActionController pieceActionController, Object[][] boardData) {
+	public BoardPanel() {
 		super();
 
 		this.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
 		this.setLayout(new GridLayout(Board.ROW_COL, Board.ROW_COL));
+		
+		pieceActionController = new PieceActionController();
 		addMouseListener(pieceActionController);
-
-		setupSquares(boardData);
+		
+		//drawBoard(boardData);
 
 		// Updater of the view
 		gameTimer = new Timer(timerDelay, timerListener);
@@ -57,16 +59,19 @@ public class BoardPanel extends JPanel implements Observer {
 	/**
 	 * Draw the squares
 	 */
-	private void setupSquares(Object[][] board) {
+	private void drawBoard(Object[][] board) {
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				Component comp=null;
-				if(board[i][j]==null){
-					comp = new SquareView();
+				
+				comp = new SquareView();
+				
+				/*if(board[i][j]== ){
+					
 				}else{
 					comp = new PieceView(Color.BLUE, true);
-				}
+				}*/
 				this.add(comp);
 			}
 		}

@@ -1,15 +1,14 @@
 package main;
 
-import controller.GameController;
+import controller.*;
 
-public class GameMain implements Runnable {
-	
+public class GameMain implements Runnable {	
 
 	public static void main(String[] args) {		
 		
 		//TODO: 1. GameController
-		GameController gameController = new GameController();	
-		
+		GameController gameController = new GameController();
+		BoardController boardController = new BoardController();	
 
 	}
 
@@ -18,4 +17,6 @@ public class GameMain implements Runnable {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 }

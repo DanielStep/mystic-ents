@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 
 public class SquareView extends JPanel {
 	public SquareView() {
+		System.out.print("square");
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(Color.BLACK, 1));
 	}
