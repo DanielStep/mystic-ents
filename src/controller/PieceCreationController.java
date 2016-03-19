@@ -1,6 +1,8 @@
 package controller;
 
-import model.Board;
+import java.util.ArrayList;
+
+import model.*;
 import view.BoardFrame;
 
 public class PieceCreationController {
@@ -24,6 +26,30 @@ public class PieceCreationController {
 		// Model - FRONT END logic
 		//guiBoard = new BoardFrame(pac, dataBoard.getBoardData());
 		//guiBoard.start();
+	}
+	
+	public ArrayList<Piece> generateGamePieces(){
+		
+		PieceBuilder pieceBuilder = new PieceBuilder();
+		ArrayList<Piece> piecesArrayList = new ArrayList<Piece>();
+		
+		for(int i = 0; i < REGULARPIECES_IN_TEAM; i++){
+			
+			RegularPiece newPiece = new RegularPiece();
+			pieceBuilder.buildPiece(newPiece);
+			piecesArrayList.add(newPiece);
+		}
+		
+		for(int i = 0; i < USURPERS_IN_TEAM; i++){
+			
+			UsurperPiece newPiece = new UsurperPiece();
+			pieceBuilder.buildPiece(newPiece);
+			piecesArrayList.add(newPiece);
+		}
+		
+		
+		return piecesArrayList;
+
 	}
 
 }
