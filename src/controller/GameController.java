@@ -16,6 +16,7 @@ import javax.swing.Timer;
 public class GameController {
 
 	private final GameTurnTimer gameTimer;
+	PieceCreationController pcc = new PieceCreationController();
 	
 	public GameController() {
 		
