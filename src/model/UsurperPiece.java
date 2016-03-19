@@ -2,8 +2,7 @@ package model;
 
 public class UsurperPiece extends Piece {
 
-	UsurperPiece(int movementDist) {
-		this.movementDist = movementDist;
+	UsurperPiece() {
 	}
 
 	@Override
