@@ -20,6 +20,7 @@ public class BoardFrame extends JFrame {
 	public BoardFrame(PieceActionController pieceActionController, Object[][] boardState) {
 		super("OurGame");
 		gamePanel = new BoardPanel(pieceActionController, boardState);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		start();
 	}
 
