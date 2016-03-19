@@ -29,7 +29,6 @@ public class BoardPanel extends JPanel implements Observer, MouseListener {
 	// private PieceActionController pieceActionController;
 
 	private int timerDelay = 1000;
-	private final Timer gameTimer;
 
 	public BoardPanel(PieceActionController pieceActionController, Object[][] boardData) {
 		super();
@@ -40,15 +39,9 @@ public class BoardPanel extends JPanel implements Observer, MouseListener {
 		this.setLayout(new GridLayout(Board.ROW_COL, Board.ROW_COL));
 
 		addMouseListener(this);
-
-		drawBoard(boardData);
 		addMouseListener(pieceActionController);
-
-		// drawBoard(boardData);
-
-		// Updater of the view
-		gameTimer = new Timer(timerDelay, timerListener);
-		// gameTimer.start();
+		drawBoard(boardData);
+		
 	}
 
 	/**
