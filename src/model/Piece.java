@@ -8,7 +8,6 @@ public abstract class Piece implements Skill, IAttack {
 	/** Current x coordinate **/
 	protected int cY;	
 
-	protected int movementDist;
 	// Team color
 	protected Team team;
 
@@ -26,14 +25,6 @@ public abstract class Piece implements Skill, IAttack {
 
 	public void setcY(int cY) {
 		this.cY = cY;
-	}
-
-	public int getMovementDist() {
-		return movementDist;
-	}
-
-	public void setMovementDist(int movementDist) {
-		this.movementDist = movementDist;
 	}
 
 	public Team getTeam() {
