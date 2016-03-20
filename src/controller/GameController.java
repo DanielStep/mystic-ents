@@ -20,7 +20,7 @@ public class GameController {
 	
 	public GameController() {
 		
-		gameTimer = new GameTurnTimer(1000);
+		gameTimer = new GameTurnTimer();
 		gameTimer.start();
 		
 	}

@@ -10,11 +10,10 @@ public class GameTurnTimer {
     Timer timer;
     
     private static final int MAX_TURNS = 1000;
+    private static final int TIMER_PERIOD = 1000;
     public int gameTurn;
-    public long period;
 
-    public GameTurnTimer(int i) {
-    	period = i;
+    public GameTurnTimer() {
     	toolkit = Toolkit.getDefaultToolkit();
     }
     
@@ -31,7 +30,7 @@ public class GameTurnTimer {
 				}
 				System.out.println("New Turn: " + gameTurn);
 			}
-    	}, 50, 1*period);
+    	}, 50, 1*TIMER_PERIOD);
     }
 
     public int getGameTurn() {
