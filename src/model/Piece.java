@@ -43,5 +43,20 @@ public abstract class Piece implements Skill, IAttack {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
+	
+	public void skillOut() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void attackIn(int att) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void attackOut(Piece piece) {
+		// TODO Auto-generated method stub
+
+	}
 
 }
