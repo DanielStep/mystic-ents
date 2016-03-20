@@ -2,6 +2,16 @@ package model;
 
 public abstract class Piece implements Skill, IAttack {
 
+	private TraitSet traitSet;
+	
+	public TraitSet getTraitSet() {
+		return traitSet;
+	}
+
+	public void setTraitSet(TraitSet traitSet) {
+		this.traitSet = traitSet;
+	}
+
 	protected int id;
 	/** Current x coordinate **/
 	protected int cX;
