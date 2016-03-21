@@ -1,17 +1,16 @@
 package controller;
 
-import controller.traitGeneration.TraitFactory;
 import model.Piece;
 import model.traits.*;
 
 
 public class PieceBuilder {
 	
-	SkillFactory skillFactory = new SkillFactory();
+	SkillBuilder skillBuilder = new SkillBuilder();
 
 	public void buildPiece (Piece newPiece){
 		
-		TraitSet newTraitSet = new TraitFactory().getTraitSet();
+		TraitSet newTraitSet = new TraitBuilder().getTraitSet();
 
 		newPiece.setTraitSet(newTraitSet);
 	}
