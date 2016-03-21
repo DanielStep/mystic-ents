@@ -10,7 +10,7 @@ public class PieceCreationController {
 	final int REGULARPIECES_IN_TEAM = 8;
 	final int USURPERS_IN_TEAM = 1;
 	
-	/** Data **/
+	/** TODO Lets remove the static game board when we have finished the BoardController class **/
 	private static Board dataBoard;
 
 	/** GUI **/
