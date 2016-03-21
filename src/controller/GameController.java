@@ -15,8 +15,7 @@ import model.GameTurn;
 public class GameController implements Observer {
 
 	private static GameTurn gameTimer;
-	//PieceCreationController pcc = new PieceCreationController();
-	
+
 	public GameController() {
 		gameTimer = new GameTurn();
 		observe(gameTimer);

@@ -4,7 +4,7 @@ public class GameConfig {
 
 	//TIMER
     private static final int MAX_TURNS = 1000;
-    private static final int START_DELAY = 1000;
+    private static final int START_DELAY = 2000;
     private static final int TIMER_PERIOD = 2000;
     
     //BOARD

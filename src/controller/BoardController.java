@@ -5,26 +5,26 @@ import java.util.Observer;
 
 import model.Board;
 import view.BoardFrame;
+import view.BoardPanel;
 
 public class BoardController implements Observer {
 
-	private static BoardFrame boardView;
+	private static BoardFrame boardFrame;
+	private static BoardPanel boardView;
 	private static Board boardState;
 
 	public BoardController() {
 
 		boardState = new Board();
 		observe(boardState);
-		// observer = new BoardObserver(boardState);
-
-		// was created inside view, since view does not create controller moved
-		// here.
-		PieceActionController pieceActionController = new PieceActionController();
-		boardState.init();
-
+		
 		// After we placed pieces inside boardState, initialize boardView
-		boardView = new BoardFrame(pieceActionController, boardState.getBoardData());
-
+		boardFrame = new BoardFrame();
+		boardView = new BoardPanel();		
+		boardState.init();		
+		boardFrame.add(boardView);
+		boardFrame.pack();
+		
 		// boardState
 
 		// Tell the View that when ever the calculate button
@@ -42,8 +42,9 @@ public class BoardController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		Object[][] data = ((Board) o).getBoardData();
-		System.out.println("Board has changed");
-		//boardView.refreshBoard(data);
+		if (data == null) return;
+		System.out.println("Board has changed: " + data.length);
+		boardView.refreshBoard(data);
 	}
 
 }
