@@ -1,6 +1,6 @@
 package controller.traitGeneration;
 
-import model.Trait;
+import model.traits.Trait;
 
 public interface ITraitGenerator {
 	

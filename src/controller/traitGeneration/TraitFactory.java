@@ -1,21 +1,34 @@
 package controller.traitGeneration;
 
-import java.util.ArrayList;
-
-import model.Trait;
+import model.traits.*;
 
 public class TraitFactory {
-
-	private ArrayList<Trait> listOfTraits;
-	private ArrayList<ITraitGenerator> traitsToGenerate;
 	
-	public ArrayList<Trait> getListOfTraits(){
-		return listOfTraits;
+	private TraitSet traitSet;
+	
+	//In case need to be individually retrieved after initial game setup
+	private HealthTrait healthTrait;
+	private MoveTrait moveTrait;
+	private AttackTrait attackTrait;
+	private DamageTrait damageTrait;
+	
+	public TraitFactory(){
+		
+		generateTraitSetfromTraits();
 	}
 	
-	public void generateTraits(){
+	//Extensible method whereby Trait Generators are instantiated to polymorphically generate trait and pass them to a traitSet.
+	private void generateTraitSetfromTraits(){
 		
-		traitsToGenerate = new ArrayList<ITraitGenerator>();
-		traitsToGenerate.add(new HealthTraitGenerator());
+		healthTrait = (HealthTrait) new HealthTraitGenerator().generateTrait();
+		moveTrait = (MoveTrait) new MoveTraitGenerator().generateTrait();
+		attackTrait = (AttackTrait) new AttackTraitGenerator().generateTrait();
+		damageTrait = (DamageTrait) new DamageTraitGenerator().generateTrait();
+		
+		traitSet = new TraitSet(healthTrait, moveTrait, attackTrait, damageTrait);	
+	}
+	
+	public TraitSet getTraitSet(){
+		return traitSet;
 	}
 }

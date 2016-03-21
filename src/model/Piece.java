@@ -1,5 +1,7 @@
 package model;
 
+import model.traits.TraitSet;
+
 public abstract class Piece implements Skill, IAttack {
 
 	private TraitSet traitSet;

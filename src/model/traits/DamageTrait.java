@@ -1,4 +1,4 @@
-package model;
+package model.traits;
 
 public class DamageTrait extends Trait {
 

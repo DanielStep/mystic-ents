@@ -1,4 +1,4 @@
-package model;
+package model.traits;
 
 public abstract class Trait implements ITraitValueModifiable {
 
