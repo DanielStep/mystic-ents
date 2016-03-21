@@ -9,6 +9,7 @@ package model;
 
 public class BoardGenerator {
 
+
 	public Square[][] generateStartBoard() {
 		
 		Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];
@@ -98,6 +99,7 @@ public class BoardGenerator {
 			}
 		}		
 		return boardData;
+
 	}
-	
+
 }
