@@ -1,36 +1,36 @@
-package controller;
+package model;
 
+import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.Toolkit;
 
-public class GameTurnTimer {
+public class GameTurn extends Observable {
 	
     Toolkit toolkit;
     Timer timer;
     
-    private static final int MAX_TURNS = 1000;
-    private static final int TIMER_PERIOD = 1000;
-    public int gameTurn;
+    public int gameTurn = 0;
 
-    public GameTurnTimer() {
+    public GameTurn() {
     	toolkit = Toolkit.getDefaultToolkit();
     }
     
-    public void buildTimer() {    	
+    private void buildTimer() {
     	timer = new Timer();
         timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				gameTurn++;				
-				if (gameTurn >= MAX_TURNS)
+				if (gameTurn >= GameConfig.getMaxTurns())
 				{
 					stop();
 					return;
 				}
-				System.out.println("New Turn: " + gameTurn);
+				setChanged();
+			    notifyObservers();
 			}
-    	}, 50, 1*TIMER_PERIOD);
+    	}, GameConfig.getStartDelay(), GameConfig.getTimerPeriod());
     }
 
     public int getGameTurn() {
@@ -42,6 +42,7 @@ public class GameTurnTimer {
     }    
     
     public void start() {
+    	System.out.println("Start");
     	buildTimer();
     }
     

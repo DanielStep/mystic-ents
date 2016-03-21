@@ -1,10 +1,9 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import model.GameTurn;
 
 /**
  * Responsible for turn handling and computing the winner team
@@ -13,16 +12,25 @@ import javax.swing.Timer;
  *
  */
 
-public class GameController {
+public class GameController implements Observer {
 
-	private final GameTurnTimer gameTimer;
-	PieceCreationController pcc = new PieceCreationController();
+	private static GameTurn gameTimer;
+	//PieceCreationController pcc = new PieceCreationController();
 	
 	public GameController() {
-		
-		gameTimer = new GameTurnTimer();
+		gameTimer = new GameTurn();
+		observe(gameTimer);
 		gameTimer.start();
-		
 	}
+	
+	public void observe(Observable o) {
+		o.addObserver(this);
+	}	
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		int data = ((GameTurn) o).getGameTurn();
+		System.out.println("Turn: " + data);
+	}	
 
 }

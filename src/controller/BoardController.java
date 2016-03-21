@@ -43,6 +43,7 @@ public class BoardController implements Observer {
 	public void update(Observable o, Object arg) {
 		Object[][] data = ((Board) o).getBoardData();
 		System.out.println("Board has changed");
+		//boardView.refreshBoard(data);
 	}
 
 }

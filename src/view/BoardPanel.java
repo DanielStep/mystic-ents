@@ -15,6 +15,7 @@ import javax.swing.Timer;
 
 import controller.PieceActionController;
 import model.Board;
+import model.GameConfig;
 
 /**
  * Inner panel for displaying game objects.
@@ -22,24 +23,19 @@ import model.Board;
  * @author skh
  *
  */
-public class BoardPanel extends JPanel implements Observer, MouseListener {
+public class BoardPanel extends JPanel {
 
-	private static final int DEFAULT_WIDTH = 700;
-	private static final int DEFAULT_HEIGHT = 700;
 	// private PieceActionController pieceActionController;
-
-	private int timerDelay = 1000;
 
 	public BoardPanel(PieceActionController pieceActionController, Object[][] boardData) {
 		super();
 
-		this.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+		this.setPreferredSize(new Dimension(GameConfig.getDefaultWidth(), GameConfig.getDefaultHeight()));
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
-		this.setLayout(new GridLayout(Board.ROW_COL, Board.ROW_COL));
+		this.setLayout(new GridLayout(GameConfig.getRowCol(), GameConfig.getRowCol()));
 
-		addMouseListener(this);
-		addMouseListener(pieceActionController);
+		//addMouseListener(pieceActionController);
 		drawBoard(boardData);
 		
 	}
@@ -51,55 +47,19 @@ public class BoardPanel extends JPanel implements Observer, MouseListener {
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				SquareView sqr = new SquareView();
+				SquareView sqr = new SquareView(i, j);
+				
 				if (board[i][j] != null) {
 					sqr.add(new PieceView(Color.RED, true));
 				}
+				
 				this.add(sqr);
 			}
 		}
 	}
-
-	ActionListener timerListener = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("listener triggered:" + e.getActionCommand());
-		}
-	};
-
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	
+	public void refreshBoard(Object[][] boardData) {
+		drawBoard(boardData);
+	}	
 
 }
