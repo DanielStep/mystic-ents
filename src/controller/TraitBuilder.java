@@ -7,15 +7,8 @@ import model.traits.*;
 
 public class TraitBuilder {
 	
-	Random randomNumGen;
+	private Random randomNumGen;
 	private TraitSet traitSet;
-	private ArrayList<Trait> listOfTraits;
-	
-	//In case need to be individually retrieved after initial game setup
-	private HealthTrait healthTrait;
-	private MoveTrait moveTrait;
-	private AttackTrait attackTrait;
-	private DamageTrait damageTrait;
 	
 	public TraitBuilder(Random randomNumGen){
 		
@@ -25,17 +18,19 @@ public class TraitBuilder {
 	
 	private void generateTraitSetfromTraits(){
 		
-		healthTrait = new HealthTrait();
-		moveTrait = new MoveTrait();
-		attackTrait = new AttackTrait();
-		damageTrait = new DamageTrait();
+		HealthTrait healthTrait = new HealthTrait();
+		MoveTrait moveTrait = new MoveTrait();
+		AttackTrait attackTrait = new AttackTrait();
+		DamageTrait damageTrait = new DamageTrait();
 		
-		allocateTraitValues();
+		allocateTraitValues(healthTrait, damageTrait, moveTrait);
 		
 		traitSet = new TraitSet(healthTrait, moveTrait, attackTrait, damageTrait);	
 	}
 	
-	private void allocateTraitValues(){
+	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, MoveTrait moveTrait){
+		
+		ArrayList<Trait> listOfTraits = new ArrayList<Trait>();
 		
 		listOfTraits.add(damageTrait);
 		listOfTraits.add(moveTrait);
