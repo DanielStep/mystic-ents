@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import model.*;
 import view.BoardFrame;
@@ -9,6 +10,9 @@ public class PieceCreationController {
 	
 	final int REGULARPIECES_IN_TEAM = 8;
 	final int USURPERS_IN_TEAM = 1;
+	
+	private PieceBuilder pieceBuilder = new PieceBuilder();
+
 	
 	/** TODO Lets remove the static game board when we have finished the BoardController class **/
 	private static Board dataBoard;
@@ -30,7 +34,6 @@ public class PieceCreationController {
 	
 	public ArrayList<Piece> generateGamePieces(){
 		
-		PieceBuilder pieceBuilder = new PieceBuilder();
 		ArrayList<Piece> piecesArrayList = new ArrayList<Piece>();
 		
 		for(int i = 0; i < REGULARPIECES_IN_TEAM; i++){
