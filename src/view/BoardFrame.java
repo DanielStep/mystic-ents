@@ -28,7 +28,7 @@ public class BoardFrame extends JFrame {
 		buildUI();
 	}
 
-	public void buildFrame() {		
+	private void buildFrame() {		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container c = this.getContentPane();
         c.setBackground(Color.YELLOW);

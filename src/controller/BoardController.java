@@ -20,7 +20,7 @@ public class BoardController implements Observer {
 		
 		// After we placed pieces inside boardState, initialize boardView
 		boardFrame = new BoardFrame();
-		boardView = new BoardPanel();		
+		boardView = new BoardPanel(); // BoardPanel can	be directly initialized from BoardFrame, creating it inside controller adds more coupling ?
 		boardState.init();		
 		boardFrame.add(boardView);
 		boardFrame.pack();
