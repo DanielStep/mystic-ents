@@ -2,5 +2,5 @@ package model.traits;
 
 public interface ITraitValueModifiable {
 
-	public void modifyValue();
+	public void modifyValue(int changeBy);
 }
