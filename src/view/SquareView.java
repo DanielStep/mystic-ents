@@ -59,6 +59,7 @@ public class SquareView extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		System.out.println("mouse press @ " + getID()[0] + " x " + getID()[1]);
+		
 	}
 
 	@Override
