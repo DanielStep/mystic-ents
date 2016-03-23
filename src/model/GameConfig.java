@@ -4,6 +4,7 @@ public class GameConfig {
 
 	//TIMER
     private static final int MAX_TURNS = 1000;
+    private static final int MAX_SECONDS = 5;
     private static final int START_DELAY = 2000;
     private static final int TIMER_PERIOD = 2000;
     
@@ -21,6 +22,10 @@ public class GameConfig {
 		return TIMER_PERIOD;
 	}
 
+	public static int getMaxSeconds() {
+		return MAX_SECONDS;
+	}
+	
 	public static int getStartDelay() {
 		return START_DELAY;
 	}

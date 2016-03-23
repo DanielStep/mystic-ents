@@ -8,7 +8,7 @@ import model.GameTurn;
 /**
  * Responsible for turn handling and computing the winner team
  *
- * @author skh, ms
+ * @author skh, ms, pv
  *
  */
 
@@ -17,6 +17,10 @@ public class GameController implements Observer {
 	private static GameTurn gameTimer;
 
 	public GameController() {
+		startTimer();
+	}
+	
+	private void startTimer() {
 		gameTimer = new GameTurn();
 		observe(gameTimer);
 		gameTimer.start();
@@ -28,8 +32,12 @@ public class GameController implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		int data = ((GameTurn) o).getGameTurn();
-		System.out.println("Turn: " + data);
+		int data = ((GameTurn) o).getGameTimer();
+		System.out.println("Time remaining: " + data);
+		if (data == 0) {
+			System.out.println("Player change!");
+			startTimer();
+		}
 	}	
 
 }
