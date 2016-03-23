@@ -1,6 +1,6 @@
 package model.skills;
 
-public class SpeedSkill implements IPerformTraitSkill {
+public class RangeSkill implements IPerformTraitSkill {
 
 	@Override
 	public void performSkill() {
