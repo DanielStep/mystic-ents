@@ -5,13 +5,12 @@ import java.util.Observer;
 
 import model.Board;
 import view.BoardFrame;
-import view.BoardPanel;
 
 public class BoardController implements Observer {
 
-	private static BoardFrame boardFrame;
-	private static BoardPanel boardView;
-	private static Board boardState;
+	private BoardFrame boardFrame;
+//	private static BoardPanel boardView;
+	private Board boardState;
 
 	public BoardController() {
 
@@ -20,9 +19,9 @@ public class BoardController implements Observer {
 		
 		// After we placed pieces inside boardState, initialize boardView
 		boardFrame = new BoardFrame();
-		boardView = new BoardPanel(); // BoardPanel can	be directly initialized from BoardFrame, creating it inside controller adds more coupling ?
+//		boardView = new BoardPanel(); // BoardPanel can	be directly initialized from BoardFrame, creating it inside controller adds more coupling ?
 		boardState.init();		
-		boardFrame.add(boardView);
+//		boardFrame.add(boardView);
 		boardFrame.pack();
 		
 		// boardState
@@ -44,7 +43,7 @@ public class BoardController implements Observer {
 		Object[][] data = ((Board) o).getBoardData();
 		if (data == null) return;
 		System.out.println("Board has changed: " + data.length);
-		boardView.refreshBoard(data);
+		boardFrame.getBoardPanel().refreshBoard(data);
 	}
 
 }

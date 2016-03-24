@@ -20,7 +20,7 @@ public class BoardFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	/** Draws the shape. */
-	public BoardPanel gamePanel;
+	private BoardPanel gamePanel;
 
 	public BoardFrame() {
 		super("OurGame");
@@ -41,7 +41,12 @@ public class BoardFrame extends JFrame {
 	}
 	
 	public void buildUI() {
-		
+		gamePanel = new BoardPanel();
+		this.add(gamePanel);
+	}
+	
+	public BoardPanel getBoardPanel() {
+		return gamePanel;
 	}
 	
 	public void refreshBoard(Object[][] data) {
