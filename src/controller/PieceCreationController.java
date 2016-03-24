@@ -13,23 +13,11 @@ public class PieceCreationController {
 	
 	private PieceBuilder pieceBuilder = new PieceBuilder();
 
-	
-	/** TODO Lets remove the static game board when we have finished the BoardController class **/
-	private static Board dataBoard;
-
-	/** GUI **/
-	private static BoardFrame guiBoard;
 
 	public PieceCreationController() {
 		
 		PieceActionController pac = new PieceActionController();
 		
-		// Model - BACK END logic
-		dataBoard = new Board();
-		
-		// Model - FRONT END logic
-		//guiBoard = new BoardFrame(pac, dataBoard.getBoardData());
-		//guiBoard.start();
 	}
 	
 	public ArrayList<Piece> generateGamePieces(){
