@@ -1,12 +1,22 @@
 package model;
 
 import model.skills.Skill;
+import model.skills.SkillSet;
 import model.traits.TraitSet;
 
 public abstract class Piece implements Skill, IAttack {
 
 	private TraitSet traitSet;
+	private SkillSet skillSet;
 	
+	public SkillSet getSkillSet() {
+		return skillSet;
+	}
+
+	public void setSkillSet(SkillSet skillSet) {
+		this.skillSet = skillSet;
+	}
+
 	public TraitSet getTraitSet() {
 		return traitSet;
 	}
