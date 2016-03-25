@@ -25,6 +25,8 @@ public class SkillBuilder {
 		BuildSkill buildSkill = new BuildSkill();
 		RangeSkill speedSkill = new RangeSkill();
 		AttackSkill attackSkill = new AttackSkill();
+		
+		
 
 	}
 

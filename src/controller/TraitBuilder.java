@@ -31,13 +31,13 @@ public class TraitBuilder {
 	private void generateTraitSetfromTraits() {
 
 		HealthTrait healthTrait = new HealthTrait(1);
-		MoveTrait moveTrait = new MoveTrait(1);
+		RangeTrait rangeTrait = new RangeTrait(1);
 		AttackTrait attackTrait = new AttackTrait(1);
 		DamageTrait damageTrait = new DamageTrait(1);
 
-		allocateTraitValues(healthTrait, damageTrait, moveTrait);
+		allocateTraitValues(healthTrait, damageTrait, rangeTrait);
 
-		traitSet = new TraitSet(healthTrait, moveTrait, attackTrait, damageTrait);
+		traitSet = new TraitSet(healthTrait, rangeTrait, attackTrait, damageTrait);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class TraitBuilder {
 	 * @param damageTrait
 	 * @param moveTrait
 	 */
-	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, MoveTrait moveTrait) {
+	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, RangeTrait moveTrait) {
 
 		ArrayList<Trait> listOfTraits = new ArrayList<Trait>();
 
