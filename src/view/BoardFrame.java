@@ -31,36 +31,42 @@ public class BoardFrame extends JFrame {
 		buildUI();
 	}
 
+	/**
+	 * Adding and configuring properties of the frame
+	 */
 	private void buildFrame() {
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Container c = this.getContentPane();
-        c.setBackground(Color.YELLOW);
-        
-        int totalGameWidth = GameConfig.getDefaultWidth() + GameConfig.getDefaultControlPanelWidth();
-        
-        // adjust size using Dimension.
-        c.setPreferredSize(new Dimension(totalGameWidth, GameConfig.getDefaultHeight()));
-        // resize the panel so objects fit in.
-        //pack();
-        this.setResizable(false);
-        this.setVisible(true);
+		Container c = this.getContentPane();
+		c.setBackground(Color.YELLOW);
+
+		int totalGameWidth = GameConfig.getDefaultWidth() + GameConfig.getDefaultControlPanelWidth();
+
+		// adjust size using Dimension.
+		c.setPreferredSize(new Dimension(totalGameWidth, GameConfig.getDefaultHeight()));
+		// resize the panel so objects fit in.
+		// pack();
+		this.setResizable(false);
+		this.setVisible(true);
 	}
-	
+
+	/**
+	 * Creating the board panel and control panel
+	 */
 	public void buildUI() {
 		gamePanel = new BoardPanel();
 		this.add(gamePanel, BorderLayout.CENTER);
-		
+
 		controlPanel = new ControlPanel();
 		this.add(controlPanel, BorderLayout.EAST);
 	}
-	
+
 	public BoardPanel getBoardPanel() {
 		return gamePanel;
 	}
-	
+
 	public void refreshBoard(Object[][] data) {
-		//gamePanel.refreshBoard(data);
+		// gamePanel.refreshBoard(data);
 	}
 
 }

@@ -12,10 +12,11 @@ public class TraitRandomizer {
 
 	public void generateRandomTraitValues(ArrayList<Trait> listofTraits, Random randomNumGen){
 		
-		int randomNum = randomNumGen.ints(0, (listofTraits.size() + 1)).limit(1).findFirst().getAsInt();
+		int randomNum;
 		
 		for (int i = 0; i < VALUESDISTRIBUTED; i++) {
 			
+			randomNum = randomNumGen.ints(0, listofTraits.size()).limit(1).findFirst().getAsInt();
 			listofTraits.get(randomNum).modifyValue(VALUEINCREMENT);
 		}
 	}

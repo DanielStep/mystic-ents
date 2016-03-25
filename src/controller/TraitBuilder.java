@@ -30,14 +30,14 @@ public class TraitBuilder {
 
 	private void generateTraitSetfromTraits() {
 
-		HealthTrait healthTrait = new HealthTrait();
-		MoveTrait moveTrait = new MoveTrait();
-		AttackTrait attackTrait = new AttackTrait();
-		DamageTrait damageTrait = new DamageTrait();
+		HealthTrait healthTrait = new HealthTrait(1);
+		RangeTrait rangeTrait = new RangeTrait(1);
+		AttackTrait attackTrait = new AttackTrait(1);
+		DamageTrait damageTrait = new DamageTrait(1);
 
-		allocateTraitValues(healthTrait, damageTrait, moveTrait);
+		allocateTraitValues(healthTrait, damageTrait, rangeTrait);
 
-		traitSet = new TraitSet(healthTrait, moveTrait, attackTrait, damageTrait);
+		traitSet = new TraitSet(healthTrait, rangeTrait, attackTrait, damageTrait);
 	}
 
 	/**
@@ -46,19 +46,23 @@ public class TraitBuilder {
 	 * 
 	 * @param healthTrait
 	 * @param damageTrait
-	 * @param moveTrait
+	 * @param rangeTrait
 	 */
-	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, MoveTrait moveTrait) {
+	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, RangeTrait rangeTrait) {
 
 		ArrayList<Trait> listOfTraits = new ArrayList<Trait>();
 
 		listOfTraits.add(damageTrait);
-		listOfTraits.add(moveTrait);
+		listOfTraits.add(rangeTrait);
 		listOfTraits.add(healthTrait);
 
 		TraitRandomizer traitRandomizer = new TraitRandomizer();
 		traitRandomizer.generateRandomTraitValues(listOfTraits, randomNumGen);
 	}
+	
+	
+	
+	
 
 	public TraitSet getTraitSet() {
 		return traitSet;

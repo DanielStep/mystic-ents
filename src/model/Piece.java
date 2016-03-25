@@ -4,7 +4,7 @@ import model.skills.Skill;
 import model.skills.SkillSet;
 import model.traits.TraitSet;
 
-public abstract class Piece implements Skill, IAttack {
+public abstract class Piece implements IAttack {
 
 	private TraitSet traitSet;
 	private SkillSet skillSet;
@@ -32,7 +32,7 @@ public abstract class Piece implements Skill, IAttack {
 	protected int cY;	
 
 	// Team color
-	protected Team team;
+	protected Enum<Team> team;
 
 	public int getcX() {
 		return cX;
@@ -50,18 +50,14 @@ public abstract class Piece implements Skill, IAttack {
 		this.cY = cY;
 	}
 
-	public Team getTeam() {
+	public Enum<Team> getTeam() {
 		return team;
 	}
 
-	public void setTeam(Team team) {
+	public void setTeam(Enum<Team> team) {
 		this.team = team;
 	}
 	
-	public void skillOut() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void attackIn(int att) {
 		// TODO Auto-generated method stub
