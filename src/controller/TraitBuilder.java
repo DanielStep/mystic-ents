@@ -30,10 +30,10 @@ public class TraitBuilder {
 
 	private void generateTraitSetfromTraits() {
 
-		HealthTrait healthTrait = new HealthTrait();
-		MoveTrait moveTrait = new MoveTrait();
-		AttackTrait attackTrait = new AttackTrait();
-		DamageTrait damageTrait = new DamageTrait();
+		HealthTrait healthTrait = new HealthTrait(1);
+		MoveTrait moveTrait = new MoveTrait(1);
+		AttackTrait attackTrait = new AttackTrait(1);
+		DamageTrait damageTrait = new DamageTrait(1);
 
 		allocateTraitValues(healthTrait, damageTrait, moveTrait);
 
@@ -59,6 +59,10 @@ public class TraitBuilder {
 		TraitRandomizer traitRandomizer = new TraitRandomizer();
 		traitRandomizer.generateRandomTraitValues(listOfTraits, randomNumGen);
 	}
+	
+	
+	
+	
 
 	public TraitSet getTraitSet() {
 		return traitSet;
