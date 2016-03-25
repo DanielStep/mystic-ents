@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 /**
- * A component of ControlFrame
+ * A component of ControlPanel
  * @author Phan Vo
  *
  */
@@ -20,6 +20,7 @@ public class PieceInfoPanel extends JPanel{
 	
 	public PieceInfoPanel() {
 		// TODO Auto-generated constructor stub
+		super();
 		JPanel pane = new JPanel(new GridLayout(0, 2));
 		pane.setPreferredSize(new Dimension(160, 160));
 		

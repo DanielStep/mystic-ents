@@ -1,8 +1,10 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
@@ -21,6 +23,7 @@ public class BoardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	/** Draws the shape. */
 	private BoardPanel gamePanel;
+	private ControlPanel controlPanel;
 
 	public BoardFrame() {
 		super("OurGame");
@@ -28,21 +31,28 @@ public class BoardFrame extends JFrame {
 		buildUI();
 	}
 
-	private void buildFrame() {		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	private void buildFrame() {
+		this.setLayout(new BorderLayout());
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container c = this.getContentPane();
         c.setBackground(Color.YELLOW);
+        
+        int totalGameWidth = GameConfig.getDefaultWidth() + GameConfig.getDefaultControlPanelWidth();
+        
         // adjust size using Dimension.
-        c.setPreferredSize(new Dimension(GameConfig.getDefaultWidth(), GameConfig.getDefaultHeight()));
+        c.setPreferredSize(new Dimension(totalGameWidth, GameConfig.getDefaultHeight()));
         // resize the panel so objects fit in.
         //pack();
-        setResizable(false);
-        setVisible(true);
+        this.setResizable(false);
+        this.setVisible(true);
 	}
 	
 	public void buildUI() {
 		gamePanel = new BoardPanel();
-		this.add(gamePanel);
+		this.add(gamePanel, BorderLayout.CENTER);
+		
+		controlPanel = new ControlPanel();
+		this.add(controlPanel, BorderLayout.EAST);
 	}
 	
 	public BoardPanel getBoardPanel() {

@@ -3,19 +3,24 @@ package view;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import model.GameConfig;
 /**
  * Display board game info and controls
  * @author Phan Vo
  *
  */
-public class ControlFrame extends JFrame{
+public class ControlPanel extends JPanel{
 	
-	public ControlFrame() {
+	public ControlPanel() {
 		// TODO Auto-generated constructor stub
-		this.getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT));
-	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    this.setPreferredSize(new Dimension(220, 500));
+		super();
+//		this.getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT));
+//	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	    this.setPreferredSize(new Dimension(220, 500));
+		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+		this.setPreferredSize(new Dimension(GameConfig.getDefaultControlPanelWidth(), GameConfig.getDefaultHeight()));
 	    
 	    TimePanel a = new TimePanel();
 	    this.add(a);
@@ -32,7 +37,7 @@ public class ControlFrame extends JFrame{
 	    EndTurnPanel e = new EndTurnPanel();
 	    this.add(e);
 	    
-	    this.pack();
-	    this.setVisible(true);
+//	    this.pack();
+//	    this.setVisible(true);
 	}
 }

@@ -13,6 +13,12 @@ public class GameConfig {
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
 	
+	//CONTROL PANEL
+	private static final int DEFAULT_CONTROL_PANEL_WIDTH = 200;
+	
+	public static int getDefaultControlPanelWidth() {
+		return DEFAULT_CONTROL_PANEL_WIDTH;
+	}
 	
 	public static int getDefaultHeight() {
 		return DEFAULT_HEIGHT;

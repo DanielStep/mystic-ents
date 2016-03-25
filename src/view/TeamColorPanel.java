@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
- * A component of ControlFrame
+ * A component of ControlPanel
  * @author Phan Vo
  *
  */
@@ -19,7 +19,7 @@ public class TeamColorPanel extends JPanel{
 	
 	public TeamColorPanel() {
 		// TODO Auto-generated constructor stub
-		super(true);
+		super();
 		
 		tfColor = new JTextField();
 		tfColor.setHorizontalAlignment(JTextField.CENTER);
