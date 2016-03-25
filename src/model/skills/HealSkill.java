@@ -4,7 +4,7 @@ import model.Square;
 
 // TODO: Implement the logic
 
-public class HealSkill implements IPerformSquareSkill {
+public class HealSkill extends Skill implements IPerformSquareSkill {
 
 	@Override
 	public void performSkill(Square sqr) {

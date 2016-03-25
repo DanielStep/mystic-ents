@@ -46,14 +46,14 @@ public class TraitBuilder {
 	 * 
 	 * @param healthTrait
 	 * @param damageTrait
-	 * @param moveTrait
+	 * @param rangeTrait
 	 */
-	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, RangeTrait moveTrait) {
+	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, RangeTrait rangeTrait) {
 
 		ArrayList<Trait> listOfTraits = new ArrayList<Trait>();
 
 		listOfTraits.add(damageTrait);
-		listOfTraits.add(moveTrait);
+		listOfTraits.add(rangeTrait);
 		listOfTraits.add(healthTrait);
 
 		TraitRandomizer traitRandomizer = new TraitRandomizer();

@@ -1,6 +1,6 @@
 package model.skills;
 
-public class AttackSkill implements IPerformTraitSkill {
+public class AttackSkill extends Skill implements IPerformTraitSkill {
 
 	@Override
 	public void performSkill() {

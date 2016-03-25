@@ -2,7 +2,7 @@ package model.skills;
 
 import model.Square;
 
-public class BuildSkill implements IPerformSquareSkill {
+public class BuildSkill extends Skill implements IPerformSquareSkill {
 
 	@Override
 	public void performSkill(Square sqr) {

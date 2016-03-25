@@ -8,11 +8,10 @@ import view.BoardFrame;
 
 public class PieceCreationController {
 	
-	final int REGULARPIECES_IN_TEAM = 8;	// this value is should be 7? (total pieces = 8)
+	final int REGULARPIECES_IN_TEAM = 7;
 	final int USURPERS_IN_TEAM = 1;
 	
 	private PieceBuilder pieceBuilder = new PieceBuilder();
-
 
 	public PieceCreationController() {
 		
@@ -26,21 +25,35 @@ public class PieceCreationController {
 		
 		for(int i = 0; i < REGULARPIECES_IN_TEAM; i++){
 			
-			RegularPiece newPiece = new RegularPiece();
-			pieceBuilder.buildPiece(newPiece);
-			piecesArrayList.add(newPiece);
+			piecesArrayList.add(createRegPiece(Team.BLUE));
+			piecesArrayList.add(createRegPiece(Team.RED));	
 		}
 		
 		for(int i = 0; i < USURPERS_IN_TEAM; i++){
 			
-			UsurperPiece newPiece = new UsurperPiece();
-			pieceBuilder.buildPiece(newPiece);
-			piecesArrayList.add(newPiece);
+			piecesArrayList.add(createUsurpPiece(Team.BLUE));
+			piecesArrayList.add(createUsurpPiece(Team.RED));
 		}
 		
 		System.out.println("Generated Pieces.");
 		return piecesArrayList;
 
+	}
+	
+	public Piece createRegPiece(Enum<Team> team){
+		
+		RegularPiece newRegPiece = new RegularPiece();
+		pieceBuilder.buildPiece(newRegPiece, team);
+		
+		return newRegPiece;
+	}
+	
+	public Piece createUsurpPiece(Enum<Team> team){
+		
+		UsurperPiece newUsurpPiece = new UsurperPiece();
+		pieceBuilder.buildPiece(newUsurpPiece, team);
+		
+		return newUsurpPiece;
 	}
 
 }

@@ -1,6 +1,6 @@
 package model.skills;
 
-public class RangeSkill implements IPerformTraitSkill {
+public class RangeSkill extends Skill implements IPerformTraitSkill {
 
 	@Override
 	public void performSkill() {

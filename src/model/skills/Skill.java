@@ -1,7 +1,5 @@
 package model.skills;
 
-public interface Skill {
-	
-	void skillOut();
+public abstract class Skill{
 
 }
