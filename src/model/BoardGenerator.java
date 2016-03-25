@@ -10,10 +10,10 @@ import java.util.ArrayList;
  */
 
 public class BoardGenerator {
-
-
+		
 	public Square[][] generateStartBoard(ArrayList<Piece> gamePieces) {
 		
+		int pieceIndex = 0;
 		Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];
 		
 		/*
@@ -70,6 +70,10 @@ public class BoardGenerator {
 				}//is a wall
 				if (map[i][j] == 2 || map[i][j] == 3) { 
 					gsqr.setTeamPiece(true); 
+					/*if (gamePieces.get(++pieceIndex) != null) {
+						gsqr.setOccupant(gamePieces.get(pieceIndex));
+					}
+					System.out.println("Adding Pieces: " + gamePieces.get(pieceIndex));*/
 				}
 				if (map[i][j] == 8 || map[i][j] == 9) { 
 					gsqr.setTeamTower(true); 
@@ -101,7 +105,6 @@ public class BoardGenerator {
 			}
 		}		
 		return boardData;
-
 	}
 
 }

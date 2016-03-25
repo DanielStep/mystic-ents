@@ -16,9 +16,27 @@ import model.Piece;
 
 public class GameController implements Observer {
 
-	private static GameTurn gameTimer;
+	private static GameTurn gameTimer;	
+	private static BoardController gameBoard;
+	
+	private enum moveState {
+		STARTGAME,
+		STARTMOVE,
+		ENDMOVE,
+		ENDGAME
+	}
+
+	private moveState currentState;
+
+	private ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
+	
+	public void generateGamePieces() {
+		setGamePiecesList((new PieceCreationController()).generateGamePieces());
+	}
 	
 	public GameController() {
+		currentState = moveState.STARTGAME;
+		generateGamePieces();
 		startTimer();
 	}
 	
@@ -26,6 +44,10 @@ public class GameController implements Observer {
 		gameTimer = new GameTurn();
 		observe(gameTimer);
 		gameTimer.start();
+	}
+	
+	public void computeWinner() {
+		
 	}
 	
 	public void observe(Observable o) {
@@ -41,6 +63,21 @@ public class GameController implements Observer {
 			startTimer();
 		}
 	}
+	
+	public ArrayList<Piece> getGamePiecesList() {
+		return gamePiecesList;
+	}
 
+	public void setGamePiecesList(ArrayList<Piece> gamePiecesList) {
+		this.gamePiecesList = gamePiecesList;
+	}	
+	
+	public moveState getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(moveState currentState) {
+		this.currentState = currentState;
+	}	
 
 }

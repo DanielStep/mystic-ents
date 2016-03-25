@@ -15,16 +15,19 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import model.Square;
+import model.Board;
 
 public class SquareView extends JPanel implements MouseListener {
 
 	// Used for mapping with the back-end model
 	private int[] ID = new int[2];
+	private Square sqrObj;
 
 	public SquareView(int i, int j, Square o) {
 
 		this.ID[0] = i;
 		this.ID[1] = j;
+		setSquare(o);
 
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(Color.BLACK, 1));
@@ -54,6 +57,14 @@ public class SquareView extends JPanel implements MouseListener {
 	public void setID(int[] iD) {
 		ID = iD;
 	}
+	
+	public Square getSquare() {
+		return sqrObj;
+	}
+
+	public void setSquare(Square o) {
+		this.sqrObj = o;
+	}	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -76,8 +87,8 @@ public class SquareView extends JPanel implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		if (arg0.getButton() == MouseEvent.BUTTON1) {
-			System.out.println("Detected Mouse Left Click @ " + getID()[0] + " x " + getID()[1]);
-
+			System.out.println("Detected Mouse Left Click @ " + this.sqrObj.getOccupant().getTeam() + " : " + getID()[0] + " x " + getID()[1]);
+			
 			// return square?
 
 		} else if (arg0.getButton() == MouseEvent.BUTTON3) {

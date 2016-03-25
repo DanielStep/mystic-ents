@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import controller.PieceCreationController;
+import controller.GameController;
 
 /**
  * Entire board contains all pieces and squares
@@ -47,7 +47,7 @@ public class Board extends Observable {
 	}
 	
 	public void getPieces() {
-		setGamePiecesList((new PieceCreationController()).generateGamePieces());
+		//setGamePiecesList((new PieceCreationController()).generateGamePieces());
 	}
 	
 	public void setBoardCell(int x, int y, Object o) {
@@ -64,12 +64,6 @@ public class Board extends Observable {
 		return boardData;
 	}
 	
-	public ArrayList<Piece> getGamePiecesList() {
-		return gamePiecesList;
-	}
-
-	public void setGamePiecesList(ArrayList<Piece> gamePiecesList) {
-		this.gamePiecesList = gamePiecesList;
-	}		
+	
 	
 }

@@ -13,6 +13,8 @@ public class BoardController implements Observer {
 	private BoardFrame boardFrame;
 	private Board boardState;
 	
+	private static GameController gameState;
+	
 	public BoardController() {
 		
 		boardState = new Board();
@@ -46,5 +48,8 @@ public class BoardController implements Observer {
 		boardFrame.getBoardPanel().refreshBoard(data);
 	}
 	
-
+	public Board getBoardState() {
+		return boardState;
+	}
+	
 }

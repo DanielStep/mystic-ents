@@ -20,8 +20,6 @@ import model.Square;
  */
 public class BoardPanel extends JPanel {
 
-	// private PieceActionController pieceActionController;
-
 	public BoardPanel() {
 		super();
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultWidth(), GameConfig.getDefaultHeight()));

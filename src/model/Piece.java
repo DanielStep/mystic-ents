@@ -28,7 +28,7 @@ public abstract class Piece implements Skill, IAttack {
 	protected int id;
 	/** Current x coordinate **/
 	protected int cX;
-	/** Current x coordinate **/
+	/** Current y coordinate **/
 	protected int cY;	
 
 	// Team color
