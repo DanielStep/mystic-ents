@@ -28,10 +28,14 @@ public class EndTurnPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO call the end-turn method from the controller
-				System.out.println("-------manually/auto click end turn btn");
+				executeEndTurn();
 			}
 		});
 		
 		this.add(btnEndTurn);
+	}
+	
+	public void executeEndTurn(){
+		System.out.println("Auto/Manually end turn!!!");
 	}
 }

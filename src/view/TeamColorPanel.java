@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import model.Team;
+
 /**
  * A component of ControlPanel
  * @author Phan Vo
@@ -24,7 +26,7 @@ public class TeamColorPanel extends JPanel{
 		tfColor = new JTextField();
 		tfColor.setHorizontalAlignment(JTextField.CENTER);
 		tfColor.setPreferredSize(new Dimension(50, 50));
-		tfColor.setBackground(Color.BLUE);
+		tfColor.setBackground(Color.BLUE);	// team BLUE goes first by default
 		tfColor.setEditable(false);
 
 		JPanel pnContainer = new JPanel(new FlowLayout());
@@ -39,5 +41,9 @@ public class TeamColorPanel extends JPanel{
 	
 	public void setTeamColor(Color c) {
 		tfColor.setBackground(c);
+	}
+	
+	public Team getCurrentColorEnum() {
+		return (tfColor.getBackground() == Color.BLUE) ? Team.BLUE : Team.RED;
 	}
 }

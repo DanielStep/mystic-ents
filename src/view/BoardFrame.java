@@ -65,6 +65,10 @@ public class BoardFrame extends JFrame {
 		return gamePanel;
 	}
 
+	public ControlPanel getControlPanel() {
+		return controlPanel;
+	}
+	
 	public void refreshBoard(Object[][] data) {
 		// gamePanel.refreshBoard(data);
 	}

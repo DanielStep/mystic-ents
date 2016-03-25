@@ -1,11 +1,17 @@
 package controller;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import model.GameTurn;
 import model.Piece;
+import model.Team;
+import view.ControlPanel;
+import view.EndTurnPanel;
+import view.TeamColorPanel;
+import view.TimePanel;
 
 /**
  * Responsible for turn handling and computing the winner team
@@ -18,6 +24,7 @@ public class GameController implements Observer {
 
 	private static GameTurn gameTimer;	
 	private static BoardController gameBoard;
+	private ControlPanel controlPanel;
 	
 	private enum moveState {
 		STARTGAME,
@@ -58,8 +65,23 @@ public class GameController implements Observer {
 	public void update(Observable o, Object arg) {
 		int data = ((GameTurn) o).getGameTimer();
 		System.out.println("Time remaining: " + data);
+		// update time on ControlPanel view
+		TimePanel timePanel = controlPanel.getTimePanel();
+		timePanel.setTime(data);
+		
+		// when time is up
 		if (data == 0) {
 			System.out.println("Player change!");
+			// update team color on ControlPanel view
+			TeamColorPanel teamColorPanel = controlPanel.getTeamColorPanel();
+			Color colorChange = (teamColorPanel.getCurrentColorEnum() == Team.BLUE) ? Color.RED : Color.BLUE;
+			teamColorPanel.setTeamColor(colorChange);
+			
+			// auto end the current player's turn
+			EndTurnPanel endTurnPanel = controlPanel.getEndTurnPanel();
+			endTurnPanel.executeEndTurn();
+			
+			// reset timer
 			startTimer();
 		}
 	}
@@ -79,5 +101,8 @@ public class GameController implements Observer {
 	public void setCurrentState(moveState currentState) {
 		this.currentState = currentState;
 	}	
-
+	
+	public void setControlPanel(ControlPanel controlPanel) {
+		this.controlPanel = controlPanel;
+	}
 }
