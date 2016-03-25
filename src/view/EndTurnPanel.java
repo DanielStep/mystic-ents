@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * A component of ControlFrame
+ * A component of ControlPanel
  * @author Phan Vo
  *
  */
@@ -18,7 +18,7 @@ public class EndTurnPanel extends JPanel{
 	
 	public EndTurnPanel() {
 		// TODO Auto-generated constructor stub
-		super(true);
+		super();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 		btnEndTurn = new JButton("End turn");

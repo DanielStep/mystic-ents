@@ -8,7 +8,7 @@ import view.BoardFrame;
 
 public class PieceCreationController {
 	
-	final int REGULARPIECES_IN_TEAM = 8;
+	final int REGULARPIECES_IN_TEAM = 8;	// this value is should be 7? (total pieces = 8)
 	final int USURPERS_IN_TEAM = 1;
 	
 	private PieceBuilder pieceBuilder = new PieceBuilder();

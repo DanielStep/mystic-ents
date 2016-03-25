@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 /**
- * A component of ControlFrame
+ * A component of ControlPanel
  * @author Phan Vo
  *
  */
@@ -14,7 +14,7 @@ public class TimePanel extends JPanel{
 	
 	public TimePanel() {
 		// TODO Auto-generated constructor stub
-		super(true);
+		super();
 		
 	    tfTime = new JTextField(10);
 	    tfTime.setHorizontalAlignment(JTextField.CENTER);

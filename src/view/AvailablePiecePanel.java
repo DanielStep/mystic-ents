@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
- * A component of ControlFrame
+ * A component of ControlPanel
  * @author Phan Vo
  *
  */
@@ -14,7 +14,7 @@ public class AvailablePiecePanel extends JPanel{
 	
 	public AvailablePiecePanel() {
 		// TODO Auto-generated constructor stub
-		super(true);
+		super();
 		
 	    tfPieceRemaining = new JTextField(10);
 	    tfPieceRemaining.setHorizontalAlignment(JTextField.CENTER);
