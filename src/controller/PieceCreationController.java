@@ -38,7 +38,7 @@ public class PieceCreationController {
 			piecesArrayList.add(newPiece);
 		}
 		
-		
+		System.out.println("Generated Pieces.");
 		return piecesArrayList;
 
 	}

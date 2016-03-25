@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Generates board board data for view to draw
  * 
@@ -10,7 +12,7 @@ package model;
 public class BoardGenerator {
 
 
-	public Square[][] generateStartBoard() {
+	public Square[][] generateStartBoard(ArrayList<Piece> gamePieces) {
 		
 		Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];
 		

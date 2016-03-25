@@ -40,7 +40,6 @@ public class GameTurn extends Observable {
     }    
     
     public void start() {
-    	System.out.println("Start");
     	gameTimer = GameConfig.getMaxSeconds();
     	buildTimer();
     }

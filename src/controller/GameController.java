@@ -1,9 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import model.GameTurn;
+import model.Piece;
 
 /**
  * Responsible for turn handling and computing the winner team
@@ -15,7 +17,7 @@ import model.GameTurn;
 public class GameController implements Observer {
 
 	private static GameTurn gameTimer;
-
+	
 	public GameController() {
 		startTimer();
 	}
@@ -38,6 +40,7 @@ public class GameController implements Observer {
 			System.out.println("Player change!");
 			startTimer();
 		}
-	}	
+	}
+
 
 }
