@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 import controller.GameController;
@@ -20,10 +21,7 @@ public class Board extends Observable {
 	 */
 	private Object[][] boardData = new Object[GameConfig.getRowCol()][GameConfig.getRowCol()];
 	private ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
-
-	public Board() {
-		//init();
-	}
+	//private static GameController gameState;
 
 	public void init() {
 		getPieces();
@@ -41,13 +39,13 @@ public class Board extends Observable {
 	
 	public void initBoardData() {
 		BoardGenerator boardGen = new BoardGenerator();
-		boardData = boardGen.generateStartBoard(gamePiecesList);
+		boardData = boardGen.generateStartBoard( gamePiecesList );
 		setChanged();
 	    notifyObservers(); // TODO: Pass the board data
 	}
 	
 	public void getPieces() {
-		//setGamePiecesList((new PieceCreationController()).generateGamePieces());
+		gamePiecesList = new ArrayList<Piece>( GameController.getGamePiecesList() );
 	}
 	
 	public void setBoardCell(int x, int y, Object o) {

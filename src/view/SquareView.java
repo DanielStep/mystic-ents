@@ -43,11 +43,7 @@ public class SquareView extends JPanel implements MouseListener {
 	}
 
 	private Color getBackgroundColor(Square o) {
-		Color bg = Color.WHITE;
-		bg = (!o.getAccessible() ? Color.BLACK : bg);
-		bg = (o.getTeamTower() ? Color.GREEN : bg);
-		bg = (o.getTeamPiece() ? Color.BLUE : bg);
-		return bg;
+		return o.getBgColor();
 	}
 
 	public int[] getID() {
@@ -86,13 +82,13 @@ public class SquareView extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if (arg0.getButton() == MouseEvent.BUTTON1) {
-			System.out.println("Detected Mouse Left Click @ " + this.sqrObj.getOccupant().getTeam() + " : " + getID()[0] + " x " + getID()[1]);
-			
-			// return square?
-
-		} else if (arg0.getButton() == MouseEvent.BUTTON3) {
-			System.out.println("Detected Mouse Right Click @ " + getID()[0] + " x " + getID()[1]);
+		if (this.sqrObj.getOccupant() != null) {
+			if (arg0.getButton() == MouseEvent.BUTTON1) {
+				System.out.println("Detected Mouse Left Click @ " + this.sqrObj.getOccupant() + " : " + getID()[0] + " x " + getID()[1]);			
+				// return square?
+			} else if (arg0.getButton() == MouseEvent.BUTTON3) {
+				System.out.println("Detected Mouse Right Click @ " + getID()[0] + " x " + getID()[1]);
+			}
 		}
 	}
 

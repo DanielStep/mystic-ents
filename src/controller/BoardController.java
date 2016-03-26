@@ -12,14 +12,12 @@ public class BoardController implements Observer {
 
 	private BoardFrame boardFrame;
 	private Board boardState;
-	
-	private static GameController gameState;
-	
+		
 	public BoardController() {
 		
 		boardState = new Board();
 		observe(boardState);
-		
+
 		// After we placed pieces inside boardState, initialize boardView
 		boardFrame = new BoardFrame();
 //		boardView = new BoardPanel(); // BoardPanel can	be directly initialized from BoardFrame, creating it inside controller adds more coupling ?

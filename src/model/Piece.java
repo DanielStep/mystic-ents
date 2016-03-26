@@ -24,6 +24,8 @@ public abstract class Piece implements IAttack {
 	public void setTraitSet(TraitSet traitSet) {
 		this.traitSet = traitSet;
 	}
+	
+	private Boolean inPlay = false;
 
 	protected int id;
 	/** Current x coordinate **/
@@ -67,6 +69,14 @@ public abstract class Piece implements IAttack {
 	public void attackOut(Piece piece) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public Boolean getInPlay() {
+		return inPlay;
+	}
+
+	public void setInPlay(Boolean inPlay) {
+		this.inPlay = inPlay;
 	}
 
 }

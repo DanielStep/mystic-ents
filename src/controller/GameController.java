@@ -28,11 +28,7 @@ public class GameController implements Observer {
 
 	private moveState currentState;
 
-	private ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
-	
-	public void generateGamePieces() {
-		setGamePiecesList((new PieceCreationController()).generateGamePieces());
-	}
+	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 	
 	public GameController() {
 		currentState = moveState.STARTGAME;
@@ -46,6 +42,13 @@ public class GameController implements Observer {
 		gameTimer.start();
 	}
 	
+	public void generateGamePieces() {
+		setGamePiecesList((new PieceCreationController()).generateGamePieces());
+		
+		System.out.println("Generated Pieces: " + gamePiecesList.size());
+		
+	}	
+	
 	public void computeWinner() {
 		
 	}
@@ -57,14 +60,14 @@ public class GameController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		int data = ((GameTurn) o).getGameTimer();
-		System.out.println("Time remaining: " + data);
+		//System.out.println("Time remaining: " + data);
 		if (data == 0) {
-			System.out.println("Player change!");
+			//System.out.println("Player change!");
 			startTimer();
 		}
 	}
 	
-	public ArrayList<Piece> getGamePiecesList() {
+	public static ArrayList<Piece> getGamePiecesList() {
 		return gamePiecesList;
 	}
 

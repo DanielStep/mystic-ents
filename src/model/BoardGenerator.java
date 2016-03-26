@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -10,12 +11,63 @@ import java.util.ArrayList;
  */
 
 public class BoardGenerator {
+	
+	private ArrayList<Piece> gamePieces;
 		
-	public Square[][] generateStartBoard(ArrayList<Piece> gamePieces) {
+	public Square[][] generateStartBoard(ArrayList<Piece> piecesList) {
 		
-		int pieceIndex = 0;
-		Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];
+		gamePieces = piecesList;
+		int[][] map = loadMapData();
 		
+		Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];		
+		
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				
+				boardData[i][j] = null;// blank
+				Square gsqr = new Square();
+	
+				//WALLS
+				if (map[i][j] == 1) {
+					gsqr.setAccessible(false);
+					gsqr.setBgColor(Color.BLACK);
+				}
+				
+				//TEAMS
+				if (map[i][j] == 2) { 
+					gsqr.setOccupant(findAvailablePiece(gamePieces, "RED"));
+					gsqr.setBgColor(Color.RED);//color by getTeam()?
+				}
+				if (map[i][j] == 3) {
+					gsqr.setOccupant(findAvailablePiece(gamePieces, "BLUE"));
+					gsqr.setBgColor(Color.BLUE);
+				}
+
+				//TOWERS
+				if (map[i][j] == 8 || map[i][j] == 9) { 
+					gsqr.setTeamTower(true);
+					gsqr.setBgColor(Color.GREEN);					
+				}
+				
+				boardData[i][j] = gsqr;
+			}
+		}		
+		return boardData;
+	}
+
+	private Piece findAvailablePiece(ArrayList<Piece> gamePieces, String team) {
+		for (Piece i : gamePieces) {
+			if (i.getInPlay() == false) {
+				if (i.getTeam().toString() == team) {
+					i.setInPlay(true);
+					return i;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private int[][] loadMapData() {
 		/*
 		 * 0 - free
 		 * 1 - wall
@@ -58,53 +110,9 @@ public class BoardGenerator {
 			  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 			};
+			
+		return map;
 		
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[i].length; j++) {
-				
-				boardData[i][j] = null;// blank
-				Square gsqr = new Square();
-	
-				if (map[i][j] == 1) { 
-					gsqr.setAccessible(false); 
-				}//is a wall
-				if (map[i][j] == 2 || map[i][j] == 3) { 
-					gsqr.setTeamPiece(true); 
-					/*if (gamePieces.get(++pieceIndex) != null) {
-						gsqr.setOccupant(gamePieces.get(pieceIndex));
-					}
-					System.out.println("Adding Pieces: " + gamePieces.get(pieceIndex));*/
-				}
-				if (map[i][j] == 8 || map[i][j] == 9) { 
-					gsqr.setTeamTower(true); 
-				}
-				
-				boardData[i][j] = gsqr;			
-				/* 
-				 * Alternatively:
-				 * Build TOP Base WITHOUT Map by setting the Accessibility in Square
-				 * This would get quite unwieldy.
-				 * We need to find a way to optimize this ... TeamBase class?
-				 * 
-				 
-				if(i==3 && (j==3 || j==4 || j==5 || j==6 || j==7)) {
-					gsqr.setAccessible(false);
-				}
-				if(i==4 && (j==3 || j==7)) {
-					gsqr.setAccessible(false);
-				}				
-				if(i==5 && (j==3 || j==7)) {
-					gsqr.setAccessible(false);
-				}
-				if(i==6 && (j==3 || j==7)) { 
-					gsqr.setAccessible(false); 
-				}
-				if(i==7 && (j==3 || j==4 || j==6 || j==7)) {
-					gsqr.setAccessible(false);
-				}*/
-			}
-		}		
-		return boardData;
 	}
 
 }

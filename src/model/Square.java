@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 /**
  * Contained inside board, can contain piece or become wall
  * 
@@ -14,6 +16,7 @@ public class Square {
 	private Boolean accessible = true;
 	private Boolean teamPiece = false;
 	private Boolean teamTower = false;
+	private Color bgColor = Color.WHITE;
 
 	public void setAccessible(Boolean pm) {
 		accessible = pm;
@@ -45,6 +48,14 @@ public class Square {
 
 	public void setTeamTower(Boolean teamTower) {
 		this.teamTower = teamTower;
+	}
+
+	public Color getBgColor() {
+		return bgColor;
+	}
+
+	public void setBgColor(Color bgColor) {
+		this.bgColor = bgColor;
 	}
 
 

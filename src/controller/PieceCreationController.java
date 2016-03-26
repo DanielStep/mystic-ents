@@ -36,8 +36,6 @@ public class PieceCreationController {
 			piecesArrayList.add(createUsurpPiece(Team.RED));
 		}
 		
-		System.out.println("Generated Pieces.");
-		
 		return piecesArrayList;
 
 	}
