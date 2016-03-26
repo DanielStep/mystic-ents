@@ -50,4 +50,7 @@ public class BoardController implements Observer {
 		return boardState;
 	}
 	
+	public BoardFrame getBoardFrame() {
+		return boardFrame;
+	}
 }

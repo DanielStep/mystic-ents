@@ -12,6 +12,11 @@ import model.GameConfig;
  *
  */
 public class ControlPanel extends JPanel{
+	private TimePanel pnTime;
+	private TeamColorPanel pnTeamColor;
+	private AvailablePiecePanel pnAvailablePiece;
+	private PieceInfoPanel pnPieceInfo;
+	private EndTurnPanel pnEndTurn;
 	
 	public ControlPanel() {
 		// TODO Auto-generated constructor stub
@@ -22,22 +27,34 @@ public class ControlPanel extends JPanel{
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultControlPanelWidth(), GameConfig.getDefaultHeight()));
 	    
-	    TimePanel a = new TimePanel();
-	    this.add(a);
+		pnTime = new TimePanel();
+	    this.add(pnTime);
 	    
-	    TeamColorPanel b = new TeamColorPanel();
-	    this.add(b);
+	    pnTeamColor = new TeamColorPanel();
+	    this.add(pnTeamColor);
 	    
-	    AvailablePiecePanel c = new AvailablePiecePanel();
-	    this.add(c);
+	    pnAvailablePiece = new AvailablePiecePanel();
+	    this.add(pnAvailablePiece);
 	    
-	    PieceInfoPanel d = new PieceInfoPanel();
-	    this.add(d);
+	    pnPieceInfo = new PieceInfoPanel();
+	    this.add(pnPieceInfo);
 	    
-	    EndTurnPanel e = new EndTurnPanel();
-	    this.add(e);
+	    pnEndTurn = new EndTurnPanel();
+	    this.add(pnEndTurn);
 	    
 //	    this.pack();
 //	    this.setVisible(true);
+	}
+	
+	public TimePanel getTimePanel() {
+		return pnTime;
+	}
+	
+	public TeamColorPanel getTeamColorPanel() {
+		return pnTeamColor;
+	}
+	
+	public EndTurnPanel getEndTurnPanel() {
+		return pnEndTurn;
 	}
 }

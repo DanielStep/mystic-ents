@@ -21,12 +21,12 @@ public class GameTurn extends Observable {
         timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				if (--gameTimer == 0)
+				setChanged();
+			    notifyObservers();
+				if (gameTimer-- == 0)
 				{
 					stop();
 				}
-				setChanged();
-			    notifyObservers();
 			}
     	}, GameConfig.getStartDelay(), GameConfig.getTimerPeriod());
     }
