@@ -35,6 +35,10 @@ public class GameTurn extends Observable {
     	return gameTimer;
     }
     
+    public void setGameTimer(int time) {
+    	gameTimer = time;
+    }
+    
     public void stop() {
     	timer.cancel();
     }    

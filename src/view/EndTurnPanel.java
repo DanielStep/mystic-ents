@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.GameTurn;
+
 /**
  * A component of ControlPanel
  * @author Phan Vo
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
  */
 public class EndTurnPanel extends JPanel{
 	private JButton btnEndTurn;
+	private GameTurn gameTurn;
 	
 	public EndTurnPanel() {
 		// TODO Auto-generated constructor stub
@@ -37,5 +40,10 @@ public class EndTurnPanel extends JPanel{
 	
 	public void executeEndTurn(){
 		System.out.println("Auto/Manually end turn!!!");
+		gameTurn.setGameTimer(0);
+	}
+	
+	public void setGameTurn(GameTurn gameTurn) {
+		this.gameTurn = gameTurn;
 	}
 }

@@ -66,8 +66,14 @@ public class GameController implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		int data = ((GameTurn) o).getGameTimer();
+		GameTurn gameTurn = (GameTurn) o;
+		if (gameTurn == null) return;
+		int data = gameTurn.getGameTimer();
 
+		// set end turn conditions
+		EndTurnPanel endTurnPanel = controlPanel.getEndTurnPanel();
+		endTurnPanel.setGameTurn(gameTurn);
+		
 		System.out.println("Time remaining: " + data);
 		// update time on ControlPanel view
 		TimePanel timePanel = controlPanel.getTimePanel();
@@ -82,7 +88,6 @@ public class GameController implements Observer {
 			teamColorPanel.setTeamColor(colorChange);
 			
 			// auto end the current player's turn
-			EndTurnPanel endTurnPanel = controlPanel.getEndTurnPanel();
 			endTurnPanel.executeEndTurn();
 			
 			// reset timer
