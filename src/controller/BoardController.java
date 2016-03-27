@@ -12,19 +12,22 @@ public class BoardController implements Observer {
 
 	private BoardFrame boardFrame;
 	private Board boardState;
-		
+	
 	public BoardController() {
 		
 		boardState = new Board();
 		observe(boardState);
-
+		
+		PieceActionController pac = new PieceActionController(boardState);
+		
 		// After we placed pieces inside boardState, initialize boardView
 		boardFrame = new BoardFrame();
-//		boardView = new BoardPanel(); // BoardPanel can	be directly initialized from BoardFrame, creating it inside controller adds more coupling ?
+		boardFrame.getBoardPanel().setPac(pac);
 		boardState.init();
-//		boardFrame.add(boardView);
 		boardFrame.pack();
 		
+
+
 		
 		// Tell the View that when ever the calculate button
 		// is clicked to execute the actionPerformed method

@@ -18,7 +18,7 @@ public class PieceCreationController {
 
 	public PieceCreationController() {
 		
-		PieceActionController pac = new PieceActionController();
+		//PieceActionController pac = new PieceActionController();
 		
 	}
 	

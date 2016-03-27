@@ -3,36 +3,33 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
+
+import java.lang.reflect.Field;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import controller.PieceActionController;
 import model.Square;
-import model.Board;
 
 public class SquareView extends JPanel implements MouseListener {
 
 	// Used for mapping with the back-end model
 	private int[] ID = new int[2];
 	private Square sqrObj;
+	private PieceActionController pac;
 
-	public SquareView(int i, int j, Square o) {
-
-		this.ID[0] = i;
-		this.ID[1] = j;
-		setSquare(o);
-
+	public SquareView(PieceActionController p, Square o) {
+		super();
+		pac = p;
+		this.sqrObj = o;
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(Color.BLACK, 1));
 		this.setPreferredSize(new Dimension(20, 20));
 
+		//System.out.println(o.getID()[0] + " : " + o.getID()[1] + " : " + o.getOccupant());
 		/*
 		 * Elements based on Square model:
 		 */
@@ -43,25 +40,42 @@ public class SquareView extends JPanel implements MouseListener {
 	}
 
 	private Color getBackgroundColor(Square o) {
-		return o.getBgColor();
-	}
-
-	public int[] getID() {
-		return ID;
-	}
-
-	public void setID(int[] iD) {
-		ID = iD;
+		
+		if (o.getID()[0] == 0 && o.getID()[1] == 0) {
+			System.out.println(o.getID()[0] + " : " + o.getID()[1] + " : " + o.getOccupant());
+		}
+		
+		Color bg = Color.WHITE;
+		bg = !o.getAccessible() ? Color.BLACK : bg;
+		bg = o.getTeamTower() ? Color.GREEN : bg;
+		if (o.getOccupant() != null) {
+			bg = stringToColor(o.getOccupant().getTeam().name(), bg);
+		}		
+		return bg;
 	}
 	
-	public Square getSquare() {
-		return sqrObj;
+	/**
+	* Converts a given string into a color.
+	* 
+	* @param value
+	* 	the team name corresponding to a color.
+	* @return the color.
+	*/
+	public static Color stringToColor(final String value, Color bg) {
+		//null value is handled by returning default; 
+		if (value == null) {
+			return bg;
+		}
+		try {
+			// try to get a color by name using reflection
+			final Field f = Color.class.getField(value);
+			return (Color) f.get(null);
+		} catch (Exception ce) {
+			// if we can't get any color return default
+			return bg;
+		}
 	}
-
-	public void setSquare(Square o) {
-		this.sqrObj = o;
-	}	
-
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -82,14 +96,9 @@ public class SquareView extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if (this.sqrObj.getOccupant() != null) {
-			if (arg0.getButton() == MouseEvent.BUTTON1) {
-				System.out.println("Detected Mouse Left Click @ " + this.sqrObj.getOccupant() + " : " + getID()[0] + " x " + getID()[1]);			
-				// return square?
-			} else if (arg0.getButton() == MouseEvent.BUTTON3) {
-				System.out.println("Detected Mouse Right Click @ " + getID()[0] + " x " + getID()[1]);
-			}
-		}
+		//System.out.println(pac);
+		
+		pac.performAction(arg0, this.sqrObj);
 	}
 
 	@Override

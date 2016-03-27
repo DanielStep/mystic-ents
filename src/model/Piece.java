@@ -1,6 +1,5 @@
 package model;
 
-import model.skills.Skill;
 import model.skills.SkillSet;
 import model.traits.TraitSet;
 
@@ -25,6 +24,7 @@ public abstract class Piece implements IAttack {
 		this.traitSet = traitSet;
 	}
 	
+	private Boolean activePiece = false;
 	private Boolean inPlay = false;
 
 	protected int id;
@@ -58,8 +58,7 @@ public abstract class Piece implements IAttack {
 
 	public void setTeam(Enum<Team> team) {
 		this.team = team;
-	}
-	
+	}	
 
 	public void attackIn(int att) {
 		// TODO Auto-generated method stub
@@ -77,6 +76,14 @@ public abstract class Piece implements IAttack {
 
 	public void setInPlay(Boolean inPlay) {
 		this.inPlay = inPlay;
+	}
+
+	public Boolean getActivePiece() {
+		return activePiece;
+	}
+
+	public void setActivePiece(Boolean activePiece) {
+		this.activePiece = activePiece;
 	}
 
 }

@@ -54,9 +54,9 @@ public class Board extends Observable {
 	    notifyObservers();
 	}
 	
-	public Object getBoardCell(int x, int y) {
+	/*public Object getBoardCell(int x, int y) {
 		return boardData[x][y];
-	}	
+	}*/
 
 	public Object[][] getBoardData() {
 		return boardData;

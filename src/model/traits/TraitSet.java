@@ -52,10 +52,6 @@ public class TraitSet {
 		this.damageTrait = damageTrait;
 	}
 
-
-
-
-	
 	public TraitSet (Trait healthTrait, Trait moveTrait, Trait attackTrait, Trait damageTrait){
 		
 		this.healthTrait = healthTrait;

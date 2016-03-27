@@ -7,6 +7,8 @@ import java.util.Observer;
 
 import model.GameTurn;
 import model.Piece;
+import model.Square;
+import model.State;
 import model.Team;
 import view.ControlPanel;
 import view.EndTurnPanel;
@@ -26,21 +28,16 @@ public class GameController implements Observer {
 	private static BoardController gameBoard;
 	private ControlPanel controlPanel;
 	
-	private enum moveState {
-		STARTGAME,
-		STARTMOVE,
-		ENDMOVE,
-		ENDGAME
-	}
-
-	private moveState currentState;
+	private static State currentState;
+	private Team currentTeam;
 
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 	
 	public GameController() {
-		currentState = moveState.STARTGAME;
+		currentState = State.STARTGAME;
 		generateGamePieces();
 		startTimer();
+		currentState = State.STARTMOVE;
 	}
 	
 	private void startTimer() {
@@ -51,9 +48,6 @@ public class GameController implements Observer {
 	
 	public void generateGamePieces() {
 		setGamePiecesList((new PieceCreationController()).generateGamePieces());
-		
-		System.out.println("Generated Pieces: " + gamePiecesList.size());
-		
 	}	
 	
 	public void computeWinner() {
@@ -68,14 +62,18 @@ public class GameController implements Observer {
 	public void update(Observable o, Object arg) {
 		int data = ((GameTurn) o).getGameTimer();
 
-		System.out.println("Time remaining: " + data);
+		//System.out.println("Time remaining: " + data);
 		// update time on ControlPanel view
 		TimePanel timePanel = controlPanel.getTimePanel();
 		timePanel.setTime(data);
 		
 		// when time is up
 		if (data == 0) {
-			System.out.println("Player change!");
+			//System.out.println("Player change!");
+			
+			//This stuff needs to move to a View class ?
+			//or some kind of remote refresh method:
+			
 			// update team color on ControlPanel view
 			TeamColorPanel teamColorPanel = controlPanel.getTeamColorPanel();
 			Color colorChange = (teamColorPanel.getCurrentColorEnum() == Team.BLUE) ? Color.RED : Color.BLUE;
@@ -94,19 +92,28 @@ public class GameController implements Observer {
 		return gamePiecesList;
 	}
 
-	public void setGamePiecesList(ArrayList<Piece> gamePiecesList) {
-		this.gamePiecesList = gamePiecesList;
+	public static void setGamePiecesList(ArrayList<Piece> piecesList) {
+		gamePiecesList = piecesList;
 	}	
 	
-	public moveState getCurrentState() {
+	public static State getCurrentState() {
 		return currentState;
 	}
 
-	public void setCurrentState(moveState currentState) {
-		this.currentState = currentState;
+	public static void setCurrentState(State newState) {
+		currentState = newState;
 	}	
 	
 	public void setControlPanel(ControlPanel controlPanel) {
 		this.controlPanel = controlPanel;
 	}
+
+	public Team getCurrentTeam() {
+		return currentTeam;
+	}
+
+	public void setCurrentTeam(Team currentTeam) {
+		this.currentTeam = currentTeam;
+	}
+
 }

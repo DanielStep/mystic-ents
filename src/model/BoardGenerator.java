@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class BoardGenerator {
 	
 	private ArrayList<Piece> gamePieces;
+	private int[][] map = loadMapData();
 		
 	public Square[][] generateStartBoard(ArrayList<Piece> piecesList) {
 		
-		gamePieces = piecesList;
-		int[][] map = loadMapData();
+		gamePieces = piecesList;		
 		
 		Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];		
 		
@@ -25,28 +25,24 @@ public class BoardGenerator {
 			for (int j = 0; j < map[i].length; j++) {
 				
 				boardData[i][j] = null;// blank
-				Square gsqr = new Square();
+				Square gsqr = new Square(i, j);
 	
 				//WALLS
 				if (map[i][j] == 1) {
 					gsqr.setAccessible(false);
-					gsqr.setBgColor(Color.BLACK);
 				}
 				
 				//TEAMS
 				if (map[i][j] == 2) { 
 					gsqr.setOccupant(findAvailablePiece(gamePieces, "RED"));
-					gsqr.setBgColor(Color.RED);//color by getTeam()?
 				}
 				if (map[i][j] == 3) {
 					gsqr.setOccupant(findAvailablePiece(gamePieces, "BLUE"));
-					gsqr.setBgColor(Color.BLUE);
 				}
 
 				//TOWERS
 				if (map[i][j] == 8 || map[i][j] == 9) { 
-					gsqr.setTeamTower(true);
-					gsqr.setBgColor(Color.GREEN);					
+					gsqr.setTeamTower(true);				
 				}
 				
 				boardData[i][j] = gsqr;
@@ -114,5 +110,14 @@ public class BoardGenerator {
 		return map;
 		
 	}
+	
+	public int[][] getMap() {
+		return map;
+	}
+
+	public void setMap(int[][] map) {
+		this.map = map;
+	}
+
 
 }
