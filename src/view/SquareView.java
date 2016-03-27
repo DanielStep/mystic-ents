@@ -96,8 +96,6 @@ public class SquareView extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		//System.out.println(pac);
-		
 		pac.performAction(arg0, this.sqrObj);
 	}
 
