@@ -28,6 +28,10 @@ public class GameController implements Observer {
 	private static BoardController gameBoard;
 	private ControlPanel controlPanel;
 	
+	private static Piece activePiece;
+	private static Piece targetPiece;
+	private static Square activeSquare;
+	private static Square targetSquare;
 	private static State currentState;
 	private Team currentTeam;
 
@@ -67,15 +71,14 @@ public class GameController implements Observer {
 		// set end turn conditions
 		EndTurnPanel endTurnPanel = controlPanel.getEndTurnPanel();
 		endTurnPanel.setGameTurn(gameTurn);
-		
-		System.out.println("Time remaining: " + data);
+
 		// update time on ControlPanel view
 		TimePanel timePanel = controlPanel.getTimePanel();
 		timePanel.setTime(data);
 		
 		// when time is up
 		if (data == 0) {
-			//System.out.println("Player change!");
+			System.out.println("Player change!");
 			
 			//This stuff needs to move to a View class ?
 			//or some kind of remote refresh method:
@@ -119,6 +122,38 @@ public class GameController implements Observer {
 
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
+	}
+
+	public static Piece getActivePiece() {
+		return activePiece;
+	}
+
+	public static void setActivePiece(Piece activePiece) {
+		GameController.activePiece = activePiece;
+	}
+
+	public static Piece getTargetPiece() {
+		return targetPiece;
+	}
+
+	public static void setTargetPiece(Piece targetPiece) {
+		GameController.targetPiece = targetPiece;
+	}
+
+	public static Square getActiveSquare() {
+		return activeSquare;
+	}
+
+	public static void setActiveSquare(Square activeSquare) {
+		GameController.activeSquare = activeSquare;
+	}
+
+	public static Square getTargetSquare() {
+		return targetSquare;
+	}
+
+	public static void setTargetSquare(Square targetSquare) {
+		GameController.targetSquare = targetSquare;
 	}
 
 }

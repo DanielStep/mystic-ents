@@ -13,6 +13,9 @@ public class GameConfig {
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
 	
+	//MAP
+	private static final String MAP_TEXTFILE = "./src/model/maps/map1.txt";
+	
 	//CONTROL PANEL
 	private static final int DEFAULT_CONTROL_PANEL_WIDTH = 200;
 	
@@ -46,6 +49,10 @@ public class GameConfig {
 
 	public static int getRowCol() {
 		return ROW_COL;
+	}
+
+	public static String getMapTextfile() {
+		return MAP_TEXTFILE;
 	}
 	
 }
