@@ -81,7 +81,7 @@ public class SquareView extends JPanel implements MouseListener {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent arg0) {		
 		if (this.sqrObj.getOccupant() != null) {
 			if (arg0.getButton() == MouseEvent.BUTTON1) {
 				System.out.println("Detected Mouse Left Click @ " + this.sqrObj.getOccupant() + " : " + getID()[0] + " x " + getID()[1]);			
