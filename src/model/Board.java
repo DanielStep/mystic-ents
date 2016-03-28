@@ -48,6 +48,11 @@ public class Board extends Observable {
 		gamePiecesList = new ArrayList<Piece>( GameController.getGamePiecesList() );
 	}
 	
+	public void doCellsUpdate() {
+		setChanged();
+	    notifyObservers();
+	}
+	
 	public void setBoardCell(int x, int y, Object o) {
 		boardData[x][y] = o;
 		setChanged();

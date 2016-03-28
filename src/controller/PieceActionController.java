@@ -11,12 +11,7 @@ import model.Team;
 import view.SquareView;
 
 public class PieceActionController {
-	
-	private static Piece activePiece;
-	private static Piece targetPiece;
-	private static Square activeSquare;
-	private static Square targetSquare;
-	
+		
 	private Board board;
 	
 	public PieceActionController(Board b)  {
@@ -27,29 +22,34 @@ public class PieceActionController {
 		
 		State currentState = GameController.getCurrentState();
 		
+		//System.out.println("targetSquare: " + GameController.getTargetSquare().getID()[0] + " : " + GameController.getTargetSquare().getID()[1] + " :: " + GameController.getActiveSquare());
+		
 		switch (currentState) {
 	        case STARTMOVE:
-	        						
-					if (e.getButton() == MouseEvent.BUTTON1) {
-						if (sqr.getOccupant() != null) {
-							//Check for team...
-							activePiece = sqr.getOccupant();
-							activeSquare = sqr;
-				        	GameController.setCurrentState(State.ENDMOVE);
-						}
+	        		
+	        	System.out.println("Occupant: " + sqr.getOccupant());
+	        	
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					if (sqr.getOccupant() != null) {
+						//Check for team...
+						GameController.setActivePiece(sqr.getOccupant());
+						GameController.setActiveSquare(sqr);
+			        	GameController.setCurrentState(State.ENDMOVE);
 					}
+				}
 
 	            break;
 	        case ENDMOVE:				
-					if (e.getButton() == MouseEvent.BUTTON1) {
-						if (sqr.getOccupant() == null) {
-							//Check for accessibility... how do we implement range?
-							targetSquare = sqr;
-							movePiece();
-						}						
-					} else if (e.getButton() == MouseEvent.BUTTON3) {
-						
-					}
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					if (sqr.getOccupant() == null) {
+						//Check for accessibility... how do we implement range?
+						//targetSquare = sqr;
+						GameController.setTargetSquare(sqr);
+						movePiece();
+					}						
+				} else if (e.getButton() == MouseEvent.BUTTON3) {
+					
+				}
 				
 	            break;
 			default:
@@ -59,43 +59,12 @@ public class PieceActionController {
 	}	
 	
 	private void movePiece() {
-		System.out.println("targetSquare: " + targetSquare.getID()[0] + " : " + targetSquare.getID()[1] + " :: " + activeSquare);
-		board.setBoardCell(targetSquare.getID()[0], targetSquare.getID()[1], activeSquare);		
-		targetSquare.setOccupant(activePiece);
-		activeSquare.setOccupant(null);
+		//System.out.println("targetSquare: " + GameController.getTargetSquare().getID()[0] + " : " + GameController.getTargetSquare().getID()[1] + " :: " + GameController.getActiveSquare());
+		GameController.getTargetSquare().setOccupant(GameController.getActivePiece());
+		GameController.getActiveSquare().setOccupant(null);
+		board.doCellsUpdate();
+		//activeSquare.setOccupant(null);
 		GameController.setCurrentState(State.STARTMOVE);
-	}
-	
-	public Piece getActivePiece() {
-		return activePiece;
-	}
-
-	public void setActivePiece(Piece active) {
-		activePiece = active;
-	}
-
-	public Piece getTargetPiece() {
-		return targetPiece;
-	}
-
-	public void setTargetPiece(Piece target) {
-		targetPiece = target;
-	}
-	
-	public Square getActiveSquare() {
-		return activeSquare;
-	}
-
-	public static void setActiveSquare(Square active) {
-		activeSquare = active;
-	}
-
-	public Square getTargetSquare() {
-		return targetSquare;
-	}
-
-	public void setTargetSquare(Square targetSquare) {
-		this.targetSquare = targetSquare;
 	}
 
 }
