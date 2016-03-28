@@ -9,10 +9,12 @@ import model.Square;
 import model.State;
 import model.Team;
 import view.SquareView;
+import view.TeamColorPanel;
 
 public class PieceActionController {
 		
 	private Board board;
+	private TeamColorPanel teamColorPanel;
 	
 	public PieceActionController(Board b)  {
 		board = b;
@@ -21,7 +23,6 @@ public class PieceActionController {
 	public void performAction(MouseEvent e, Square sqr) {
 		
 		State currentState = GameController.getCurrentState();
-		
 		//System.out.println("targetSquare: " + GameController.getTargetSquare().getID()[0] + " : " + GameController.getTargetSquare().getID()[1] + " :: " + GameController.getActiveSquare());
 		
 		switch (currentState) {
@@ -31,10 +32,15 @@ public class PieceActionController {
 	        	
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					if (sqr.getOccupant() != null) {
-						//Check for team...
-						GameController.setActivePiece(sqr.getOccupant());
-						GameController.setActiveSquare(sqr);
-			        	GameController.setCurrentState(State.ENDMOVE);
+//						System.out.println("------- current team: " + teamColorPanel.getTeamColorEnum());
+//						System.out.println("---- Click on square: " + sqr.getOccupant().getTeam());
+						
+						//Check for the current team in turn
+						if (sqr.getOccupant().getTeam() == teamColorPanel.getTeamColorEnum()) {
+							GameController.setActivePiece(sqr.getOccupant());
+							GameController.setActiveSquare(sqr);
+				        	GameController.setCurrentState(State.ENDMOVE);
+						}
 					}
 				}
 
@@ -66,5 +72,8 @@ public class PieceActionController {
 		//activeSquare.setOccupant(null);
 		GameController.setCurrentState(State.STARTMOVE);
 	}
-
+	
+	public void setTeamColorPanel(TeamColorPanel pn) {
+		teamColorPanel = pn;
+	}
 }

@@ -85,7 +85,7 @@ public class GameController implements Observer {
 			
 			// update team color on ControlPanel view
 			TeamColorPanel teamColorPanel = controlPanel.getTeamColorPanel();
-			Color colorChange = (teamColorPanel.getCurrentColorEnum() == Team.BLUE) ? Color.RED : Color.BLUE;
+			Color colorChange = (teamColorPanel.getTeamColorEnum() == Team.BLUE) ? Color.RED : Color.BLUE;
 			teamColorPanel.setTeamColor(colorChange);
 			
 			// auto end the current player's turn
@@ -93,6 +93,9 @@ public class GameController implements Observer {
 			
 			// reset timer
 			startTimer();
+			
+			// reset player move
+			GameController.setCurrentState(State.STARTMOVE);
 		}
 	}
 	

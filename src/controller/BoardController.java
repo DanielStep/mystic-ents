@@ -26,8 +26,8 @@ public class BoardController implements Observer {
 		boardState.init();
 		boardFrame.pack();
 		
-
-
+		// set team control in PieceActionController
+		pac.setTeamColorPanel(boardFrame.getControlPanel().getTeamColorPanel());
 		
 		// Tell the View that when ever the calculate button
 		// is clicked to execute the actionPerformed method

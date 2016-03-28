@@ -43,7 +43,7 @@ public class TeamColorPanel extends JPanel{
 		tfColor.setBackground(c);
 	}
 	
-	public Team getCurrentColorEnum() {
+	public Team getTeamColorEnum() {
 		return (tfColor.getBackground() == Color.BLUE) ? Team.BLUE : Team.RED;
 	}
 }
