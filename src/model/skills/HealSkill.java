@@ -14,6 +14,8 @@ public class HealSkill extends Skill implements IPerformSquareSkill {
 		boolean result = false;
 		Piece targetPiece;
 		
+		/*Test if square empty, then if square occupant in other team. If either, throw exception. 
+		 * If neither increment occupants HealthTrait Value and set result to true*/
 		try{
 			if(sqr.getOccupant() == null){
 				throw new IncorrectSquareException("No piece in square.");
