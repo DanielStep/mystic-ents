@@ -5,7 +5,7 @@ import model.Square;
 public class BuildSkill extends Skill implements IPerformSquareSkill {
 
 	@Override
-	public void performSkill(Square sqr) {
+	public boolean performSkill(Square sqr) {
 		// TODO Auto-generated method stub
 
 	}

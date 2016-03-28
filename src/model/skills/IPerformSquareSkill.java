@@ -1,8 +1,9 @@
 package model.skills;
 
+import model.Piece;
 import model.Square;
 
 public interface IPerformSquareSkill {
 
-	public void performSkill(Square sqr);
+	public boolean performSkill(Square sqr, Piece skillOwner);
 }

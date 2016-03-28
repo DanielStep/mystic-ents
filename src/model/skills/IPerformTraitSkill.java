@@ -1,7 +1,9 @@
 package model.skills;
 
+import model.Piece;
+
 public interface IPerformTraitSkill {
 	
-	public void performSkill();
+	public void performSkill(Piece skillOwner);
 
 }
