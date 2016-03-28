@@ -9,6 +9,7 @@ public class TraitBuilder {
 
 	private Random randomNumGen;
 	private TraitSet traitSet;
+	final int INITIALTRAITVALUE = 1;
 
 	/**
 	 * Trait set is created on instantiation of Trait Builder
@@ -30,10 +31,10 @@ public class TraitBuilder {
 
 	private void generateTraitSetfromTraits() {
 
-		HealthTrait healthTrait = new HealthTrait(1);
-		RangeTrait rangeTrait = new RangeTrait(1);
-		AttackTrait attackTrait = new AttackTrait(1);
-		DamageTrait damageTrait = new DamageTrait(1);
+		HealthTrait healthTrait = new HealthTrait(INITIALTRAITVALUE);
+		RangeTrait rangeTrait = new RangeTrait(INITIALTRAITVALUE);
+		AttackTrait attackTrait = new AttackTrait(INITIALTRAITVALUE);
+		DamageTrait damageTrait = new DamageTrait(INITIALTRAITVALUE);
 
 		allocateTraitValues(healthTrait, damageTrait, rangeTrait);
 

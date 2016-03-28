@@ -8,7 +8,7 @@ public class RangeSkill extends Skill implements IPerformTraitSkill {
 	@Override
 	public void performSkill(Piece skillOwner) {
 
-		skillOwner.getTraitSet().getMoveTrait().modifyValue(2);
+		skillOwner.getTraitSet().getRangeTrait().modifyValue(2);
 
 	}
 

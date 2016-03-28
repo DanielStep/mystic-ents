@@ -23,12 +23,12 @@ public class TraitSet {
 	}
 
 
-	public Trait getMoveTrait() {
+	public Trait getRangeTrait() {
 		return moveTrait;
 	}
 
 
-	public void setMoveTrait(Trait moveTrait) {
+	public void setRangeTrait(Trait moveTrait) {
 		this.moveTrait = moveTrait;
 	}
 
