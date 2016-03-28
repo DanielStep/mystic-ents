@@ -8,8 +8,12 @@ public class BuildSkill extends Skill implements IPerformSquareSkill {
 
 	@Override
 	public boolean performSkill(Square sqr, Piece skillOwner) {
-		// TODO Auto-generated method stub
-		return false;
+
+		// If the square is empty and is accessible then build
+		if(sqr.getOccupant()==null && sqr.getAccessible()){
+			sqr.setAccessible(false);			
+		}
+		return !sqr.getAccessible();
 	}
 
 }
