@@ -8,6 +8,7 @@ import model.Piece;
 import model.Square;
 import model.State;
 import model.Team;
+import view.DialogView;
 import view.SquareView;
 import view.TeamColorPanel;
 
@@ -40,6 +41,10 @@ public class PieceActionController {
 							GameController.setActivePiece(sqr.getOccupant());
 							GameController.setActiveSquare(sqr);
 				        	GameController.setCurrentState(State.ENDMOVE);
+						} else {
+							// display dialog message if picking the wrong team piece
+							DialogView.getInstance().showInformation("It is Team " + 
+									teamColorPanel.getTeamColorEnum() + "'s turn!");
 						}
 					}
 				}
