@@ -3,6 +3,12 @@ package model.skills;
 import model.Piece;
 import model.Square;
 
+/**
+ * Make square inaccessible
+ * @author skh
+ *
+ */
+
 public class BuildSkill extends Skill implements IPerformSquareSkill {
 
 
