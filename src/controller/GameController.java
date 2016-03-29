@@ -10,6 +10,7 @@ import model.Piece;
 import model.Square;
 import model.State;
 import model.Team;
+import view.AvailablePiecePanel;
 import view.ControlPanel;
 import view.EndTurnPanel;
 import view.TeamColorPanel;
@@ -72,6 +73,20 @@ public class GameController implements Observer {
 		EndTurnPanel endTurnPanel = controlPanel.getEndTurnPanel();
 		endTurnPanel.setGameTurn(gameTurn);
 
+		// update available pieces for the current team 
+		TeamColorPanel teamColorPanel = controlPanel.getTeamColorPanel();
+		if (gamePiecesList != null) {
+			int count = 0;
+			for (Piece piece : gamePiecesList) {
+				if (teamColorPanel.getTeamColorEnum() == piece.getTeam()) {
+					count++;
+				}
+			}
+//			System.out.println("----current team " + teamColorPanel.getTeamColorEnum() 
+//															+ " pierces: " + count);
+			controlPanel.getAvailablePiecePanel().setAvailablePieces(count);
+		}
+		
 		// update time on ControlPanel view
 		TimePanel timePanel = controlPanel.getTimePanel();
 		timePanel.setTime(data);
@@ -84,7 +99,6 @@ public class GameController implements Observer {
 			//or some kind of remote refresh method:
 			
 			// update team color on ControlPanel view
-			TeamColorPanel teamColorPanel = controlPanel.getTeamColorPanel();
 			Color colorChange = (teamColorPanel.getTeamColorEnum() == Team.BLUE) ? Color.RED : Color.BLUE;
 			teamColorPanel.setTeamColor(colorChange);
 			
@@ -159,4 +173,7 @@ public class GameController implements Observer {
 		GameController.targetSquare = targetSquare;
 	}
 
+	public static GameTurn getGameTurn() {
+		return gameTimer;
+	}
 }

@@ -57,4 +57,8 @@ public class ControlPanel extends JPanel{
 	public EndTurnPanel getEndTurnPanel() {
 		return pnEndTurn;
 	}
+	
+	public AvailablePiecePanel getAvailablePiecePanel() {
+		return pnAvailablePiece;
+	}
 }

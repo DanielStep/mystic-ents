@@ -76,6 +76,9 @@ public class PieceActionController {
 		board.doCellsUpdate();
 		//activeSquare.setOccupant(null);
 		GameController.setCurrentState(State.STARTMOVE);
+		
+		// automatically switch player when finishing a move
+		GameController.getGameTurn().setGameTimer(0);
 	}
 	
 	public void setTeamColorPanel(TeamColorPanel pn) {
