@@ -1,14 +1,15 @@
 package model.skills;
 
 import model.Piece;
-import model.traits.Trait;
 
 public class RangeSkill extends Skill implements IPerformTraitSkill {
+
+	private final int RANGEMULTIPLIER = 2;
 
 	@Override
 	public void performSkill(Piece skillOwner) {
 
-		skillOwner.getTraitSet().getRangeTrait().modifyValue(2);
+		skillOwner.getTraitSet().getRangeTrait().modifyValue(RANGEMULTIPLIER);
 
 	}
 
