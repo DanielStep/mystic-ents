@@ -43,8 +43,9 @@ public class PieceActionController {
 				        	GameController.setCurrentState(State.ENDMOVE);
 						} else {
 							// display dialog message if picking the wrong team piece
-							DialogView.getInstance().showInformation("It is Team " + 
-									teamColorPanel.getTeamColorEnum() + "'s turn!");
+							String msg = "It is Team " + 
+									teamColorPanel.getTeamColorEnum() + "'s turn!";
+							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
 						}
 					}
 				}

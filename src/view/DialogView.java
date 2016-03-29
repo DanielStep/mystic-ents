@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +15,13 @@ public class DialogView {
 	
 	public static DialogView getInstance() {
 		return instance;
+	}
+	
+	public void showInformation(String info, int x, int y) {
+		final JOptionPane a = new JOptionPane(info, JOptionPane.INFORMATION_MESSAGE);
+		final JDialog b = a.createDialog(null, "Information");
+		b.setLocation(x, y);
+		b.setVisible(true);
 	}
 	
 	public void showInformation(String info) {
