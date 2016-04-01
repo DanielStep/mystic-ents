@@ -27,16 +27,16 @@ public class PieceInfoPanel extends JPanel{
 		pane.setPreferredSize(new Dimension(160, 160));
 		
 		lblHealth = new JLabel("Health: ");
-		lblHealthValue = new JLabel("16");
+		lblHealthValue = new JLabel("-");
 
 		lblAttackDamage = new JLabel("Attack: ");
-		lblAttackDamageValue = new JLabel("5");
+		lblAttackDamageValue = new JLabel("-");
 		
 		lblMove = new JLabel("Move: ");
-		lblMoveValue = new JLabel("3");
+		lblMoveValue = new JLabel("-");
 		
 		lblSkill = new JLabel("Skill: ");
-		lblSkillValue = new JLabel("Heal");
+		lblSkillValue = new JLabel("-");
 		
 		pane.add(lblHealth);
 		pane.add(lblHealthValue);
@@ -53,7 +53,17 @@ public class PieceInfoPanel extends JPanel{
 	    this.add(pane);
 	}
 	
-	public void updatePieceInformation(Piece pce) {
-		System.out.println("Piece: " + pce);
+	public void resetPieceInformation() {	
+		lblHealthValue.setText("-");
+		lblAttackDamageValue.setText("-");		
+		lblMoveValue.setText("-");
+		//lblSkillValue.setText("N/A");
+	}
+	
+	public void updatePieceInformation(Piece pce) {		
+		lblHealthValue.setText(String.valueOf(pce.getTraitSet().getHealthTrait().getTraitValue()));
+		lblAttackDamageValue.setText(String.valueOf(pce.getTraitSet().getDamageTrait().getTraitValue()));		
+		lblMoveValue.setText(String.valueOf(pce.getTraitSet().getRangeTrait().getTraitValue()));
+		//lblSkillValue.setText(String.valueOf(pce.getSkillSet().getCurrentSkill().getTraitValue()));
 	}
 }

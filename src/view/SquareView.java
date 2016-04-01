@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import controller.GameUtils;
 import controller.PieceActionController;
 import model.Square;
 
@@ -49,32 +50,11 @@ public class SquareView extends JPanel implements MouseListener {
 		bg = !o.getAccessible() ? Color.BLACK : bg;
 		bg = o.getTeamTower() ? Color.GREEN : bg;
 		if (o.getOccupant() != null) {
-			bg = stringToColor(o.getOccupant().getTeam().name(), bg);
+			bg = GameUtils.stringToColor(o.getOccupant().getTeam().name(), bg);
 		}		
 		return bg;
 	}
 	
-	/**
-	* Converts a given string into a color.
-	* 
-	* @param value
-	* 	the team name corresponding to a color.
-	* @return the color.
-	*/
-	public static Color stringToColor(final String value, Color bg) {
-		//null value is handled by returning default; 
-		if (value == null) {
-			return bg;
-		}
-		try {
-			// try to get a color by name using reflection
-			final Field f = Color.class.getField(value);
-			return (Color) f.get(null);
-		} catch (Exception ce) {
-			// if we can't get any color return default
-			return bg;
-		}
-	}
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

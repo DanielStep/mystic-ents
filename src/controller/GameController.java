@@ -36,6 +36,7 @@ public class GameController implements Observer {
 	private TeamColorPanel teamColorPanel;
 	private EndTurnPanel endTurnPanel;
 	private TimePanel timePanel;
+	private PieceInfoPanel pieceInfoPanel;
 	
 	//BOARD OBJECTS
 	private Piece activePiece;
@@ -52,6 +53,8 @@ public class GameController implements Observer {
 		generateGamePieces();
 		buildTimer();
 		currentState = State.STARTMOVE;
+		// TODO Randomise team selection 
+		currentTeam = Team.BLUE;
 	}
 	
 	public void generateGamePieces() {
@@ -71,6 +74,7 @@ public class GameController implements Observer {
 		teamColorPanel = controlPanel.getTeamColorPanel();
 		endTurnPanel = controlPanel.getEndTurnPanel();
 		timePanel = controlPanel.getTimePanel();
+		pieceInfoPanel = controlPanel.getPieceInfoPanel();
 	}
 	
 	@Override
@@ -107,7 +111,7 @@ public class GameController implements Observer {
 	private int getAvailablePieceCount() {
 		int count = 0;
 		for (Piece piece : gamePiecesList) {
-			if (teamColorPanel.getTeamColorEnum() == piece.getTeam()) {
+			if (currentTeam == piece.getTeam()) {
 				count++;
 			}
 		}
@@ -119,9 +123,14 @@ public class GameController implements Observer {
 	private void handleEndTurn() {
 		System.out.println("Player change!");
 		
-		// update team color on ControlPanel view
-		Color colorChange = (teamColorPanel.getTeamColorEnum() == Team.BLUE) ? Color.RED : Color.BLUE;
-		teamColorPanel.setTeamColor(colorChange);
+		//Change teams
+		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;
+
+		// update team color on ControlPanel view based on current team enum
+		teamColorPanel.setTeamColor(GameUtils.stringToColor(currentTeam.name(), Color.BLACK));
+		
+		//reset the Piece info panel on switch team.
+		pieceInfoPanel.resetPieceInformation();
 		
 		// auto end the current player's turn
 		endTurnPanel.executeEndTurn();
@@ -145,7 +154,7 @@ public class GameController implements Observer {
 	
 	public void updatePieceInformation(Piece pce) {
 		// Update Piece Statistics on Selection
-		PieceInfoPanel pieceInfoPanel = controlPanel.getPieceInfoPanel();
+		System.out.println("----current piece " + pce); 
 		pieceInfoPanel.updatePieceInformation(pce);
 	}
 	
