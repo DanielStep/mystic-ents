@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import model.Piece;
+
 /**
  * A component of ControlPanel
  * @author Phan Vo
@@ -45,9 +47,13 @@ public class PieceInfoPanel extends JPanel{
 		pane.add(lblSkill);
 		pane.add(lblSkillValue);
 		
-	    TitledBorder titled = new TitledBorder("Available pieces");
+	    TitledBorder titled = new TitledBorder("Selected Piece");
 	    pane.setBorder(titled);
 
 	    this.add(pane);
+	}
+	
+	public void updatePieceInformation(Piece pce) {
+		System.out.println("Piece: " + pce);
 	}
 }

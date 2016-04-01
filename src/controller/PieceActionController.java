@@ -1,21 +1,30 @@
 package controller;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import model.Board;
 import model.Piece;
 import model.Square;
 import model.State;
 import model.Team;
+import view.ControlPanel;
 import view.DialogView;
+import view.PieceInfoPanel;
 import view.SquareView;
 import view.TeamColorPanel;
 
+/**
+ * This is main handler for selecting pieces and controlling their moves
+ * Class acts as a bridge between the BoardController and the GameController
+ * 
+ * @author MS
+ *
+ */
 public class PieceActionController {
 		
 	private Board board;
 	private TeamColorPanel teamColorPanel;
+	private GameController gameController;
 	
 	public PieceActionController(Board b)  {
 		board = b;
@@ -23,7 +32,7 @@ public class PieceActionController {
 
 	public void performAction(MouseEvent e, Square sqr) {
 		
-		State currentState = GameController.getCurrentState();
+		State currentState = gameController.getCurrentState();
 		//System.out.println("targetSquare: " + GameController.getTargetSquare().getID()[0] + " : " + GameController.getTargetSquare().getID()[1] + " :: " + GameController.getActiveSquare());
 		
 		switch (currentState) {
@@ -38,9 +47,10 @@ public class PieceActionController {
 						
 						//Check for the current team in turn
 						if (sqr.getOccupant().getTeam() == teamColorPanel.getTeamColorEnum()) {
-							GameController.setActivePiece(sqr.getOccupant());
-							GameController.setActiveSquare(sqr);
-				        	GameController.setCurrentState(State.ENDMOVE);
+							gameController.setActivePiece(sqr.getOccupant());
+							gameController.updatePieceInformation(sqr.getOccupant());
+							gameController.setActiveSquare(sqr);
+							gameController.setCurrentState(State.ENDMOVE);
 						} else {
 							// display dialog message if picking the wrong team piece
 							String msg = "It is Team " + 
@@ -56,7 +66,7 @@ public class PieceActionController {
 					if (sqr.getOccupant() == null) {
 						//Check for accessibility... how do we implement range?
 						//targetSquare = sqr;
-						GameController.setTargetSquare(sqr);
+						gameController.setTargetSquare(sqr);
 						movePiece();
 					}						
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
@@ -72,17 +82,21 @@ public class PieceActionController {
 	
 	private void movePiece() {
 		//System.out.println("targetSquare: " + GameController.getTargetSquare().getID()[0] + " : " + GameController.getTargetSquare().getID()[1] + " :: " + GameController.getActiveSquare());
-		GameController.getTargetSquare().setOccupant(GameController.getActivePiece());
-		GameController.getActiveSquare().setOccupant(null);
+		gameController.getTargetSquare().setOccupant(gameController.getActivePiece());
+		gameController.getActiveSquare().setOccupant(null);
 		board.doCellsUpdate();
 		//activeSquare.setOccupant(null);
-		GameController.setCurrentState(State.STARTMOVE);
+		gameController.setCurrentState(State.STARTMOVE);
 		
 		// automatically switch player when finishing a move
-		GameController.getGameTurn().setGameTimer(0);
+		gameController.getGameTurn().setGameTimer(0);
 	}
 	
 	public void setTeamColorPanel(TeamColorPanel pn) {
 		teamColorPanel = pn;
+	}
+	
+	public void setGameController(GameController g) {
+		this.gameController = g;
 	}
 }

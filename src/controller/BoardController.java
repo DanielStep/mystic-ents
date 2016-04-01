@@ -12,8 +12,9 @@ public class BoardController implements Observer {
 
 	private BoardFrame boardFrame;
 	private Board boardState;
+	private GameController gameController;
 	
-	public BoardController() {
+	public BoardController(GameController g) {
 		
 		boardState = new Board();
 		observe(boardState);
@@ -28,6 +29,10 @@ public class BoardController implements Observer {
 		
 		// set team control in PieceActionController
 		pac.setTeamColorPanel(boardFrame.getControlPanel().getTeamColorPanel());
+		
+		// set PieceActionController's game controller
+		pac.setGameController(g);
+
 		
 		// Tell the View that when ever the calculate button
 		// is clicked to execute the actionPerformed method

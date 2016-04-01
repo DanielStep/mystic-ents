@@ -61,4 +61,8 @@ public class ControlPanel extends JPanel{
 	public AvailablePiecePanel getAvailablePiecePanel() {
 		return pnAvailablePiece;
 	}
+	
+	public PieceInfoPanel getPieceInfoPanel() {
+		return pnPieceInfo;
+	}	
 }

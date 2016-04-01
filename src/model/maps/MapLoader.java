@@ -24,7 +24,6 @@ public class MapLoader {
 			
 			// Loop through the file reading in lines and storing in "line". Do this until readLine returns null (end of file)
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line);
 				String[] numbers = line.split(" "); 
 				for(int j = 0; j < numbers.length; j++) {
 					map[i][j] = Integer.parseInt(numbers[j]);
