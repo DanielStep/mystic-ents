@@ -8,6 +8,7 @@ public class GameMain implements Runnable {
 		GameController gameController = new GameController();
 		BoardController boardController = new BoardController(gameController);
 		gameController.setUIObjects(boardController);
+		gameController.startTimer();
 	}
 
 	@Override

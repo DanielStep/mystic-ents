@@ -50,14 +50,8 @@ public class GameController implements Observer {
 	public GameController() {
 		currentState = State.STARTGAME;
 		generateGamePieces();
-		startTimer();
+		buildTimer();
 		currentState = State.STARTMOVE;
-	}
-	
-	private void startTimer() {
-		gameTimer = new GameTurn();
-		observe(gameTimer);
-		gameTimer.start();
 	}
 	
 	public void generateGamePieces() {
@@ -83,16 +77,22 @@ public class GameController implements Observer {
 	public void update(Observable o, Object arg) {
 		GameTurn gameTurn = (GameTurn) o;
 		if (gameTurn == null) return;
+		
 		int data = gameTurn.getGameTimer();
 		
 		// update time on ControlPanel view
-		timePanel.setTime(data);
+		if (timePanel != null) {			
+			timePanel.setTime(data);
+		}
 
 		// set end turn conditions
-		endTurnPanel.setGameTurn(gameTurn);
+		if (endTurnPanel != null) {
+			endTurnPanel.setGameTurn(gameTurn);
+		}
 
 		// update available pieces for the current team 
-		if (gamePiecesList != null) {
+		//if (gamePiecesList != null) {
+		if (teamColorPanel != null) {
 			int count = getAvailablePieceCount();
 			controlPanel.getAvailablePiecePanel().setAvailablePieces(count);
 		}
@@ -126,11 +126,21 @@ public class GameController implements Observer {
 		// auto end the current player's turn
 		endTurnPanel.executeEndTurn();
 		
-		// reset timer
-		startTimer();
-		
 		// reset player move
 		setCurrentState(State.STARTMOVE);
+	}
+	
+	
+	private void buildTimer() {
+		gameTimer = new GameTurn();
+		observe(gameTimer);
+	}
+	
+	public void startTimer() {
+		gameTimer.start();
+	}
+	public void stopTimer() {
+		gameTimer.stop();
 	}
 	
 	public void updatePieceInformation(Piece pce) {

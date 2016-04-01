@@ -37,18 +37,19 @@ public class PieceActionController {
 		
 		switch (currentState) {
 	        case STARTMOVE:
-	        		
-	        	System.out.println("Occupant: " + sqr.getOccupant());
-	        	
+	        			        	
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					if (sqr.getOccupant() != null) {
+					
+					Piece ocpt = sqr.getOccupant();
+					
+					if (ocpt != null) {
 //						System.out.println("------- current team: " + teamColorPanel.getTeamColorEnum());
 //						System.out.println("---- Click on square: " + sqr.getOccupant().getTeam());
 						
-						//Check for the current team in turn
-						if (sqr.getOccupant().getTeam() == teamColorPanel.getTeamColorEnum()) {
-							gameController.setActivePiece(sqr.getOccupant());
-							gameController.updatePieceInformation(sqr.getOccupant());
+						//Check for the current team in turn						 
+						if (ocpt.getTeam() == teamColorPanel.getTeamColorEnum()) {
+							gameController.setActivePiece(ocpt);
+							gameController.updatePieceInformation(ocpt);
 							gameController.setActiveSquare(sqr);
 							gameController.setCurrentState(State.ENDMOVE);
 						} else {

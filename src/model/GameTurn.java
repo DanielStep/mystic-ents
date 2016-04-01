@@ -10,7 +10,7 @@ public class GameTurn extends Observable {
     Toolkit toolkit;
     Timer timer;
     
-    public int gameTimer;
+    public int gameTimer = GameConfig.getMaxSeconds();
 
     public GameTurn() {
     	toolkit = Toolkit.getDefaultToolkit();
@@ -25,7 +25,8 @@ public class GameTurn extends Observable {
 			    notifyObservers();
 				if (gameTimer-- == 0)
 				{
-					stop();
+					//stop();
+					setGameTimer(GameConfig.getMaxSeconds());
 				}
 			}
     	}, GameConfig.getStartDelay(), GameConfig.getTimerPeriod());
@@ -44,8 +45,11 @@ public class GameTurn extends Observable {
     }    
     
     public void start() {
-    	gameTimer = GameConfig.getMaxSeconds();
     	buildTimer();
+    }
+    
+    public void reset() {
+    	gameTimer = GameConfig.getMaxSeconds();
     }
     
 }

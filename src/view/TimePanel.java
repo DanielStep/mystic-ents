@@ -20,7 +20,7 @@ public class TimePanel extends JPanel{
 		
 	    tfTime = new JTextField(10);
 	    tfTime.setHorizontalAlignment(JTextField.CENTER);
-	    tfTime.setText(String.valueOf(GameConfig.getMaxSeconds()));
+	    tfTime.setText("...");
 	    tfTime.setEditable(false);
 
 	    TitledBorder titled = new TitledBorder("Timer");
