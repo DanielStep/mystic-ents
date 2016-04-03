@@ -1,6 +1,9 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
+
+import javax.swing.border.LineBorder;
 
 import model.Board;
 import model.Piece;
@@ -22,24 +25,26 @@ import view.TeamColorPanel;
  */
 public class PieceActionController {
 		
-	private Board board;
+	private BoardController board;
 	private TeamColorPanel teamColorPanel;
 	private GameController gameController;
 	
-	public PieceActionController(Board b)  {
+	public PieceActionController(BoardController b)  {
 		board = b;
 	}	
 
-	public void performAction(MouseEvent e, Square sqr) {
+	public void performAction(MouseEvent e, SquareView sqr) {
 		
 		//Minimize calls to sqr by getting occupant;
-		Piece ocpt = sqr.getOccupant();
+		Piece ocpt = sqr.sqrObj.getOccupant();
+		Square sqrObj = sqr.sqrObj;
 		
 		//Ascertain if square is new occupant
 		if (ocpt != gameController.getActivePiece() && 
 			ocpt != null &&
 			ocpt.getTeam() == teamColorPanel.getTeamColorEnum()) {
 			gameController.setCurrentState(State.STARTMOVE);
+			clearActivePieceRange();
 		}
 		
 		//Fetch current state from gameController
@@ -52,9 +57,12 @@ public class PieceActionController {
 					if (ocpt != null) {
 						//Check for the current team in turn
 						if (ocpt.getTeam() == gameController.getCurrentTeam()) {
+							sqr.setBorder(new LineBorder(Color.YELLOW, 3));
+							//board.getBoardState().setRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
+							gameController.getGameBoard().getBoardState().setRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 							gameController.setActivePiece(ocpt);
 							gameController.updatePieceInformation(ocpt);
-							gameController.setActiveSquare(sqr);
+							gameController.setActiveSquare(sqrObj);
 							gameController.setCurrentState(State.ENDMOVE);
 						} else {
 							// display dialog message if picking the wrong team piece
@@ -67,11 +75,11 @@ public class PieceActionController {
 	            
 	        case ENDMOVE:				
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					if (sqr.getOccupant() == null) {
+					if (sqrObj.getOccupant() == null) {
 						//Check for accessibility... how do we implement range?
-						Boolean doMove = getDistance(gameController.getActiveSquare(), sqr);
-						if (doMove) {
-							gameController.setTargetSquare(sqr);
+						//Boolean doMove = getDistance(gameController.getActiveSquare(), sqrObj);
+						if (sqrObj.getInrange()) {
+							gameController.setTargetSquare(sqrObj);
 							movePiece();						
 						}
 					}						
@@ -90,21 +98,19 @@ public class PieceActionController {
 	private void movePiece() {
 		gameController.getTargetSquare().setOccupant(gameController.getActivePiece());
 		gameController.getActiveSquare().setOccupant(null);
-		board.doCellsUpdate();
+		board.getBoardState().doCellsUpdate();
 		gameController.setCurrentState(State.STARTMOVE);
-		
+		endTurn();
+		clearActivePieceRange();
+	}
+	
+	private void endTurn() {
 		// automatically switch player when finishing a move
 		gameController.getGameTurn().setGameTimer(0);
 	}
-	
-	private Boolean getDistance(Square c, Square t) {		
-		Boolean inrange = true;
-		int range = c.getOccupant().getTraitSet().getRangeTrait().getTraitValue();		
-		if ((t.getID()[0] - c.getID()[0]) > range || (c.getID()[0] - t.getID()[0]) > range ||
-			(t.getID()[1] - c.getID()[1]) > range || (c.getID()[1] - t.getID()[1]) > range) {
-			inrange = false;
-		}
-		return inrange;
+	private void clearActivePieceRange() {
+		// reset board
+		gameController.getGameBoard().getBoardState().clearRangeCells();
 	}
 	
 	public void setTeamColorPanel(TeamColorPanel pn) {

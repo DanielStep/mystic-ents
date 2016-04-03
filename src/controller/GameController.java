@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.Board;
 import model.GameTurn;
 import model.Piece;
 import model.Square;
@@ -29,7 +30,7 @@ public class GameController implements Observer {
 	
 	//GAME CONTROL
 	private static GameTurn gameTimer;	
-	private static BoardController gameBoard;
+	private BoardController gameBoard;
 	
 	//UI
 	private ControlPanel controlPanel;
@@ -75,6 +76,7 @@ public class GameController implements Observer {
 		endTurnPanel = controlPanel.getEndTurnPanel();
 		timePanel = controlPanel.getTimePanel();
 		pieceInfoPanel = controlPanel.getPieceInfoPanel();
+		setGameBoard(bd);
 	}
 	
 	@Override
@@ -115,8 +117,6 @@ public class GameController implements Observer {
 				count++;
 			}
 		}
-//		System.out.println("----current team " + teamColorPanel.getTeamColorEnum() 
-//		+ " pierces: " + count);
 		return count;
 	}
 	
@@ -134,6 +134,8 @@ public class GameController implements Observer {
 		
 		// auto end the current player's turn
 		endTurnPanel.executeEndTurn();
+		
+		gameBoard.getBoardState().clearRangeCells();
 		
 		// reset player move
 		setCurrentState(State.STARTMOVE);
@@ -220,6 +222,14 @@ public class GameController implements Observer {
 
 	public static GameTurn getGameTurn() {
 		return gameTimer;
+	}
+
+	public BoardController getGameBoard() {
+		return gameBoard;
+	}
+
+	public void setGameBoard(BoardController gameBoard) {
+		this.gameBoard = gameBoard;
 	}
 
 }

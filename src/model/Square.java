@@ -14,7 +14,8 @@ public class Square {
 	private Piece occupyingPiece = null;
 	private int[] ID = new int[2];
 
-	private Boolean accessible = true;
+	private Boolean inrange = false;
+	private Boolean accessible = true;	
 	private Boolean teamPiece = false;
 	private Boolean teamTower = false;
 	private Color bgColor = Color.WHITE;
@@ -70,6 +71,14 @@ public class Square {
 
 	public void setBgColor(Color bgColor) {
 		this.bgColor = bgColor;
+	}
+
+	public Boolean getInrange() {
+		return inrange;
+	}
+
+	public void setInrange(Boolean inrange) {
+		this.inrange = inrange;
 	}
 
 

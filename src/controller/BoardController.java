@@ -12,14 +12,13 @@ public class BoardController implements Observer {
 
 	private BoardFrame boardFrame;
 	private Board boardState;
-	private GameController gameController;
 	
 	public BoardController(GameController g) {
 		
 		boardState = new Board();
 		observe(boardState);
 		
-		PieceActionController pac = new PieceActionController(boardState);
+		PieceActionController pac = new PieceActionController(this);
 		
 		// After we placed pieces inside boardState, initialize boardView
 		boardFrame = new BoardFrame();
@@ -41,6 +40,7 @@ public class BoardController implements Observer {
 		// theView.addBoardListener(new BoardListener());
 
 	}	
+
 
 	public void observe(Observable o) {
 		o.addObserver(this);

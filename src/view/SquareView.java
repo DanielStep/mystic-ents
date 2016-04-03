@@ -19,7 +19,7 @@ public class SquareView extends JPanel implements MouseListener {
 
 	// Used for mapping with the back-end model
 	private int[] ID = new int[2];
-	private Square sqrObj;
+	public Square sqrObj;
 	private PieceActionController pac;
 
 	public SquareView(PieceActionController p, Square o) {
@@ -28,6 +28,7 @@ public class SquareView extends JPanel implements MouseListener {
 		this.sqrObj = o;
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(Color.BLACK, 1));
+		//BorderFactory.createStrokeBorder(new BasicStroke(5.0f)
 		this.setPreferredSize(new Dimension(20, 20));
 
 		//System.out.println(o.getID()[0] + " : " + o.getID()[1] + " : " + o.getOccupant());
@@ -41,12 +42,8 @@ public class SquareView extends JPanel implements MouseListener {
 	}
 
 	private Color getBackgroundColor(Square o) {
-		
-		if (o.getID()[0] == 0 && o.getID()[1] == 0) {
-			System.out.println(o.getID()[0] + " : " + o.getID()[1] + " : " + o.getOccupant());
-		}
-		
 		Color bg = Color.WHITE;
+		bg = o.getInrange() ? Color.YELLOW : bg;
 		bg = !o.getAccessible() ? Color.BLACK : bg;
 		bg = o.getTeamTower() ? Color.GREEN : bg;
 		if (o.getOccupant() != null) {
@@ -77,7 +74,7 @@ public class SquareView extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		pac.performAction(arg0, this.sqrObj);
+		pac.performAction(arg0, this);
 	}
 
 	@Override

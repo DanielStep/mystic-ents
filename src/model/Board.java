@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 
 import controller.GameController;
@@ -19,10 +18,9 @@ public class Board extends Observable {
 	/**
 	 * Stores the locations of pieces and squares on the board.
 	 */
-	private Object[][] boardData = new Object[GameConfig.getRowCol()][GameConfig.getRowCol()];
+	private Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];
 	private ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
-	//private static GameController gameState;
-
+	
 	public void init() {
 		getPieces();
 		initBoardData();
@@ -48,13 +46,31 @@ public class Board extends Observable {
 		gamePiecesList = new ArrayList<Piece>( GameController.getGamePiecesList() );
 	}
 	
-	public void doCellsUpdate() {
-		setChanged();
-	    notifyObservers();
+	public void clearRangeCells() {
+		for(int i = 0; i < boardData.length; i++) {
+			for(int j = 0; j < boardData.length; j++) {
+				System.out.println("CLEARING: " + i + " : " + j);
+				boardData[i][j].setInrange(false);
+			}
+		}
+		doCellsUpdate();
+	}
+	public void setRangeCells(int x, int y) {
+		int range = boardData[x][y].getOccupant().getTraitSet().getRangeTrait().getTraitValue();
+		for(int i = (x-range); i < (x+(1+range)); i++) {
+			if (i >= 0 && i < boardData.length) {
+				for(int j = (y-range); j < (y+(1+range)); j++) {
+					if (j >= 0 && j < boardData[i].length) {
+						boardData[i][j].setInrange(true);
+					}
+				}				
+			}
+
+		}
+		doCellsUpdate();
 	}
 	
-	public void setBoardCell(int x, int y, Object o) {
-		boardData[x][y] = o;
+	public void doCellsUpdate() {
 		setChanged();
 	    notifyObservers();
 	}
@@ -63,7 +79,7 @@ public class Board extends Observable {
 		return boardData[x][y];
 	}*/
 
-	public Object[][] getBoardData() {
+	public Square[][] getBoardData() {
 		return boardData;
 	}
 	
