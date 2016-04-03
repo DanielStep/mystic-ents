@@ -96,12 +96,12 @@ public class PieceActionController {
 	}	
 	
 	private void movePiece() {
+		//clearActivePieceRange();
 		gameController.getTargetSquare().setOccupant(gameController.getActivePiece());
 		gameController.getActiveSquare().setOccupant(null);
 		board.getBoardState().doCellsUpdate();
 		gameController.setCurrentState(State.STARTMOVE);
 		endTurn();
-		clearActivePieceRange();
 	}
 	
 	private void endTurn() {

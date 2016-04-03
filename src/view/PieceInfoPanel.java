@@ -64,6 +64,6 @@ public class PieceInfoPanel extends JPanel{
 		lblHealthValue.setText(String.valueOf(pce.getTraitSet().getHealthTrait().getTraitValue()));
 		lblAttackDamageValue.setText(String.valueOf(pce.getTraitSet().getDamageTrait().getTraitValue()));		
 		lblMoveValue.setText(String.valueOf(pce.getTraitSet().getRangeTrait().getTraitValue()));
-		//lblSkillValue.setText(String.valueOf(pce.getSkillSet().getCurrentSkill().getTraitValue()));
+		lblSkillValue.setText(pce.getSkillSet().getCurrentSkill().toString());
 	}
 }

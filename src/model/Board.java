@@ -49,7 +49,6 @@ public class Board extends Observable {
 	public void clearRangeCells() {
 		for(int i = 0; i < boardData.length; i++) {
 			for(int j = 0; j < boardData.length; j++) {
-				System.out.println("CLEARING: " + i + " : " + j);
 				boardData[i][j].setInrange(false);
 			}
 		}

@@ -123,6 +123,9 @@ public class GameController implements Observer {
 	private void handleEndTurn() {
 		System.out.println("Player change!");
 		
+		//clear 'active' or piece specific board data;
+		gameBoard.getBoardState().clearRangeCells();
+		
 		//Change teams
 		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;
 
@@ -134,8 +137,6 @@ public class GameController implements Observer {
 		
 		// auto end the current player's turn
 		endTurnPanel.executeEndTurn();
-		
-		gameBoard.getBoardState().clearRangeCells();
 		
 		// reset player move
 		setCurrentState(State.STARTMOVE);
