@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import model.Board;
 import model.GameTurn;
+import model.GameUtils;
 import model.Piece;
 import model.Square;
 import model.State;

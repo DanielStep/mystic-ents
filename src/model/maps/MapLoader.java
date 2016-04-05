@@ -4,18 +4,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 import model.GameConfig;
 
 public class MapLoader {
-
-	public int[][] getMapData() throws IOException {
 	
-		int[][] map = new int[GameConfig.getRowCol()][GameConfig.getRowCol()];
-		int i = 0;
+	ArrayList<ArrayList<Integer>> map = new ArrayList<ArrayList<Integer>>();
+	
+	public ArrayList<ArrayList<Integer>> getMapData() throws IOException {
+		
 		try {
+
+			int i = 0;
+			
 			// Create our bufferedreader to read the file
 			BufferedReader reader = new BufferedReader(new FileReader(GameConfig.getMapTextfile()));
 			
@@ -24,19 +25,29 @@ public class MapLoader {
 			
 			// Loop through the file reading in lines and storing in "line". Do this until readLine returns null (end of file)
 			while ((line = reader.readLine()) != null) {
-				String[] numbers = line.split(" "); 
+				String[] numbers = line.split(" ");
+
+				//Create the 2d ArrayList
+				map.add(new ArrayList<Integer>());
+		        ArrayList<Integer> inner = map.get(i);
+				
+		        //System.out.println("setROW_COL: " + i); 
 				for(int j = 0; j < numbers.length; j++) {
-					map[i][j] = Integer.parseInt(numbers[j]);
+					inner.add(Integer.parseInt(numbers[j]));
 				}
 				i++;
 			}
+
+			//Set the Config parameter for board gridsize based on map
+			GameConfig.setROW_COL(i);
 			reader.close();
 		}
 		catch (Exception ex) { 
-			System.out.println("Exception: " + ex.getMessage()); 
+			System.out.println("getMapData() Exception: " + ex.getMessage()); 
 		}
 		
 		return map;
+		
 	}
 	
 }

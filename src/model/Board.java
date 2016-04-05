@@ -18,8 +18,13 @@ public class Board extends Observable {
 	/**
 	 * Stores the locations of pieces and squares on the board.
 	 */
-	private Square[][] boardData = new Square[GameConfig.getRowCol()][GameConfig.getRowCol()];
+	private Square[][] boardData = new Square[GameConfig.getROW_COL()][GameConfig.getROW_COL()];
 	private ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
+	private BoardGenerator boardGen = new BoardGenerator();
+	
+	public Board() {
+		boardGen.loadMapData();	
+	}
 	
 	public void init() {
 		getPieces();
@@ -36,7 +41,6 @@ public class Board extends Observable {
 	}
 	
 	public void initBoardData() {
-		BoardGenerator boardGen = new BoardGenerator();
 		boardData = boardGen.generateStartBoard( gamePiecesList );
 		setChanged();
 	    notifyObservers(); // TODO: Pass the board data
@@ -54,6 +58,7 @@ public class Board extends Observable {
 		}
 		doCellsUpdate();
 	}
+	
 	public void setRangeCells(int x, int y) {
 		int range = boardData[x][y].getOccupant().getTraitSet().getRangeTrait().getTraitValue();
 		for(int i = (x-range); i < (x+(1+range)); i++) {

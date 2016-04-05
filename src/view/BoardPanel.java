@@ -26,7 +26,7 @@ public class BoardPanel extends JPanel {
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultWidth(), GameConfig.getDefaultHeight()));
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
-		this.setLayout(new GridLayout(GameConfig.getRowCol(), GameConfig.getRowCol()));
+		this.setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
 	}
 
 	public PieceActionController getPac() {
@@ -41,6 +41,10 @@ public class BoardPanel extends JPanel {
 	 * Draw the squares
 	 */
 	public void drawBoard(Object[][] board) {
+		
+		//Need to add pre-condition that board cannot be null
+		//else throw exception
+		
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				SquareView sqr = new SquareView(pac, (Square) board[i][j]);

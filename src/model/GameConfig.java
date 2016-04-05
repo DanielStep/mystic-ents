@@ -8,25 +8,19 @@ public class GameConfig {
     private static final int START_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000;
     
+	//CONTROL PANEL
+	private static final int DEFAULT_CONTROL_PANEL_WIDTH = 200;
+    
     //BOARD
-    private static final int ROW_COL = 30;
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
 	
 	//MAP
-	private static final String MAP_TEXTFILE = "./src/model/maps/map1.txt";
-	
-	//CONTROL PANEL
-	private static final int DEFAULT_CONTROL_PANEL_WIDTH = 200;
-	
-	public static int getDefaultControlPanelWidth() {
-		return DEFAULT_CONTROL_PANEL_WIDTH;
-	}
-	
-	public static int getDefaultHeight() {
-		return DEFAULT_HEIGHT;
-	}
-
+	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
+    private static int ROW_COL;
+    
+      
+	//GAME TIMER
 	public static int getTimerPeriod() {
 		return TIMER_PERIOD;
 	}
@@ -42,17 +36,32 @@ public class GameConfig {
 	public static int getMaxTurns() {
 		return MAX_TURNS;
 	}
+	
+	//CONTROL PANEL	
+	public static int getDefaultControlPanelWidth() {
+		return DEFAULT_CONTROL_PANEL_WIDTH;
+	}
+	
+    //BOARD
+	public static int getDefaultHeight() {
+		return DEFAULT_HEIGHT;
+	}
 
 	public static int getDefaultWidth() {
 		return DEFAULT_WIDTH;
 	}
-
-	public static int getRowCol() {
+	
+	//MAP
+	public static String getMapTextfile() {
+		return MAP_TEXTFILE;
+	}
+	
+	public static int getROW_COL() {
 		return ROW_COL;
 	}
 
-	public static String getMapTextfile() {
-		return MAP_TEXTFILE;
+	public static void setROW_COL(int val) {
+		ROW_COL = val;
 	}
 	
 }

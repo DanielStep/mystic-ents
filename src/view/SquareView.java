@@ -11,8 +11,8 @@ import java.lang.reflect.Field;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import controller.GameUtils;
 import controller.PieceActionController;
+import model.GameUtils;
 import model.Square;
 
 public class SquareView extends JPanel implements MouseListener {

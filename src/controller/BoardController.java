@@ -21,6 +21,7 @@ public class BoardController implements Observer {
 		PieceActionController pac = new PieceActionController(this);
 		
 		// After we placed pieces inside boardState, initialize boardView
+		//boardState.init();
 		boardFrame = new BoardFrame();
 		boardFrame.getBoardPanel().setPac(pac);
 		boardState.init();
@@ -50,7 +51,7 @@ public class BoardController implements Observer {
 	public void update(Observable o, Object arg) {
 		Object[][] data = ((Board) o).getBoardData();
 		if (data == null) return;
-		System.out.println("Board has changed: " + data.length);
+		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
 	}
 	

@@ -20,10 +20,7 @@ public class Square {
 	private Boolean teamTower = false;
 	private Color bgColor = Color.WHITE;
 	
-	public Square (int i, int j) {
-		this.ID[0] = i;
-		this.ID[1] = j;
-	}
+	public Square () {	}
 	
 	public int[] getID() {
 		return ID;
