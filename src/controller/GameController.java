@@ -106,7 +106,6 @@ public class GameController implements Observer {
 		
 		// when time is up
 		if (data == 0) {
-			System.out.println("Player change!");
 			handleEndTurn();
 		}
 	}
@@ -122,7 +121,10 @@ public class GameController implements Observer {
 	}
 	
 	private void handleEndTurn() {
-		System.out.println("Player change!");
+		// set game turn count;
+		int newCount = gameTimer.getCount();
+		newCount++;
+		gameTimer.setCount(newCount);
 		
 		//clear 'active' or piece specific board data;
 		gameBoard.getBoardState().clearRangeCells();

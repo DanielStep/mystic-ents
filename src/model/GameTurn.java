@@ -9,8 +9,9 @@ public class GameTurn extends Observable {
 	
     Toolkit toolkit;
     Timer timer;
-    
-    public int gameTimer = GameConfig.getMaxSeconds();
+    private int count = 1;
+
+	public int gameTimer = GameConfig.getMaxSeconds();
 
     public GameTurn() {
     	toolkit = Toolkit.getDefaultToolkit();
@@ -50,6 +51,14 @@ public class GameTurn extends Observable {
     
     public void reset() {
     	gameTimer = GameConfig.getMaxSeconds();
-    }
+    }    
+    
+    public int getCount() {
+		return count;
+	}
+    
+    public void setCount(int c) {
+		count = c;
+	} 
     
 }

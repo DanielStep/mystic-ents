@@ -39,8 +39,8 @@ public class EndTurnPanel extends JPanel{
 	}
 	
 	public void executeEndTurn(){
-		System.out.println("Auto/Manually end turn!!!");
-		gameTurn.setGameTimer(0);
+		System.out.println("Starting turn: " + gameTurn.getCount());
+		gameTurn.setGameTimer(0);		
 	}
 	
 	public void setGameTurn(GameTurn gameTurn) {
