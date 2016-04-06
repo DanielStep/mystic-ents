@@ -11,7 +11,11 @@ import model.Square;
 
 public class BuildSkill extends Skill implements IPerformSquareSkill {
 
-
+	public BuildSkill() {
+		// TODO Auto-generated constructor stub
+		super.setName("Build");
+	}
+	
 	@Override
 	public boolean performSkill(Square sqr, Piece skillOwner) {
 

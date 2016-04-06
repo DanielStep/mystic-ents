@@ -9,11 +9,14 @@ import javax.swing.JOptionPane;
  *
  */
 public class DialogView {
-	private static DialogView instance = new DialogView();
+	private static DialogView instance;
 	
 	private DialogView(){}
 	
-	public static DialogView getInstance() {
+	public static synchronized DialogView getInstance() {
+		if (instance == null) {
+			instance = new DialogView();
+		}
 		return instance;
 	}
 	

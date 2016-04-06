@@ -1,7 +1,5 @@
 package model.skills;
 
-import java.util.ArrayList;
-
 public class SkillSet {
 	
 	private Skill currentSkill;

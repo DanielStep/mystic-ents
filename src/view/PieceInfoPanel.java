@@ -47,7 +47,7 @@ public class PieceInfoPanel extends JPanel{
 		pane.add(lblSkill);
 		pane.add(lblSkillValue);
 		
-	    TitledBorder titled = new TitledBorder("Selected Piece");
+	    TitledBorder titled = new TitledBorder("Selected piece");
 	    pane.setBorder(titled);
 
 	    this.add(pane);
@@ -57,13 +57,13 @@ public class PieceInfoPanel extends JPanel{
 		lblHealthValue.setText("-");
 		lblAttackDamageValue.setText("-");		
 		lblMoveValue.setText("-");
-		//lblSkillValue.setText("N/A");
+		lblSkillValue.setText("-");
 	}
 	
 	public void updatePieceInformation(Piece pce) {		
 		lblHealthValue.setText(String.valueOf(pce.getTraitSet().getHealthTrait().getTraitValue()));
 		lblAttackDamageValue.setText(String.valueOf(pce.getTraitSet().getDamageTrait().getTraitValue()));		
 		lblMoveValue.setText(String.valueOf(pce.getTraitSet().getRangeTrait().getTraitValue()));
-		lblSkillValue.setText(pce.getSkillSet().getCurrentSkill().toString());
+		lblSkillValue.setText(pce.getSkillSet().getCurrentSkill().getName());
 	}
 }

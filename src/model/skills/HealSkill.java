@@ -9,6 +9,11 @@ public class HealSkill extends Skill implements IPerformSquareSkill {
 
 	final int HEALAMOUNT = 1;
 	
+	public HealSkill() {
+		// TODO Auto-generated constructor stub
+		super.setName("Heal");
+	}
+	
 	public boolean performSkill(Square sqr, Piece skillOwner) {
 		
 		boolean result = false;
