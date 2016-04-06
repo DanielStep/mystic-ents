@@ -2,7 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
-import model.Trait;
+import model.traits.Trait;
 
 public class TraitFactory {
 
