@@ -1,6 +1,6 @@
 package controller;
-
 import java.util.ArrayList;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,6 +8,12 @@ import model.skills.Skill;
 import model.skills.SkillRandomizer;
 import model.skills.SkillSet;
 
+/**
+ * Class instantiates Skills, coordinates their construction by
+ * passing them to SkillRandomizer and then aggregating into set
+ * @author Daniel
+ *
+ */
 public class SkillBuilder implements Observer {
 
 	private SkillSet skillSet;

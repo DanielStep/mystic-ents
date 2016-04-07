@@ -53,7 +53,7 @@ public class PieceView extends JPanel {
 	
 	private String buildLabelString() {		
 		StringBuilder str = new StringBuilder();
-		//str.append(piece.getSkillSet().getCurrentSkill().getName().charAt(0));
+		str.append(piece.getSkillSet().getCurrentSkill().getName().charAt(0));
 		return str.toString();
 	}
 	
