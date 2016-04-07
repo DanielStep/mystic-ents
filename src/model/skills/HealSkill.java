@@ -5,7 +5,11 @@ import model.GameConfig;
 import model.Piece;
 import model.Square;
 
-
+/**
+ * Class contains logic to increase the value of health trait of another piece of the same team by constant
+ * @author Daniel
+ *
+ */
 public class HealSkill extends Skill implements IPerformTraitSkill {
 
 	final int HEALAMOUNT = 1;
@@ -14,7 +18,15 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 		// TODO Auto-generated constructor stub
 		super.setName("Heal");
 	}
-	
+	/**
+	 * Method is passed target square and skill owner piece to check if there is occupant
+	 * in the target square and whether occupant is same team as skill owner.
+	 * If so, target occupant's healthtrait value is increase by constant.
+	 * If not, exception is thrown.
+	 * @param Square
+	 * @param Piece
+	 * return Boolean
+	 */
 	@Override
 	public void performSkill(Square aSqr, Square tSqr) {
 
