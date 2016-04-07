@@ -1,6 +1,6 @@
 package controller;
-
 import java.util.ArrayList;
+
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -13,6 +13,12 @@ import model.skills.RangeSkill;
 import model.skills.Skill;
 import model.skills.SkillSet;
 
+/**
+ * Class instantiates Skills, coordinates their construction by
+ * passing them to SkillRandomizer and then aggregating into set
+ * @author Daniel
+ *
+ */
 public class SkillBuilder implements Observer {
 
 	private Random randomNumGen;
@@ -23,9 +29,11 @@ public class SkillBuilder implements Observer {
 		generateSkillSetFromSkills();
 	}
 
-	/*
-	 * Need to refactor, break up method
-	 * */
+	/**
+	 * Method instantiates all skills, packages into ArrayList
+	 * and passes to SkilLRandomizer to randomly assign one skill 
+	 * to the skill set.
+	 */
 	private void generateSkillSetFromSkills() {
 
 		HealSkill healSkill = new HealSkill();
