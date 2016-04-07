@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import model.GameTurn;
 
 /**
- * A component of ControlPanel
+ * A component of ControlPanel: manually/automatically end the current turn 
  * @author Phan Vo
  *
  */

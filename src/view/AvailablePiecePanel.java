@@ -5,7 +5,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
- * A component of ControlPanel
+ * A component of ControlPanel: Display the remaining pieces of the current team
  * @author Phan Vo
  *
  */
