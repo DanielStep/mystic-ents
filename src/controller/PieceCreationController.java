@@ -21,7 +21,7 @@ public class PieceCreationController {
 	final int USURPERS_IN_TEAM = 1;
 	
 	private PieceBuilder pieceBuilder = new PieceBuilder();
-
+	
 	public PieceCreationController() {
 		
 	}
