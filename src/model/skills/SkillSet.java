@@ -2,7 +2,12 @@ package model.skills;
 
 import java.util.ArrayList;
 import java.util.Observable;
-
+/**
+ * Class is an aggregate wrapper for whatever skill(s) are randomly assigned to piece
+ * @author Daniel
+ * @modified Mark
+ *
+ */
 public class SkillSet extends Observable {
 	
 	private ArrayList<Skill> listOfSkills = new ArrayList<Skill>();
