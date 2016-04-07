@@ -1,11 +1,12 @@
 package model.skills;
 
 
+import model.GameConfig;
 import model.Piece;
 import model.Square;
 
 
-public class HealSkill extends Skill implements IPerformSquareSkill {
+public class HealSkill extends Skill implements IPerformTraitSkill {
 
 	final int HEALAMOUNT = 1;
 	
@@ -14,34 +15,37 @@ public class HealSkill extends Skill implements IPerformSquareSkill {
 		super.setName("Heal");
 	}
 	
-	public boolean performSkill(Square sqr, Piece skillOwner) {
-		
-		boolean result = false;
-		Piece targetPiece;
-		
+	@Override
+	public void performSkill(Square aSqr, Square tSqr) {
+
 		/*Test if square empty, then if square occupant in other team. If either, throw exception. 
 		 * If neither increment occupants HealthTrait Value and set result to true*/
+		
+		Piece tPiece = tSqr.getOccupant();		
 		try{
-			if(sqr.getOccupant() == null){
+			if(tSqr.getOccupant() == null){
 				throw new IncorrectSquareException("No piece in square.");
 			}
 			else{
-				targetPiece = sqr.getOccupant();
-				
-				if (targetPiece.getTeam() != skillOwner.getTeam()){
-					
+				if (tPiece.getTeam() != aSqr.getOccupant().getTeam()){
 					throw new IncorrectSquareException("No piece in square.");
 				}
-				else{
-					targetPiece.getTraitSet().getHealthTrait().modifyValue(HEALAMOUNT);	
-					result = true;
+				else{					
+					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.HEALAMOUNT);					
+					//result = true;
 				}
 			}
 		}
-	catch(IncorrectSquareException e){
-		 System.out.println(e.getMessage());
+		catch(IncorrectSquareException e){
+			System.out.println(e.getMessage());
 		}
-		return result;
+		
+	}
+
+	@Override
+	public void applyModifier(Piece skillOwner) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

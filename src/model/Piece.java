@@ -5,8 +5,21 @@ import model.traits.TraitSet;
 
 public abstract class Piece implements IAttack {
 
-	private TraitSet traitSet;
-	private SkillSet skillSet;
+	protected TraitSet traitSet;
+	protected SkillSet skillSet;
+	
+	protected Boolean isUsurper = false;
+	protected Boolean activePiece = false;
+	protected Boolean inPlay = false;
+
+	protected int id;
+	/** Current x coordinate **/
+	protected int cX;
+	/** Current y coordinate **/
+	protected int cY;	
+
+	// Team color
+	protected Enum<Team> team;
 	
 	public SkillSet getSkillSet() {
 		return skillSet;
@@ -23,18 +36,6 @@ public abstract class Piece implements IAttack {
 	public void setTraitSet(TraitSet traitSet) {
 		this.traitSet = traitSet;
 	}
-	
-	private Boolean activePiece = false;
-	private Boolean inPlay = false;
-
-	protected int id;
-	/** Current x coordinate **/
-	protected int cX;
-	/** Current y coordinate **/
-	protected int cY;	
-
-	// Team color
-	protected Enum<Team> team;
 
 	public int getcX() {
 		return cX;
@@ -66,6 +67,9 @@ public abstract class Piece implements IAttack {
 	}
 
 	public void attackOut(Piece piece) {
+		
+		System.out.println("Action on: " + piece);
+		
 		// TODO Auto-generated method stub
 
 	}
@@ -84,6 +88,14 @@ public abstract class Piece implements IAttack {
 
 	public void setActivePiece(Boolean activePiece) {
 		this.activePiece = activePiece;
+	}
+	
+	public Boolean getIsUsurper() {
+		return isUsurper;
+	}
+
+	public void setIsUsurper(Boolean isUsurper) {
+		this.isUsurper = isUsurper;
 	}
 
 }

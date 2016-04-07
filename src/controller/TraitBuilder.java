@@ -60,10 +60,6 @@ public class TraitBuilder {
 		TraitRandomizer traitRandomizer = new TraitRandomizer();
 		traitRandomizer.generateRandomTraitValues(listOfTraits, randomNumGen);
 	}
-	
-	
-	
-	
 
 	public TraitSet getTraitSet() {
 		return traitSet;

@@ -15,10 +15,7 @@ public class SkillBuilder {
 	private Random randomNumGen;
 	private SkillSet skillSet;
 
-
-
 	public SkillBuilder(Random randomNumGen) {
-
 		this.randomNumGen = randomNumGen;
 		generateSkillSetFromSkills();
 	}

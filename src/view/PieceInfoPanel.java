@@ -60,7 +60,7 @@ public class PieceInfoPanel extends JPanel{
 		lblSkillValue.setText("-");
 	}
 	
-	public void updatePieceInformation(Piece pce) {		
+	public void updatePieceInformation(Piece pce) {
 		lblHealthValue.setText(String.valueOf(pce.getTraitSet().getHealthTrait().getTraitValue()));
 		lblAttackDamageValue.setText(String.valueOf(pce.getTraitSet().getDamageTrait().getTraitValue()));		
 		lblMoveValue.setText(String.valueOf(pce.getTraitSet().getRangeTrait().getTraitValue()));

@@ -1,21 +1,24 @@
 package model.skills;
 
+import model.GameConfig;
 import model.Piece;
+import model.Square;
 
 public class RangeSkill extends Skill implements IPerformTraitSkill {
 
-	private final int RANGEMULTIPLIER = 2;
-
 	public RangeSkill() {
 		// TODO Auto-generated constructor stub
-		super.setName("<html>Range <br>amplifier</html>");
+		super.setName("Range");
 	}
 	
 	@Override
-	public void performSkill(Piece skillOwner) {
-
-		skillOwner.getTraitSet().getRangeTrait().modifyValue(RANGEMULTIPLIER);
-
+	public void performSkill(Square aSqr, Square tSqr) {
+		
+	}
+	
+	@Override	
+	public void applyModifier(Piece skillOwner) {
+		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.RANGEMULTIPLIER);
 	}
 
 }

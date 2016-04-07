@@ -16,13 +16,14 @@ public class BuildSkill extends Skill implements IPerformSquareSkill {
 	}
 	
 	@Override
-	public boolean performSkill(Square sqr, Piece skillOwner) {
+	public boolean performSkill(Square aSqr, Square tSqr) {
 
 		// If the square is empty and is accessible then build
-		if(sqr.getOccupant()==null && sqr.getAccessible()){
-			sqr.setAccessible(false);			
+		if (tSqr.getOccupant()==null && tSqr.getAccessible()) {
+			tSqr.setAccessible(false);
 		}
-		return !sqr.getAccessible();
+		return !tSqr.getAccessible();
+		
 	}
 
 }

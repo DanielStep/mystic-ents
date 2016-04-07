@@ -5,5 +5,6 @@ import model.Square;
 
 public interface IPerformSquareSkill {
 
-	public boolean performSkill(Square sqr, Piece skillOwner);
+	public boolean performSkill(Square aSqr, Square tSqr);
+	
 }

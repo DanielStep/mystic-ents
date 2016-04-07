@@ -5,14 +5,10 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.border.LineBorder;
 
-import model.Board;
 import model.Piece;
 import model.Square;
 import model.State;
-import model.Team;
-import view.ControlPanel;
 import view.DialogView;
-import view.PieceInfoPanel;
 import view.SquareView;
 import view.TeamColorPanel;
 
@@ -38,7 +34,9 @@ public class PieceActionController {
 		//Minimize calls to sqr by getting occupant;
 		Piece ocpt = sqr.sqrObj.getOccupant();
 		Square sqrObj = sqr.sqrObj;
-		
+		if (!sqrObj.getAccessible()) {
+			return;
+		}
 		//Ascertain if square is new occupant
 		if (ocpt != gameController.getActivePiece() && 
 			ocpt != null &&
@@ -58,8 +56,7 @@ public class PieceActionController {
 						//Check for the current team in turn
 						if (ocpt.getTeam() == gameController.getCurrentTeam()) {
 							sqr.setBorder(new LineBorder(Color.YELLOW, 3));
-							//board.getBoardState().setRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
-							gameController.getGameBoard().getBoardState().setRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
+							gameController.getGameBoard().getBoardState().getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 							gameController.setActivePiece(ocpt);
 							gameController.updatePieceInformation(ocpt);
 							gameController.setActiveSquare(sqrObj);
@@ -84,7 +81,9 @@ public class PieceActionController {
 						}
 					}						
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
-					
+					if (sqrObj.getOccupant() != null) {
+						gameController.getActivePiece().attackOut(sqrObj.getOccupant());
+					}
 				}				
 	            break;
 	            

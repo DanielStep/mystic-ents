@@ -14,7 +14,7 @@ import model.Square;
 /**
  * Inner panel for displaying game objects.
  * 
- * @author skh
+ * @author skh, ms
  *
  */
 public class BoardPanel extends JPanel {
@@ -40,11 +40,9 @@ public class BoardPanel extends JPanel {
 	/**
 	 * Draw the squares
 	 */
-	public void drawBoard(Object[][] board) {
-		
+	public void drawBoard(Object[][] board) {		
 		//Need to add pre-condition that board cannot be null
-		//else throw exception
-		
+		//else throw exception		
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				SquareView sqr = new SquareView(pac, (Square) board[i][j]);

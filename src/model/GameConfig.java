@@ -19,6 +19,11 @@ public class GameConfig {
 	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
     private static int ROW_COL;
     
+    //SKILLS
+	public static final int DAMAGETRAITMULTIPLIER = 2;
+	public static final int RANGEMULTIPLIER = 2;
+	public static final int HEALAMOUNT = 1;
+    
       
 	//GAME TIMER
 	public static int getTimerPeriod() {

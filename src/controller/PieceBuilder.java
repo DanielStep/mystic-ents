@@ -23,7 +23,6 @@ public class PieceBuilder {
 		newPiece.setTraitSet(newTraitSet);
 		newPiece.setSkillSet(newSkillSet);
 		newPiece.setTeam(team);
-//		
-//		System.out.println("--------------- skillll!!! = " + newSkillSet.getCurrentSkill().toString());
+
 	}
 }

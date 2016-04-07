@@ -4,6 +4,18 @@ import java.awt.Color;
 import java.lang.reflect.Field;
 
 public class GameUtils {
+	
+	private static GameUtils instance;
+	
+	private GameUtils(){}
+	
+	public static synchronized GameUtils getInstance() {
+		if (instance == null) {
+			instance = new GameUtils();
+		}
+		return instance;
+	}
+	
 	/**
 	* Converts a given string into a color.
 	* 
@@ -13,7 +25,7 @@ public class GameUtils {
 	* 	is sent as a fallback (default) if the parsing fails.
 	* @return the color.
 	*/
-	public static Color stringToColor(final String value, Color dft) {
+	public Color stringToColor(final String value, Color dft) {
 		//null value is handled by returning default; 
 		if (value == null) {
 			return dft;

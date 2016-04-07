@@ -20,9 +20,12 @@ public class Board extends Observable {
 	 */
 	private Square[][] boardData = new Square[GameConfig.getROW_COL()][GameConfig.getROW_COL()];
 	private ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
+	
 	private BoardGenerator boardGen = new BoardGenerator();
+	private BoardUtils boardUtils;
 	
 	public Board() {
+		boardUtils = BoardUtils.getInstance();
 		boardGen.loadMapData();	
 	}
 	
@@ -51,26 +54,12 @@ public class Board extends Observable {
 	}
 	
 	public void clearRangeCells() {
-		for(int i = 0; i < boardData.length; i++) {
-			for(int j = 0; j < boardData.length; j++) {
-				boardData[i][j].setInrange(false);
-			}
-		}
+		boardData = boardUtils.clearRangeCells(boardData);
 		doCellsUpdate();
 	}
 	
-	public void setRangeCells(int x, int y) {
-		int range = boardData[x][y].getOccupant().getTraitSet().getRangeTrait().getTraitValue();
-		for(int i = (x-range); i < (x+(1+range)); i++) {
-			if (i >= 0 && i < boardData.length) {
-				for(int j = (y-range); j < (y+(1+range)); j++) {
-					if (j >= 0 && j < boardData[i].length) {
-						boardData[i][j].setInrange(true);
-					}
-				}				
-			}
-
-		}
+	public void getRangeCells(int x, int y) {
+		boardData = boardUtils.getRangeCells(x, y, boardData);
 		doCellsUpdate();
 	}
 	

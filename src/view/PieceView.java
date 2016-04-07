@@ -1,70 +1,72 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.GameUtils;
+import model.Piece;
+
 /**
  * Representation of piece. Eg. Usurper, regularpiece
  * 
- * @author skh
+ * @author skh, ms
  *
  */
 public class PieceView extends JPanel {
-
+	
 	private static final long serialVersionUID = 1L;
-
-	private int ID;
 
 	// Represents team.
 	private Color color;
-	private boolean isUsurper; // TODO: change it to subtype
-	private JLabel label;
+	private Piece piece;
+	private GameUtils gameUtils;
+	private int size = 40;
+	JLabel label;
+	
+	PieceView(Piece pce) {
 
-	PieceView(Color c, boolean usurper) {
-		this.color = c;
-		label = new JLabel();
-		label.setText(usurper ? "U" : "R");
+		gameUtils = GameUtils.getInstance();
+		
+		this.piece = pce;
+		this.color = gameUtils.stringToColor(pce.getTeam().name(), Color.WHITE);
+		
+		addPieceLabel();
+    
 	}
-
+	
+	private void addPieceLabel() {		
+	    label = new JLabel(buildLabelString(), JLabel.LEFT);
+	    label.setFont(new Font("Sans-serif", Font.PLAIN, 15));
+	    if (piece.getIsUsurper()){
+	    	label.setForeground(this.color);
+	    } else {
+	    	label.setForeground(Color.white);
+	    }
+	    this.add(label);
+	}	
+	
+	private String buildLabelString() {		
+		StringBuilder str = new StringBuilder();
+		str.append(piece.getSkillSet().getCurrentSkill().getName().charAt(0));
+		return str.toString();
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
-		g.drawOval(0, 0, 20, 20);
-		g.setColor(this.color);
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
-
-	public boolean isUsurper() {
-		return isUsurper;
-	}
-
-	public void setUsurper(boolean isUsurper) {
-		this.isUsurper = isUsurper;
-	}
-
-	public JLabel getLabel() {
-		return label;
-	}
-
-	public void setLabel(String txt) {
-		this.label.setText(txt);
-	}
-
-	public int getID() {
-		return ID;
-	}
-
-	public void setID(int iD) {
-		ID = iD;
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setPaint(this.color);
+		if (piece.getIsUsurper()){
+			g2.setStroke(new BasicStroke(4));
+			g.drawOval(2, 2, size-4, size-4);
+		} else {
+			g2.fillOval(0, 0, size, size);		
+		}
 	}
 
 }

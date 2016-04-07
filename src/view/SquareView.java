@@ -17,10 +17,9 @@ import model.Square;
 
 public class SquareView extends JPanel implements MouseListener {
 
-	// Used for mapping with the back-end model
-	private int[] ID = new int[2];
-	public Square sqrObj;
 	private PieceActionController pac;
+	private Color defaultBg = Color.WHITE;
+	public Square sqrObj;
 
 	public SquareView(PieceActionController p, Square o) {
 		super();
@@ -28,27 +27,31 @@ public class SquareView extends JPanel implements MouseListener {
 		this.sqrObj = o;
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(Color.BLACK, 1));
-		//BorderFactory.createStrokeBorder(new BasicStroke(5.0f)
-		this.setPreferredSize(new Dimension(20, 20));
-
-		//System.out.println(o.getID()[0] + " : " + o.getID()[1] + " : " + o.getOccupant());
-		/*
-		 * Elements based on Square model:
-		 */
-
 		this.setBackground(getBackgroundColor(o));
-
+		
+		/*
+		 * Extensibility of MVC decoupling of Square model with View
+		 * We are accessing the model not the view properties throughout the game
+		 * So only need to assign MouseListener to the 'parent' and
+		 * update the Model. 
+		 */
+		addTeamPiece(o);
 		addMouseListener(this);
 	}
 
+	private void addTeamPiece(Square o) {		
+		if (o.getOccupant() == null) {
+			return;
+		}
+		PieceView pce = new PieceView(o.getOccupant());
+		this.add(pce);
+	}
+	
 	private Color getBackgroundColor(Square o) {
-		Color bg = Color.WHITE;
+		Color bg = defaultBg;
 		bg = o.getInrange() ? Color.YELLOW : bg;
 		bg = !o.getAccessible() ? Color.BLACK : bg;
-		bg = o.getTeamTower() ? Color.GREEN : bg;
-		if (o.getOccupant() != null) {
-			bg = GameUtils.stringToColor(o.getOccupant().getTeam().name(), bg);
-		}		
+		bg = o.getTeamTower() ? Color.GREEN : bg;	
 		return bg;
 	}
 	
@@ -84,3 +87,4 @@ public class SquareView extends JPanel implements MouseListener {
 	}
 
 }
+

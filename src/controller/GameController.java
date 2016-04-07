@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.Board;
+import model.BoardUtils;
 import model.GameTurn;
 import model.GameUtils;
 import model.Piece;
@@ -30,7 +31,8 @@ import view.TimePanel;
 public class GameController implements Observer {
 	
 	//GAME CONTROL
-	private static GameTurn gameTimer;	
+	private static GameTurn gameTimer;
+	private GameUtils gameUtils;
 	private BoardController gameBoard;
 	
 	//UI
@@ -51,6 +53,7 @@ public class GameController implements Observer {
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 	
 	public GameController() {
+		gameUtils = GameUtils.getInstance();
 		currentState = State.STARTGAME;
 		generateGamePieces();
 		buildTimer();
@@ -83,6 +86,7 @@ public class GameController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		GameTurn gameTurn = (GameTurn) o;
+		//Post condition exception if GameTuen is null, return (exit?)
 		if (gameTurn == null) return;
 		
 		int data = gameTurn.getGameTimer();
@@ -133,7 +137,7 @@ public class GameController implements Observer {
 		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;
 
 		// update team color on ControlPanel view based on current team enum
-		teamColorPanel.setTeamColor(GameUtils.stringToColor(currentTeam.name(), Color.BLACK));
+		teamColorPanel.setTeamColor(gameUtils.stringToColor(currentTeam.name(), Color.BLACK));
 		
 		//reset the Piece info panel on switch team.
 		pieceInfoPanel.resetPieceInformation();
