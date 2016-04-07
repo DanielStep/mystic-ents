@@ -8,7 +8,7 @@ public abstract class Trait implements ITraitValueModifiable {
 		setTraitValue(startingValue);
 	}
 
-	public void modifyValue(int changeBy) {		
+	public void modifyValue(int changeBy) {
 		setTraitValue(getTraitValue() + changeBy);
 	}
 

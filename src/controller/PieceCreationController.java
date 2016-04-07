@@ -1,5 +1,4 @@
 package controller;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,19 +8,28 @@ import model.Team;
 import model.UsurperPiece;
 import view.BoardFrame;
 
+/**
+ * PieceCreationController coordinates creation of Piece instances,
+ * determines the number of different Pieces subtypes that are created
+ * and returns them to the client in an ArrayList<Piece>
+ * @author Daniel
+ *
+ */
 public class PieceCreationController {
 	
 	final int REGULARPIECES_IN_TEAM = 7;
 	final int USURPERS_IN_TEAM = 1;
 	
 	private PieceBuilder pieceBuilder = new PieceBuilder();
-
+	
 	public PieceCreationController() {
-		
-		//PieceActionController pac = new PieceActionController();
 		
 	}
 	
+	/**
+	 * Method adds appropriate number and type of Pieces from each team to pieceArrayList
+	 * @return ArrayList<Piece>
+	 */
 	public ArrayList<Piece> generateGamePieces(){
 		
 		ArrayList<Piece> piecesArrayList = new ArrayList<Piece>();
@@ -40,6 +48,15 @@ public class PieceCreationController {
 
 	}
 	
+	/**
+	 * Method given particular team enum, instantiates new regular piece and passes it
+	 * to PieceBuilder for construction. Returns constructed new regular piece for insertion
+	 * into piece array.
+	 * 
+	 * TODO Refactor for Builder Pattern, move Piece instantiation to PieceBuilder.
+	 * @param team
+	 * @return Piece
+	 */
 	public Piece createRegPiece(Enum<Team> team){
 		
 		RegularPiece newRegPiece = new RegularPiece();
@@ -48,6 +65,15 @@ public class PieceCreationController {
 		return newRegPiece;
 	}
 	
+	/**
+	 * Method given particular team enum, instantiates new usurper piece and passes it
+	 * to PieceBuilder for construction. Returns constructed new usurper piece for insertion
+	 * into piece array.
+	 * 
+	 * TODO Refactor for Builder Pattern, move Piece instantiation to PieceBuilder.
+	 * @param team
+	 * @return
+	 */
 	public Piece createUsurpPiece(Enum<Team> team){
 		
 		UsurperPiece newUsurpPiece = new UsurperPiece();

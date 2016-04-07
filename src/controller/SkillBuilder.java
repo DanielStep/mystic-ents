@@ -1,8 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
+import model.Board;
 import model.skills.AttackSkill;
 import model.skills.BuildSkill;
 import model.skills.HealSkill;
@@ -10,7 +13,7 @@ import model.skills.RangeSkill;
 import model.skills.Skill;
 import model.skills.SkillSet;
 
-public class SkillBuilder {
+public class SkillBuilder implements Observer {
 
 	private Random randomNumGen;
 	private SkillSet skillSet;
@@ -45,5 +48,15 @@ public class SkillBuilder {
 	
 	public SkillSet getSkillSet() {
 		return skillSet;
+	}
+
+	public void observe(Observable o) {
+		o.addObserver(this);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Object[][] data = ((Board) o).getBoardData();
+
 	}
 }

@@ -32,8 +32,7 @@ public class BoardUtils {
 		if (pce.getSkillSet().getCurrentSkill().getName() == "range") {
 			
 			
-			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);
-			
+			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);			
 			
 		};
 		
