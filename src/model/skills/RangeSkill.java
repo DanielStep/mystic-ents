@@ -4,10 +4,15 @@ import model.GameConfig;
 import model.Piece;
 import model.Square;
 
+/**
+ * Increases movement range
+ * @author skh
+ *
+ */
+
 public class RangeSkill extends Skill implements IPerformTraitSkill {
 
 	public RangeSkill() {
-		// TODO Auto-generated constructor stub
 		super.setName("Range");
 	}
 	
