@@ -29,12 +29,12 @@ public class BoardUtils {
 		Piece pce = updateData[x][y].getOccupant();		
 		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
 		
-		if (pce.getSkillSet().getCurrentSkill().getName() == "range") {
+		/*if (pce.getSkillSet().getCurrentSkill().getName() == "range") {
 			
 			
 			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);			
 			
-		};
+		};*/
 		
 		for(int i = (x-range); i < (x+(1+range)); i++) {
 			if (i >= 0 && i < updateData.length) {
