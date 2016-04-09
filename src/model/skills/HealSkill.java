@@ -12,8 +12,6 @@ import model.Square;
  */
 public class HealSkill extends Skill implements IPerformTraitSkill {
 
-	final int HEALAMOUNT = 1;
-	
 	public HealSkill() {
 		// TODO Auto-generated constructor stub
 		super.setName("Heal");
@@ -43,7 +41,7 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 					throw new IncorrectSquareException("No piece in square.");
 				}
 				else{					
-					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.HEALAMOUNT);					
+					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.HEALAMOUNT);
 					//result = true;
 				}
 			}
