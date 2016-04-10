@@ -53,7 +53,7 @@ public class BoardFrame extends JFrame {
 	/**
 	 * Creating the board panel and control panel
 	 */
-	public void buildUI() {
+	private void buildUI() {
 		gamePanel = new BoardPanel();
 		this.add(gamePanel, BorderLayout.CENTER);
 
@@ -68,7 +68,7 @@ public class BoardFrame extends JFrame {
 	public ControlPanel getControlPanel() {
 		return controlPanel;
 	}
-	
+
 	public void refreshBoard(Object[][] data) {
 		// gamePanel.refreshBoard(data);
 	}
