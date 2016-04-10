@@ -40,7 +40,7 @@ public class BoardPanel extends JPanel {
 	/**
 	 * Draw the squares
 	 */
-	public void drawBoard(Object[][] board) {		
+	private void drawBoard(Object[][] board) {		
 		//Need to add pre-condition that board cannot be null
 		//else throw exception		
 		for (int i = 0; i < board.length; i++) {
