@@ -31,7 +31,7 @@ import view.TimePanel;
 public class GameController implements Observer {
 	
 	//GAME CONTROL
-	private static GameTurn gameTimer;
+	private GameTurn gameTimer;
 	private GameUtils gameUtils;
 	private BoardController gameBoard;
 	
@@ -228,7 +228,7 @@ public class GameController implements Observer {
 		this.targetSquare = targetSquare;
 	}
 
-	public static GameTurn getGameTurn() {
+	public GameTurn getGameTurn() {
 		return gameTimer;
 	}
 
