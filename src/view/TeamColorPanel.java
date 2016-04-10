@@ -12,7 +12,7 @@ import javax.swing.border.TitledBorder;
 import model.Team;
 
 /**
- * A component of ControlPanel
+ * A component of ControlPanel: Display the current team color
  * @author Phan Vo
  *
  */

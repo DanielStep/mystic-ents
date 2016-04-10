@@ -1,5 +1,9 @@
 package model.traits;
-
+/**
+ * Abstract class inherited by all traits, containing traitValue and modification method
+ * @author Daniel
+ *
+ */
 public abstract class Trait implements ITraitValueModifiable {
 
 	private int traitValue;

@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.GameConfig;
 import model.GameUtils;
 import model.Piece;
 
@@ -30,19 +31,16 @@ public class PieceView extends JPanel {
 	JLabel label;
 	
 	PieceView(Piece pce) {
-
 		gameUtils = GameUtils.getInstance();
-		
+		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL())-3.5);
 		this.piece = pce;
 		this.color = gameUtils.stringToColor(pce.getTeam().name(), Color.WHITE);
-		
 		addPieceLabel();
-    
 	}
 	
 	private void addPieceLabel() {		
 	    label = new JLabel(buildLabelString(), JLabel.LEFT);
-	    label.setFont(new Font("Sans-serif", Font.PLAIN, 15));
+	    label.setFont(new Font("Sans-serif", Font.PLAIN, (int) (size/2.5)));
 	    if (piece.getIsUsurper()){
 	    	label.setForeground(this.color);
 	    } else {
@@ -60,11 +58,14 @@ public class PieceView extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setPaint(this.color);
 		if (piece.getIsUsurper()){
+			g2.setPaint(Color.white);
+			g2.fillOval(0, 0, size, size);
+			g2.setPaint(this.color);
 			g2.setStroke(new BasicStroke(4));
-			g.drawOval(2, 2, size-4, size-4);
+			g.drawOval(2, 2, size-4, size-4);			
 		} else {
+			g2.setPaint(this.color);
 			g2.fillOval(0, 0, size, size);		
 		}
 	}

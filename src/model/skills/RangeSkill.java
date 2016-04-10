@@ -5,23 +5,23 @@ import model.Piece;
 import model.Square;
 
 /**
- * Increases movement range
- * @author skh
+ * Class that increases the piece's range trait by constant multiplier
+ * 
+ * @author Daniel skh
  *
  */
-
 public class RangeSkill extends Skill implements IPerformTraitSkill {
 
 	public RangeSkill() {
 		super.setName("Range");
 	}
-	
+
 	@Override
 	public void performSkill(Square aSqr, Square tSqr) {
-		
+
 	}
-	
-	@Override	
+
+	@Override
 	public void applyModifier(Piece skillOwner) {
 		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.RANGEMULTIPLIER);
 	}

@@ -7,7 +7,8 @@ import javax.swing.JPanel;
 
 import model.GameConfig;
 /**
- * Display board game info and controls
+ * Display board game info: timer, team color in play, remaining pieces
+ * 							selected piece, end turn mechanism
  * @author Phan Vo
  *
  */

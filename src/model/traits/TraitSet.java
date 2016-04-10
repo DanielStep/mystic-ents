@@ -2,7 +2,11 @@ package model.traits;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * Class that is an aggregate wrapper for all traits
+ * @author Daniel
+ *
+ */
 public class TraitSet {
 	
 	//TODO Consider how to make more extensible, ie adding another trait subtype without modifying structure (open closed) but retaining accessability

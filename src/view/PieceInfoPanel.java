@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import model.Piece;
 
 /**
- * A component of ControlPanel
+ * A component of ControlPanel: Display essential piece info in selection
  * @author Phan Vo
  *
  */
@@ -53,6 +53,9 @@ public class PieceInfoPanel extends JPanel{
 	    this.add(pane);
 	}
 	
+	/**
+	 * Reset piece info value by default if no piece is selected/ change player turn
+	 */
 	public void resetPieceInformation() {	
 		lblHealthValue.setText("-");
 		lblAttackDamageValue.setText("-");		
@@ -60,6 +63,10 @@ public class PieceInfoPanel extends JPanel{
 		lblSkillValue.setText("-");
 	}
 	
+	/**
+	 * Retrieve piece data from the Piece model
+	 * @param pce
+	 */
 	public void updatePieceInformation(Piece pce) {
 		lblHealthValue.setText(String.valueOf(pce.getTraitSet().getHealthTrait().getTraitValue()));
 		lblAttackDamageValue.setText(String.valueOf(pce.getTraitSet().getDamageTrait().getTraitValue()));		

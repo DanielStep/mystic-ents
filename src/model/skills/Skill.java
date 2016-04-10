@@ -1,5 +1,9 @@
 package model.skills;
-
+/**
+ * Abstract class from which all Skill inherit
+ * @author 
+ *
+ */
 public abstract class Skill{
 	private String name;
 	
