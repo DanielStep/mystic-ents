@@ -32,8 +32,8 @@ public class PieceActionController {
 	public void performAction(MouseEvent e, SquareView sqr) {
 		
 		//Minimize calls to sqr by getting occupant;
-		Piece ocpt = sqr.sqrObj.getOccupant();
-		Square sqrObj = sqr.sqrObj;
+		Piece ocpt = sqr.getSqrObj().getOccupant();
+		Square sqrObj = sqr.getSqrObj();
 		if (!sqrObj.getAccessible()) {
 			return;
 		}
