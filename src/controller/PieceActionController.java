@@ -33,6 +33,7 @@ public class PieceActionController {
 		//Minimize calls to sqr by getting occupant;
 		Piece ocpt = sqr.getSqrObj().getOccupant();
 
+		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
 			//Check for piece
 			if (ocpt != null) {
@@ -43,21 +44,21 @@ public class PieceActionController {
 						switchPiece(ocpt);
 					}
 					manageSquare(sqr.getSqrObj(), ocpt);
-				} else if (ocpt.getTeam() != gameController.getCurrentTeam()) {					
-					if (sqr.getSqrObj().getInrange() && sqr.getSqrObj().getAccessible()) {
+				} else {
+					if (!ocpt.getInMove() && activePiece == null) {
 						// display dialog message if picking the wrong team piece
+						String msg = "It is Team " + gameController.getCurrentTeam() + "'s turn!";
+						DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
+						return;
+					}					
+					if (sqr.getSqrObj().getInrange() && sqr.getSqrObj().getAccessible()) {
+						// display dialog message if attacking
 						if (!ocpt.getInMove() && activePiece != null) {
 							attackPiece(ocpt);
 							String msg = "Attack!";
 							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());						
 						}					
 					}
-				} else {
-					if (!ocpt.getInMove() && activePiece == null) {
-						// display dialog message if picking the wrong team piece
-						String msg = "It is Team " + gameController.getCurrentTeam() + "'s turn!";
-						DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
-					}					
 				}
 			} else {
 				//An inaccessible square cannot be moved to or selected
@@ -66,10 +67,13 @@ public class PieceActionController {
 				}
 			}
 		}
-		
+		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			String msg = "Performing Skill!";
-			DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());			
+			if (activePiece != null) {
+				// display dialog message if performing SKILL
+				String msg = "Performing Skill!";
+				DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
+			}
 		}
 
 	}	
