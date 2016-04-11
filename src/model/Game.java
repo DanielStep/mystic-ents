@@ -3,15 +3,15 @@ package model;
 import java.awt.Color;
 import java.lang.reflect.Field;
 
-public class GameUtils {
+public class Game {
 	
-	private static GameUtils instance;
+	private static Game instance;
 	
-	private GameUtils(){}
+	private Game(){}
 	
-	public static synchronized GameUtils getInstance() {
+	public static synchronized Game getInstance() {
 		if (instance == null) {
-			instance = new GameUtils();
+			instance = new Game();
 		}
 		return instance;
 	}

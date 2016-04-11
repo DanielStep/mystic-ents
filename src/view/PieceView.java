@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.GameConfig;
-import model.GameUtils;
+import model.Game;
 import model.Piece;
 
 /**
@@ -26,12 +26,12 @@ public class PieceView extends JPanel {
 	// Represents team.
 	private Color color;
 	private Piece piece;
-	private GameUtils gameUtils;
+	private Game gameUtils;
 	private int size = 40;
 	private JLabel label;
 
 	PieceView(Piece pce) {
-		gameUtils = GameUtils.getInstance();
+		gameUtils = Game.getInstance();
 		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()) - 3.5);
 		this.piece = pce;
 		this.color = gameUtils.stringToColor(pce.getTeam().name(), Color.WHITE);

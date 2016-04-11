@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import controller.PieceActionController;
-import model.GameUtils;
+import model.Game;
 import model.Square;
 
 public class SquareView extends JPanel implements MouseListener {

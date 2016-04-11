@@ -12,14 +12,6 @@ public abstract class Piece implements IAttack {
 	protected Boolean inPlay = false;
 	protected Boolean inMove = false;
 
-	public Boolean getInMove() {
-		return inMove;
-	}
-
-	public void setInMove(Boolean inMove) {
-		this.inMove = inMove;
-	}
-
 	protected int id;
 	/** Current x coordinate **/
 	protected int cX;
@@ -80,6 +72,14 @@ public abstract class Piece implements IAttack {
 		
 		// TODO Auto-generated method stub
 
+	}
+	
+	public Boolean getInMove() {
+		return inMove;
+	}
+
+	public void setInMove(Boolean inMove) {
+		this.inMove = inMove;
 	}
 
 	public Boolean getInPlay() {

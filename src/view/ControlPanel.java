@@ -1,11 +1,15 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
 import model.GameConfig;
+import model.GameTurn;
+import model.Piece;
+import model.Game;
 /**
  * Display board game info: timer, team color in play, remaining pieces
  * 							selected piece, end turn mechanism
@@ -18,13 +22,15 @@ public class ControlPanel extends JPanel{
 	private AvailablePiecePanel pnAvailablePiece;
 	private PieceInfoPanel pnPieceInfo;
 	private EndTurnPanel pnEndTurn;
+
+	private Game gameUtils;
 	
 	public ControlPanel() {
-		// TODO Auto-generated constructor stub
+		
 		super();
-//		this.getContentPane().setLayout(new FlowLayout(FlowLayout.LEFT));
-//	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	    this.setPreferredSize(new Dimension(220, 500));
+		
+		gameUtils = Game.getInstance();
+		
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultControlPanelWidth(), GameConfig.getDefaultHeight()));
 	    
@@ -43,9 +49,23 @@ public class ControlPanel extends JPanel{
 	    pnEndTurn = new EndTurnPanel();
 	    this.add(pnEndTurn);
 	    
-//	    this.pack();
-//	    this.setVisible(true);
 	}
+	
+	public void doUIEndTurn() {
+		//reset the Piece info panel on switch team.
+		pnPieceInfo.resetPieceInformation();
+		
+		// auto end the current player's turn
+		pnEndTurn.executeEndTurn();
+	}
+	
+	public void doUIUpdate(GameTurn gameTurn) {
+		// update time on ControlPanel view		
+		pnTime.setTime(gameTurn.getGameTimer());
+
+		// set end turn conditions
+		pnEndTurn.setGameTurn(gameTurn);
+	}	
 	
 	public TimePanel getTimePanel() {
 		return pnTime;
@@ -66,4 +86,19 @@ public class ControlPanel extends JPanel{
 	public PieceInfoPanel getPieceInfoPanel() {
 		return pnPieceInfo;
 	}	
+	
+	public void setPieceCount(int count) {
+		// update available pieces for the current team 
+		pnAvailablePiece.setAvailablePieces(count);
+	}	
+
+	public void setCurrentTeam(String team) {
+		// update team color on ControlPanel view based on current team enum
+		pnTeamColor.setTeamColor(gameUtils.stringToColor(team, Color.BLACK));
+	}	
+	
+	public void updatePieceInformation(Piece pce) {
+		
+	}
+	
 }

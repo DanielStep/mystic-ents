@@ -1,12 +1,20 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import model.Board;
-import model.Piece;
+
 import view.BoardFrame;
+
+/**
+ * Controller for board state
+ * Generates the Board Model
+ * Generates the Board View
+ * Observes Board Model changes and calls view update
+ * @author Mark
+ *
+ */
 
 public class BoardController implements Observer {
 
@@ -19,29 +27,16 @@ public class BoardController implements Observer {
 		observe(boardState);
 		
 		PieceActionController pac = new PieceActionController(this);
+		// set PieceActionController's game controller
+		pac.setGameController(g);	
 		
 		// After we placed pieces inside boardState, initialize boardView
-		//boardState.init();
 		boardFrame = new BoardFrame();
 		boardFrame.getBoardPanel().setPac(pac);
 		boardState.init();
-		boardFrame.pack();
-		
-		// set team control in PieceActionController
-		pac.setTeamColorPanel(boardFrame.getControlPanel().getTeamColorPanel());
-		
-		// set PieceActionController's game controller
-		pac.setGameController(g);
+		boardFrame.pack();		
 
-		
-		// Tell the View that when ever the calculate button
-		// is clicked to execute the actionPerformed method
-		// in the CalculateListener inner class
-
-		// theView.addBoardListener(new BoardListener());
-
-	}	
-
+	}
 
 	public void observe(Observable o) {
 		o.addObserver(this);
