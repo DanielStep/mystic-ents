@@ -10,15 +10,10 @@ import model.Square;
  * @author Daniel skh
  *
  */
-public class RangeSkill extends Skill implements IPerformTraitSkill {
+public class RangeSkill extends Skill implements Modifier {
 
 	public RangeSkill() {
 		super.setName("Range");
-	}
-
-	@Override
-	public void performSkill(Square aSqr, Square tSqr) {
-
 	}
 
 	@Override

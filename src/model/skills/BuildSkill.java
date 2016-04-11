@@ -1,6 +1,5 @@
 package model.skills;
 
-import model.Piece;
 import model.Square;
 
 /**
