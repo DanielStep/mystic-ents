@@ -65,15 +65,7 @@ public class GameController implements Observer {
 	public void generateGamePieces() {
 		setGamePiecesList((new PieceCreationController()).generateGamePieces());
 	}	
-	
-	public void computeWinner() {
-		
-	}
-	
-	public void observe(Observable o) {
-		o.addObserver(this);
-	}
-	
+
 	public void setUIObjects(BoardController bd) {
 		setControlPanel(bd.getBoardFrame().getControlPanel());
 		teamColorPanel = controlPanel.getTeamColorPanel();
@@ -89,29 +81,13 @@ public class GameController implements Observer {
 		//Post condition exception if GameTuen is null, return (exit?)
 		if (gameTurn == null) return;
 		
-		int data = gameTurn.getGameTimer();
-		
-		// update time on ControlPanel view
-		if (timePanel != null) {			
-			timePanel.setTime(data);
-		}
-
-		// set end turn conditions
-		if (endTurnPanel != null) {
-			endTurnPanel.setGameTurn(gameTurn);
-		}
-
-		// update available pieces for the current team 
-		//if (gamePiecesList != null) {
-		if (teamColorPanel != null) {
-			int count = getAvailablePieceCount();
-			controlPanel.getAvailablePiecePanel().setAvailablePieces(count);
-		}
+		UIUpdate(gameTurn);
 		
 		// when time is up
-		if (data == 0) {
+		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
 		}
+		
 	}
 	
 	private int getAvailablePieceCount() {
@@ -136,19 +112,45 @@ public class GameController implements Observer {
 		//Change teams
 		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;
 
-		// update team color on ControlPanel view based on current team enum
-		teamColorPanel.setTeamColor(gameUtils.stringToColor(currentTeam.name(), Color.BLACK));
+		//Update UI
+		UIEndTurn();
 		
-		//reset the Piece info panel on switch team.
-		pieceInfoPanel.resetPieceInformation();
-		
-		// auto end the current player's turn
-		endTurnPanel.executeEndTurn();
-		
-		// reset player move
-		setCurrentState(State.STARTMOVE);
 	}
 	
+	private void UIUpdate(GameTurn gameTurn) {
+		// update time on ControlPanel view
+		if (timePanel != null) {			
+			timePanel.setTime(gameTurn.getGameTimer());
+		}
+
+		// set end turn conditions
+		if (endTurnPanel != null) {
+			endTurnPanel.setGameTurn(gameTurn);
+		}
+
+		// update available pieces for the current team 
+		if (teamColorPanel != null) {
+			int count = getAvailablePieceCount();
+			controlPanel.getAvailablePiecePanel().setAvailablePieces(count);
+		}
+	}
+	
+	private void UIEndTurn() {
+		// update team color on ControlPanel view based on current team enum
+		if (teamColorPanel != null) {
+			teamColorPanel.setTeamColor(gameUtils.stringToColor(currentTeam.name(), Color.BLACK));
+		}
+		
+		//reset the Piece info panel on switch team.
+		if (pieceInfoPanel != null) {
+			pieceInfoPanel.resetPieceInformation();
+		}
+		
+		// auto end the current player's turn
+		if (endTurnPanel != null) {
+			endTurnPanel.executeEndTurn();
+		}
+	}
 	
 	private void buildTimer() {
 		gameTimer = new GameTurn();
@@ -162,12 +164,15 @@ public class GameController implements Observer {
 		gameTimer.stop();
 	}
 	
+	public void observe(Observable o) {
+		o.addObserver(this);
+	}
+		
 	public void updatePieceInformation(Piece pce) {
 		// Update Piece Statistics on Selection
-		System.out.println("----current piece " + pce); 
 		pieceInfoPanel.updatePieceInformation(pce);
 	}
-	
+
 	public static ArrayList<Piece> getGamePiecesList() {
 		return gamePiecesList;
 	}

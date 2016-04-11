@@ -1,9 +1,9 @@
 package model;
 
-import java.awt.Color;
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 import model.maps.MapLoader;
@@ -34,11 +34,14 @@ public class BoardGenerator {
 			e.printStackTrace();
 		}	
 	}
-	
+		
 	public Square[][] generateStartBoard(ArrayList<Piece> piecesList) {
 		
+		//Shuffle the list for different start location
 		gamePieces = piecesList;
-		
+		List<Piece> list = piecesList;
+		Collections.shuffle(list);
+
 	    int col = 0;
 	    int row = 1;
 	    int size = map.size();

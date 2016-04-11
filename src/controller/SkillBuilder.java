@@ -12,7 +12,8 @@ import model.skills.SkillSet;
  * Class instantiates Skills, coordinates their construction by
  * passing them to SkillRandomizer and then aggregating into set
  * @author Daniel
- *
+ * @modified, Mark - moved SkillSet to model
+ * 
  */
 public class SkillBuilder implements Observer {
 

@@ -19,7 +19,6 @@ public class TraitBuilder {
 	 */
 
 	public TraitBuilder(Random randomNumGen) {
-
 		this.randomNumGen = randomNumGen;
 		generateTraitSetfromTraits();
 	}

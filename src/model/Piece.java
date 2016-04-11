@@ -9,8 +9,16 @@ public abstract class Piece implements IAttack {
 	protected SkillSet skillSet;
 	
 	protected Boolean isUsurper = false;
-	protected Boolean activePiece = false;
 	protected Boolean inPlay = false;
+	protected Boolean inMove = false;
+
+	public Boolean getInMove() {
+		return inMove;
+	}
+
+	public void setInMove(Boolean inMove) {
+		this.inMove = inMove;
+	}
 
 	protected int id;
 	/** Current x coordinate **/
@@ -68,7 +76,7 @@ public abstract class Piece implements IAttack {
 
 	public void attackOut(Piece piece) {
 		
-		System.out.println("Action on: " + piece);
+		System.out.println(this.getTraitSet().getDamageTrait().getTraitValue() + " : Attack on : " + piece.getTraitSet().getHealthTrait().getTraitValue());
 		
 		// TODO Auto-generated method stub
 
@@ -82,14 +90,6 @@ public abstract class Piece implements IAttack {
 		this.inPlay = inPlay;
 	}
 
-	public Boolean getActivePiece() {
-		return activePiece;
-	}
-
-	public void setActivePiece(Boolean activePiece) {
-		this.activePiece = activePiece;
-	}
-	
 	public Boolean getIsUsurper() {
 		return isUsurper;
 	}
