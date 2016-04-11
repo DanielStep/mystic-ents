@@ -20,9 +20,4 @@ public class AttackSkill extends Skill implements IPerformTraitSkill {
 		tSqr.getOccupant().getTraitSet().getDamageTrait().modifyValue(GameConfig.DAMAGETRAITMULTIPLIER);
 	}
 	
-	@Override	
-	public void applyModifier(Piece skillOwner) {
-		
-	}
-	
 }

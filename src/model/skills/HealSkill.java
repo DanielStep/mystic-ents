@@ -52,11 +52,6 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 		
 	}
 
-	@Override
-	public void applyModifier(Piece skillOwner) {
-		// TODO Auto-generated method stub
-		
-	}
 }
 
 
