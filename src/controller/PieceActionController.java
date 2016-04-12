@@ -20,7 +20,7 @@ public class PieceActionController {
 	private GameController gameController;
 	
 	private Piece activePiece;
-	private Piece targetPiece;
+//	private Piece targetPiece;
 	private Square activeSquare;
 	private Square targetSquare;
 	
@@ -45,12 +45,6 @@ public class PieceActionController {
 					}
 					manageSquare(sqr.getSqrObj(), ocpt);
 				} else {
-					if (!ocpt.getInMove() && activePiece == null) {
-						// display dialog message if picking the wrong team piece
-						String msg = "It is Team " + gameController.getCurrentTeam() + "'s turn!";
-						DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
-						return;
-					}					
 					if (sqr.getSqrObj().getInrange() && sqr.getSqrObj().getAccessible()) {
 						// display dialog message if attacking
 						if (!ocpt.getInMove() && activePiece != null) {
@@ -58,6 +52,11 @@ public class PieceActionController {
 							String msg = "Attack!";
 							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());						
 						}					
+					} else if (!ocpt.getInMove()) {
+						// display dialog message if picking the wrong team piece
+						String msg = "It is Team " + gameController.getCurrentTeam() + "'s turn!";
+						DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
+						return;
 					}
 				}
 			} else {
