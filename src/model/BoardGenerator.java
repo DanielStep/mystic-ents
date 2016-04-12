@@ -10,8 +10,13 @@ import model.maps.MapLoader;
 
 /**
  * Generates board board data for view to draw
- * 
- * @author ms
+ * First, uses BufferedReader in MapLoader class to load map data.
+ * When Board model is ready, uses Iterator to generateStartBoard
+ * from map data.
+ * A corresponding Square Object is assigned to the ArrayList Model
+ * Its properties are defined according to model value
+ *  
+ * @author Mark
  *
  */
 
@@ -19,10 +24,6 @@ public class BoardGenerator {
 	
 	private ArrayList<Piece> gamePieces;
 	private ArrayList<ArrayList<Integer>> map;
-	
-	public BoardGenerator() {		
-
-	}
 	
 	public void loadMapData() {		
 		MapLoader mapData = new MapLoader();
@@ -34,7 +35,7 @@ public class BoardGenerator {
 			e.printStackTrace();
 		}	
 	}
-		
+	
 	public Square[][] generateStartBoard(ArrayList<Piece> piecesList) {
 		
 		//Shuffle the list for different start location
@@ -61,7 +62,7 @@ public class BoardGenerator {
 	        
 	        int index = 0;
 
-	        Integer cell = null;
+	        Integer cell = 0;
 	        while (index != row) {
 	        	cell = val.next();
 	        	index++;
@@ -76,8 +77,9 @@ public class BoardGenerator {
 	        index = 0;
 	        col++;
 	        
-	        if (col == size) { //as column count is equal to column size
-	        	mapIterator = map.iterator();  //reset the iterator
+	        if (col == size) {
+	        	//reset the iterator
+	        	mapIterator = map.iterator();  
 	            row++;
 	            col = 0;
 	        }

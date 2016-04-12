@@ -86,7 +86,8 @@ public class PieceActionController {
 		targetSquare = sqrObj;
 		activePiece.setInMove(false);
 		targetSquare.setOccupant(activePiece);
-		activeSquare.setOccupant(null);
+		activeSquare.setOccupant(null);		
+		activePiece = null;
 		board.getBoardState().doCellsUpdate();
 		endTurn();		
 	}	
