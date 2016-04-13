@@ -22,28 +22,18 @@ public class PieceActionController {
 	private Piece targetPiece;
 	private Square activeSquare;
 	private Square targetSquare;
-	
-	public PieceActionController()  {
 
-	}
-	/**
-	* Converts a given string into a color.
-	* 
-	* @param value
-	* 	the team name corresponding to a color.	
-	* @param dft
-	* 	is sent as a fallback (default) if the parsing fails.
-	* @return the color.
-	*/
-	
 	/**
 	* Receives MouseEvent from SquareView Object
-	* And manages 
+	* And manages the current state of the Game through
+	* accessing and resetting the SquareView occupant
+	* 	* 
+	* @author mark
 	* @param e 
 	* 	is the capturing of the MousEvent
 	* @param sqr
-	* 	
-	* @author mark
+	* 	the SquareView event owner is passed as a reference
+	* 
 	*
 	*/
 	public void performAction(MouseEvent e, SquareView sqr) {
