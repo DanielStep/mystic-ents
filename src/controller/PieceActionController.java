@@ -9,25 +9,43 @@ import view.SquareView;
 
 /**
  * This is main handler for selecting pieces and controlling their moves
- * Class acts as a bridge between the BoardController and the GameController
+ * Class is assigned access to the GameController
  * 
  * @author mark
  *
  */
 public class PieceActionController {
 		
-	private BoardController board;
 	private GameController gameController;
 	
 	private Piece activePiece;
-//	private Piece targetPiece;
+	private Piece targetPiece;
 	private Square activeSquare;
 	private Square targetSquare;
 	
-	public PieceActionController(BoardController b)  {
-		board = b;
+	public PieceActionController()  {
+
 	}
+	/**
+	* Converts a given string into a color.
+	* 
+	* @param value
+	* 	the team name corresponding to a color.	
+	* @param dft
+	* 	is sent as a fallback (default) if the parsing fails.
+	* @return the color.
+	*/
 	
+	/**
+	* Receives MouseEvent from SquareView Object
+	* And manages 
+	* @param e 
+	* 	is the capturing of the MousEvent
+	* @param sqr
+	* 	
+	* @author mark
+	*
+	*/
 	public void performAction(MouseEvent e, SquareView sqr) {
 		
 		//Minimize calls to sqr by getting occupant;
@@ -87,7 +105,7 @@ public class PieceActionController {
 		targetSquare.setOccupant(activePiece);
 		activeSquare.setOccupant(null);		
 		activePiece = null;
-		board.getBoardState().doCellsUpdate();
+		gameController.getGameBoard().getBoardState().doCellsUpdate();
 		endTurn();		
 	}	
 	
@@ -98,9 +116,9 @@ public class PieceActionController {
 	
 	private void manageSquare(Square sqrObj, Piece pce) {
 		pce.setInMove(true);
-		gameController.getGameBoard().getBoardState().getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		activeSquare = sqrObj;
 		activePiece = pce;
+		gameController.getGameBoard().getBoardState().getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		gameController.updatePieceInformation(pce);
 	}
 	

@@ -26,7 +26,7 @@ public class BoardController implements Observer {
 		boardState = new Board();
 		observe(boardState);
 		
-		PieceActionController pac = new PieceActionController(this);
+		PieceActionController pac = new PieceActionController();
 		// set PieceActionController's game controller
 		pac.setGameController(g);	
 		
