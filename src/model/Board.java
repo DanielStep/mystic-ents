@@ -46,7 +46,7 @@ public class Board extends Observable {
 	public void initBoardData() {
 		boardData = boardGen.generateStartBoard( gamePiecesList );
 		setChanged();
-	    notifyObservers(); // TODO: Pass the board data
+	    notifyObservers(); //Pass the board data to view
 	}
 	
 	public void getPieces() {

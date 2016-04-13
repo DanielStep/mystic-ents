@@ -27,7 +27,7 @@ public class PieceActionController {
 	* Receives MouseEvent from SquareView Object
 	* And manages the current state of the Game through
 	* accessing and resetting the SquareView occupant
-	* 	* 
+	*
 	* @author mark
 	* @param e 
 	* 	is the capturing of the MousEvent
