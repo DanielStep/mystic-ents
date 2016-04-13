@@ -31,7 +31,6 @@ public class BoardUtils {
 		
 		/*if (pce.getSkillSet().getCurrentSkill().getName() == "range") {
 			
-			
 			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);			
 			
 		};*/
@@ -40,7 +39,9 @@ public class BoardUtils {
 			if (i >= 0 && i < updateData.length) {
 				for(int j = (y-range); j < (y+(1+range)); j++) {
 					if (j >= 0 && j < updateData[i].length) {
-						updateData[i][j].setInrange(true);
+						if (updateData[i][j].getOccupant() == null) {
+							updateData[i][j].setInrange(true);
+						}
 					}
 				}				
 			}
