@@ -16,7 +16,7 @@ public class GameConfig {
 	private static final int DEFAULT_HEIGHT = 700;
 	
 	//MAP
-	private static final String MAP_TEXTFILE = "./src/model/maps/map1.txt";
+	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
     private static int ROW_COL;
     
     //SKILLS
