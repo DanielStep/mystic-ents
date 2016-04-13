@@ -24,7 +24,9 @@ public class BoardUtils {
 	}
 	
 	public Square[][] getRangeCells(int x, int y, Square[][] boardData) {
+		Piece ocpt = boardData[x][y].getOccupant();
 		Square[][] updateData = boardData;
+		
 		
 		Piece pce = updateData[x][y].getOccupant();		
 		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
@@ -39,14 +41,24 @@ public class BoardUtils {
 			if (i >= 0 && i < updateData.length) {
 				for(int j = (y-range); j < (y+(1+range)); j++) {
 					if (j >= 0 && j < updateData[i].length) {
-						if (updateData[i][j].getOccupant() == null) {
-							updateData[i][j].setInrange(true);
-						}
+						updateData[i][j].setInrange(checkRangeCriteria(updateData[i][j], ocpt));
 					}
 				}				
 			}
 		}
 		return updateData;
+	}
+	
+	private Boolean checkRangeCriteria(Square data, Piece ocpt) {
+		if (data.getOccupant() != null) {
+			if (data.getOccupant().getTeam() == ocpt.getTeam()){
+				return false;
+			}			
+		}
+		if (!data.getAccessible() || data.getTeamTower()) {
+			return false;
+		}
+		return true;
 	}
 	
 }

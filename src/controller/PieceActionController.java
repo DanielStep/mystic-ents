@@ -53,7 +53,7 @@ public class PieceActionController {
 					}
 					manageSquare(sqr.getSqrObj(), ocpt);
 				} else {
-					if (sqr.getSqrObj().getInrange() && sqr.getSqrObj().getAccessible()) {
+					if (sqr.getSqrObj().getInrange()) {
 						// display dialog message if attacking
 						if (!ocpt.getInMove() && activePiece != null) {
 							attackPiece(ocpt);
@@ -69,7 +69,7 @@ public class PieceActionController {
 				}
 			} else {
 				//An inaccessible square cannot be moved to or selected
-				if (sqr.getSqrObj().getInrange() && sqr.getSqrObj().getAccessible()) {					
+				if (sqr.getSqrObj().getInrange()) {					
 					movePiece(sqr.getSqrObj(), ocpt);					
 				}
 			}
