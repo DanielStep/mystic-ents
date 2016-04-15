@@ -1,9 +1,12 @@
-package model;
+package model.board;
 
 import java.util.ArrayList;
 import java.util.Observable;
 
 import controller.GameController;
+import model.game.GameConfig;
+import model.piece.Piece;
+import utils.BoardUtils;
 
 /**
  * Entire board contains all pieces and squares
@@ -13,7 +16,7 @@ import controller.GameController;
  */
 
 //TODO: Game generator, type for piece for PieceView observer pattern
-public class Board extends Observable {
+public class BoardState extends Observable {
 
 	/**
 	 * Stores the locations of pieces and squares on the board.
@@ -24,7 +27,7 @@ public class Board extends Observable {
 	private BoardGenerator boardGen = new BoardGenerator();
 	private BoardUtils boardUtils;
 	
-	public Board() {
+	public BoardState() {
 		boardUtils = BoardUtils.getInstance();
 		boardGen.loadMapData();	
 	}

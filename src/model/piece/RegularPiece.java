@@ -1,4 +1,4 @@
-package model;
+package model.piece;
 
 public class RegularPiece extends Piece {
 

@@ -1,12 +1,10 @@
 package controller;
 import java.util.ArrayList;
-import java.util.Random;
 
-import model.Piece;
-import model.RegularPiece;
-import model.Team;
-import model.UsurperPiece;
-import view.BoardFrame;
+import model.piece.Piece;
+import model.piece.RegularPiece;
+import model.piece.Team;
+import model.piece.UsurperPiece;
 
 /**
  * PieceCreationController coordinates creation of Piece instances,
@@ -33,6 +31,8 @@ public class PieceCreationController {
 	public ArrayList<Piece> generateGamePieces(){
 		
 		ArrayList<Piece> piecesArrayList = new ArrayList<Piece>();
+		
+		System.out.println("Pieces");
 		
 		for(int i = 0; i < REGULARPIECES_IN_TEAM; i++){
 			piecesArrayList.add(createRegPiece(Team.BLUE));
@@ -72,7 +72,7 @@ public class PieceCreationController {
 	 * 
 	 * TODO Refactor for Builder Pattern, move Piece instantiation to PieceBuilder.
 	 * @param team
-	 * @return
+	 * @return Piece
 	 */
 	public Piece createUsurpPiece(Enum<Team> team){
 		

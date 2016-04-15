@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 import java.util.Observable;
 import java.util.Timer;

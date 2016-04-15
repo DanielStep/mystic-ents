@@ -1,4 +1,4 @@
-package model;
+package model.piece;
 
 import model.skills.SkillSet;
 import model.traits.TraitSet;

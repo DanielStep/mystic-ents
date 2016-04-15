@@ -2,8 +2,8 @@ package controller;
 
 import java.awt.event.MouseEvent;
 
-import model.Piece;
-import model.Square;
+import model.board.Square;
+import model.piece.Piece;
 import view.DialogView;
 import view.SquareView;
 
@@ -16,6 +16,9 @@ import view.SquareView;
  */
 public class PieceActionController {
 		
+	//SINGLETON
+	private static PieceActionController instance;	
+	
 	private GameController gameController;
 	
 	private Piece activePiece;
@@ -36,6 +39,16 @@ public class PieceActionController {
 	* 
 	*
 	*/
+	
+	private PieceActionController() {}
+	
+	public static synchronized PieceActionController getInstance() {
+		if (instance == null) {
+			instance = new PieceActionController();
+		}
+		return instance;
+	}	
+		
 	public void performAction(MouseEvent e, SquareView sqr) {
 		
 		//Minimize calls to sqr by getting square obj and occupant;
@@ -70,8 +83,8 @@ public class PieceActionController {
 				}
 			} else {
 				//An inaccessible square cannot be moved to or selected
-				if (sqrObj.getInrange() && sqrObj.getAccessible()) {					
-					movePiece(sqr.getSqrObj(), ocpt);					
+				if (sqrObj.getInrange()) {
+					movePiece(sqr.getSqrObj(), ocpt);
 				}
 			}
 		}
@@ -85,7 +98,7 @@ public class PieceActionController {
 			}
 		}
 
-	}	
+	}
 	
 	
 	private void attackPiece(Piece pce) {		

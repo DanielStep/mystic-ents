@@ -1,6 +1,6 @@
 package model.skills;
 
-import model.Piece;
+import model.piece.Piece;
 
 /**
  * Interface for modifying piece trait, skill values.

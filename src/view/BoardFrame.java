@@ -4,13 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
-import controller.PieceActionController;
-import model.Board;
-import model.GameConfig;
+import model.game.GameConfig;
 
 /**
  * Outer container of the board.

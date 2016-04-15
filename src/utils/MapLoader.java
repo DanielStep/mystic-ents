@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import model.GameConfig;
+import model.game.GameConfig;
 
 public class MapLoader {
 	

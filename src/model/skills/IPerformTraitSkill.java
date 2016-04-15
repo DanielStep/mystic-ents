@@ -1,7 +1,7 @@
 package model.skills;
 
-import model.Piece;
-import model.Square;
+import model.board.Square;
+import model.piece.Piece;
 /**
  * Interface for all skills that perform actions on traits
  * @author Daniel

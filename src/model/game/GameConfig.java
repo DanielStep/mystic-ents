@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 public class GameConfig {
 
@@ -14,6 +14,10 @@ public class GameConfig {
     //BOARD
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
+	
+	//TEAMS
+	private static final int REGULARPIECES_IN_TEAM = 7;
+	private static final int USURPERS_IN_TEAM = 1;
 	
 	//MAP
 	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";

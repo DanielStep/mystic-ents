@@ -1,7 +1,6 @@
 package model.skills;
 
-import model.Piece;
-import model.Square;
+import model.board.Square;
 /**
  * Interface for all skills that perform action on squares
  * @author Daniel

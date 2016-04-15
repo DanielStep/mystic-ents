@@ -1,6 +1,8 @@
-package model;
+package model.board;
 
 import java.awt.Color;
+
+import model.piece.Piece;
 
 /**
  * Contained inside board, can contain piece or become wall

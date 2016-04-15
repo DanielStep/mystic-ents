@@ -1,10 +1,10 @@
 package controller;
 import java.util.Random;
 
-import model.Piece;
-import model.Team;
+import model.piece.Piece;
+import model.piece.Team;
 import model.skills.SkillSet;
-import model.traits.*;
+import model.traits.TraitSet;
 
 /**
  * Class is passed instantiated but empty Piece and builds it with Traits, Skill and Team

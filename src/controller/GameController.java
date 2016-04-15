@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.GameTurn;
-import model.Piece;
-import model.Team;
-
+import main.GameMain;
+import model.game.GameTurn;
+import model.piece.Piece;
+import model.piece.Team;
 import view.ControlPanel;
 
 /**
@@ -22,33 +22,47 @@ import view.ControlPanel;
  */
 
 public class GameController implements Observer {
+
+	//MAIN
+	private GameMain gameMain;
+		
+	//SINGLETON
+	private static GameController instance;
 	
 	//GAME CONTROL
 	private GameTurn gameTimer;
 	private BoardController gameBoard;
+	private PieceActionController pieceController;
 	
 	//UI
 	private ControlPanel controlPanel;
 	
 	//BOARD OBJECTS
 	private Team currentTeam;
-
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
+
+	private GameController() {}
 	
-	public GameController() {
+	public static synchronized GameController getInstance() {
+		if (instance == null) {
+			instance = new GameController();
+		}
+		return instance;
+	}	
+	
+	public void init() {
 		generateGamePieces();
 		buildTimer();
-		// TODO Randomise team selection 
 		currentTeam = Team.BLUE;
+		setControlObjects();		
 	}
 	
 	private void generateGamePieces() {
 		setGamePiecesList((new PieceCreationController()).generateGamePieces());
 	}	
 
-	public void setUIObjects(BoardController bd) {
-		setControlPanel(bd.getBoardFrame().getControlPanel());
-		setGameBoard(bd);
+	public void setControlObjects() {
+		setControlPanel(gameBoard.getBoardFrame().getControlPanel());
 	}
 	
 	@Override
@@ -76,6 +90,7 @@ public class GameController implements Observer {
 		}
 		return count;
 	}
+	
 	
 	public void updatePieceInformation(Piece pce) {
 		// Update Piece Statistics on Selection
@@ -127,7 +142,15 @@ public class GameController implements Observer {
 	public void setControlPanel(ControlPanel controlPanel) {
 		this.controlPanel = controlPanel;
 	}
-
+	
+	public void setBoardController(BoardController gameBoard) {
+		this.gameBoard = gameBoard;
+	}
+	
+	public void setPieceActionController(PieceActionController pieceController) {
+		this.pieceController = pieceController;
+	}
+	
 	public Team getCurrentTeam() {
 		return currentTeam;
 	}
@@ -142,10 +165,6 @@ public class GameController implements Observer {
 
 	public BoardController getGameBoard() {
 		return gameBoard;
-	}
-
-	public void setGameBoard(BoardController gameBoard) {
-		this.gameBoard = gameBoard;
-	}
+	}	
 
 }

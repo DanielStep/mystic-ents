@@ -7,9 +7,8 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import controller.PieceActionController;
-
-import model.GameConfig;
-import model.Square;
+import model.board.Square;
+import model.game.GameConfig;
 
 /**
  * Inner panel for displaying game objects.

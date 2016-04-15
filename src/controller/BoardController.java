@@ -3,8 +3,8 @@ package controller;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.Board;
-
+import main.GameMain;
+import model.board.BoardState;
 import view.BoardFrame;
 
 /**
@@ -18,24 +18,40 @@ import view.BoardFrame;
 
 public class BoardController implements Observer {
 
-	private BoardFrame boardFrame;
-	private Board boardState;
+	//MAIN
+	private GameMain gameMain;
 	
-	public BoardController(GameController g) {
-		
-		boardState = new Board();
-		observe(boardState);
-		
-		PieceActionController pac = new PieceActionController();
-		// set PieceActionController's game controller
-		pac.setGameController(g);	
-		
-		// After we placed pieces inside boardState, initialize boardView
+	//SINGLETON
+	private static BoardController instance;
+	
+	//PIECE CONTROLLER
+	private PieceActionController pieceController;
+	
+	//VIEW
+	private BoardFrame boardFrame;
+	
+	//MODEL
+	private BoardState boardState;
+	
+	private BoardController() {}
+	
+	public static synchronized BoardController getInstance() {
+		if (instance == null) {
+			instance = new BoardController();
+		}
+		return instance;
+	}
+	
+	public void init() {
+		boardState = new BoardState();
 		boardFrame = new BoardFrame();
-		boardFrame.getBoardPanel().setPac(pac);
+	}
+	
+	public void buildBoard() {
+		boardFrame.getBoardPanel().setPac(pieceController);
+		observe(boardState);
 		boardState.init();
-		boardFrame.pack();		
-
+		boardFrame.pack();
 	}
 
 	public void observe(Observable o) {
@@ -44,17 +60,21 @@ public class BoardController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Object[][] data = ((Board) o).getBoardData();
+		Object[][] data = ((BoardState) o).getBoardData();
 		if (data == null) return;
 		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
 	}
 	
-	public Board getBoardState() {
+	public BoardState getBoardState() {
 		return boardState;
 	}
 	
 	public BoardFrame getBoardFrame() {
 		return boardFrame;
+	}
+	
+	public void setPieceActionController(PieceActionController pieceController) {
+		this.pieceController = pieceController;
 	}
 }

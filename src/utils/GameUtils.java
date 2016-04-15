@@ -1,17 +1,17 @@
-package model;
+package utils;
 
 import java.awt.Color;
 import java.lang.reflect.Field;
 
-public class Game {
+public class GameUtils {
 	
-	private static Game instance;
+	private static GameUtils instance;
 	
-	private Game(){}
+	private GameUtils(){}
 	
-	public static synchronized Game getInstance() {
+	public static synchronized GameUtils getInstance() {
 		if (instance == null) {
-			instance = new Game();
+			instance = new GameUtils();
 		}
 		return instance;
 	}
@@ -39,4 +39,6 @@ public class Game {
 			return dft;
 		}
 	}
+	
+	
 }

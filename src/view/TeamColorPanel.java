@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import model.Team;
+import model.piece.Team;
 
 /**
  * A component of ControlPanel: Display the current team color

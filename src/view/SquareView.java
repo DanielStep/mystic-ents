@@ -2,18 +2,15 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import java.lang.reflect.Field;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import main.GameMain;
 import controller.PieceActionController;
-import model.Game;
-import model.Square;
+import model.board.Square;
 
 public class SquareView extends JPanel implements MouseListener {
 
@@ -23,7 +20,6 @@ public class SquareView extends JPanel implements MouseListener {
 
 	public SquareView(PieceActionController p, Square o) {
 		super();
-		pac = p;
 		this.setSqrObj(o);
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(Color.BLACK, 1));
@@ -35,6 +31,7 @@ public class SquareView extends JPanel implements MouseListener {
 		 * only need to assign MouseListener to the 'parent' and update the
 		 * Model.
 		 */
+		pac = p;
 		addTeamPiece(o);
 		addMouseListener(this);
 	}

@@ -1,4 +1,7 @@
-package model;
+package utils;
+
+import model.board.Square;
+import model.piece.Piece;
 
 public class BoardUtils {
 	

@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import model.Piece;
+import model.piece.Piece;
 
 /**
  * A component of ControlPanel: Display essential piece info in selection

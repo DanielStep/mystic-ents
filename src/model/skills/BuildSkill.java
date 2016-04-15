@@ -1,6 +1,6 @@
 package model.skills;
 
-import model.Square;
+import model.board.Square;
 
 /**
  * Make square inaccessible

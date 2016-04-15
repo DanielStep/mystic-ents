@@ -1,8 +1,8 @@
 package model.skills;
 
-import model.GameConfig;
-import model.Piece;
-import model.Square;
+import model.board.Square;
+import model.game.GameConfig;
+import model.piece.Piece;
 /**
  * Class that increases damage of piece's attack action
  * @author Daniel

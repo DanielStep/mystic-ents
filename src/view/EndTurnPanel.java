@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import model.GameTurn;
+import model.game.GameTurn;
 
 /**
  * A component of ControlPanel: manually/automatically end the current turn 

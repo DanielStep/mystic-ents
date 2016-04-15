@@ -1,12 +1,13 @@
-package model;
+package model.board;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import model.maps.MapLoader;
+import model.piece.Piece;
 
 /**
  * Generates board board data for view to draw

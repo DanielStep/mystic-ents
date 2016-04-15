@@ -3,8 +3,6 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
-import model.GameConfig;
 /**
  * A component of ControlPanel: Display the game timer for the current team
  * @author Phan Vo

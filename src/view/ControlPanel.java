@@ -6,10 +6,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import model.GameConfig;
-import model.GameTurn;
-import model.Piece;
-import model.Game;
+import model.game.GameConfig;
+import model.game.GameTurn;
+import model.piece.Piece;
+import utils.GameUtils;
 /**
  * Display board game info: timer, team color in play, remaining pieces
  * 							selected piece, end turn mechanism
@@ -23,13 +23,13 @@ public class ControlPanel extends JPanel{
 	private PieceInfoPanel pnPieceInfo;
 	private EndTurnPanel pnEndTurn;
 
-	private Game gameUtils;
+	private GameUtils gameUtils;
 	
 	public ControlPanel() {
 		
 		super();
 		
-		gameUtils = Game.getInstance();
+		gameUtils = GameUtils.getInstance();
 		
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultControlPanelWidth(), GameConfig.getDefaultHeight()));

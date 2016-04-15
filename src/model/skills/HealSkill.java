@@ -1,9 +1,9 @@
 package model.skills;
 
 
-import model.GameConfig;
-import model.Piece;
-import model.Square;
+import model.board.Square;
+import model.game.GameConfig;
+import model.piece.Piece;
 
 /**
  * Class contains logic to increase the value of health trait of another piece of the same team by constant
