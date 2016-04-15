@@ -79,6 +79,7 @@ public class PieceActionController {
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			if (activePiece != null) {
 				// display dialog message if performing SKILL
+				endTurn();
 				String msg = "Performing Skill!";
 				DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
 			}
@@ -89,7 +90,9 @@ public class PieceActionController {
 	
 	private void attackPiece(Piece pce) {		
 		activePiece.attackOut(pce);
+		endTurn();
 	}
+	
 	private void movePiece(Square sqrObj, Piece pce) {
 		targetSquare = sqrObj;
 		activePiece.setInMove(false);

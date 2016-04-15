@@ -16,7 +16,7 @@ public class AvailablePiecePanel extends JPanel{
 		// TODO Auto-generated constructor stub
 		super();
 		
-	    tfPieceRemaining = new JTextField(10);
+	    tfPieceRemaining = new JTextField(12);
 	    tfPieceRemaining.setHorizontalAlignment(JTextField.CENTER);
 	    tfPieceRemaining.setText("0");
 	    tfPieceRemaining.setEditable(false);

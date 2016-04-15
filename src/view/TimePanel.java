@@ -18,7 +18,7 @@ public class TimePanel extends JPanel{
 		// TODO Auto-generated constructor stub
 		super();
 		
-	    tfTime = new JTextField(10);
+	    tfTime = new JTextField(12);
 	    tfTime.setHorizontalAlignment(JTextField.CENTER);
 	    tfTime.setText("...");
 	    tfTime.setEditable(false);
