@@ -19,7 +19,7 @@ public class PieceActionController {
 	private GameController gameController;
 	
 	private Piece activePiece;
-	private Piece targetPiece;
+//	private Piece targetPiece;
 	private Square activeSquare;
 	private Square targetSquare;
 
@@ -38,8 +38,9 @@ public class PieceActionController {
 	*/
 	public void performAction(MouseEvent e, SquareView sqr) {
 		
-		//Minimize calls to sqr by getting occupant;
-		Piece ocpt = sqr.getSqrObj().getOccupant();
+		//Minimize calls to sqr by getting square obj and occupant;
+		Square sqrObj = sqr.getSqrObj();
+		Piece ocpt = sqrObj.getOccupant();
 
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
@@ -51,9 +52,9 @@ public class PieceActionController {
 					if (!ocpt.getInMove() && activePiece != null) {
 						switchPiece(ocpt);
 					}
-					manageSquare(sqr.getSqrObj(), ocpt);
+					manageSquare(sqrObj, ocpt);
 				} else {
-					if (sqr.getSqrObj().getInrange()) {
+					if (sqrObj.getInrange()) {
 						// display dialog message if attacking
 						if (!ocpt.getInMove() && activePiece != null) {
 							attackPiece(ocpt);
@@ -69,7 +70,7 @@ public class PieceActionController {
 				}
 			} else {
 				//An inaccessible square cannot be moved to or selected
-				if (sqr.getSqrObj().getInrange()) {					
+				if (sqrObj.getInrange() && sqrObj.getAccessible()) {					
 					movePiece(sqr.getSqrObj(), ocpt);					
 				}
 			}
