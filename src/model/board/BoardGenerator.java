@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import model.maps.MapLoader;
 import model.piece.Piece;
+import utils.MapLoader;
 
 /**
  * Generates board board data for view to draw
