@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import main.GameMain;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
@@ -23,12 +22,6 @@ import view.ControlPanel;
 
 public class GameController implements Observer {
 
-	//MAIN
-	private GameMain gameMain;
-		
-	//SINGLETON
-	private static GameController instance;
-	
 	//GAME CONTROL
 	private GameTurn gameTimer;
 	private BoardController gameBoard;
@@ -41,15 +34,8 @@ public class GameController implements Observer {
 	private Team currentTeam;
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 
-	private GameController() {}
-	
-	public static synchronized GameController getInstance() {
-		if (instance == null) {
-			instance = new GameController();
-		}
-		return instance;
-	}	
-	
+	public GameController() {}
+
 	public void init() {
 		generateGamePieces();
 		buildTimer();
@@ -68,7 +54,7 @@ public class GameController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		GameTurn gameTurn = (GameTurn) o;
-		//Post condition exception if GameTuen is null, return (exit?)
+		//Post condition exception if GameTurn is null, return (exit?)
 		if (gameTurn == null) return;
 		
 		controlPanel.setPieceCount(getAvailablePieceCount());

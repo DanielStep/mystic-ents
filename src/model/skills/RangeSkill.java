@@ -1,7 +1,7 @@
 package model.skills;
 
-import model.game.GameConfig;
 import model.piece.Piece;
+import utils.GameConfig;
 
 /**
  * Class that increases the piece's range trait by constant multiplier

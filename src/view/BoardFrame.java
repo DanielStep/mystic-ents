@@ -7,7 +7,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import model.game.GameConfig;
+import utils.GameConfig;
 
 /**
  * Outer container of the board.

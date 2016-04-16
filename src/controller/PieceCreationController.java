@@ -31,9 +31,7 @@ public class PieceCreationController {
 	public ArrayList<Piece> generateGamePieces(){
 		
 		ArrayList<Piece> piecesArrayList = new ArrayList<Piece>();
-		
-		System.out.println("Pieces");
-		
+
 		for(int i = 0; i < REGULARPIECES_IN_TEAM; i++){
 			piecesArrayList.add(createRegPiece(Team.BLUE));
 			piecesArrayList.add(createRegPiece(Team.RED));	

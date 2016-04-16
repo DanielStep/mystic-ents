@@ -8,8 +8,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import main.GameMain;
 import controller.PieceActionController;
+import main.GameMain;
 import model.board.Square;
 
 public class SquareView extends JPanel implements MouseListener {

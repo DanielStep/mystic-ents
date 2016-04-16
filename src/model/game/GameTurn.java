@@ -3,6 +3,9 @@ package model.game;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import utils.GameConfig;
+
 import java.awt.Toolkit;
 
 public class GameTurn extends Observable {

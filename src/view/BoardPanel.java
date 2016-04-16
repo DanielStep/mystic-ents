@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import controller.PieceActionController;
 import model.board.Square;
-import model.game.GameConfig;
+import utils.GameConfig;
 
 /**
  * Inner panel for displaying game objects.

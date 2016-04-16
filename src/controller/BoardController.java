@@ -3,7 +3,6 @@ package controller;
 import java.util.Observable;
 import java.util.Observer;
 
-import main.GameMain;
 import model.board.BoardState;
 import view.BoardFrame;
 
@@ -11,19 +10,13 @@ import view.BoardFrame;
  * Controller for board state
  * Generates the Board Model
  * Generates the Board View
- * Observes Board Model changes and calls view update
+ * Observes Board Model changes and calls View update
  * @author Mark
  *
  */
 
 public class BoardController implements Observer {
 
-	//MAIN
-	private GameMain gameMain;
-	
-	//SINGLETON
-	private static BoardController instance;
-	
 	//PIECE CONTROLLER
 	private PieceActionController pieceController;
 	
@@ -33,13 +26,9 @@ public class BoardController implements Observer {
 	//MODEL
 	private BoardState boardState;
 	
-	private BoardController() {}
-	
-	public static synchronized BoardController getInstance() {
-		if (instance == null) {
-			instance = new BoardController();
-		}
-		return instance;
+	public BoardController() {
+		boardState = new BoardState();
+		boardFrame = new BoardFrame();
 	}
 	
 	public void init() {

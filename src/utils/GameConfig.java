@@ -1,4 +1,4 @@
-package model.game;
+package utils;
 
 public class GameConfig {
 

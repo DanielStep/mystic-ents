@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import controller.GameController;
-import model.game.GameConfig;
 import model.piece.Piece;
 import utils.BoardUtils;
+import utils.GameConfig;
 
 /**
  * Entire board contains all pieces and squares

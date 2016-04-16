@@ -11,9 +11,9 @@ public class GameMain implements Runnable {
 	public static void main(String[] args) {
 
 		//INSTANTIATE ALL CONTROLLERS 
-		boardController = BoardController.getInstance();
-		gameController = GameController.getInstance();
-		pieceActionController = PieceActionController.getInstance();
+		boardController = new BoardController();
+		gameController = new GameController();
+		pieceActionController = new PieceActionController();
 		
 		//Assign GameController to pieceActionController
 		pieceActionController.setGameController(gameController);
@@ -24,7 +24,6 @@ public class GameMain implements Runnable {
 		//BoardController's first task is to load map data
 		//From there GameController can generate teams
 		//When done, we start.
-		boardController.init();
 		gameController.init();
 		boardController.buildBoard();
 		gameController.startTimer();
@@ -36,16 +35,5 @@ public class GameMain implements Runnable {
 		// TODO Auto-generated method stub
 	}
 	
-	public GameController getGameController() {
-		return gameController;
-	}
-
-	public BoardController getBoardController() {
-		return boardController;
-	}
-	
-	public PieceActionController getPieceActionController() {
-		return pieceActionController;
-	}
 
 }

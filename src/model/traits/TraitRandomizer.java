@@ -1,4 +1,4 @@
-package controller;
+package model.traits;
 
 import java.util.ArrayList;
 import java.util.Random;

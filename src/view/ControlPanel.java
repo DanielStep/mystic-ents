@@ -6,9 +6,9 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import model.game.GameConfig;
 import model.game.GameTurn;
 import model.piece.Piece;
+import utils.GameConfig;
 import utils.GameUtils;
 /**
  * Display board game info: timer, team color in play, remaining pieces

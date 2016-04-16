@@ -16,13 +16,10 @@ import view.SquareView;
  */
 public class PieceActionController {
 		
-	//SINGLETON
-	private static PieceActionController instance;	
-	
+
 	private GameController gameController;
 	
 	private Piece activePiece;
-//	private Piece targetPiece;
 	private Square activeSquare;
 	private Square targetSquare;
 
@@ -40,15 +37,8 @@ public class PieceActionController {
 	*
 	*/
 	
-	private PieceActionController() {}
+	public PieceActionController() {}
 	
-	public static synchronized PieceActionController getInstance() {
-		if (instance == null) {
-			instance = new PieceActionController();
-		}
-		return instance;
-	}	
-		
 	public void performAction(MouseEvent e, SquareView sqr) {
 		
 		//Minimize calls to sqr by getting square obj and occupant;
@@ -98,8 +88,7 @@ public class PieceActionController {
 			}
 		}
 
-	}
-	
+	}	
 	
 	private void attackPiece(Piece pce) {		
 		activePiece.attackOut(pce);

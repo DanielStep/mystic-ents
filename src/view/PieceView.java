@@ -9,8 +9,8 @@ import java.awt.Graphics2D;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.game.GameConfig;
 import model.piece.Piece;
+import utils.GameConfig;
 import utils.GameUtils;
 
 /**

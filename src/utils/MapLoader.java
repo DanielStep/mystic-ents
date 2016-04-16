@@ -1,15 +1,21 @@
-package model.maps;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import model.game.GameConfig;
-
 public class MapLoader {
 	
 	ArrayList<ArrayList<Integer>> map = new ArrayList<ArrayList<Integer>>();
+	
+	/**
+	* Loads the file specified in the GameConfig
+	* Parses the text 'map' into a 2D ArrayList
+	* @author Mark
+	* 
+	* @return the ArrayList<ArrayList<Integer>> - 'map'
+	*/
 	
 	public ArrayList<ArrayList<Integer>> getMapData() throws IOException {
 		
