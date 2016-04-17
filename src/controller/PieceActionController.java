@@ -90,6 +90,17 @@ public class PieceActionController {
 
 	}	
 	
+	/**
+	* This is the parent SquareView's set of moves.
+	* Each Square view implements MouseListener, but the responsibility 
+	* has been delegated here.
+	* The separation of view and operations affecting model allows
+	* the de-coupling of view design from model.
+	*
+	* @author mark
+	*
+	*/	
+		
 	private void attackPiece(Piece pce) {		
 		activePiece.attackOut(pce);
 		endTurn();

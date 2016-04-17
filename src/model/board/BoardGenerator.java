@@ -10,7 +10,7 @@ import model.piece.Piece;
 import utils.MapLoader;
 
 /**
- * Generates board board data for view to draw
+ * Factory method to Generate board data for view to draw
  * First, uses BufferedReader in MapLoader class to load map data.
  * When Board model is ready, uses Iterator to generateStartBoard
  * from map data.
@@ -36,6 +36,20 @@ public class BoardGenerator {
 			e.printStackTrace();
 		}	
 	}
+	
+	/**
+	 * Iterates over the loaded map data and assigns a Square Object
+	 * corresponding to the value of the data
+	 * 
+	 * @author Mark
+	 *
+	 * @param piecesList
+	 * sent from the model after piece creation
+	 * 
+	 * @return
+	 * Square[][] - the 2D game board objects
+	 * 
+	 */	
 	
 	public Square[][] generateStartBoard(ArrayList<Piece> piecesList) {
 		
@@ -90,6 +104,22 @@ public class BoardGenerator {
 		return boardData;
 	}
 	
+	/**
+	 * Processes map data based on game rules
+	 * Returns the Square object
+	 * 
+	 * @author Mark
+	 *
+	 * @param col
+	 * the x value of the cell
+	 * @param row
+	 * the y value of the cell
+	 * @param cell
+	 * the map data value of the cell
+	 * 
+	 * @return
+	 * Square assigned properties based on map data rules
+	 */		
 	private Square processMapData(int col, int row, int cell) {
 		
 		Square gsqr = new Square();
@@ -130,14 +160,5 @@ public class BoardGenerator {
 		}
 		return null;
 	}
-	
-	/*public int[][] getMap() {
-		return map;
-	}
-
-	public void setMap(int[][] map) {
-		this.map = map;
-	}*/
-
 
 }

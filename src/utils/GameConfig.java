@@ -72,5 +72,14 @@ public class GameConfig {
 	public static void setROW_COL(int val) {
 		ROW_COL = val;
 	}
+
+	//TEAMS
+	public static int getRegularpiecesInTeam() {
+		return REGULARPIECES_IN_TEAM;
+	}
+
+	public static int getUsurpersInTeam() {
+		return USURPERS_IN_TEAM;
+	}
 	
 }

@@ -5,6 +5,7 @@ import model.piece.Piece;
 import model.piece.RegularPiece;
 import model.piece.Team;
 import model.piece.UsurperPiece;
+import utils.GameConfig;
 
 /**
  * PieceCreationController coordinates creation of Piece instances,
@@ -14,9 +15,6 @@ import model.piece.UsurperPiece;
  *
  */
 public class PieceCreationController {
-	
-	final int REGULARPIECES_IN_TEAM = 7;
-	final int USURPERS_IN_TEAM = 1;
 	
 	private PieceBuilder pieceBuilder = new PieceBuilder();
 	
@@ -31,15 +29,15 @@ public class PieceCreationController {
 	public ArrayList<Piece> generateGamePieces(){
 		
 		ArrayList<Piece> piecesArrayList = new ArrayList<Piece>();
-
-		for(int i = 0; i < REGULARPIECES_IN_TEAM; i++){
-			piecesArrayList.add(createRegPiece(Team.BLUE));
-			piecesArrayList.add(createRegPiece(Team.RED));	
-		}
 		
-		for(int i = 0; i < USURPERS_IN_TEAM; i++){
+		for(int i = 0; i < GameConfig.getUsurpersInTeam(); i++){
 			piecesArrayList.add(createUsurpPiece(Team.BLUE));
 			piecesArrayList.add(createUsurpPiece(Team.RED));
+		}
+		
+		for(int i = 0; i < GameConfig.getRegularpiecesInTeam(); i++){
+			piecesArrayList.add(createRegPiece(Team.BLUE));
+			piecesArrayList.add(createRegPiece(Team.RED));	
 		}
 		
 		return piecesArrayList;

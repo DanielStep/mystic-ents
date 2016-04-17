@@ -43,13 +43,11 @@ public class GameController implements Observer {
 		setControlObjects();		
 	}
 	
-	private void generateGamePieces() {
-		setGamePiecesList((new PieceCreationController()).generateGamePieces());
-	}	
-
-	public void setControlObjects() {
-		setControlPanel(gameBoard.getBoardFrame().getControlPanel());
-	}
+	/**
+	 * The update method of the Observer pattern
+	 * Watches the GameTurn timer to handle end turns, team change,
+	 * And to update the UI
+	 */	
 	
 	@Override
 	public void update(Observable o, Object arg) {
@@ -63,26 +61,16 @@ public class GameController implements Observer {
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
-		}
-		
+		}		
 	}
-	
-	private int getAvailablePieceCount() {
-		int count = 0;
-		for (Piece piece : gamePiecesList) {
-			if (currentTeam == piece.getTeam()) {
-				count++;
-			}
-		}
-		return count;
-	}
-	
-	
-	public void updatePieceInformation(Piece pce) {
-		// Update Piece Statistics on Selection
-		controlPanel.getPieceInfoPanel().updatePieceInformation(pce);
-	}
-	
+
+	/**
+	 * EndTurn handler
+	 * Called via update method when GameTurn.getGameTimer = 0
+	 * A turn is ended vis the timer value rather than calling a set function
+	 * Gives better adherence to MVC pattern.
+	 * 
+	 */		
 	private void handleEndTurn() {
 		// set game turn count;
 		int newCount = gameTimer.getCount();
@@ -97,9 +85,31 @@ public class GameController implements Observer {
 
 		//Update UI
 		controlPanel.setCurrentTeam(currentTeam.name());
-		controlPanel.doUIEndTurn();
-		
+		controlPanel.doUIEndTurn();		
+	}	
+	
+	private int getAvailablePieceCount() {
+		int count = 0;
+		for (Piece piece : gamePiecesList) {
+			if (currentTeam == piece.getTeam()) {
+				count++;
+			}
+		}
+		return count;
 	}
+		
+	public void updatePieceInformation(Piece pce) {
+		// Update Piece Statistics on Selection
+		controlPanel.getPieceInfoPanel().updatePieceInformation(pce);
+	}
+	
+	private void generateGamePieces() {
+		setGamePiecesList((new PieceCreationController()).generateGamePieces());
+	}	
+
+	public void setControlObjects() {
+		setControlPanel(gameBoard.getBoardFrame().getControlPanel());
+	}	
 	
 	private void buildTimer() {
 		gameTimer = new GameTurn();

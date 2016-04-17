@@ -31,11 +31,6 @@ public class BoardController implements Observer {
 		boardFrame = new BoardFrame();
 	}
 	
-	public void init() {
-		boardState = new BoardState();
-		boardFrame = new BoardFrame();
-	}
-	
 	public void buildBoard() {
 		boardFrame.getBoardPanel().setPac(pieceController);
 		observe(boardState);
