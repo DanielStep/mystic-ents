@@ -79,6 +79,14 @@ public class BoardState extends Observable {
 		return boardData;
 	}
 	
+	public BoardMemento saveToMemento() {
+		BoardMemento boardMemento = new BoardMemento(getBoardData());
+		return boardMemento;
+	}
 	
+	public void undoFromMemento(BoardMemento boardMemento){
+		this.boardData = boardMemento.getBoardData();
+		doCellsUpdate();
+	}
 	
 }
