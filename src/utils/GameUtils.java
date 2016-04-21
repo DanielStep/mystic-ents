@@ -1,7 +1,9 @@
 package utils;
 
 import java.awt.Color;
+import java.io.File;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class GameUtils {
 	
@@ -40,5 +42,26 @@ public class GameUtils {
 		}
 	}
 	
-	
+	/**
+	 * Retrieve all game maps for user to choose
+	 * @return a String list of available maps
+	 */
+	public ArrayList<String> getAllGameMaps() {
+		ArrayList<String> maps = new ArrayList<>();
+		try {
+			File f = new File("./src/model/maps/"); // maps directory
+
+			File[] files = f.listFiles();
+			for (File file : files) {
+				String fullPath = file.getCanonicalPath();
+				String currentFile = fullPath.substring(fullPath.lastIndexOf("\\") + 1);
+				currentFile = currentFile.substring(0, currentFile.lastIndexOf("."));
+				maps.add(currentFile);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("File map errors: " + e.getMessage());
+		}
+		return maps;
+	}
 }
