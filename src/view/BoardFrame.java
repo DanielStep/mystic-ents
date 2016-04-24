@@ -23,7 +23,7 @@ public class BoardFrame extends JFrame {
 	private ControlPanel controlPanel;
 
 	public BoardFrame() {
-		super("Mystic Ents");
+		super(GameConfig.GAME_TITLE);
 		buildFrame();
 		buildUI();
 	}

@@ -1,7 +1,13 @@
 package utils;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class GameUtils {
 	
@@ -40,5 +46,60 @@ public class GameUtils {
 		}
 	}
 	
+	/**
+	 * Retrieve all game maps for user to choose
+	 * @return a String list of available maps
+	 */
+	public ArrayList<String> getAllGameMaps() {
+		ArrayList<String> maps = new ArrayList<>();
+		try {
+			File f = new File("./src/model/maps/"); // maps directory
+
+			File[] files = f.listFiles();
+			for (File file : files) {
+				String fullPath = file.getCanonicalPath();
+				String currentFile = fullPath.substring(fullPath.lastIndexOf("\\") + 1);
+				currentFile = currentFile.substring(0, currentFile.lastIndexOf("."));
+				maps.add(currentFile);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("File map errors: " + e.getMessage());
+		}
+		return maps;
+	}
 	
+	/**
+	 * Save the current game state to file
+	 * @param gameState
+	 */
+	public void saveGame(Object gameState){
+	    try {
+	    	FileOutputStream fileOut = new FileOutputStream(GameConfig.SAVE_GAME_FILE);
+	        ObjectOutputStream oos = new ObjectOutputStream(fileOut);
+	        oos.writeObject(gameState);
+	        oos.close();
+	        fileOut.close();
+	    } catch(Exception e) {
+	        System.out.println("Error saving game: " + e.getMessage());
+	    }
+	}
+	
+	/**
+	 * Load the previous game state from file 
+	 * @return gameState as an Object
+	 */
+	public Object loadGame(){
+		Object gameSate = null;
+		try {
+			FileInputStream fileIn = new FileInputStream(GameConfig.SAVE_GAME_FILE);
+			ObjectInputStream ois = new ObjectInputStream(fileIn);
+			gameSate = ois.readObject();
+			ois.close();
+			fileIn.close();
+		} catch (Exception e) {
+			System.out.println("Error loading game: " + e.getMessage());
+		}
+		return gameSate;
+	}
 }

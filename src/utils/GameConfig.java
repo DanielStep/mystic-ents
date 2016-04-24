@@ -20,7 +20,8 @@ public class GameConfig {
 	private static final int USURPERS_IN_TEAM = 1;
 	
 	//MAP
-	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
+//	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
+	private static String fileMapName = "map2";		// default map
     private static int ROW_COL;
     
     //SKILLS
@@ -28,7 +29,10 @@ public class GameConfig {
 	private static final int RANGEMULTIPLIER = 2;
 	private static final int HEALAMOUNT = 1;
     
-      
+    //CONSTANT STRINGS
+	public static final String GAME_TITLE = "Mystic Ents";
+	public static final String SAVE_GAME_FILE = "savegame.dat";
+	
 	//GAME TIMER
 	public static int getTimerPeriod() {
 		return TIMER_PERIOD;
@@ -62,7 +66,15 @@ public class GameConfig {
 	
 	//MAP
 	public static String getMapTextfile() {
-		return MAP_TEXTFILE;
+		return "./src/model/maps/" + fileMapName + ".txt";
+	}
+	
+	public static void setFileMapName(String fileName) {
+		fileMapName = fileName;
+	}
+	
+	public static String getFileMapName() {
+		return fileMapName;
 	}
 	
 	public static int getROW_COL() {

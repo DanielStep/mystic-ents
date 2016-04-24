@@ -22,6 +22,8 @@ public class ControlPanel extends JPanel{
 	private AvailablePiecePanel pnAvailablePiece;
 	private PieceInfoPanel pnPieceInfo;
 	private EndTurnPanel pnEndTurn;
+	private UndoPanel pnUndo;
+	private SaveGamePanel pnSaveGame;
 
 	private GameUtils gameUtils;
 	
@@ -45,6 +47,12 @@ public class ControlPanel extends JPanel{
 	    
 	    pnPieceInfo = new PieceInfoPanel();
 	    this.add(pnPieceInfo);
+	    
+	    pnUndo = new UndoPanel();
+	    this.add(pnUndo);
+	    
+	    pnSaveGame = new SaveGamePanel();
+	    this.add(pnSaveGame);
 	    
 	    pnEndTurn = new EndTurnPanel();
 	    this.add(pnEndTurn);
