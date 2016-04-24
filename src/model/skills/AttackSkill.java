@@ -17,7 +17,7 @@ public class AttackSkill extends Skill implements IPerformTraitSkill {
 	
 	@Override
 	public void performSkill(Square aSqr, Square tSqr) {		
-		tSqr.getOccupant().getTraitSet().getDamageTrait().modifyValue(GameConfig.DAMAGETRAITMULTIPLIER);
+		tSqr.getOccupant().getTraitSet().getDamageTrait().modifyValue(GameConfig.getDamagetraitmultiplier());
 	}
 	
 }

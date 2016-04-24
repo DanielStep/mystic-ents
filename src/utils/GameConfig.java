@@ -24,9 +24,9 @@ public class GameConfig {
     private static int ROW_COL;
     
     //SKILLS
-	public static final int DAMAGETRAITMULTIPLIER = 2;
-	public static final int RANGEMULTIPLIER = 2;
-	public static final int HEALAMOUNT = 1;
+	private static final int DAMAGETRAITMULTIPLIER = 2;
+	private static final int RANGEMULTIPLIER = 2;
+	private static final int HEALAMOUNT = 1;
     
       
 	//GAME TIMER
@@ -80,6 +80,19 @@ public class GameConfig {
 
 	public static int getUsurpersInTeam() {
 		return USURPERS_IN_TEAM;
+	}
+	
+    //SKILLS
+	public static int getDamagetraitmultiplier() {
+		return DAMAGETRAITMULTIPLIER;
+	}
+
+	public static int getRangemultiplier() {
+		return RANGEMULTIPLIER;
+	}
+
+	public static int getHealamount() {
+		return HEALAMOUNT;
 	}
 	
 }
