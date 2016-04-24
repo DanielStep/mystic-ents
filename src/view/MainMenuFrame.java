@@ -19,6 +19,7 @@ import controller.BoardController;
 import controller.GameController;
 import controller.PieceActionController;
 import utils.GameConfig;
+import utils.GameUtils;
 
 /**
  * Create main menu at the start
@@ -85,7 +86,6 @@ public class MainMenuFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				doCloseFrame();
 				doContinue();
 			}
 		});
@@ -145,5 +145,12 @@ public class MainMenuFrame extends JFrame{
 	private void doContinue(){
 		// TODO: load game here
 		System.out.println("Load Game from the previous save...");
+		Object gameState = GameUtils.getInstance().loadGame();
+		if (gameState != null) {
+			System.out.println("Load game successfully!");
+			doCloseFrame();
+		} else {
+			DialogView.getInstance().showInformation("Save game not found!");
+		}
 	}
 }

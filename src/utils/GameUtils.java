@@ -2,6 +2,10 @@ package utils;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -63,5 +67,39 @@ public class GameUtils {
 			System.out.println("File map errors: " + e.getMessage());
 		}
 		return maps;
+	}
+	
+	/**
+	 * Save the current game state to file
+	 * @param gameState
+	 */
+	public void saveGame(Object gameState){
+	    try {
+	    	FileOutputStream fileOut = new FileOutputStream(GameConfig.SAVE_GAME_FILE);
+	        ObjectOutputStream oos = new ObjectOutputStream(fileOut);
+	        oos.writeObject(gameState);
+	        oos.close();
+	        fileOut.close();
+	    } catch(Exception e) {
+	        System.out.println("Error saving game: " + e.getMessage());
+	    }
+	}
+	
+	/**
+	 * Load the previous game state from file 
+	 * @return gameState as an Object
+	 */
+	public Object loadGame(){
+		Object gameSate = null;
+		try {
+			FileInputStream fileIn = new FileInputStream(GameConfig.SAVE_GAME_FILE);
+			ObjectInputStream ois = new ObjectInputStream(fileIn);
+			gameSate = ois.readObject();
+			ois.close();
+			fileIn.close();
+		} catch (Exception e) {
+			System.out.println("Error loading game: " + e.getMessage());
+		}
+		return gameSate;
 	}
 }

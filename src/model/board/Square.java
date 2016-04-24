@@ -1,6 +1,7 @@
 package model.board;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import model.piece.Piece;
 
@@ -11,7 +12,7 @@ import model.piece.Piece;
  *
  */
 // TODO: Couple with board
-public class Square {
+public class Square implements Serializable{
 
 	private Piece occupyingPiece = null;
 	private int[] ID = new int[2];

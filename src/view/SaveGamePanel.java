@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.board.Square;
+import utils.GameUtils;
+
 public class SaveGamePanel extends JPanel{
 	private JButton btnSaveGame;
 	
@@ -31,6 +34,9 @@ public class SaveGamePanel extends JPanel{
 	}
 	
 	private void doSave(){
-		// TODO save method here
+		// TODO: need to specify what kind of object need to save here.
+		// Object must be Serializable.
+		GameUtils.getInstance().saveGame(new Square());		// TESTING ONLY
+		DialogView.getInstance().showInformation("Save game successfully!");
 	}
 }

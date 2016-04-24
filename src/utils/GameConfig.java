@@ -31,6 +31,7 @@ public class GameConfig {
     
     //CONSTANT STRINGS
 	public static final String GAME_TITLE = "Mystic Ents";
+	public static final String SAVE_GAME_FILE = "savegame.dat";
 	
 	//GAME TIMER
 	public static int getTimerPeriod() {
