@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.piece.Piece;
+import utils.BoardUtils;
 import utils.GameConfig;
-import utils.GameUtils;
 
 /**
  * Representation of piece. Eg. Usurper, regularpiece
@@ -26,15 +26,15 @@ public class PieceView extends JPanel {
 	// Represents team.
 	private Color color;
 	private Piece piece;
-	private GameUtils gameUtils;
+	private BoardUtils boardUtils;
 	private int size = 40;
 	private JLabel label;
 
 	PieceView(Piece pce) {
-		gameUtils = GameUtils.getInstance();
+		boardUtils = BoardUtils.getInstance();
 		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()) - 3.5);
 		this.piece = pce;
-		this.color = gameUtils.stringToColor(pce.getTeam().name(), Color.WHITE);
+		this.color = boardUtils.stringToColor(pce.getTeam().name(), Color.WHITE);
 		addPieceLabel();
 	}
 

@@ -43,7 +43,7 @@ public class GameController implements Observer {
 		new MainMenuFrame(this);
 	}
 
-	public void init() {		
+	public void init() {
 		gameBoard.buildBoard();
 		setControlObjects();
 		startTimer();
