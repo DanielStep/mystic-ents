@@ -22,6 +22,11 @@ public class BoardCareTaker {
 	}
 
 	public void addMemento(BoardMemento boardMemento) {
+		
+		//Only have to save up to 6 states
+		if (mementos.size() > 6) {
+			mementos.pop();
+		}
 		mementos.add(boardMemento);
 	}
 }

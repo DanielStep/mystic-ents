@@ -132,6 +132,9 @@ public class PieceActionController {
 	private void endTurn() {
 		// automatically switch player when finishing a move
 		gameController.getGameTurn().setGameTimer(0);
+		
+		//Right place to add? // saving game board for undo
+		gameController.getGameBoard().getBoardState().saveToMemento();
 	}
 	
 	private void clearActivePieceRange() {

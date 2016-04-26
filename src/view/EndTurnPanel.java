@@ -11,14 +11,15 @@ import javax.swing.JPanel;
 import model.game.GameTurn;
 
 /**
- * A component of ControlPanel: manually/automatically end the current turn 
+ * A component of ControlPanel: manually/automatically end the current turn
+ * 
  * @author Phan Vo
  *
  */
-public class EndTurnPanel extends JPanel{
+public class EndTurnPanel extends JPanel {
 	private JButton btnEndTurn;
 	private GameTurn gameTurn;
-	
+
 	public EndTurnPanel() {
 		// TODO Auto-generated constructor stub
 		super();
@@ -27,22 +28,22 @@ public class EndTurnPanel extends JPanel{
 		btnEndTurn = new JButton("End turn");
 		btnEndTurn.setPreferredSize(new Dimension(158, 50));
 		btnEndTurn.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO call the end-turn method from the controller
 				executeEndTurn();
 			}
 		});
-		
+
 		this.add(btnEndTurn);
 	}
-	
-	public void executeEndTurn(){
+
+	public void executeEndTurn() {
 		System.out.println("Starting turn: " + gameTurn.getCount());
-		gameTurn.setGameTimer(0);		
+		gameTurn.setGameTimer(0);
 	}
-	
+
 	public void setGameTurn(GameTurn gameTurn) {
 		this.gameTurn = gameTurn;
 	}
