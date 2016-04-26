@@ -63,7 +63,7 @@ public class PieceActionController {
 					if (sqrObj.getInrange()) {
 						// display dialog message if attacking
 						if (!ocpt.getInMove() && activePiece != null) {
-							attackPiece(ocpt);
+							attackPiece(sqr.getSqrObj(),ocpt);
 							String msg = "Attack!";
 							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());						
 						}					
@@ -105,8 +105,14 @@ public class PieceActionController {
 	*
 	*/	
 		
-	private void attackPiece(Piece pce) {
+	private void attackPiece(Square sqrObj, Piece pce) {
 		activePiece.attackOut(pce);
+		
+		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
+		if(targetHealthValue < 1){
+			sqrObj.setOccupant(null);
+		}
+		
 		checkActionCount();
 		//endTurn();
 	}
