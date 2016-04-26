@@ -142,7 +142,7 @@ public class PieceActionController {
 	 */
 	private void checkActionCount(){
 		
-		if (actionCount >= 2){
+		if (actionCount >=1){
 			actionCount = 0;
 			endTurn();
 		}else{
