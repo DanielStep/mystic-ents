@@ -8,7 +8,7 @@ import utils.GameConfig;
  * @author Daniel
  *
  */
-public class AttackSkill extends Skill implements IPerformTraitSkill {
+public class AttackSkill extends Skill implements Modifier {
 
 	public AttackSkill() {
 		// TODO Auto-generated constructor stub
@@ -16,8 +16,8 @@ public class AttackSkill extends Skill implements IPerformTraitSkill {
 	}
 	
 	@Override
-	public void performSkill(Square aSqr, Square tSqr) {		
-		tSqr.getOccupant().getTraitSet().getDamageTrait().modifyValue(GameConfig.getDamagetraitmultiplier());
+	public void applyModifier(Piece skillOwner) {		
+		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.getDamagetraitmultiplier());
 	}
 	
 }
