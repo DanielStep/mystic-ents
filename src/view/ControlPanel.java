@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 import model.game.GameTurn;
 import model.piece.Piece;
+import utils.BoardUtils;
 import utils.GameConfig;
-import utils.GameUtils;
 /**
  * Display board game info: timer, team color in play, remaining pieces
  * 							selected piece, end turn mechanism
@@ -25,13 +25,13 @@ public class ControlPanel extends JPanel{
 	private UndoPanel pnUndo;
 	private SaveGamePanel pnSaveGame;
 
-	private GameUtils gameUtils;
+	private BoardUtils boardUtils;
 	
 	public ControlPanel() {
 		
 		super();
 		
-		gameUtils = GameUtils.getInstance();
+		boardUtils = BoardUtils.getInstance();
 		
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultControlPanelWidth(), GameConfig.getDefaultHeight()));
@@ -102,7 +102,7 @@ public class ControlPanel extends JPanel{
 
 	public void setCurrentTeam(String team) {
 		// update team color on ControlPanel view based on current team enum
-		pnTeamColor.setTeamColor(gameUtils.stringToColor(team, Color.BLACK));
+		pnTeamColor.setTeamColor(boardUtils.stringToColor(team, Color.BLACK));
 	}	
 	
 	public void updatePieceInformation(Piece pce) {

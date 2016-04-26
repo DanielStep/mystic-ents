@@ -97,7 +97,7 @@ public class GameController implements Observer {
 		gameTimer.setCount(newCount);
 		
 		//clear 'active' or piece specific board data;
-		gameBoard.getBoardState().clearRangeCells();
+		//gameBoard.getBoardState().clearRangeCells();
 		
 		//Change teams
 		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;

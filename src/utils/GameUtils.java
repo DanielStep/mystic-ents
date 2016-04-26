@@ -1,13 +1,15 @@
 package utils;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import model.board.BoardData;
+import model.board.BoardState;
+import model.board.Square;
 
 public class GameUtils {
 	
@@ -20,30 +22,6 @@ public class GameUtils {
 			instance = new GameUtils();
 		}
 		return instance;
-	}
-	
-	/**
-	* Converts a given string into a color.
-	* 
-	* @param value
-	* 	the team name corresponding to a color.	
-	* @param dft
-	* 	is sent as a fallback (default) if the parsing fails.
-	* @return the color.
-	*/
-	public Color stringToColor(final String value, Color dft) {
-		//null value is handled by returning default; 
-		if (value == null) {
-			return dft;
-		}
-		try {
-			// try to get a color by name using reflection
-			final Field f = Color.class.getField(value);
-			return (Color) f.get(null);
-		} catch (Exception ce) {
-			// if we can't get any color return default
-			return dft;
-		}
 	}
 	
 	/**
@@ -71,18 +49,25 @@ public class GameUtils {
 	
 	/**
 	 * Save the current game state to file
-	 * @param gameState
+	 * @param boardData
 	 */
-	public void saveGame(Object gameState){
-	    try {
+	public Boolean saveGame(BoardData boardData){
+	    
+		//System.out.println(gameState);
+		
+		try {
 	    	FileOutputStream fileOut = new FileOutputStream(GameConfig.SAVE_GAME_FILE);
 	        ObjectOutputStream oos = new ObjectOutputStream(fileOut);
-	        oos.writeObject(gameState);
+	        oos.writeObject(boardData);
 	        oos.close();
 	        fileOut.close();
-	    } catch(Exception e) {
+	        return true;
+	    } catch(Exception e) {	    	
 	        System.out.println("Error saving game: " + e.getMessage());
+	        e.printStackTrace();
+	        return false;
 	    }
+		
 	}
 	
 	/**

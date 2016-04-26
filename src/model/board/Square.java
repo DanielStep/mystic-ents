@@ -12,7 +12,7 @@ import model.piece.Piece;
  *
  */
 // TODO: Couple with board
-public class Square implements Serializable{
+public class Square implements Serializable {
 
 	private Piece occupyingPiece = null;
 	private int[] ID = new int[2];

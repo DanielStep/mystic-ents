@@ -28,11 +28,8 @@ public class BoardPanel extends JPanel {
 		this.setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
 	}
 
-	public PieceActionController getPac() {
-		return pac;
-	}
-
 	public void setPac(PieceActionController pac) {
+		//System.out.println(pac);
 		this.pac = pac;
 	}
 

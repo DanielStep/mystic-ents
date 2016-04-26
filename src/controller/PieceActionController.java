@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.MouseEvent;
 
+import model.board.BoardData;
 import model.board.Square;
 import model.piece.Piece;
 import view.DialogView;
@@ -14,11 +15,11 @@ import view.SquareView;
  * @author mark
  *
  */
-public class PieceActionController {
-		
+public class PieceActionController {		
 
 	private GameController gameController;
-	
+	private BoardController boardController;
+
 	private Piece activePiece;
 	private Square activeSquare;
 	private Square targetSquare;
@@ -44,6 +45,7 @@ public class PieceActionController {
 		//Minimize calls to sqr by getting square obj and occupant;
 		Square sqrObj = sqr.getSqrObj();
 		Piece ocpt = sqrObj.getOccupant();
+
 
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
@@ -101,7 +103,7 @@ public class PieceActionController {
 	*
 	*/	
 		
-	private void attackPiece(Piece pce) {		
+	private void attackPiece(Piece pce) {
 		activePiece.attackOut(pce);
 		endTurn();
 	}
@@ -112,20 +114,20 @@ public class PieceActionController {
 		targetSquare.setOccupant(activePiece);
 		activeSquare.setOccupant(null);		
 		activePiece = null;
-		gameController.getGameBoard().getBoardState().doCellsUpdate();
+		boardController.clearRangeCells();
 		endTurn();		
 	}	
 	
 	private void switchPiece(Piece pce) {
 		activePiece.setInMove(false);
-		clearActivePieceRange();
+		boardController.clearRangeCells();
 	}
 	
 	private void manageSquare(Square sqrObj, Piece pce) {
 		pce.setInMove(true);
 		activeSquare = sqrObj;
-		activePiece = pce;
-		gameController.getGameBoard().getBoardState().getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
+		activePiece = pce;		
+		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		gameController.updatePieceInformation(pce);
 	}
 	
@@ -136,10 +138,13 @@ public class PieceActionController {
 	
 	private void clearActivePieceRange() {
 		// reset board
-		gameController.getGameBoard().getBoardState().clearRangeCells();
+		boardController.clearRangeCells();
 	}
 	
 	public void setGameController(GameController g) {
 		this.gameController = g;
+	}
+	public void setBoardController(BoardController bd) {
+		this.boardController = bd;
 	}
 }

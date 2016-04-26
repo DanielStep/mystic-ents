@@ -1,6 +1,7 @@
 package utils;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import model.board.Square;

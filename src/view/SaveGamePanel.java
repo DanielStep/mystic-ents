@@ -4,15 +4,19 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.board.BoardData;
 import model.board.Square;
 import utils.GameUtils;
 
-public class SaveGamePanel extends JPanel{
+public class SaveGamePanel extends JPanel implements Serializable {
 	private JButton btnSaveGame;
+	
+	private BoardData boardData;
 	
 	public SaveGamePanel() {
 		// TODO Auto-generated constructor stub
@@ -36,7 +40,13 @@ public class SaveGamePanel extends JPanel{
 	private void doSave(){
 		// TODO: need to specify what kind of object need to save here.
 		// Object must be Serializable.
-		GameUtils.getInstance().saveGame(new Square());		// TESTING ONLY
-		DialogView.getInstance().showInformation("Save game successfully!");
+		
+		boardData = BoardData.getInstance();
+		//Square[][] data = boardState.getBoardData();
+		
+		if (GameUtils.getInstance().saveGame(boardData)) {
+			DialogView.getInstance().showInformation("Save game successfully!");			
+		};
+
 	}
 }
