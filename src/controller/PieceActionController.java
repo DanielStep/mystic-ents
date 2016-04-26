@@ -22,6 +22,7 @@ public class PieceActionController {
 	private Piece activePiece;
 	private Square activeSquare;
 	private Square targetSquare;
+	private int actionCount;
 
 	/**
 	* Receives MouseEvent from SquareView Object
@@ -127,6 +128,23 @@ public class PieceActionController {
 		activePiece = pce;
 		gameController.getGameBoard().getBoardState().getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		gameController.updatePieceInformation(pce);
+	}
+	
+	/**
+	 * Method controls number of actions permitted per turn
+	 * Ends turn if at least 2 actions performed
+	 * If less than 2 actions performed, increments the action counter
+	 * 
+	 * @author DS
+	 */
+	private void checkAccountCount(){
+		
+		if (actionCount >= 2){
+			actionCount = 0;
+			endTurn();
+		}else{
+			actionCount++;
+		}
 	}
 	
 	private void endTurn() {
