@@ -45,6 +45,7 @@ public class GameController implements Observer {
 
 	public void init() {
 		gameBoard.buildBoard();
+		gameBoard.getBoardFrame().setVisible(true);
 		setControlObjects();
 		startTimer();
 	}

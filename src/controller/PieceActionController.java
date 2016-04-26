@@ -23,6 +23,7 @@ public class PieceActionController {
 	private Piece activePiece;
 	private Square activeSquare;
 	private Square targetSquare;
+	private int actionCount;
 
 	/**
 	* Receives MouseEvent from SquareView Object
@@ -84,7 +85,8 @@ public class PieceActionController {
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			if (activePiece != null) {
 				// display dialog message if performing SKILL
-				endTurn();
+				checkActionCount();
+				//endTurn();
 				String msg = "Performing Skill!";
 				DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
 			}
@@ -105,7 +107,8 @@ public class PieceActionController {
 		
 	private void attackPiece(Piece pce) {
 		activePiece.attackOut(pce);
-		endTurn();
+		checkActionCount();
+		//endTurn();
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {
@@ -115,7 +118,8 @@ public class PieceActionController {
 		activeSquare.setOccupant(null);		
 		activePiece = null;
 		boardController.clearRangeCells();
-		endTurn();		
+		checkActionCount();
+		//endTurn();
 	}	
 	
 	private void switchPiece(Piece pce) {
@@ -131,9 +135,29 @@ public class PieceActionController {
 		gameController.updatePieceInformation(pce);
 	}
 	
+	/**
+	 * Method controls number of actions permitted per turn
+	 * Ends turn if at least 2 actions performed
+	 * If less than 2 actions performed, increments the action counter
+	 * 
+	 * @author DS
+	 */
+	private void checkActionCount(){
+		
+		if (actionCount >= 2){
+			actionCount = 0;
+			endTurn();
+		}else{
+			actionCount++;
+		}
+	}
+	
 	private void endTurn() {
 		// automatically switch player when finishing a move
 		gameController.getGameTurn().setGameTimer(0);
+		
+		// saving game board for undo
+		boardController.saveToMemento();
 	}
 	
 	private void clearActivePieceRange() {

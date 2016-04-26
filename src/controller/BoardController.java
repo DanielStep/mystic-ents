@@ -56,6 +56,10 @@ public class BoardController implements Observer {
 		boardData.doCellsUpdate();
 	}
 
+	public void saveToMemento() {
+		boardData.saveToMemento();
+	}
+	
 	public void observe(Observable o) {
 		o.addObserver(this);
 	}
