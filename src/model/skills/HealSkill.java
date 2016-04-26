@@ -10,7 +10,7 @@ import utils.GameConfig;
  * @author Daniel
  *
  */
-public class HealSkill extends Skill implements IPerformTraitSkill {
+public class HealSkill extends Skill implements IPerformSquareSkill {
 
 	public HealSkill() {
 		// TODO Auto-generated constructor stub
@@ -26,7 +26,7 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 	 * return Boolean
 	 */
 	@Override
-	public void performSkill(Square aSqr, Square tSqr) {
+	public boolean performSkill(Square aSqr, Square tSqr) {
 
 		/*Test if square empty, then if square occupant in other team. If either, throw exception. 
 		 * If neither increment occupants HealthTrait Value and set result to true*/
@@ -49,8 +49,9 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 		catch(IncorrectSquareException e){
 			System.out.println(e.getMessage());
 		}
-		
+		return true;
 	}
+	  
 
 }
 
