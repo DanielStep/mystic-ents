@@ -128,7 +128,7 @@ public class PieceActionController {
 		if (currentSkill instanceof IPerformTraitSkill){
 			((IPerformTraitSkill) currentSkill).performSkill(activePiece);
 		}else if (currentSkill instanceof IPerformSquareSkill){
-	
+			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, targetSquare);
 		}
 		
 	}
