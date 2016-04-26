@@ -7,7 +7,10 @@ import java.util.Observer;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
+import utils.GameUtils;
 import view.ControlPanel;
+import view.DialogView;
+import view.MainMenuFrame;
 
 /**
  * Responsible for turn handling
@@ -31,17 +34,34 @@ public class GameController implements Observer {
 	private ControlPanel controlPanel;
 	
 	//BOARD OBJECTS
-	private Team currentTeam;
+	private Team currentTeam = Team.BLUE;
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 
-	public GameController() {}
+	public GameController() {
+		generateGamePieces();
+		buildTimer();		
+		new MainMenuFrame(this);
+	}
 
 	public void init() {
-		generateGamePieces();
-		buildTimer();
-		currentTeam = Team.BLUE;
-		setControlObjects();		
+		gameBoard.buildBoard();
+		gameBoard.getBoardFrame().setVisible(true);
+		setControlObjects();
+		startTimer();
 	}
+	
+	public Boolean continueGame(){
+		// TODO: load game here
+		System.out.println("Load Game from the previous save...");
+		Object gameState = GameUtils.getInstance().loadGame();
+		if (gameState != null) {
+			System.out.println("Load game successfully!");
+			return true;
+		} else {
+			DialogView.getInstance().showInformation("Save game not found!");
+			return false;
+		}
+	}	
 	
 	/**
 	 * The update method of the Observer pattern

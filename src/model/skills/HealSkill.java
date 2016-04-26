@@ -41,7 +41,7 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 					throw new IncorrectSquareException("No piece in square.");
 				}
 				else{					
-					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.HEALAMOUNT);
+					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.getHealamount());
 					//result = true;
 				}
 			}

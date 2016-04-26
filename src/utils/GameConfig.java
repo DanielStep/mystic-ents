@@ -25,12 +25,13 @@ public class GameConfig {
     private static int ROW_COL;
     
     //SKILLS
-	public static final int DAMAGETRAITMULTIPLIER = 2;
-	public static final int RANGEMULTIPLIER = 2;
-	public static final int HEALAMOUNT = 1;
+	private static final int DAMAGETRAITMULTIPLIER = 2;
+	private static final int RANGEMULTIPLIER = 2;
+	private static final int HEALAMOUNT = 1;
     
     //CONSTANT STRINGS
 	public static final String GAME_TITLE = "Mystic Ents";
+	public static final String SAVE_GAME_FILE = "savegame.dat";
 	
 	//GAME TIMER
 	public static int getTimerPeriod() {
@@ -91,6 +92,19 @@ public class GameConfig {
 
 	public static int getUsurpersInTeam() {
 		return USURPERS_IN_TEAM;
+	}
+	
+    //SKILLS
+	public static int getDamagetraitmultiplier() {
+		return DAMAGETRAITMULTIPLIER;
+	}
+
+	public static int getRangemultiplier() {
+		return RANGEMULTIPLIER;
+	}
+
+	public static int getHealamount() {
+		return HEALAMOUNT;
 	}
 	
 }

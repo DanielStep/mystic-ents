@@ -44,7 +44,7 @@ public class BoardFrame extends JFrame {
 		// resize the panel so objects fit in.
 		// pack();
 		this.setResizable(false);
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 
 	/**

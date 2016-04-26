@@ -17,7 +17,7 @@ public class RangeSkill extends Skill implements Modifier {
 
 	@Override
 	public void applyModifier(Piece skillOwner) {
-		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.RANGEMULTIPLIER);
+		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.getRangemultiplier());
 	}
 
 }

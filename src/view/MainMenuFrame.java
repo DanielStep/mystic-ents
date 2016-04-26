@@ -15,9 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import controller.BoardController;
 import controller.GameController;
-import controller.PieceActionController;
 import utils.GameConfig;
 
 /**
@@ -27,12 +25,12 @@ import utils.GameConfig;
  */
 
 public class MainMenuFrame extends JFrame{
-	static GameController gameController;
-	static BoardController boardController;
-	static PieceActionController pieceActionController;
 	
-	public MainMenuFrame() {
+	private GameController gameController;
+
+	public MainMenuFrame(GameController g) {
 		super();
+		this.gameController = g;
 		buildFrame();
 		buildUI();
 	}
@@ -74,7 +72,7 @@ public class MainMenuFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				doCloseFrame();
-				doNewGame();
+				gameController.init();
 			}
 		});
 		menuPanel.add(btNewGame);
@@ -85,15 +83,16 @@ public class MainMenuFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				doCloseFrame();
-				doContinue();
+				if (gameController.continueGame()) {
+					doCloseFrame();
+				}
 			}
-		});
+			
+		});		
 		menuPanel.add(btContinue);
 		
 		JButton btOption = new JButton("Option");
-		btOption.addActionListener(new ActionListener() {
-			
+		btOption.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -121,29 +120,5 @@ public class MainMenuFrame extends JFrame{
 	private void doCloseFrame(){
 		this.dispose();
 	}
-	
-	private void doNewGame(){
-		//INSTANTIATE ALL CONTROLLERS 
-		boardController = new BoardController();
-		gameController = new GameController();
-		pieceActionController = new PieceActionController();
-		
-		//Assign GameController to pieceActionController
-		pieceActionController.setGameController(gameController);
-		gameController.setBoardController(boardController);
-		gameController.setPieceActionController(pieceActionController);	
-		boardController.setPieceActionController(pieceActionController);
-		
-		//BoardController's first task is to load map data
-		//From there GameController can generate teams
-		//When done, we start.
-		gameController.init();
-		boardController.buildBoard();
-		gameController.startTimer();
-	}
-	
-	private void doContinue(){
-		// TODO: load game here
-		System.out.println("Load Game from the previous save...");
-	}
+
 }
