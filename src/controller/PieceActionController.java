@@ -83,7 +83,8 @@ public class PieceActionController {
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			if (activePiece != null) {
 				// display dialog message if performing SKILL
-				endTurn();
+				checkActionCount();
+				//endTurn();
 				String msg = "Performing Skill!";
 				DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
 			}
@@ -104,7 +105,8 @@ public class PieceActionController {
 		
 	private void attackPiece(Piece pce) {		
 		activePiece.attackOut(pce);
-		endTurn();
+		checkActionCount();
+		//endTurn();
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {
@@ -114,7 +116,8 @@ public class PieceActionController {
 		activeSquare.setOccupant(null);		
 		activePiece = null;
 		gameController.getGameBoard().getBoardState().doCellsUpdate();
-		endTurn();		
+		checkActionCount();
+		//endTurn();		
 	}	
 	
 	private void switchPiece(Piece pce) {
@@ -137,7 +140,7 @@ public class PieceActionController {
 	 * 
 	 * @author DS
 	 */
-	private void checkAccountCount(){
+	private void checkActionCount(){
 		
 		if (actionCount >= 2){
 			actionCount = 0;
