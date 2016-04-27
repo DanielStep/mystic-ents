@@ -119,6 +119,7 @@ public class PieceActionController {
 		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
+			gameController.updatePieceInformation(pce);
 			boardController.getBoardData().doCellsUpdate();
 		}
 		
@@ -135,7 +136,10 @@ public class PieceActionController {
 		}else if (currentSkill instanceof IPerformSquareSkill){
 			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, sqrObj);
 		}
+		boardController.clearRangeCells();
+		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		boardController.getBoardData().doCellsUpdate();
+		gameController.updatePieceInformation(pce);
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {
