@@ -1,12 +1,10 @@
 package controller;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import model.board.BoardData;
-import model.board.Square;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
@@ -69,8 +67,8 @@ public class GameController implements Observer {
 			
 			// set team color from save file
 			if (teamColor != null) {
-				BoardData.getInstance().setCurrentTeam(data.getCurrentTeam());
-				setCurrentTeam(data.getCurrentTeam());
+				BoardData.getInstance().setCurrentTeam(teamColor);
+				setCurrentTeam(teamColor);
 			}
 			
 			GameConfig.setROW_COL(data.getBoardArray().length);
