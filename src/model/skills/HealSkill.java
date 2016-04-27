@@ -6,6 +6,7 @@ import java.io.Serializable;
 import model.board.Square;
 import model.piece.Piece;
 import utils.GameConfig;
+import view.DialogView;
 
 /**
  * Class contains logic to increase the value of health trait of another piece of the same team by constant
@@ -45,7 +46,7 @@ public class HealSkill extends Skill implements IPerformSquareSkill, Serializabl
 				}
 				else{					
 					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.getHealamount());
-					//result = true;
+					DialogView.getInstance().showInformation("Piece healed!");
 				}
 			}
 		}
@@ -67,6 +68,7 @@ class IncorrectSquareException extends RuntimeException {
 	
 	public IncorrectSquareException(String message) {
 		super(message);
+		DialogView.getInstance().showInformation(message);
 	}
 	
 

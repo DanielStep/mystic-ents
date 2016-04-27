@@ -101,9 +101,6 @@ public class PieceActionController {
 				performPieceSkill(sqrObj, ocpt);
 				checkActionCount();
 				//endTurn();
-				// display dialog message if performing SKILL
-				String msg = "Performing Skill!";
-				DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
 			}
 		}
 
