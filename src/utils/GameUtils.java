@@ -51,10 +51,7 @@ public class GameUtils {
 	 * Save the current game state to file
 	 * @param boardData
 	 */
-	public Boolean saveGame(BoardData boardData){
-	    
-		//System.out.println(gameState);
-		
+	public Boolean saveGameData(BoardData boardData){
 		try {
 	    	FileOutputStream fileOut = new FileOutputStream(GameConfig.SAVE_GAME_FILE);
 	        ObjectOutputStream oos = new ObjectOutputStream(fileOut);
@@ -74,17 +71,18 @@ public class GameUtils {
 	 * Load the previous game state from file 
 	 * @return gameState as an Object
 	 */
-	public Object loadGame(){
-		Object gameSate = null;
+	public Object loadGameData(){
+		Object data = null;
 		try {
 			FileInputStream fileIn = new FileInputStream(GameConfig.SAVE_GAME_FILE);
 			ObjectInputStream ois = new ObjectInputStream(fileIn);
-			gameSate = ois.readObject();
+			data = (BoardData) ois.readObject();
 			ois.close();
 			fileIn.close();
 		} catch (Exception e) {
 			System.out.println("Error loading game: " + e.getMessage());
+			e.printStackTrace();
 		}
-		return gameSate;
+		return data;
 	}
 }

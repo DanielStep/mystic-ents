@@ -12,15 +12,15 @@ public class GameMain {
 
 		//INSTANTIATE ALL CONTROLLERS 
 		boardController = new BoardController();
-		pieceActionController = new PieceActionController();
+		pieceActionController = PieceActionController.getInstance();
 		gameController = new GameController();
 		
 		//Assign GameController to pieceActionController
 		pieceActionController.setGameController(gameController);
 		pieceActionController.setBoardController(boardController);
 		gameController.setBoardController(boardController);
-		gameController.setPieceActionController(pieceActionController);	
-		boardController.setPieceActionController(pieceActionController);
+		//gameController.setPieceActionController(pieceActionController);	
+		//boardController.setPieceActionController(pieceActionController);
 		
 		System.out.println("All setters allocated");
 				

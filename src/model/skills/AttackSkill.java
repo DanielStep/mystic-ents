@@ -1,5 +1,7 @@
 package model.skills;
 
+import java.io.Serializable;
+
 import model.board.Square;
 import model.piece.Piece;
 import utils.GameConfig;
@@ -8,7 +10,7 @@ import utils.GameConfig;
  * @author Daniel
  *
  */
-public class AttackSkill extends Skill implements IPerformTraitSkill {
+public class AttackSkill extends Skill implements IPerformTraitSkill, Serializable {
 
 	public AttackSkill() {
 		// TODO Auto-generated constructor stub

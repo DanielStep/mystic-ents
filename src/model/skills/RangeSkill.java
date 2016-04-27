@@ -1,5 +1,7 @@
 package model.skills;
 
+import java.io.Serializable;
+
 import model.piece.Piece;
 import utils.GameConfig;
 
@@ -9,7 +11,7 @@ import utils.GameConfig;
  * @author Daniel skh
  *
  */
-public class RangeSkill extends Skill implements Modifier {
+public class RangeSkill extends Skill implements Modifier, Serializable {
 
 	public RangeSkill() {
 		super.setName("Range");

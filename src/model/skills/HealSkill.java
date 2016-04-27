@@ -1,6 +1,8 @@
 package model.skills;
 
 
+import java.io.Serializable;
+
 import model.board.Square;
 import model.piece.Piece;
 import utils.GameConfig;
@@ -10,7 +12,7 @@ import utils.GameConfig;
  * @author Daniel
  *
  */
-public class HealSkill extends Skill implements IPerformTraitSkill {
+public class HealSkill extends Skill implements IPerformTraitSkill, Serializable {
 
 	public HealSkill() {
 		// TODO Auto-generated constructor stub

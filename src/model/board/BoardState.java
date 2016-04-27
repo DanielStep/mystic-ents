@@ -46,9 +46,9 @@ public class BoardState {
 	}
 	
 	public void initBoardData() {
-		Square[][] data = boardGenerator.generateStartBoard( gamePiecesList );
+		//Square[][] data = boardGenerator.generateStartBoard( gamePiecesList );
 		boardData = BoardData.getInstance();
-		boardData.setBoardData(data);
+		boardData.setBoardArray(boardGenerator.generateStartBoard( gamePiecesList ));
 		boardData.doCellsUpdate();
 	}
 	

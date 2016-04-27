@@ -33,26 +33,31 @@ public class BoardController implements Observer {
 	private BoardUtils boardUtils = BoardUtils.getInstance();
 	
 	public BoardController() {
+		System.out.println("New board state...");
 		boardState = new BoardState();
 		boardFrame = new BoardFrame();
 		boardData = BoardData.getInstance();
 		observe(boardData);
 	}
 	
+	public void init() {
+		//boardFrame.getBoardPanel().setPac(pieceController);
+		boardState.init();//this needs to change - get pieces process is causing a loss of saved properties  
+	}
+	
 	public void buildBoard() {
-		boardFrame.getBoardPanel().setPac(pieceController);
-		boardState.init();
+		System.out.println("Building board...");
+		//boardFrame.getBoardPanel().setPac(pieceController);
 		boardFrame.pack();
 	}
 	
 	public void clearRangeCells() {
-		System.out.println("Clear Board...");
-		boardData.setBoardData(boardUtils.clearRangeCells(boardData.getBoardData()));
+		boardData.setBoardArray(boardUtils.clearRangeCells(boardData.getBoardArray()));
 		boardData.doCellsUpdate();
 	}
 	
 	public void getRangeCells(int x, int y) {
-		boardData.setBoardData(boardUtils.getRangeCells(x, y, boardData.getBoardData()));
+		boardData.setBoardArray(boardUtils.getRangeCells(x, y, boardData.getBoardArray()));
 		boardData.doCellsUpdate();
 	}
 
@@ -66,7 +71,7 @@ public class BoardController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Square[][] data = ((BoardData) o).getBoardData();
+		Square[][] data = ((BoardData) o).getBoardArray();
 		if (data == null) return;
 		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);

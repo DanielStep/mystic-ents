@@ -8,6 +8,8 @@ import model.board.Square;
 import model.piece.Piece;
 
 public class BoardUtils {
+
+	private static final long serialVersionUID = 1L;
 	
 	private static BoardUtils instance;
 	

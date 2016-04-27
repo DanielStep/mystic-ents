@@ -1,5 +1,6 @@
 package model.traits;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * @author Daniel
  *
  */
-public class TraitSet {
+public class TraitSet implements Serializable{
 	
 	//TODO Consider how to make more extensible, ie adding another trait subtype without modifying structure (open closed) but retaining accessability
 	

@@ -72,7 +72,7 @@ public class MainMenuFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				doCloseFrame();
-				gameController.init();
+				gameController.startGame();
 			}
 		});
 		menuPanel.add(btNewGame);
@@ -83,7 +83,8 @@ public class MainMenuFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if (gameController.continueGame()) {
+				if (gameController.loadGame()) {
+					gameController.continueGame();
 					doCloseFrame();
 				}
 			}

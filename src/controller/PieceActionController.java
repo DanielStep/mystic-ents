@@ -1,10 +1,12 @@
 package controller;
 
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
 import model.board.BoardData;
 import model.board.Square;
 import model.piece.Piece;
+import utils.BoardUtils;
 import view.DialogView;
 import view.SquareView;
 
@@ -15,7 +17,7 @@ import view.SquareView;
  * @author mark
  *
  */
-public class PieceActionController {		
+public class PieceActionController {
 
 	private GameController gameController;
 	private BoardController boardController;
@@ -38,8 +40,17 @@ public class PieceActionController {
 	* 
 	*
 	*/
+
+	private static PieceActionController instance;
 	
-	public PieceActionController() {}
+	private PieceActionController(){}
+	
+	public static synchronized PieceActionController getInstance() {
+		if (instance == null) {
+			instance = new PieceActionController();
+		}
+		return instance;
+	}
 	
 	public void performAction(MouseEvent e, SquareView sqr) {
 		

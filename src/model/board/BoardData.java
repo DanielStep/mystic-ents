@@ -3,30 +3,34 @@ package model.board;
 import java.io.Serializable;
 import java.util.Observable;
 
-import utils.BoardUtils;
 import utils.GameConfig;
 
 public class BoardData extends Observable implements Serializable {
-	
-	private Square[][] boardDataArray = new Square[GameConfig.getROW_COL()][GameConfig.getROW_COL()];
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3623588786142287356L;
+
+	private Square[][] boardArray = new Square[GameConfig.getROW_COL()][GameConfig.getROW_COL()];
 	
 	private static BoardData instance;
+	
+	private BoardData() {}	
 	
 	public static synchronized BoardData getInstance() {
 		if (instance == null) {
 			instance = new BoardData();
 		}
 		return instance;
-	}	
-	
-	private BoardData() {}	
+	}
 
-	public void setBoardData(Square[][] data) {
-		boardDataArray = data;
+	public void setBoardArray(Square[][] data) {
+		boardArray = data;
 	}
 	
-	public Square[][] getBoardData() {
-		return boardDataArray;
+	public Square[][] getBoardArray() {
+		return boardArray;
 	}	
 	
 	public void doCellsUpdate() {
@@ -35,12 +39,12 @@ public class BoardData extends Observable implements Serializable {
 	}	
 	
 	public BoardMemento saveToMemento() {
-		BoardMemento boardMemento = new BoardMemento(getBoardData());
+		BoardMemento boardMemento = new BoardMemento(getBoardArray());
 		return boardMemento;
 	}
 	
 	public void undoFromMemento(BoardMemento boardMemento){
-		this.boardDataArray = boardMemento.getBoardData();
+		this.boardArray = boardMemento.getBoardData();
 		doCellsUpdate();
 	}	
 	

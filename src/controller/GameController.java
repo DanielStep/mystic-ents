@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.board.BoardData;
+import model.board.Square;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
@@ -38,24 +40,30 @@ public class GameController implements Observer {
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 
 	public GameController() {
-		generateGamePieces();
-		buildTimer();		
+		buildTimer();
 		new MainMenuFrame(this);
 	}
 
-	public void init() {
+	public void startGame() {
+		generateGamePieces();
+		gameBoard.init();
+		continueGame();
+	}
+	
+	public void continueGame() {
 		gameBoard.buildBoard();
 		gameBoard.getBoardFrame().setVisible(true);
 		setControlObjects();
 		startTimer();
 	}
 	
-	public Boolean continueGame(){
+	public Boolean loadGame(){
 		// TODO: load game here
-		System.out.println("Load Game from the previous save...");
-		Object gameState = GameUtils.getInstance().loadGame();
+		Object gameState = GameUtils.getInstance().loadGameData();
 		if (gameState != null) {
-			System.out.println("Load game successfully!");
+			BoardData data = (BoardData) gameState;
+			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
+			gameBoard.getBoardData().doCellsUpdate();
 			return true;
 		} else {
 			DialogView.getInstance().showInformation("Save game not found!");

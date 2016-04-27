@@ -1,5 +1,7 @@
 package model.skills;
 
+import java.io.Serializable;
+
 import model.board.Square;
 
 /**
@@ -8,7 +10,7 @@ import model.board.Square;
  *
  */
 
-public class BuildSkill extends Skill implements IPerformSquareSkill {
+public class BuildSkill extends Skill implements IPerformSquareSkill, Serializable {
 
 	public BuildSkill() {
 		super.setName("Build");
