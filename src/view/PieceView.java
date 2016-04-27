@@ -33,11 +33,7 @@ public class PieceView extends JPanel implements Serializable{
 
 	public PieceView(Piece pce) {
 		boardUtils = BoardUtils.getInstance();
-		
-		System.out.println(GameConfig.getDefaultHeight());
-		System.out.println(GameConfig.getROW_COL());
-		
-		size = 40;//(int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()) - 3.5);
+		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()) - 3.5);
 		this.piece = pce;
 		this.color = boardUtils.stringToColor(pce.getTeam().name(), Color.WHITE);
 		addPieceLabel();

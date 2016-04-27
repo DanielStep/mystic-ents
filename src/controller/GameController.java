@@ -59,7 +59,6 @@ public class GameController implements Observer {
 	}
 	
 	public Boolean loadGame(){
-		// TODO: load game here
 		Object gameState = GameUtils.getInstance().loadGameData();
 		if (gameState != null) {
 			BoardData data = (BoardData) gameState;
