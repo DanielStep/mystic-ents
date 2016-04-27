@@ -98,9 +98,10 @@ public class PieceActionController {
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			if (activePiece != null) {
-				// display dialog message if performing SKILL
+				performPieceSkill(sqrObj, ocpt);
 				checkActionCount();
 				//endTurn();
+				// display dialog message if performing SKILL
 				String msg = "Performing Skill!";
 				DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
 			}
@@ -138,7 +139,7 @@ public class PieceActionController {
 		if (currentSkill instanceof IPerformTraitSkill){
 			((IPerformTraitSkill) currentSkill).performSkill(activePiece);
 		}else if (currentSkill instanceof IPerformSquareSkill){
-			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, targetSquare);
+			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, sqrObj);
 		}
 		
 	}

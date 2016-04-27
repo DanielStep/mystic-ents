@@ -41,7 +41,7 @@ public class HealSkill extends Skill implements IPerformSquareSkill, Serializabl
 			}
 			else{
 				if (tPiece.getTeam() != aSqr.getOccupant().getTeam()){
-					throw new IncorrectSquareException("No piece in square.");
+					throw new IncorrectSquareException("Wrong team.");
 				}
 				else{					
 					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.getHealamount());
