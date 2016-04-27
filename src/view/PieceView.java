@@ -59,6 +59,9 @@ public class PieceView extends JPanel implements Serializable{
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		
+		//Need to do this polymorphically
+		
 		if (piece.getIsUsurper()) {
 			g2.setPaint(Color.white);
 			g2.fillOval(0, 0, size, size);
