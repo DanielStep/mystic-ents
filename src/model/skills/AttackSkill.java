@@ -18,8 +18,8 @@ public class AttackSkill extends Skill implements IPerformTraitSkill, Serializab
 	}
 	
 	@Override
-	public void performSkill(Square aSqr, Square tSqr) {		
-		tSqr.getOccupant().getTraitSet().getDamageTrait().modifyValue(GameConfig.getDamagetraitmultiplier());
+	public void performSkill(Piece skillOwner) {		
+		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.getDamagetraitmultiplier());
 	}
 	
 }

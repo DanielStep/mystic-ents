@@ -1,12 +1,16 @@
 package controller;
 
 import java.awt.event.MouseEvent;
-import java.io.Serializable;
+import java.nio.file.WatchEvent.Modifier;
 
 import model.board.BoardData;
 import model.board.Square;
 import model.piece.Piece;
-import utils.BoardUtils;
+
+import model.skills.IPerformSquareSkill;
+import model.skills.IPerformTraitSkill;
+import model.skills.Skill;
+
 import view.DialogView;
 import view.SquareView;
 
@@ -58,7 +62,6 @@ public class PieceActionController {
 		Square sqrObj = sqr.getSqrObj();
 		Piece ocpt = sqrObj.getOccupant();
 
-
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
 			//Check for piece
@@ -74,7 +77,7 @@ public class PieceActionController {
 					if (sqrObj.getInrange()) {
 						// display dialog message if attacking
 						if (!ocpt.getInMove() && activePiece != null) {
-							attackPiece(ocpt);
+							attackPiece(sqr.getSqrObj(),ocpt);
 							String msg = "Attack!";
 							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());						
 						}					
@@ -116,10 +119,28 @@ public class PieceActionController {
 	*
 	*/	
 		
-	private void attackPiece(Piece pce) {
+	private void attackPiece(Square sqrObj, Piece pce) {
 		activePiece.attackOut(pce);
+		
+		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
+		if(targetHealthValue < 1){
+			sqrObj.setOccupant(null);
+		}
+		
 		checkActionCount();
 		//endTurn();
+	}
+	
+	private void performPieceSkill(Square sqrObj, Piece pce){
+		
+		Skill currentSkill = activePiece.getSkillSet().getCurrentSkill();
+		
+		if (currentSkill instanceof IPerformTraitSkill){
+			((IPerformTraitSkill) currentSkill).performSkill(activePiece);
+		}else if (currentSkill instanceof IPerformSquareSkill){
+			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, targetSquare);
+		}
+		
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {

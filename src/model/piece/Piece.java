@@ -70,6 +70,9 @@ public abstract class Piece implements IAttack, Serializable {
 
 	public void attackOut(Piece piece) {
 		
+		int damageValue = this.getTraitSet().getDamageTrait().getTraitValue();
+		piece.getTraitSet().getHealthTrait().modifyValue(-damageValue);
+		
 		System.out.println(this.getTraitSet().getDamageTrait().getTraitValue() + " : Attack on : " + piece.getTraitSet().getHealthTrait().getTraitValue());
 		
 		// TODO Auto-generated method stub

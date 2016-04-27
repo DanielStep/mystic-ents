@@ -9,6 +9,7 @@ import model.board.Square;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
+import utils.GameConfig;
 import utils.GameUtils;
 import view.ControlPanel;
 import view.DialogView;
@@ -62,6 +63,7 @@ public class GameController implements Observer {
 		Object gameState = GameUtils.getInstance().loadGameData();
 		if (gameState != null) {
 			BoardData data = (BoardData) gameState;
+			GameConfig.setROW_COL(data.getBoardArray().length);
 			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
 			gameBoard.getBoardData().doCellsUpdate();
 			return true;

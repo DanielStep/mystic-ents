@@ -11,14 +11,15 @@ import utils.GameConfig;
  * @author Daniel skh
  *
  */
-public class RangeSkill extends Skill implements Modifier, Serializable {
+
+public class RangeSkill extends Skill implements IPerformTraitSkill, Serializable {
 
 	public RangeSkill() {
 		super.setName("Range");
 	}
 
 	@Override
-	public void applyModifier(Piece skillOwner) {
+	public void performSkill(Piece skillOwner) {
 		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.getRangemultiplier());
 	}
 

@@ -25,7 +25,7 @@ public class BoardPanel extends JPanel {
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultWidth(), GameConfig.getDefaultHeight()));
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
-		this.setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
+//		this.setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
 	}
 
 	public void setPac(PieceActionController pac) {

@@ -9,7 +9,7 @@ import model.piece.Piece;
  */
 public interface IPerformTraitSkill {
 	
-	public void performSkill(Square aSqr, Square tSqr);
+	public void performSkill(Piece skillOwner);
 	
 
 }
