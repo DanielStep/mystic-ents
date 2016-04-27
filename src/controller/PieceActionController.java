@@ -135,7 +135,7 @@ public class PieceActionController {
 		}else if (currentSkill instanceof IPerformSquareSkill){
 			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, sqrObj);
 		}
-		
+		boardController.getBoardData().doCellsUpdate();
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {
