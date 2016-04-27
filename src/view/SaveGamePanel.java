@@ -13,6 +13,11 @@ import model.board.BoardData;
 import model.board.Square;
 import utils.GameUtils;
 
+/**
+ * A component of Control Panel: display save game button to save the current game
+ * @author Phan Vo
+ *
+ */
 public class SaveGamePanel extends JPanel implements Serializable {
 	private JButton btnSaveGame;
 	

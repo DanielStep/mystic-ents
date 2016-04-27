@@ -1,16 +1,12 @@
 package controller;
 
 import java.awt.event.MouseEvent;
-import java.nio.file.WatchEvent.Modifier;
 
-import model.board.BoardData;
 import model.board.Square;
 import model.piece.Piece;
-
 import model.skills.IPerformSquareSkill;
 import model.skills.IPerformTraitSkill;
 import model.skills.Skill;
-
 import view.DialogView;
 import view.SquareView;
 
@@ -123,6 +119,7 @@ public class PieceActionController {
 		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
+			boardController.getBoardData().doCellsUpdate();
 		}
 		
 		checkActionCount();

@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -56,12 +57,15 @@ public class GameController implements Observer {
 		gameBoard.getBoardFrame().setVisible(true);
 		setControlObjects();
 		startTimer();
+		loadTeamColorFromSaveGame();
 	}
 	
 	public Boolean loadGame(){
 		Object gameState = GameUtils.getInstance().loadGameData();
 		if (gameState != null) {
 			BoardData data = (BoardData) gameState;
+			System.out.println("---------team color = " + data.getCurrentTeam());
+			BoardData.getInstance().setCurrentTeam(data.getCurrentTeam());
 			GameConfig.setROW_COL(data.getBoardArray().length);
 			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
 			gameBoard.getBoardData().doCellsUpdate();
@@ -71,6 +75,14 @@ public class GameController implements Observer {
 			return false;
 		}
 	}	
+	
+	public void loadTeamColorFromSaveGame(){
+		Team teamEnum = BoardData.getInstance().getCurrentTeam();
+		if (teamEnum != null) {
+			// load current team from save data
+			controlPanel.setCurrentTeam(teamEnum.name());
+		}
+	}
 	
 	/**
 	 * The update method of the Observer pattern
@@ -114,11 +126,13 @@ public class GameController implements Observer {
 		
 		//Change teams
 		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;
-		
 
 		//Update UI
 		controlPanel.setCurrentTeam(currentTeam.name());
-		controlPanel.doUIEndTurn();		
+		controlPanel.doUIEndTurn();
+		
+		//Update save data for current team
+		BoardData.getInstance().setCurrentTeam(currentTeam);
 	}	
 	
 	private int getAvailablePieceCount() {
