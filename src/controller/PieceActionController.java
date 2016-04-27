@@ -185,6 +185,7 @@ public class PieceActionController {
 	}
 	
 	private void endTurn() {
+		
 		// automatically switch player when finishing a move
 		gameController.getGameTurn().setGameTimer(0);
 		
@@ -202,5 +203,9 @@ public class PieceActionController {
 	}
 	public void setBoardController(BoardController bd) {
 		this.boardController = bd;
+	}
+	
+	public void resetActionCount(){
+		actionCount = 0;
 	}
 }

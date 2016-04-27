@@ -101,6 +101,9 @@ public class GameController implements Observer {
 	 * 
 	 */		
 	private void handleEndTurn() {
+		//reset action counter
+		pieceController.getInstance().resetActionCount();
+		
 		// set game turn count;
 		int newCount = gameTimer.getCount();
 		newCount++;
@@ -111,6 +114,7 @@ public class GameController implements Observer {
 		
 		//Change teams
 		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;
+		
 
 		//Update UI
 		controlPanel.setCurrentTeam(currentTeam.name());
