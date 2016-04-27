@@ -75,8 +75,8 @@ public class OptionFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// set the game map by selection
-				//GameConfig.setFileMapName(cbMapList.getSelectedItem().toString());
-				//System.out.println(cbMapList.getSelectedItem() + " loaded...");
+				GameConfig.setFileMapName(cbMapList.getSelectedItem().toString());
+				System.out.println(cbMapList.getSelectedItem() + " loaded...");
 				doCloseFrame();
 			}
 		});

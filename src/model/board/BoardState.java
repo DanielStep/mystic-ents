@@ -26,10 +26,11 @@ public class BoardState {
 	private BoardGenerator boardGenerator = new BoardGenerator();
 	
 	public BoardState() {		
-		boardGenerator.loadMapData();
+		
 	}
 
 	public void init() {
+		boardGenerator.loadMapData();
 		//Get the pieces from GameController
 		getPieces();
 		//Populate BoardData from BoardGenerator

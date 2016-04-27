@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -7,6 +8,7 @@ import model.board.BoardData;
 import model.board.BoardState;
 import model.board.Square;
 import utils.BoardUtils;
+import utils.GameConfig;
 import view.BoardFrame;
 
 /**
@@ -43,6 +45,8 @@ public class BoardController implements Observer {
 		boardFrame.getBoardPanel().setPac(pieceController);
 		boardState.init();
 		boardFrame.pack();
+		boardFrame.getBoardPanel().setLayout(new GridLayout
+				(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
 	}
 	
 	public void clearRangeCells() {
