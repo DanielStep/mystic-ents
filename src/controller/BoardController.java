@@ -79,6 +79,9 @@ public class BoardController implements Observer {
 		if (data == null) return;
 		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
+		
+		// set game piece list to board data for save file
+		boardData.setGamePiecesList(GameController.getGamePiecesList());
 	}
 	
 	public BoardData getBoardData() {

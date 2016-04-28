@@ -63,12 +63,19 @@ public class GameController implements Observer {
 		if (gameState != null) {
 			BoardData data = (BoardData) gameState;
 			Team teamColor = data.getCurrentTeam();
-			System.out.println("---------team color from save file = " + teamColor);
+			ArrayList<Piece> pieceList = data.getGamePiecesList();
+			
+//			System.out.println("---------piece list from save file = " + pieceList);
 			
 			// set team color from save file
 			if (teamColor != null) {
 				BoardData.getInstance().setCurrentTeam(teamColor);
 				setCurrentTeam(teamColor);
+			}
+			
+			// set game piece list from save file
+			if (pieceList != null) {
+				setGamePiecesList(pieceList);
 			}
 			
 			GameConfig.setROW_COL(data.getBoardArray().length);
