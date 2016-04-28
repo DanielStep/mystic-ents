@@ -121,6 +121,7 @@ public class PieceActionController {
 			sqrObj.setOccupant(null);
 			gameController.updatePieceInformation(pce);
 			boardController.getBoardData().doCellsUpdate();
+			GameController.getGamePiecesList().remove(pce);
 		}
 		
 		checkActionCount();
