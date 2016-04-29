@@ -1,6 +1,6 @@
 package model.board;
 
-import java.util.Stack;
+import java.util.LinkedList;
 
 /**
  * Care taker for the board
@@ -11,11 +11,12 @@ import java.util.Stack;
 
 public class BoardCareTaker {
 
-	final Stack<BoardMemento> mementos = new Stack<BoardMemento>();
+	final LinkedList<BoardMemento> mementos = new LinkedList<>();
 
 	public BoardMemento getMemento() {
-		if (!mementos.empty()) {
-			BoardMemento boardMemento = mementos.pop();
+		if (mementos.size()>1) {
+			mementos.pollLast();
+			BoardMemento boardMemento = mementos.pollLast();
 			return boardMemento;
 		}
 		return null;
@@ -23,9 +24,9 @@ public class BoardCareTaker {
 
 	public void addMemento(BoardMemento boardMemento) {
 		
-		//Only have to save up to 6 states
+		//Only have to save up to 6 states, remove old states
 		if (mementos.size() > 6) {
-			mementos.pop();
+			mementos.poll();
 		}
 		mementos.add(boardMemento);
 	}
