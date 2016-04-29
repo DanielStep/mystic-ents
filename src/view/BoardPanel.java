@@ -25,14 +25,11 @@ public class BoardPanel extends JPanel {
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultWidth(), GameConfig.getDefaultHeight()));
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
-		this.setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
-	}
-
-	public PieceActionController getPac() {
-		return pac;
+//		this.setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
 	}
 
 	public void setPac(PieceActionController pac) {
+		//System.out.println(pac);
 		this.pac = pac;
 	}
 
@@ -44,7 +41,7 @@ public class BoardPanel extends JPanel {
 		//else throw exception		
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				SquareView sqr = new SquareView(pac, (Square) board[i][j]);
+				SquareView sqr = new SquareView((Square) board[i][j]);
 				this.add(sqr);
 			}
 		}

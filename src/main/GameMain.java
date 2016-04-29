@@ -12,14 +12,14 @@ public class GameMain {
 
 		//INSTANTIATE ALL CONTROLLERS 
 		boardController = new BoardController();
+		pieceActionController = PieceActionController.getInstance();
 		gameController = new GameController();
-		pieceActionController = new PieceActionController();
 		
-		//Assign GameController to pieceActionController
+		//Assign Controllers 
 		pieceActionController.setGameController(gameController);
+		pieceActionController.setBoardController(boardController);
 		gameController.setBoardController(boardController);
-		gameController.setPieceActionController(pieceActionController);	
-		boardController.setPieceActionController(pieceActionController);
+		System.out.println("All Controllers constructed");
 				
 	}
 	

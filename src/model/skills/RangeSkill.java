@@ -1,7 +1,10 @@
 package model.skills;
 
+import java.io.Serializable;
+
 import model.piece.Piece;
 import utils.GameConfig;
+import view.DialogView;
 
 /**
  * Class that increases the piece's range trait by constant multiplier
@@ -9,15 +12,17 @@ import utils.GameConfig;
  * @author Daniel skh
  *
  */
-public class RangeSkill extends Skill implements Modifier {
+
+public class RangeSkill extends Skill implements IPerformTraitSkill, Serializable {
 
 	public RangeSkill() {
 		super.setName("Range");
 	}
 
 	@Override
-	public void applyModifier(Piece skillOwner) {
+	public void performSkill(Piece skillOwner) {
 		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.getRangemultiplier());
+		DialogView.getInstance().showInformation("Range increased!");
 	}
 
 }

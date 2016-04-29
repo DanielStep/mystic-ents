@@ -1,9 +1,11 @@
 package model.piece;
 
+import java.io.Serializable;
+
 import model.skills.SkillSet;
 import model.traits.TraitSet;
 
-public abstract class Piece implements IAttack {
+public abstract class Piece implements IAttack, Serializable {
 
 	protected TraitSet traitSet;
 	protected SkillSet skillSet;
@@ -67,6 +69,9 @@ public abstract class Piece implements IAttack {
 	}
 
 	public void attackOut(Piece piece) {
+		
+		int damageValue = this.getTraitSet().getDamageTrait().getTraitValue();
+		piece.getTraitSet().getHealthTrait().modifyValue(-damageValue);
 		
 		System.out.println(this.getTraitSet().getDamageTrait().getTraitValue() + " : Attack on : " + piece.getTraitSet().getHealthTrait().getTraitValue());
 		

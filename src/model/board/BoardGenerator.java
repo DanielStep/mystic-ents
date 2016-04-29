@@ -1,6 +1,7 @@
 package model.board;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import utils.MapLoader;
  *
  */
 
-public class BoardGenerator {
+public class BoardGenerator  {
 	
 	private ArrayList<Piece> gamePieces;
 	private ArrayList<ArrayList<Integer>> map;
@@ -142,7 +143,7 @@ public class BoardGenerator {
 			gsqr.setTeamTower(true);
 		}
 		
-		int[] ids = {col, row};		
+		int[] ids = {col, row};
 		gsqr.setID(ids);
 		
 		return gsqr;

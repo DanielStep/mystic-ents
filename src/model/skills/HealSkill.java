@@ -1,16 +1,20 @@
 package model.skills;
 
 
+import java.io.Serializable;
+
 import model.board.Square;
 import model.piece.Piece;
 import utils.GameConfig;
+import view.DialogView;
 
 /**
  * Class contains logic to increase the value of health trait of another piece of the same team by constant
  * @author Daniel
  *
  */
-public class HealSkill extends Skill implements IPerformTraitSkill {
+
+public class HealSkill extends Skill implements IPerformSquareSkill, Serializable {
 
 	public HealSkill() {
 		// TODO Auto-generated constructor stub
@@ -26,7 +30,7 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 	 * return Boolean
 	 */
 	@Override
-	public void performSkill(Square aSqr, Square tSqr) {
+	public boolean performSkill(Square aSqr, Square tSqr) {
 
 		/*Test if square empty, then if square occupant in other team. If either, throw exception. 
 		 * If neither increment occupants HealthTrait Value and set result to true*/
@@ -38,19 +42,20 @@ public class HealSkill extends Skill implements IPerformTraitSkill {
 			}
 			else{
 				if (tPiece.getTeam() != aSqr.getOccupant().getTeam()){
-					throw new IncorrectSquareException("No piece in square.");
+					throw new IncorrectSquareException("Wrong team.");
 				}
 				else{					
 					tPiece.getTraitSet().getHealthTrait().modifyValue(GameConfig.getHealamount());
-					//result = true;
+					DialogView.getInstance().showInformation("Piece healed!");
 				}
 			}
 		}
 		catch(IncorrectSquareException e){
 			System.out.println(e.getMessage());
 		}
-		
+		return true;
 	}
+	  
 
 }
 
@@ -63,6 +68,7 @@ class IncorrectSquareException extends RuntimeException {
 	
 	public IncorrectSquareException(String message) {
 		super(message);
+		DialogView.getInstance().showInformation(message);
 	}
 	
 

@@ -1,9 +1,14 @@
 package controller;
 
+import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.board.BoardData;
 import model.board.BoardState;
+import model.board.Square;
+import utils.BoardUtils;
+import utils.GameConfig;
 import view.BoardFrame;
 
 /**
@@ -25,33 +30,62 @@ public class BoardController implements Observer {
 	
 	//MODEL
 	private BoardState boardState;
+	private BoardData boardData;	
+	
+	private BoardUtils boardUtils = BoardUtils.getInstance();
 	
 	public BoardController() {
+		System.out.println("New board state...");
 		boardState = new BoardState();
 		boardFrame = new BoardFrame();
+		boardData = BoardData.getInstance();
+		observe(boardData);
+	}
+	
+	public void init() {
+		//boardFrame.getBoardPanel().setPac(pieceController);
+		boardState.init();//this needs to change - get pieces process is causing a loss of saved properties  
 	}
 	
 	public void buildBoard() {
-		boardFrame.getBoardPanel().setPac(pieceController);
-		observe(boardState);
-		boardState.init();
+		System.out.println("Building board...");
+		//boardFrame.getBoardPanel().setPac(pieceController);
 		boardFrame.pack();
+		boardFrame.getBoardPanel().setLayout(new GridLayout
+				(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
+	}
+	
+	public void clearRangeCells() {
+		boardData.setBoardArray(boardUtils.clearRangeCells(boardData.getBoardArray()));
+		boardData.doCellsUpdate();
+	}
+	
+	public void getRangeCells(int x, int y) {
+		boardData.setBoardArray(boardUtils.getRangeCells(x, y, boardData.getBoardArray()));
+		boardData.doCellsUpdate();
 	}
 
+	public void saveToMemento() {
+		boardData.saveToMemento();
+	}
+	
 	public void observe(Observable o) {
 		o.addObserver(this);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Object[][] data = ((BoardState) o).getBoardData();
+		Square[][] data = ((BoardData) o).getBoardArray();
 		if (data == null) return;
 		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
+		
+		// set game piece list to board data for save file
+		boardData.setGamePiecesList(GameController.getGamePiecesList());
 	}
 	
-	public BoardState getBoardState() {
-		return boardState;
+	public BoardData getBoardData() {
+		return boardData;
 	}
 	
 	public BoardFrame getBoardFrame() {
@@ -61,4 +95,8 @@ public class BoardController implements Observer {
 	public void setPieceActionController(PieceActionController pieceController) {
 		this.pieceController = pieceController;
 	}
+	
+	public PieceActionController getPieceActionController() {
+		return pieceController;
+	}	
 }

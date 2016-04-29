@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +20,7 @@ import utils.GameConfig;
  * @author skh, ms
  *
  */
-public class PieceView extends JPanel {
+public class PieceView extends JPanel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +31,7 @@ public class PieceView extends JPanel {
 	private int size = 40;
 	private JLabel label;
 
-	PieceView(Piece pce) {
+	public PieceView(Piece pce) {
 		boardUtils = BoardUtils.getInstance();
 		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()) - 3.5);
 		this.piece = pce;
@@ -58,6 +59,9 @@ public class PieceView extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		
+		//Need to do this polymorphically
+		
 		if (piece.getIsUsurper()) {
 			g2.setPaint(Color.white);
 			g2.fillOval(0, 0, size, size);

@@ -4,6 +4,9 @@ import java.awt.event.MouseEvent;
 
 import model.board.Square;
 import model.piece.Piece;
+import model.skills.IPerformSquareSkill;
+import model.skills.IPerformTraitSkill;
+import model.skills.Skill;
 import view.DialogView;
 import view.SquareView;
 
@@ -15,13 +18,14 @@ import view.SquareView;
  *
  */
 public class PieceActionController {
-		
 
 	private GameController gameController;
-	
+	private BoardController boardController;
+
 	private Piece activePiece;
 	private Square activeSquare;
 	private Square targetSquare;
+	private int actionCount;
 
 	/**
 	* Receives MouseEvent from SquareView Object
@@ -36,8 +40,17 @@ public class PieceActionController {
 	* 
 	*
 	*/
+
+	private static PieceActionController instance;
 	
-	public PieceActionController() {}
+	private PieceActionController(){}
+	
+	public static synchronized PieceActionController getInstance() {
+		if (instance == null) {
+			instance = new PieceActionController();
+		}
+		return instance;
+	}
 	
 	public void performAction(MouseEvent e, SquareView sqr) {
 		
@@ -60,7 +73,7 @@ public class PieceActionController {
 					if (sqrObj.getInrange()) {
 						// display dialog message if attacking
 						if (!ocpt.getInMove() && activePiece != null) {
-							attackPiece(ocpt);
+							attackPiece(sqr.getSqrObj(),ocpt);
 							String msg = "Attack!";
 							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());						
 						}					
@@ -81,10 +94,9 @@ public class PieceActionController {
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON3) {
 			if (activePiece != null) {
-				// display dialog message if performing SKILL
-				endTurn();
-				String msg = "Performing Skill!";
-				DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
+				performPieceSkill(sqrObj, ocpt);
+				checkActionCount();
+				//endTurn();
 			}
 		}
 
@@ -101,9 +113,34 @@ public class PieceActionController {
 	*
 	*/	
 		
-	private void attackPiece(Piece pce) {		
+	private void attackPiece(Square sqrObj, Piece pce) {
 		activePiece.attackOut(pce);
-		endTurn();
+		
+		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
+		if(targetHealthValue < 1){
+			sqrObj.setOccupant(null);
+			gameController.updatePieceInformation(pce);
+			gameController.getGamePiecesList().remove(pce);
+			boardController.getBoardData().doCellsUpdate();
+		}
+		
+		checkActionCount();
+		//endTurn();
+	}
+	
+	private void performPieceSkill(Square sqrObj, Piece pce){
+		
+		Skill currentSkill = activePiece.getSkillSet().getCurrentSkill();
+		
+		if (currentSkill instanceof IPerformTraitSkill){
+			((IPerformTraitSkill) currentSkill).performSkill(activePiece);
+		}else if (currentSkill instanceof IPerformSquareSkill){
+			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, sqrObj);
+		}
+		boardController.clearRangeCells();
+		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
+		boardController.getBoardData().doCellsUpdate();
+		gameController.updatePieceInformation(pce);
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {
@@ -112,37 +149,63 @@ public class PieceActionController {
 		targetSquare.setOccupant(activePiece);
 		activeSquare.setOccupant(null);		
 		activePiece = null;
-		gameController.getGameBoard().getBoardState().doCellsUpdate();
-		endTurn();		
+		boardController.clearRangeCells();
+		checkActionCount();
+		//endTurn();
 	}	
 	
 	private void switchPiece(Piece pce) {
 		activePiece.setInMove(false);
-		clearActivePieceRange();
+		boardController.clearRangeCells();
 	}
 	
 	private void manageSquare(Square sqrObj, Piece pce) {
 		pce.setInMove(true);
 		activeSquare = sqrObj;
-		activePiece = pce;
-		gameController.getGameBoard().getBoardState().getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
+		activePiece = pce;		
+		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		gameController.updatePieceInformation(pce);
 	}
 	
+	/**
+	 * Method controls number of actions permitted per turn
+	 * Ends turn if at least 2 actions performed
+	 * If less than 2 actions performed, increments the action counter
+	 * 
+	 * @author DS
+	 */
+	private void checkActionCount(){
+		
+		if (actionCount >=1){
+			actionCount = 0;
+			endTurn();
+		}else{
+			actionCount++;
+		}
+	}
+	
 	private void endTurn() {
+		
 		// automatically switch player when finishing a move
 		gameController.getGameTurn().setGameTimer(0);
 		
-		//Right place to add? // saving game board for undo
-		gameController.getGameBoard().getBoardState().saveToMemento();
+		// saving game board for undo
+		boardController.saveToMemento();
 	}
 	
 	private void clearActivePieceRange() {
 		// reset board
-		gameController.getGameBoard().getBoardState().clearRangeCells();
+		boardController.clearRangeCells();
 	}
 	
 	public void setGameController(GameController g) {
 		this.gameController = g;
+	}
+	public void setBoardController(BoardController bd) {
+		this.boardController = bd;
+	}
+	
+	public void resetActionCount(){
+		actionCount = 0;
 	}
 }

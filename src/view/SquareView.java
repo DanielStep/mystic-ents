@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -12,13 +13,13 @@ import controller.PieceActionController;
 import main.GameMain;
 import model.board.Square;
 
-public class SquareView extends JPanel implements MouseListener {
+public class SquareView extends JPanel implements MouseListener, Serializable {
 
 	private PieceActionController pac;
 	private Color defaultBg = Color.WHITE;
 	private Square sqrObj;
 
-	public SquareView(PieceActionController p, Square o) {
+	public SquareView(Square o) {
 		super();
 		this.setSqrObj(o);
 		this.setLayout(new BorderLayout());
@@ -30,8 +31,10 @@ public class SquareView extends JPanel implements MouseListener {
 		 * accessing the model not the view properties throughout the game So
 		 * only need to assign MouseListener to the 'parent' and update the
 		 * Model.
-		 */
-		pac = p;
+		 */		
+
+		pac = PieceActionController.getInstance();
+				
 		addTeamPiece(o);
 		addMouseListener(this);
 	}

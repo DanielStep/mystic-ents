@@ -1,5 +1,6 @@
 package model.skills;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 /**
@@ -8,7 +9,7 @@ import java.util.Observable;
  * @modified Mark
  *
  */
-public class SkillSet extends Observable {
+public class SkillSet extends Observable implements Serializable {
 	
 	private ArrayList<Skill> listOfSkills = new ArrayList<Skill>();
 

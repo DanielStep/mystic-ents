@@ -59,7 +59,7 @@ public class OptionFrame extends JFrame{
 		optionPanel.setBorder(new EmptyBorder(margin, margin, margin, margin));
 		
 		JLabel lbSelect = new JLabel("Select map: ");
-		JComboBox<String> cbMapList = new JComboBox<String>();
+		final JComboBox<String> cbMapList = new JComboBox<String>();
 		
 		for (String item : GameUtils.getInstance().getAllGameMaps()) {
 			cbMapList.addItem(item);
@@ -75,8 +75,8 @@ public class OptionFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				// set the game map by selection
-				//GameConfig.setFileMapName(cbMapList.getSelectedItem().toString());
-				//System.out.println(cbMapList.getSelectedItem() + " loaded...");
+				GameConfig.setFileMapName(cbMapList.getSelectedItem().toString());
+				System.out.println(cbMapList.getSelectedItem() + " loaded...");
 				doCloseFrame();
 			}
 		});
