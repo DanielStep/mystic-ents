@@ -94,7 +94,7 @@ public class GameController implements Observer {
 	private void handleEndTurn() {
 		//reset action counter
 		pieceController.getInstance().resetActionCount();
-		
+
 		// set game turn count;
 		int newCount = gameTimer.getCount();
 		newCount++;
@@ -108,6 +108,9 @@ public class GameController implements Observer {
 		
 		//Update save data for current team
 		BoardData.getInstance().setCurrentTeam(currentTeam);
+		
+		//Reset TraitValues of all pieces on board to base value
+		BoardData.getInstance().resetPieceTraitValueToBase();
 		
 		//Update UI
 		controlPanel.setCurrentTeam(currentTeam.name());		
@@ -194,6 +197,8 @@ public class GameController implements Observer {
 			}
 		}
 	}	
+	
+
 
 	public void setControlObjects() {
 		setControlPanel(gameBoard.getBoardFrame().getControlPanel());

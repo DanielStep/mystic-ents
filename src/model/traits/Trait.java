@@ -10,9 +10,11 @@ import java.io.Serializable;
 public abstract class Trait implements ITraitValueModifiable, Serializable {
 
 	private int traitValue;
+	private int baseTraitValue;
 	
 	public Trait(int startingValue){
 		setTraitValue(startingValue);
+		this.baseTraitValue = startingValue;
 	}
 
 	public void modifyValue(int changeBy) {
@@ -25,5 +27,13 @@ public abstract class Trait implements ITraitValueModifiable, Serializable {
 
 	public void setTraitValue(int traitValue) {
 		this.traitValue = traitValue;
+	}
+	
+	public int getBaseTraitValue(){
+		return baseTraitValue;
+	}
+	
+	public void setTraitValueToBase(){
+		setTraitValue(baseTraitValue);
 	}
 }

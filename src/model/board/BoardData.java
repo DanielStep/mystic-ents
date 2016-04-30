@@ -56,6 +56,17 @@ public class BoardData extends Observable implements Serializable {
 	public void undoFromMemento(BoardMemento boardMemento){
 		this.boardArray = boardMemento.getBoardData();
 		doCellsUpdate();
-	}	
+	}
+	
+	public void resetPieceTraitValueToBase(){
+		for (int row = 0; row < boardArray.length; row++){ 
+			for (int col = 0; col < boardArray[row].length; col++){ 
+				if (boardArray[row][col].getOccupant() != null){
+					boardArray[row][col].getOccupant().getTraitSet().getDamageTrait().setTraitValueToBase();
+					boardArray[row][col].getOccupant().getTraitSet().getRangeTrait().setTraitValueToBase();
+				}
+			}
+		}
+	}
 	
 }
