@@ -17,7 +17,7 @@ import view.SquareView;
  * @author mark
  *
  */
-public class PieceActionController {
+public class ActionController {
 
 	private GameController gameController;
 	private BoardController boardController;
@@ -41,13 +41,13 @@ public class PieceActionController {
 	*
 	*/
 
-	private static PieceActionController instance;
+	private static ActionController instance;
 	
-	private PieceActionController(){}
+	private ActionController(){}
 	
-	public static synchronized PieceActionController getInstance() {
+	public static synchronized ActionController getInstance() {
 		if (instance == null) {
-			instance = new PieceActionController();
+			instance = new ActionController();
 		}
 		return instance;
 	}
@@ -120,7 +120,6 @@ public class PieceActionController {
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
 			gameController.updatePieceInformation(pce);
-			gameController.getGamePiecesList().remove(pce);
 			boardController.getBoardData().doCellsUpdate();
 		}
 		
@@ -138,8 +137,8 @@ public class PieceActionController {
 			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, sqrObj);
 		}
 		boardController.clearRangeCells();
-		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		boardController.getBoardData().doCellsUpdate();
+		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
 		gameController.updatePieceInformation(pce);
 	}
 	
@@ -174,8 +173,7 @@ public class PieceActionController {
 	 * 
 	 * @author DS
 	 */
-	private void checkActionCount(){
-		
+	private void checkActionCount(){		
 		if (actionCount >=1){
 			actionCount = 0;
 			endTurn();

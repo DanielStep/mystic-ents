@@ -22,9 +22,6 @@ import view.BoardFrame;
 
 public class BoardController implements Observer {
 
-	//PIECE CONTROLLER
-	private PieceActionController pieceController;
-	
 	//VIEW
 	private BoardFrame boardFrame;
 	
@@ -43,13 +40,11 @@ public class BoardController implements Observer {
 	}
 	
 	public void init() {
-		//boardFrame.getBoardPanel().setPac(pieceController);
-		boardState.init();//this needs to change - get pieces process is causing a loss of saved properties  
+		boardState.init();
 	}
 	
 	public void buildBoard() {
 		System.out.println("Building board...");
-		//boardFrame.getBoardPanel().setPac(pieceController);
 		boardFrame.pack();
 		boardFrame.getBoardPanel().setLayout(new GridLayout
 				(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
@@ -79,9 +74,6 @@ public class BoardController implements Observer {
 		if (data == null) return;
 		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
-		
-		// set game piece list to board data for save file
-		boardData.setGamePiecesList(GameController.getGamePiecesList());
 	}
 	
 	public BoardData getBoardData() {
@@ -91,12 +83,5 @@ public class BoardController implements Observer {
 	public BoardFrame getBoardFrame() {
 		return boardFrame;
 	}
-	
-	public void setPieceActionController(PieceActionController pieceController) {
-		this.pieceController = pieceController;
-	}
-	
-	public PieceActionController getPieceActionController() {
-		return pieceController;
-	}	
+
 }

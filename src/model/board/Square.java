@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.Serializable;
 
 import model.piece.Piece;
+import model.piece.Team;
 
 /**
  * Contained inside board, can contain piece or become wall
@@ -20,7 +21,7 @@ public class Square implements Serializable {
 	private Boolean inrange = false;
 	private Boolean accessible = true;	
 	private Boolean teamPiece = false;
-	private Boolean teamTower = false;
+	private Team teamTower = null;
 	private Color bgColor = Color.WHITE;
 	
 	public Square () {	}
@@ -53,16 +54,12 @@ public class Square implements Serializable {
 		return teamPiece;
 	}
 
-	public void setTeamPiece(Boolean teamPiece) {
-		this.teamPiece = teamPiece;
+	public Team getTeamTower() {
+		// TODO Auto-generated method stub
+		return this.teamTower;
 	}
-
-	public Boolean getTeamTower() {
-		return teamTower;
-	}
-
-	public void setTeamTower(Boolean teamTower) {
-		this.teamTower = teamTower;
+	public void setTeamTower(Team team) {
+		this.teamTower = team;
 	}
 
 	public Color getBgColor() {
@@ -80,6 +77,7 @@ public class Square implements Serializable {
 	public void setInrange(Boolean inrange) {
 		this.inrange = inrange;
 	}
+
 
 
 }

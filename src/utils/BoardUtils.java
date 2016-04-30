@@ -3,6 +3,8 @@ package utils;
 import java.awt.Color;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import model.board.Square;
 import model.piece.Piece;
@@ -13,6 +15,8 @@ public class BoardUtils {
 	
 	private static BoardUtils instance;
 	
+	private RangeChecker checker = new RangeChecker();
+	
 	private BoardUtils(){}
 	
 	public static synchronized BoardUtils getInstance() {
@@ -21,7 +25,7 @@ public class BoardUtils {
 		}
 		return instance;
 	}
-	
+
 	public Square[][] clearRangeCells(Square[][] boardData) {
 		Square[][] updateData = boardData;
 		for(int i = 0; i < updateData.length; i++) {
@@ -33,42 +37,94 @@ public class BoardUtils {
 	}
 	
 	public Square[][] getRangeCells(int x, int y, Square[][] boardData) {
-		Piece ocpt = boardData[x][y].getOccupant();
-		Square[][] updateData = boardData;
-		
-		
-		Piece pce = updateData[x][y].getOccupant();		
-		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
-		
+
 		/*if (pce.getSkillSet().getCurrentSkill().getName() == "range") {
 			
 			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);			
 			
 		};*/
 		
-		for(int i = (x-range); i < (x+(1+range)); i++) {
-			if (i >= 0 && i < updateData.length) {
-				for(int j = (y-range); j < (y+(1+range)); j++) {
-					if (j >= 0 && j < updateData[i].length) {
-						updateData[i][j].setInrange(checkRangeCriteria(updateData[i][j], ocpt));
-					}
-				}				
-			}
-		}
-		return updateData;
+		Piece pce = boardData[x][y].getOccupant();
+		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
+
+		checker.setBoardData(boardData);
+		checker.setRange(range);
+		checker.setX(x);
+		checker.setY(y);
+		boardData = checker.gatherCheckSquaresByRange();
+		return boardData;
 	}
 	
-	private Boolean checkRangeCriteria(Square data, Piece ocpt) {
-		if (data.getOccupant() != null) {
-			if (data.getOccupant().getTeam() == ocpt.getTeam()){
+	
+	class RangeChecker {
+		
+		private int x;
+		private int y;
+		private Square[][] boardData;
+		private int range;		
+		
+		public Square[][] gatherCheckSquaresByRange() {
+			
+			ArrayList<Square> getSquares = new ArrayList<Square>();
+			
+			System.out.println("FROM: " + x + " : " + y);
+			
+			int crange = 0-range;
+			for(int h = (x-range); h < (x+(range+1)); h++) {
+				for(int i = x-crange; i < x+(crange+1); i++) {
+					for(int j = y-crange; j < y+(crange+1); j++) {
+						if (i > -1 && j > -1 && i < this.boardData.length && j < this.boardData.length) {
+							//checkRangeCriteria(origin, crange, check)
+							boardData[i][j].setInrange(checkRangeCriteria(boardData[i][j]));
+							//getSquares.add(boardData[i][j]);
+						}
+					}
+				}			
+				crange++;			
+			}
+			return boardData;			
+		}
+
+		private Boolean checkRangeCriteria(Square check) {
+
+			if (check.getOccupant() != null) {
+				if (check.getOccupant().getTeam() == boardData[x][y].getOccupant().getTeam() ) {
+					return false;
+				}			
+			}
+			if (!check.getAccessible() || check.getTeamTower() != null) {
 				return false;
-			}			
+			}
+			
+			return true;
 		}
-		if (!data.getAccessible() || data.getTeamTower()) {
-			return false;
+		
+		public int getX() {
+			return x;
 		}
-		return true;
-	}
+		public void setX(int x) {
+			this.x = x;
+		}
+		public int getY() {
+			return y;
+		}
+		public void setY(int y) {
+			this.y = y;
+		}
+		public int getRange() {
+			return range;
+		}
+		public void setRange(int range) {
+			this.range = range;
+		}
+		public Square[][] getBoardData() {
+			return boardData;
+		}
+		public void setBoardData(Square[][] boardData) {
+			this.boardData = boardData;
+		}
+		
+	}  
 	
 	/**
 	* Converts a given string into a color.

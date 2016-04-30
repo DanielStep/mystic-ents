@@ -6,7 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import controller.PieceActionController;
+import controller.ActionController;
 import model.board.Square;
 import utils.GameConfig;
 
@@ -17,8 +17,6 @@ import utils.GameConfig;
  *
  */
 public class BoardPanel extends JPanel {
-	
-	PieceActionController pac;
 
 	public BoardPanel() {
 		super();
@@ -26,11 +24,6 @@ public class BoardPanel extends JPanel {
 		this.setVisible(true);
 		this.setBackground(Color.WHITE);
 //		this.setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
-	}
-
-	public void setPac(PieceActionController pac) {
-		//System.out.println(pac);
-		this.pac = pac;
 	}
 
 	/**

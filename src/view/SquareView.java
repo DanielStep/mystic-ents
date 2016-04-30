@@ -9,13 +9,13 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import controller.PieceActionController;
+import controller.ActionController;
 import main.GameMain;
 import model.board.Square;
 
 public class SquareView extends JPanel implements MouseListener, Serializable {
 
-	private PieceActionController pac;
+	private ActionController pac;
 	private Color defaultBg = Color.WHITE;
 	private Square sqrObj;
 
@@ -33,7 +33,7 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		 * Model.
 		 */		
 
-		pac = PieceActionController.getInstance();
+		pac = ActionController.getInstance();
 				
 		addTeamPiece(o);
 		addMouseListener(this);
@@ -51,7 +51,7 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		Color bg = defaultBg;
 		bg = o.getInrange() ? Color.YELLOW : bg;
 		bg = !o.getAccessible() ? Color.BLACK : bg;
-		bg = o.getTeamTower() ? Color.GREEN : bg;
+		bg = o.getTeamTower() != null ? Color.GREEN : bg;
 		return bg;
 	}
 

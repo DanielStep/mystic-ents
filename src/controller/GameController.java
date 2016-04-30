@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.board.BoardData;
+import model.board.Square;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
@@ -30,13 +31,15 @@ public class GameController implements Observer {
 	//GAME CONTROL
 	private GameTurn gameTimer;
 	private BoardController gameBoard;
-	private PieceActionController pieceController;
+	private ActionController pieceController;
 	
 	//UI
 	private ControlPanel controlPanel;
 	
 	//BOARD OBJECTS
-	private Team currentTeam = Team.BLUE;
+	private Team currentTeam;
+	private int currentTeamIndex = 0;
+	
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 
 	public GameController() {
@@ -45,7 +48,6 @@ public class GameController implements Observer {
 	}
 
 	public void startGame() {
-		generateGamePieces();
 		gameBoard.init();
 		continueGame();
 	}
@@ -53,47 +55,12 @@ public class GameController implements Observer {
 	public void continueGame() {
 		gameBoard.buildBoard();
 		gameBoard.getBoardFrame().setVisible(true);
+		generateGamePieces();
 		setControlObjects();
+		currentTeam = Team.values()[currentTeamIndex];
+		controlPanel.setCurrentTeam(currentTeam.name());
 		startTimer();
 		loadTeamColorFromSaveGame();
-	}
-	
-	public Boolean loadGame(){
-		Object gameState = GameUtils.getInstance().loadGameData();
-		if (gameState != null) {
-			BoardData data = (BoardData) gameState;
-			Team teamColor = data.getCurrentTeam();
-			ArrayList<Piece> pieceList = data.getGamePiecesList();
-			
-//			System.out.println("---------piece list from save file = " + pieceList);
-			
-			// set team color from save file
-			if (teamColor != null) {
-				BoardData.getInstance().setCurrentTeam(teamColor);
-				setCurrentTeam(teamColor);
-			}
-			
-			// set game piece list from save file
-			if (pieceList != null) {
-				setGamePiecesList(pieceList);
-			}
-			
-			GameConfig.setROW_COL(data.getBoardArray().length);
-			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
-			gameBoard.getBoardData().doCellsUpdate();
-			return true;
-		} else {
-			DialogView.getInstance().showInformation("Save game not found!");
-			return false;
-		}
-	}	
-	
-	public void loadTeamColorFromSaveGame(){
-		Team teamEnum = BoardData.getInstance().getCurrentTeam();
-		if (teamEnum != null) {
-			// load current team from save data
-			controlPanel.setCurrentTeam(teamEnum.name());
-		}
 	}
 	
 	/**
@@ -120,7 +87,7 @@ public class GameController implements Observer {
 	/**
 	 * EndTurn handler
 	 * Called via update method when GameTurn.getGameTimer = 0
-	 * A turn is ended vis the timer value rather than calling a set function
+	 * A turn is ended via the timer value rather than calling a set function
 	 * Gives better adherence to MVC pattern.
 	 * 
 	 */		
@@ -133,19 +100,74 @@ public class GameController implements Observer {
 		newCount++;
 		gameTimer.setCount(newCount);
 		
-		//clear 'active' or piece specific board data;
-		//gameBoard.getBoardState().clearRangeCells();
-		
 		//Change teams
-		currentTeam = currentTeam == Team.BLUE ? Team.RED : Team.BLUE;
-
-		//Update UI
-		controlPanel.setCurrentTeam(currentTeam.name());
-		controlPanel.doUIEndTurn();
+		currentTeam = changeTeams();
+		
+		//Reset Board
+		gameBoard.clearRangeCells();
 		
 		//Update save data for current team
 		BoardData.getInstance().setCurrentTeam(currentTeam);
+		
+		//Update UI
+		controlPanel.setCurrentTeam(currentTeam.name());		
+		controlPanel.doUIEndTurn();
+		
+	}
+	
+	private Team changeTeams() {
+		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList());
+		//int a = tList.indexOf(currentTeam);
+		if (currentTeamIndex == tList.size()-1) {
+			currentTeamIndex = 0;
+		} else {
+			currentTeamIndex++;		
+		}
+		
+		System.out.println("New team: " + currentTeamIndex + " of " + tList.size());
+		return Team.values()[currentTeamIndex];	
+	}
+	
+	public Boolean loadGame(){
+		Object gameState = GameUtils.getInstance().loadGameData();
+		if (gameState != null) {
+			BoardData data = (BoardData) gameState;
+			Team teamColor = data.getCurrentTeam();
+			System.out.println("---------team color from save file = " + teamColor);
+			
+			// set team color from save file
+			if (teamColor != null) {
+				BoardData.getInstance().setCurrentTeam(teamColor);
+				setCurrentTeam(teamColor);
+			}
+			
+			GameConfig.setROW_COL(data.getBoardArray().length);
+			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
+			gameBoard.getBoardData().doCellsUpdate();
+			return true;
+		} else {
+			DialogView.getInstance().showInformation("Save game not found!");
+			return false;
+		}
 	}	
+	
+	public void loadTeamColorFromSaveGame(){
+		Team teamEnum = BoardData.getInstance().getCurrentTeam();
+		if (teamEnum != null) {
+			// load current team from save data
+			controlPanel.setCurrentTeam(teamEnum.name());
+		}
+	}
+	
+	private ArrayList<Team> getAvailableTeamList() {
+		ArrayList<Team> tList = new ArrayList<Team>();
+		for (Piece piece : gamePiecesList) {
+			if(!tList.contains(piece.getTeam())) {
+				tList.add((Team) piece.getTeam());
+			}
+		}
+		return tList;
+	}
 	
 	private int getAvailablePieceCount() {
 		int count = 0;
@@ -163,7 +185,14 @@ public class GameController implements Observer {
 	}
 	
 	private void generateGamePieces() {
-		setGamePiecesList((new PieceCreationController()).generateGamePieces());
+		Square[][] gameData = gameBoard.getBoardData().getBoardArray();
+		for (int i=0; i<gameData.length; i++) {
+			for (int j=0; j<gameData[i].length; j++) {
+				if (gameData[i][j].getOccupant() != null) {
+					gamePiecesList.add(gameData[i][j].getOccupant());
+				}				
+			}
+		}
 	}	
 
 	public void setControlObjects() {
@@ -202,7 +231,7 @@ public class GameController implements Observer {
 		this.gameBoard = gameBoard;
 	}
 	
-	public void setPieceActionController(PieceActionController pieceController) {
+	public void setPieceActionController(ActionController pieceController) {
 		this.pieceController = pieceController;
 	}
 	
