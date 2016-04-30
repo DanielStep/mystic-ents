@@ -24,7 +24,7 @@ import view.BoardFrame;
 public class BoardController implements Observer {
 
 	// PIECE CONTROLLER
-	private PieceActionController pieceController;
+	private ActionController pieceController;
 
 	// VIEW
 	private BoardFrame boardFrame;
@@ -81,7 +81,7 @@ public class BoardController implements Observer {
 		saveToMemento();
 
 		// set game piece list to board data for save file
-		boardData.setGamePiecesList(GameController.getGamePiecesList());
+
 	}
 
 	public BoardData getBoardData() {
@@ -92,26 +92,25 @@ public class BoardController implements Observer {
 		return boardFrame;
 	}
 
-	public void setPieceActionController(PieceActionController pieceController) {
+	public void setPieceActionController(ActionController pieceController) {
 		this.pieceController = pieceController;
 	}
 
-	public PieceActionController getPieceActionController() {
+	public ActionController getPieceActionController() {
 		return pieceController;
 	}
 
 	public void observe(Observable o) {
 		o.addObserver(this);
 	}
-	
 
 	/** UNDO functionality **/
-	//Saving game state
+	// Saving game state
 	public void saveToMemento() {
 		boardData.saveToMemento();
 	}
 
-	//Undo from game state
+	// Undo from game state
 	public void undo(int undoNumber) {
 		for (int i = 0; i < undoNumber - 1; i++) {
 			careTaker.getMemento();

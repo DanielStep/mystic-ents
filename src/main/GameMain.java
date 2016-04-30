@@ -6,13 +6,13 @@ public class GameMain {
 
 	static GameController gameController;
 	static BoardController boardController;
-	static PieceActionController pieceActionController;	
+	static ActionController pieceActionController;	
 
 	public static void main(String[] args) {
 
 		//INSTANTIATE ALL CONTROLLERS 
 		boardController = new BoardController();
-		pieceActionController = PieceActionController.getInstance();
+		pieceActionController = ActionController.getInstance();
 		gameController = new GameController();
 		
 		//Assign Controllers 

@@ -1,13 +1,13 @@
 package model.board;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
+import controller.PieceCreationController;
 import model.piece.Piece;
+import model.piece.Team;
+import utils.GameConfig;
 import utils.MapLoader;
 
 /**
@@ -24,19 +24,24 @@ import utils.MapLoader;
 
 public class BoardGenerator  {
 	
-	private ArrayList<Piece> gamePieces;
-	private ArrayList<ArrayList<Integer>> map;
+	private ArrayList<ArrayList<String>> map;	
+	private PieceCreationController pieceCreator;
+	
+	public BoardGenerator() {
+		pieceCreator = new PieceCreationController();
+	}
 	
 	public void loadMapData() {		
 		MapLoader mapData = new MapLoader();
 		try {
 			map = mapData.getMapData();
+			GameConfig.setROW_COL(map.size());
 			System.out.println("Loading Map Size: " + map.size());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
-	}
+	}	
 	
 	/**
 	 * Iterates over the loaded map data and assigns a Square Object
@@ -52,58 +57,40 @@ public class BoardGenerator  {
 	 * 
 	 */	
 	
-	public Square[][] generateStartBoard(ArrayList<Piece> piecesList) {
-		
-		//Shuffle the list for different start location
-		gamePieces = piecesList;
-		List<Piece> list = piecesList;
-		Collections.shuffle(list);
-
+	public Square[][] processMapData() {
 	    int col = 0;
 	    int row = 1;
 	    int size = map.size();
-	    
 	    Square[][] boardData = new Square[map.size()][map.size()];
-		Iterator<ArrayList<Integer>> mapIterator = map.iterator();
-
+		Iterator<ArrayList<String>> mapIterator = map.iterator();
 	    while (mapIterator.hasNext()) {
-
-	        ArrayList<Integer> line = mapIterator.next();
-
+	        ArrayList<String> line = mapIterator.next();
 	        if (row > line.size()) {
 	            break;
 	        }
-	        
-	        Iterator<Integer> val = line.iterator();
-	        
+	        Iterator<String> val = line.iterator();
 	        int index = 0;
-
-	        Integer cell = 0;
+	        String cell = "";
 	        while (index != row) {
 	        	cell = val.next();
 	        	index++;
 	        }
-	        
-	        boardData[col][row-1] = null;// blank
-	        Square gsqr = processMapData(col, row-1, cell);
-			//Assign the Square to the board
-			boardData[col][row-1] = gsqr;
-
-			//Reset the iterator values
+	        boardData[col][row-1] = null;
+	        Square sqr = processMapCell(col, row-1, cell);
+			int[] ids = {col, row-1};
+			sqr.setID(ids);	
+	        boardData[col][row-1] = sqr;
 	        index = 0;
-	        col++;
-	        
+	        col++;	        
 	        if (col == size) {
-	        	//reset the iterator
 	        	mapIterator = map.iterator();  
 	            row++;
 	            col = 0;
-	        }
-	        
-	    }
-
-		return boardData;
+	        }	        
+	    }	    
+	    return boardData;
 	}
+
 	
 	/**
 	 * Processes map data based on game rules
@@ -121,45 +108,32 @@ public class BoardGenerator  {
 	 * @return
 	 * Square assigned properties based on map data rules
 	 */		
-	private Square processMapData(int col, int row, int cell) {
+	private Square processMapCell(int col, int row, String cell) {
 		
 		Square gsqr = new Square();
+		int it = Character.getNumericValue(cell.charAt(1));	
+
+		//TEAMS
+		if (it < (Team.values().length+1) && it != -1) {
+			char ct = cell.charAt(0);	
+			if (ct == 'R') {			
+				Piece rNew = pieceCreator.createRegPiece(Team.values()[it-1]);
+				gsqr.setOccupant(rNew);
+			}
+			if (ct == 'U') {
+				Piece uNew = pieceCreator.createUsurpPiece(Team.values()[it-1]);
+				gsqr.setOccupant(uNew);
+			}
+			if (ct == 'T') {
+				gsqr.setTeamTower(Team.values()[it-1]);
+			}			
+		}
 		
 		//WALLS
-		if (cell == 1) {
+		if (cell.equals("WL")) {
 			gsqr.setAccessible(false);
 		}
-		
-		//TEAMS
-		if (cell == 2) { 
-			gsqr.setOccupant(findAvailablePiece(gamePieces, "RED"));
-		}
-		if (cell == 3) {
-			gsqr.setOccupant(findAvailablePiece(gamePieces, "BLUE"));
-		}
-
-		//TOWERS
-		if (cell == 8 || cell == 9) {
-			gsqr.setTeamTower(true);
-		}
-		
-		int[] ids = {col, row};
-		gsqr.setID(ids);
-		
-		return gsqr;
-		
+			
+		return gsqr;		
 	}
-
-	private Piece findAvailablePiece(ArrayList<Piece> gamePieces, String team) {
-		for (Piece i : gamePieces) {
-			if (i.getInPlay() == false) {
-				if (i.getTeam().toString() == team) {
-					i.setInPlay(true);
-					return i;
-				}
-			}
-		}
-		return null;
-	}
-
 }

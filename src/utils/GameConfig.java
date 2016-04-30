@@ -1,6 +1,10 @@
 package utils;
 
 public class GameConfig {
+	
+	//CONSTANT STRINGS
+	public static final String GAME_TITLE = "Mystic Ents";
+	public static final String SAVE_GAME_FILE = "savegame.dat";
 
 	//TIMER
     private static final int MAX_TURNS = 1000;
@@ -21,17 +25,14 @@ public class GameConfig {
 	
 	//MAP
 //	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
-	private static String fileMapName = "map2";		// default map
+	private static String fileMapName = "map3";		// default map
     private static int ROW_COL;
     
     //SKILLS
 	private static final int DAMAGETRAITMULTIPLIER = 2;
 	private static final int RANGEMULTIPLIER = 2;
-	private static final int HEALAMOUNT = 1;
-    
-    //CONSTANT STRINGS
-	public static final String GAME_TITLE = "Mystic Ents";
-	public static final String SAVE_GAME_FILE = "savegame.dat";
+	private static final int HEALAMOUNT = 1;	
+	
 	
 	//GAME TIMER
 	public static int getTimerPeriod() {

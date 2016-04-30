@@ -40,8 +40,10 @@ public class EndTurnPanel extends JPanel {
 	}
 
 	public void executeEndTurn() {
-		System.out.println("Starting turn: " + gameTurn.getCount());
-		gameTurn.setGameTimer(0);
+		if (gameTurn != null) {
+			System.out.println("Starting turn: " + gameTurn.getCount());
+			gameTurn.setGameTimer(0);			
+		}
 	}
 
 	public void setGameTurn(GameTurn gameTurn) {

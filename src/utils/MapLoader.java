@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class MapLoader {
 	
-	ArrayList<ArrayList<Integer>> map = new ArrayList<ArrayList<Integer>>();
+	ArrayList<ArrayList<String>> map = new ArrayList<ArrayList<String>>();
 	
 	/**
 	* Loads the file specified in the GameConfig
@@ -17,7 +17,7 @@ public class MapLoader {
 	* @return the ArrayList<ArrayList<Integer>> - 'map'
 	*/
 	
-	public ArrayList<ArrayList<Integer>> getMapData() throws IOException {
+	public ArrayList<ArrayList<String>> getMapData() throws IOException {
 		
 		try {
 
@@ -34,18 +34,18 @@ public class MapLoader {
 				String[] numbers = line.split(" ");
 
 				//Create the 2d ArrayList
-				map.add(new ArrayList<Integer>());
-		        ArrayList<Integer> inner = map.get(i);
+				map.add(new ArrayList<String>());
+		        ArrayList<String> inner = map.get(i);
 				
 		        //System.out.println("setROW_COL: " + i); 
 				for(int j = 0; j < numbers.length; j++) {
-					inner.add(Integer.parseInt(numbers[j]));
+					inner.add(numbers[j]);
 				}
 				i++;
 			}
 
 			//Set the Config parameter for board gridsize based on map
-			GameConfig.setROW_COL(i);
+			//GameConfig.setROW_COL(i);
 			reader.close();
 		}
 		catch (Exception ex) { 

@@ -26,7 +26,6 @@ public class TeamColorPanel extends JPanel{
 		tfColor = new JTextField();
 		tfColor.setHorizontalAlignment(JTextField.CENTER);
 		tfColor.setPreferredSize(new Dimension(50, 50));
-		tfColor.setBackground(Color.BLUE);	// team BLUE goes first by default
 		tfColor.setEditable(false);
 
 		JPanel pnContainer = new JPanel(new FlowLayout());

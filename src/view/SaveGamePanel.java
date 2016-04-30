@@ -24,31 +24,22 @@ public class SaveGamePanel extends JPanel implements Serializable {
 	private BoardData boardData;
 	
 	public SaveGamePanel() {
-		// TODO Auto-generated constructor stub
 		super();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
-
 		btnSaveGame = new JButton("Save game");
 		btnSaveGame.setPreferredSize(new Dimension(158, 50));
-		btnSaveGame.addActionListener(new ActionListener() {
-			
+		btnSaveGame.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO call the end-turn method from the controller
 				doSave();
 			}
-		});
-		
+		});		
 		this.add(btnSaveGame);
 	}
 	
 	private void doSave(){
-		// TODO: need to specify what kind of object need to save here.
-		// Object must be Serializable.
-		
 		boardData = BoardData.getInstance();
-		//Square[][] data = boardState.getBoardData();
-		
 		if (GameUtils.getInstance().saveGameData(boardData)) {
 			DialogView.getInstance().showInformation("Save game successfully!");			
 		};

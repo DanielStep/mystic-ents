@@ -1,7 +1,9 @@
 package model.piece;
 
-public enum Team {
-
-	RED, BLUE
-
+public enum Team 
+{
+	RED, 
+	BLUE,
+	ORANGE,
+	CYAN
 }

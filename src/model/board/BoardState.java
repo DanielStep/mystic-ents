@@ -1,60 +1,27 @@
 package model.board;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Observable;
-
-import controller.GameController;
-import model.piece.Piece;
-
 /**
- * Entire board contains all pieces and squares
+ * BoardState manages the creation of BoardData
+ * Contains the generator, squares, pieces, 
  * 
- * @author skh
+ * @author skh, mark
  *
  */
 
-//TODO: Game generator, type for piece for PieceView observer pattern
 public class BoardState {
 
-	/**
-	 * Stores the locations of pieces and squares on the board.
-	 */
-	private ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
-	
 	private BoardData boardData;
-	private BoardGenerator boardGenerator = new BoardGenerator();
+	private BoardGenerator boardGenerator;
 	
-	public BoardState() {		
-		
+	public BoardState() {
+		boardData = BoardData.getInstance();
 	}
 
 	public void init() {
+		boardGenerator = new BoardGenerator();
 		boardGenerator.loadMapData();
-		//Get the pieces from GameController
-		getPieces();
-		//Populate BoardData from BoardGenerator
-		initBoardData();
-	}
-	
-	/**
-	 * Used for debugging
-	 */
-	public String toString() {
-		StringBuilder str = new StringBuilder();
-		str.append(", ");
-		return str.toString();
-	}
-	
-	public void initBoardData() {
-		//Square[][] data = boardGenerator.generateStartBoard( gamePiecesList );
-		boardData = BoardData.getInstance();
-		boardData.setBoardArray(boardGenerator.generateStartBoard( gamePiecesList ));
+		boardData.setBoardArray(boardGenerator.processMapData());
 		boardData.doCellsUpdate();
-	}
-	
-	public void getPieces() {
-		gamePiecesList = new ArrayList<Piece>( GameController.getGamePiecesList() );
 	}
 	
 }
