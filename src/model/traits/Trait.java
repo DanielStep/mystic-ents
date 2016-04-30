@@ -14,7 +14,7 @@ public abstract class Trait implements ITraitValueModifiable, Serializable {
 	
 	public Trait(int startingValue){
 		setTraitValue(startingValue);
-		this.baseTraitValue = startingValue;
+		setBaseValue(startingValue);
 	}
 
 	public void modifyValue(int changeBy) {
@@ -35,5 +35,13 @@ public abstract class Trait implements ITraitValueModifiable, Serializable {
 	
 	public void setTraitValueToBase(){
 		setTraitValue(baseTraitValue);
+	}
+	
+	public void setBaseValue(int baseValue){
+		this.baseTraitValue = baseValue;
+	}
+
+	public int getBaseValue(){
+		return baseTraitValue;
 	}
 }
