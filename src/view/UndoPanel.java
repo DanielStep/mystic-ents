@@ -27,7 +27,7 @@ public class UndoPanel extends JPanel{
 	
 	private BoardController boardController;
 	
-	public UndoPanel(BoardController boardController) {
+	public UndoPanel() {
 		// TODO Auto-generated constructor stub
 		super();
 		
