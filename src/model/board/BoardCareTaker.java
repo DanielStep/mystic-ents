@@ -2,6 +2,8 @@ package model.board;
 
 import java.util.LinkedList;
 
+import utils.BoardUtils;
+
 /**
  * Care taker for the board
  * 
@@ -12,6 +14,15 @@ import java.util.LinkedList;
 public class BoardCareTaker {
 
 	final LinkedList<BoardMemento> mementos = new LinkedList<>();
+	
+	private static BoardCareTaker instance;
+	
+	public static synchronized BoardCareTaker getInstance() {
+		if (instance == null) {
+			instance = new BoardCareTaker();
+		}
+		return instance;
+	}
 
 	public BoardMemento getMemento() {
 		if (mementos.size()>1) {

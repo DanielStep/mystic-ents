@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.BoardController;
 import utils.GameConfig;
 
 /**
@@ -24,7 +25,9 @@ public class UndoPanel extends JPanel{
 	private JLabel lbTurn;
 	private JButton btUndo;
 	
-	public UndoPanel() {
+	private BoardController boardController;
+	
+	public UndoPanel(BoardController boardController) {
 		// TODO Auto-generated constructor stub
 		super();
 		
@@ -57,6 +60,9 @@ public class UndoPanel extends JPanel{
 		pnMain.setBorder(titled);
 
 	    this.add(pnMain);
+	    
+	    //FOR undo
+	    this.boardController = boardController;
 	}
 	
 	private void doUndo(){
@@ -64,5 +70,6 @@ public class UndoPanel extends JPanel{
 		System.out.println("Undo " + 
 							cbNumberOfTurns.getSelectedItem().toString() +
 							" moves");
+		
 	}
 }

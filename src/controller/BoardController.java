@@ -4,7 +4,9 @@ import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.board.BoardCareTaker;
 import model.board.BoardData;
+import model.board.BoardMemento;
 import model.board.BoardState;
 import model.board.Square;
 import utils.BoardUtils;
@@ -12,28 +14,30 @@ import utils.GameConfig;
 import view.BoardFrame;
 
 /**
- * Controller for board state
- * Generates the Board Model
- * Generates the Board View
+ * Controller for board state Generates the Board Model Generates the Board View
  * Observes Board Model changes and calls View update
+ * 
  * @author Mark
  *
  */
 
 public class BoardController implements Observer {
 
-	//PIECE CONTROLLER
+	// PIECE CONTROLLER
 	private PieceActionController pieceController;
-	
-	//VIEW
+
+	// VIEW
 	private BoardFrame boardFrame;
-	
-	//MODEL
+
+	// MODEL
 	private BoardState boardState;
-	private BoardData boardData;	
-	
+	private BoardData boardData;
+
+	// CareTaker for board data
+	BoardCareTaker careTaker = BoardCareTaker.getInstance();
+
 	private BoardUtils boardUtils = BoardUtils.getInstance();
-	
+
 	public BoardController() {
 		System.out.println("New board state...");
 		boardState = new BoardState();
@@ -41,62 +45,79 @@ public class BoardController implements Observer {
 		boardData = BoardData.getInstance();
 		observe(boardData);
 	}
-	
+
 	public void init() {
-		//boardFrame.getBoardPanel().setPac(pieceController);
-		boardState.init();//this needs to change - get pieces process is causing a loss of saved properties  
+		// boardFrame.getBoardPanel().setPac(pieceController);
+		boardState.init();// this needs to change - get pieces process is
+							// causing a loss of saved properties
 	}
-	
+
 	public void buildBoard() {
 		System.out.println("Building board...");
-		//boardFrame.getBoardPanel().setPac(pieceController);
+		// boardFrame.getBoardPanel().setPac(pieceController);
 		boardFrame.pack();
-		boardFrame.getBoardPanel().setLayout(new GridLayout
-				(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
+		boardFrame.getBoardPanel().setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
 	}
-	
+
 	public void clearRangeCells() {
 		boardData.setBoardArray(boardUtils.clearRangeCells(boardData.getBoardArray()));
 		boardData.doCellsUpdate();
 	}
-	
+
 	public void getRangeCells(int x, int y) {
 		boardData.setBoardArray(boardUtils.getRangeCells(x, y, boardData.getBoardArray()));
 		boardData.doCellsUpdate();
 	}
 
-	public void saveToMemento() {
-		boardData.saveToMemento();
-	}
-	
-	public void observe(Observable o) {
-		o.addObserver(this);
-	}
-
 	@Override
 	public void update(Observable o, Object arg) {
 		Square[][] data = ((BoardData) o).getBoardArray();
-		if (data == null) return;
+		if (data == null)
+			return;
 		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
-		
+
+		// add game state to memento after each turn
+		saveToMemento();
+
 		// set game piece list to board data for save file
 		boardData.setGamePiecesList(GameController.getGamePiecesList());
 	}
-	
+
 	public BoardData getBoardData() {
 		return boardData;
 	}
-	
+
 	public BoardFrame getBoardFrame() {
 		return boardFrame;
 	}
-	
+
 	public void setPieceActionController(PieceActionController pieceController) {
 		this.pieceController = pieceController;
 	}
-	
+
 	public PieceActionController getPieceActionController() {
 		return pieceController;
-	}	
+	}
+
+	public void observe(Observable o) {
+		o.addObserver(this);
+	}
+	
+
+	/** UNDO functionality **/
+	//Saving game state
+	public void saveToMemento() {
+		boardData.saveToMemento();
+	}
+
+	//Undo from game state
+	public void undo(int undoNumber) {
+		for (int i = 0; i < undoNumber - 1; i++) {
+			careTaker.getMemento();
+		}
+		BoardMemento boardMemento = careTaker.getMemento();
+		boardData.undoFromMemento(boardMemento);
+	}
+
 }
