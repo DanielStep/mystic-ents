@@ -120,6 +120,7 @@ public class PieceActionController {
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
 			gameController.updatePieceInformation(pce);
+			gameController.getGamePiecesList().remove(pce);
 			boardController.getBoardData().doCellsUpdate();
 		}
 		

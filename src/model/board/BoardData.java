@@ -1,8 +1,10 @@
 package model.board;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Observable;
 
+import model.piece.Piece;
 import model.piece.Team;
 import utils.GameConfig;
 
@@ -17,6 +19,7 @@ public class BoardData extends Observable implements Serializable {
 	
 	private static BoardData instance;
 	private Team currentTeam = null;
+	private ArrayList<Piece> gamePiecesList = null;
 	
 	private BoardData() {}	
 	
@@ -41,6 +44,14 @@ public class BoardData extends Observable implements Serializable {
 	
 	public Team getCurrentTeam() {
 		return currentTeam;
+	}
+	
+	public void setGamePiecesList(ArrayList<Piece> list) {
+		this.gamePiecesList = list;
+	}
+	
+	public ArrayList<Piece> getGamePiecesList() {
+		return gamePiecesList;
 	}
 	
 	public void doCellsUpdate() {

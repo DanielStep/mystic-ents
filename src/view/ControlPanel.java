@@ -63,6 +63,9 @@ public class ControlPanel extends JPanel{
 		//reset the Piece info panel on switch team.
 		pnPieceInfo.resetPieceInformation();
 		
+		//reset the available pieces panel on switch team.
+		pnAvailablePiece.resetPieceRemaining();
+		
 		// auto end the current player's turn
 		pnEndTurn.executeEndTurn();
 	}
