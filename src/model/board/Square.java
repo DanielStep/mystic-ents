@@ -12,20 +12,36 @@ import model.piece.Team;
  * @author skh
  *
  */
-// TODO: Couple with board
 public class Square implements Serializable {
 
 	private Piece occupyingPiece = null;
 	private int[] ID = new int[2];
 
 	private Boolean inrange = false;
-	private Boolean accessible = true;	
+	private Boolean accessible = true;
 	private Boolean teamPiece = false;
 	private Team teamTower = null;
 	private Color bgColor = Color.WHITE;
-	
-	public Square () {	}
-	
+
+	public Square() {
+	}
+
+	/**
+	 * Copy constructor used for saving game state in UNDO functionality
+	 * @param other
+	 * 			Square being copied
+	 */
+	public Square(Square other) {
+		super();
+		this.occupyingPiece = other.occupyingPiece;
+		ID = other.ID;
+		this.inrange = other.inrange;
+		this.accessible = other.accessible;
+		this.teamPiece = other.teamPiece;
+		this.teamTower = other.teamTower;
+		this.bgColor = other.bgColor;
+	}
+
 	public int[] getID() {
 		return ID;
 	}
@@ -33,7 +49,7 @@ public class Square implements Serializable {
 	public void setID(int[] iD) {
 		ID = iD;
 	}
-	
+
 	public void setAccessible(Boolean pm) {
 		accessible = pm;
 	}
@@ -58,6 +74,7 @@ public class Square implements Serializable {
 		// TODO Auto-generated method stub
 		return this.teamTower;
 	}
+
 	public void setTeamTower(Team team) {
 		this.teamTower = team;
 	}
@@ -78,6 +95,14 @@ public class Square implements Serializable {
 		this.inrange = inrange;
 	}
 
-
+	public String toString() {
+		if (occupyingPiece != null) {
+			return "p";
+		} else if (!this.accessible) {
+			return "w";
+		} else {
+			return "x";
+		}
+	}
 
 }

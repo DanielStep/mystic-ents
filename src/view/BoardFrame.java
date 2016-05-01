@@ -7,6 +7,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import controller.BoardController;
 import utils.GameConfig;
 
 /**
@@ -22,10 +23,10 @@ public class BoardFrame extends JFrame {
 	private BoardPanel gamePanel;
 	private ControlPanel controlPanel;
 
-	public BoardFrame() {
+	public BoardFrame(BoardController boardController) {
 		super(GameConfig.GAME_TITLE);
 		buildFrame();
-		buildUI();
+		buildUI(boardController);
 	}
 
 	/**
@@ -50,11 +51,11 @@ public class BoardFrame extends JFrame {
 	/**
 	 * Creating the board panel and control panel
 	 */
-	private void buildUI() {
+	private void buildUI(BoardController boardController) {
 		gamePanel = new BoardPanel();
 		this.add(gamePanel, BorderLayout.CENTER);
 
-		controlPanel = new ControlPanel();
+		controlPanel = new ControlPanel(boardController);
 		this.add(controlPanel, BorderLayout.EAST);
 	}
 

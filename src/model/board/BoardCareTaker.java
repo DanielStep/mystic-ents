@@ -2,8 +2,6 @@ package model.board;
 
 import java.util.LinkedList;
 
-import utils.BoardUtils;
-
 /**
  * Care taker for the board
  * 
@@ -14,31 +12,38 @@ import utils.BoardUtils;
 public class BoardCareTaker {
 
 	final LinkedList<BoardMemento> mementos = new LinkedList<>();
-	
-	private static BoardCareTaker instance;
-	
-	public static synchronized BoardCareTaker getInstance() {
-		if (instance == null) {
-			instance = new BoardCareTaker();
-		}
-		return instance;
+
+	public BoardCareTaker() {
+	}
+
+	public int getMementosSize() {
+		return mementos.size();
 	}
 
 	public BoardMemento getMemento() {
-		if (mementos.size()>1) {
-			mementos.pollLast();
-			BoardMemento boardMemento = mementos.pollLast();
-			return boardMemento;
-		}
-		return null;
+		System.out.println("Undoing - getMemento dummy: " + mementos.size());
+		BoardMemento boardMemento = mementos.pollLast();
+		boardMemento.print();
+		System.out.println("Undoing - getMemento: " + mementos.size());
+		boardMemento = mementos.pollLast();
+		boardMemento.print();
+		return boardMemento;
 	}
 
+	// TODO: Deference the array
 	public void addMemento(BoardMemento boardMemento) {
-		
-		//Only have to save up to 6 states, remove old states
-		if (mementos.size() > 6) {
-			mementos.poll();
+		if (mementos.size() > 0) {
+			mementos.getFirst().print();
 		}
+
+		// Only have to save up to 6 states, remove old states
+		// if (mementos.size() > 6) {
+		// mementos.poll();
+		// }
+		// System.out.println("Adding Memento:" + mementos.size());
+		// boardMemento.print();
 		mementos.add(boardMemento);
+		System.out.println("First Memento:");
+
 	}
 }

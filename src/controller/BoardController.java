@@ -34,16 +34,18 @@ public class BoardController implements Observer {
 	private BoardData boardData;
 
 	// CareTaker for board data
-	BoardCareTaker careTaker = BoardCareTaker.getInstance();
+	private BoardCareTaker boardCareTaker;
+	private BoardMemento boardMemento = new BoardMemento();
 
 	private BoardUtils boardUtils = BoardUtils.getInstance();
 
 	public BoardController() {
 		System.out.println("New board state...");
 		boardState = new BoardState();
-		boardFrame = new BoardFrame();
+		boardFrame = new BoardFrame(this);
 		boardData = BoardData.getInstance();
 		observe(boardData);
+		boardCareTaker = new BoardCareTaker();
 	}
 
 	public void init() {
@@ -77,9 +79,6 @@ public class BoardController implements Observer {
 		System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
 
-		// add game state to memento after each turn
-		saveToMemento();
-
 		// set game piece list to board data for save file
 
 	}
@@ -107,16 +106,21 @@ public class BoardController implements Observer {
 	/** UNDO functionality **/
 	// Saving game state
 	public void saveToMemento() {
-		boardData.saveToMemento();
+		boardMemento = boardData.saveToMemento();
+		boardCareTaker.addMemento(boardMemento);
 	}
 
 	// Undo from game state
-	public void undo(int undoNumber) {
-		for (int i = 0; i < undoNumber - 1; i++) {
-			careTaker.getMemento();
+	public boolean undo(int undoNumber) {
+		if(boardCareTaker.getMementosSize()>=undoNumber*2){
+			BoardMemento boardMemento = null;
+			for (int i = 0; i < undoNumber; i++) {
+				boardMemento = boardCareTaker.getMemento();
+			}
+			boardData.undoFromMemento(boardMemento);
+			return true;
 		}
-		BoardMemento boardMemento = careTaker.getMemento();
-		boardData.undoFromMemento(boardMemento);
+		return false;
 	}
 
 }

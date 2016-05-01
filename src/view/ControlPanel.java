@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
+import controller.BoardController;
 import model.game.GameTurn;
 import model.piece.Piece;
 import utils.BoardUtils;
@@ -27,7 +28,7 @@ public class ControlPanel extends JPanel{
 
 	private BoardUtils boardUtils;
 	
-	public ControlPanel() {
+	public ControlPanel(BoardController boardController) {
 		
 		super();
 		
@@ -48,7 +49,7 @@ public class ControlPanel extends JPanel{
 	    pnPieceInfo = new PieceInfoPanel();
 	    this.add(pnPieceInfo);
 	    
-	    pnUndo = new UndoPanel();
+	    pnUndo = new UndoPanel(boardController);
 	    this.add(pnUndo);
 	    
 	    pnSaveGame = new SaveGamePanel();
