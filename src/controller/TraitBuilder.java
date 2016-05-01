@@ -36,8 +36,9 @@ public class TraitBuilder {
 		DamageTrait damageTrait = new DamageTrait(INITIALTRAITVALUE);
 
 		allocateTraitValues(healthTrait, damageTrait, rangeTrait);
-
+		
 		traitSet = new TraitSet(healthTrait, rangeTrait, attackTrait, damageTrait);
+		
 	}
 
 	/**
@@ -58,6 +59,11 @@ public class TraitBuilder {
 
 		TraitRandomizer traitRandomizer = new TraitRandomizer();
 		traitRandomizer.generateRandomTraitValues(listOfTraits, randomNumGen);
+		
+		for(Trait t: listOfTraits){
+			t.setBaseValue(t.getTraitValue());
+		}
+		
 	}
 
 	public TraitSet getTraitSet() {

@@ -69,7 +69,7 @@ public class GameController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-				
+
 		GameTurn gameTurn = (GameTurn) o;
 		// Post condition exception if GameTurn is null, return (exit?)
 		if (gameTurn == null)
@@ -79,7 +79,7 @@ public class GameController implements Observer {
 		controlPanel.doUIUpdate(gameTurn);
 
 		// when time is up
-		if (gameTurn.getGameTimer() == 0) {			
+		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
 		}
 	}
@@ -111,9 +111,13 @@ public class GameController implements Observer {
 
 		// Update save data for current team
 		BoardData.getInstance().setCurrentTeam(currentTeam);
+		
+		//Reset TraitValues of all pieces on board to base value
+		BoardData.getInstance().resetPieceTraitValueToBase();
+		
+		//Update UI
+		controlPanel.setCurrentTeam(currentTeam.name());	
 
-		// Update UI
-		controlPanel.setCurrentTeam(currentTeam.name());
 		controlPanel.doUIEndTurn();
 
 	}
@@ -196,6 +200,7 @@ public class GameController implements Observer {
 				}
 			}
 		}
+
 	}
 
 	public void setControlObjects() {
