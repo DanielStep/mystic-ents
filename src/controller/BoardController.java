@@ -29,6 +29,7 @@ public class BoardController implements Observer {
 	private BoardState boardState;
 	private BoardData boardData;	
 	
+	//SERVICE
 	private BoardUtils boardUtils = BoardUtils.getInstance();
 	
 	public BoardController() {

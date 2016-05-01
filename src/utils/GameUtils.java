@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import model.board.BoardData;
 import model.board.BoardState;
 import model.board.Square;
+import model.piece.Piece;
+import model.piece.Team;
+import view.DialogView;
 
 public class GameUtils {
 	
@@ -46,6 +49,48 @@ public class GameUtils {
 		}
 		return maps;
 	}
+	
+	public int getAvailablePieceCount(ArrayList<Piece> pieceList, Team currentTeam) {
+		int count = 0;
+		for (Piece piece : pieceList) {
+			if (currentTeam == piece.getTeam()) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public ArrayList<Team> getAvailableTeamList(ArrayList<Piece> pieceList) {
+		ArrayList<Team> tList = new ArrayList<Team>();
+		for (Piece piece : pieceList) {
+			if(!tList.contains(piece.getTeam())) {
+				tList.add((Team) piece.getTeam());
+			}
+		}
+		return tList;
+	}
+	
+	public BoardData loadGame() {
+		Object gameState = loadGameData();
+		if (gameState != null) {
+			BoardData data = (BoardData) gameState;
+			
+			/*Team teamColor = data.getCurrentTeam();
+			System.out.println("---------team color from save file = " + teamColor);
+			
+			// set team color from save file
+			if (teamColor != null) {
+				BoardData.getInstance().setCurrentTeam(teamColor);
+				setCurrentTeam(teamColor);
+			}*/
+			
+			GameConfig.setROW_COL(data.getBoardArray().length);
+			return data;
+		} else {
+			DialogView.getInstance().showInformation("Save game not found!");
+			return null;
+		}
+	}	
 	
 	/**
 	 * Save the current game state to file

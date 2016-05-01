@@ -15,6 +15,7 @@ public class BuildSkill extends Skill implements IPerformSquareSkill, Serializab
 
 	public BuildSkill() {
 		super.setName("Build");
+		super.setIcon("sword-spade.png");
 	}
 	
 	@Override

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import model.game.GameTurn;
 import model.piece.Piece;
+import model.piece.Team;
 import utils.BoardUtils;
 import utils.GameConfig;
 /**
@@ -100,9 +101,9 @@ public class ControlPanel extends JPanel{
 		pnAvailablePiece.setAvailablePieces(count);
 	}	
 
-	public void setCurrentTeam(String team) {
+	public void setCurrentTeam(Team team) {
 		// update team color on ControlPanel view based on current team enum
-		pnTeamColor.setTeamColor(boardUtils.stringToColor(team, Color.BLACK));
+		pnTeamColor.setTeamColor(new Color(team.getRed(),team.getGreen(),team.getBlue()));
 	}	
 	
 	public void updatePieceInformation(Piece pce) {

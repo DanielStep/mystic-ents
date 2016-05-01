@@ -70,7 +70,9 @@ public class MainMenuFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				/*
+				 * Start a new Game.
+				 */
 				doCloseFrame();
 				gameController.startGame();
 			}
@@ -82,7 +84,11 @@ public class MainMenuFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				/* 
+				 * Close panel on successful load,
+				 * and continue game.
+				 * Otherwise, keep panel open
+				 */				
 				if (gameController.loadGame()) {
 					gameController.continueGame();
 					doCloseFrame();
@@ -96,7 +102,9 @@ public class MainMenuFrame extends JFrame{
 		btOption.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				/*
+				 * Instantiates new Option frame.
+				 */
 				new OptionFrame();
 			}
 		});
@@ -107,7 +115,9 @@ public class MainMenuFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				/*
+				 * Close the program
+				 */
 				doCloseFrame();
 				System.exit(0);
 			}

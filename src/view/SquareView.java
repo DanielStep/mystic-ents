@@ -43,7 +43,9 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		if (o.getOccupant() == null) {
 			return;
 		}
+		
 		PieceView pce = new PieceView(o.getOccupant());
+		
 		this.add(pce);
 	}
 

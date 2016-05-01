@@ -16,7 +16,7 @@ public class BoardData extends Observable implements Serializable {
 	private Square[][] boardArray = new Square[GameConfig.getROW_COL()][GameConfig.getROW_COL()];
 	
 	private static BoardData instance;
-	private Team currentTeam = null;
+	private Team currentTeam;
 	
 	private BoardData() {}	
 	

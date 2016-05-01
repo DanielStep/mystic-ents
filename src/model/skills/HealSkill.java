@@ -19,6 +19,7 @@ public class HealSkill extends Skill implements IPerformSquareSkill, Serializabl
 	public HealSkill() {
 		// TODO Auto-generated constructor stub
 		super.setName("Heal");
+		super.setIcon("hospital-cross.png");
 	}
 	/**
 	 * Method is passed target square and skill owner piece to check if there is occupant

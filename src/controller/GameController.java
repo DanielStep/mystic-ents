@@ -55,12 +55,10 @@ public class GameController implements Observer {
 	public void continueGame() {
 		gameBoard.buildBoard();
 		gameBoard.getBoardFrame().setVisible(true);
-		generateGamePieces();
+		collectGamePieces();
 		setControlObjects();
-		currentTeam = Team.values()[currentTeamIndex];
-		controlPanel.setCurrentTeam(currentTeam.name());
+		currentTeam = setCurrentTeam();
 		startTimer();
-		loadTeamColorFromSaveGame();
 	}
 	
 	/**
@@ -73,15 +71,13 @@ public class GameController implements Observer {
 	public void update(Observable o, Object arg) {
 		GameTurn gameTurn = (GameTurn) o;
 		//Post condition exception if GameTurn is null, return (exit?)
-		if (gameTurn == null) return;
-		
+		if (gameTurn == null) return;		
 		controlPanel.setPieceCount(getAvailablePieceCount());
-		controlPanel.doUIUpdate(gameTurn);
-		
+		controlPanel.doUIUpdate(gameTurn);		
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
-		}		
+		}
 	}
 
 	/**
@@ -93,55 +89,25 @@ public class GameController implements Observer {
 	 */		
 	private void handleEndTurn() {
 		//reset action counter
-		pieceController.getInstance().resetActionCount();
-		
+		pieceController.getInstance().resetActionCount();		
 		// set game turn count;
 		int newCount = gameTimer.getCount();
 		newCount++;
-		gameTimer.setCount(newCount);
-		
-		//Change teams
-		currentTeam = changeTeams();
-		
+		gameTimer.setCount(newCount);		
 		//Reset Board
 		gameBoard.clearRangeCells();
-		
-		//Update save data for current team
+		//Change teams
+		currentTeam = changeTeams();
 		BoardData.getInstance().setCurrentTeam(currentTeam);
-		
 		//Update UI
-		controlPanel.setCurrentTeam(currentTeam.name());		
+		controlPanel.setCurrentTeam(currentTeam);		
 		controlPanel.doUIEndTurn();
-		
-	}
-	
-	private Team changeTeams() {
-		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList());
-		//int a = tList.indexOf(currentTeam);
-		if (currentTeamIndex == tList.size()-1) {
-			currentTeamIndex = 0;
-		} else {
-			currentTeamIndex++;		
-		}
-		
-		System.out.println("New team: " + currentTeamIndex + " of " + tList.size());
-		return Team.values()[currentTeamIndex];	
 	}
 	
 	public Boolean loadGame(){
-		Object gameState = GameUtils.getInstance().loadGameData();
-		if (gameState != null) {
-			BoardData data = (BoardData) gameState;
-			Team teamColor = data.getCurrentTeam();
-			System.out.println("---------team color from save file = " + teamColor);
-			
-			// set team color from save file
-			if (teamColor != null) {
-				BoardData.getInstance().setCurrentTeam(teamColor);
-				setCurrentTeam(teamColor);
-			}
-			
-			GameConfig.setROW_COL(data.getBoardArray().length);
+		BoardData data = GameUtils.getInstance().loadGame();
+		if (GameUtils.getInstance().loadGame() != null) {
+			gameBoard.getBoardData().setCurrentTeam(data.getCurrentTeam());
 			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
 			gameBoard.getBoardData().doCellsUpdate();
 			return true;
@@ -149,34 +115,32 @@ public class GameController implements Observer {
 			DialogView.getInstance().showInformation("Save game not found!");
 			return false;
 		}
-	}	
-	
-	public void loadTeamColorFromSaveGame(){
-		Team teamEnum = BoardData.getInstance().getCurrentTeam();
-		if (teamEnum != null) {
-			// load current team from save data
-			controlPanel.setCurrentTeam(teamEnum.name());
-		}
 	}
 	
-	private ArrayList<Team> getAvailableTeamList() {
-		ArrayList<Team> tList = new ArrayList<Team>();
-		for (Piece piece : gamePiecesList) {
-			if(!tList.contains(piece.getTeam())) {
-				tList.add((Team) piece.getTeam());
-			}
+	private Team changeTeams() {
+		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList());
+		//int a = tList.indexOf(currentTeam);//not sure why this doesn't work (??)
+		if (currentTeamIndex == tList.size()-1) {
+			currentTeamIndex = 0;
+		} else {
+			currentTeamIndex++;		
 		}
-		return tList;
+		return Team.values()[currentTeamIndex];	
+	}
+	
+	private Team setCurrentTeam() {
+		Team team = gameBoard.getBoardData().getCurrentTeam();
+		team = team == null ? Team.values()[currentTeamIndex] : team;		
+		controlPanel.setCurrentTeam(team);
+		return team;
+	}
+
+	private ArrayList<Team> getAvailableTeamList() {
+		return GameUtils.getInstance().getAvailableTeamList(gamePiecesList);
 	}
 	
 	private int getAvailablePieceCount() {
-		int count = 0;
-		for (Piece piece : gamePiecesList) {
-			if (currentTeam == piece.getTeam()) {
-				count++;
-			}
-		}
-		return count;
+		return GameUtils.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
 	}
 		
 	public void updatePieceInformation(Piece pce) {
@@ -184,7 +148,7 @@ public class GameController implements Observer {
 		controlPanel.getPieceInfoPanel().updatePieceInformation(pce);
 	}
 	
-	private void generateGamePieces() {
+	private void collectGamePieces() {
 		Square[][] gameData = gameBoard.getBoardData().getBoardArray();
 		for (int i=0; i<gameData.length; i++) {
 			for (int j=0; j<gameData[i].length; j++) {

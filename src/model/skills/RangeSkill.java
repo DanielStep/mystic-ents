@@ -17,6 +17,7 @@ public class RangeSkill extends Skill implements IPerformTraitSkill, Serializabl
 
 	public RangeSkill() {
 		super.setName("Range");
+		super.setIcon("bowman.png");
 	}
 
 	@Override
