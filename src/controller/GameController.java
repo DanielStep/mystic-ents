@@ -38,6 +38,8 @@ public class GameController implements Observer {
 	// BOARD OBJECTS
 	private Team currentTeam;
 	private int currentTeamIndex = 0;
+	
+	private static int fullTurnCounter=0;
 
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 
@@ -50,6 +52,7 @@ public class GameController implements Observer {
 		gameBoard.init();
 		continueGame();
 	}
+	
 
 	public void continueGame() {
 		gameBoard.buildBoard();
@@ -90,10 +93,14 @@ public class GameController implements Observer {
 	 * Gives better adherence to MVC pattern.
 	 * 
 	 */
-	private void handleEndTurn() {
+	private void handleEndTurn() {		
 		
-		// add game state to memento after each turn TODO: where to place
-		gameBoard.saveToMemento();		
+//		increaseFullTurnCounter();
+//		// add game state to memento after each turn TODO: where to place
+//		if(GameController.fullTurnCounter==2){
+//			
+//			resetFullTurnCounter();
+//		}	
 		
 		// reset action counter
 		pieceController.getInstance().resetActionCount();
@@ -119,6 +126,8 @@ public class GameController implements Observer {
 		controlPanel.setCurrentTeam(currentTeam.name());	
 
 		controlPanel.doUIEndTurn();
+		
+		gameBoard.saveToMemento();
 
 	}
 
@@ -258,6 +267,14 @@ public class GameController implements Observer {
 
 	public BoardController getGameBoard() {
 		return gameBoard;
+	}
+	
+	public void increaseFullTurnCounter(){
+		GameController.fullTurnCounter++;
+	}
+	
+	public void resetFullTurnCounter(){
+		GameController.fullTurnCounter=0;
 	}
 
 }

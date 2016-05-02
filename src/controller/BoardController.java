@@ -52,6 +52,8 @@ public class BoardController implements Observer {
 		// boardFrame.getBoardPanel().setPac(pieceController);
 		boardState.init();// this needs to change - get pieces process is
 							// causing a loss of saved properties
+		
+		boardCareTaker.addMemento(boardData.saveToMemento());
 	}
 
 	public void buildBoard() {
@@ -112,7 +114,7 @@ public class BoardController implements Observer {
 
 	// Undo from game state
 	public boolean undo(int undoNumber) {
-		if(boardCareTaker.getMementosSize()>=undoNumber*2){
+		if (boardCareTaker.getMementosSize() >= undoNumber * 2) {
 			BoardMemento boardMemento = null;
 			for (int i = 0; i < undoNumber; i++) {
 				boardMemento = boardCareTaker.getMemento();
