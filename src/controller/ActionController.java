@@ -191,6 +191,11 @@ public class ActionController {
 		boardController.saveToMemento();
 	}
 	
+	public void resetTraitValuesToBase(){
+		activePiece.getTraitSet().getDamageTrait().setTraitValueToBase();
+		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
+	}
+	
 	private void clearActivePieceRange() {
 		// reset board
 		boardController.clearRangeCells();
@@ -201,6 +206,10 @@ public class ActionController {
 	}
 	public void setBoardController(BoardController bd) {
 		this.boardController = bd;
+	}
+	
+	public Piece getActivePiece(){
+		return activePiece;
 	}
 	
 	public void resetActionCount(){

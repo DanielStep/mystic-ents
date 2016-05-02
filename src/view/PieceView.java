@@ -86,12 +86,11 @@ public class PieceView extends JPanel implements Serializable{
 		g2.setPaint(this.color);
 		g2.fillRect(0, 0, size, size);
 
-        Double scale = (double) (size/100);
+		int isize = 210;		
+        Double scale = ((double) size) / isize;
         
-        System.out.println("Size: " + scale + " : " + size);
-		
         AffineTransform oldXform = g2.getTransform(); 
-        g2.scale(0.16, 0.16); 
+        g2.scale(scale, scale); 
         g2.drawImage(image, 0, 0, null);   
         
 		//Need to do this polymorphically
