@@ -92,7 +92,11 @@ public class BoardUtils {
 					return false;
 				}			
 			}
-			if (!check.getAccessible() || check.getTeamTower() != null) {
+//			if (!check.getAccessible() || check.getTeamTower() != null) {
+//				return false;
+//			}
+			
+			if (!check.getAccessible()) {
 				return false;
 			}
 			

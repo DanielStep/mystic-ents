@@ -58,6 +58,8 @@ public class ActionController {
 		Square sqrObj = sqr.getSqrObj();
 		Piece ocpt = sqrObj.getOccupant();
 
+//		System.out.println("-------- piece = " + ocpt + "tower = " + sqrObj.getTeamTower());
+		
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
 			//Check for piece
@@ -85,10 +87,21 @@ public class ActionController {
 					}
 				}
 			} else {
-				//An inaccessible square cannot be moved to or selected
 				if (sqrObj.getInRange()) {
-					movePiece(sqr.getSqrObj(), ocpt);
+					// Check if an active piece lands on the opponent's base
+					if (sqrObj.getTeamTower() != null) {
+						// if the landing square is of the opponent's base, it is a win
+						if (sqrObj.getTeamTower() != gameController.getCurrentTeam()) {
+							movePiece(sqr.getSqrObj(), ocpt);
+							String msg = "Team " + gameController.getCurrentTeam() + " win!";
+							DialogView.getInstance().showInformation(msg);
+						}
+					} else {
+						// if not, just move to the accessible target square
+						movePiece(sqr.getSqrObj(), ocpt);
+					}
 				}
+				
 			}
 		}
 		//USING SKILLS
@@ -120,6 +133,7 @@ public class ActionController {
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
 			gameController.updatePieceInformation(pce);
+			gameController.getGamePiecesList().remove(pce);
 			boardController.getBoardData().doCellsUpdate();
 		}
 		
