@@ -13,5 +13,4 @@ public class HealthTrait extends Trait implements Serializable {
 		super(startingValue);
 	}
 
-
 }

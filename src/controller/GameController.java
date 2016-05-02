@@ -31,7 +31,7 @@ public class GameController implements Observer {
 	//GAME CONTROL
 	private GameTurn gameTimer;
 	private BoardController gameBoard;
-	private ActionController pieceController;
+	private ActionController actionController;
 	
 	//UI
 	private ControlPanel controlPanel;
@@ -73,7 +73,7 @@ public class GameController implements Observer {
 		//Post condition exception if GameTurn is null, return (exit?)
 		if (gameTurn == null) return;		
 		controlPanel.setPieceCount(getAvailablePieceCount());
-		controlPanel.doUIUpdate(gameTurn);		
+		controlPanel.doUIUpdate(gameTurn);
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
@@ -89,18 +89,16 @@ public class GameController implements Observer {
 	 */		
 	private void handleEndTurn() {
 		//reset action counter
-		pieceController.getInstance().resetActionCount();
+		actionController.getInstance().resetActionCount();
 		// set game turn count;
-		int newCount = gameTimer.getCount();
-		newCount++;
-		gameTimer.setCount(newCount);		
+		gameTimer.setCount(gameTimer.getCount()+1);		
 		//Reset Board
 		gameBoard.clearRangeCells();
 		//Change teams
 		currentTeam = changeTeams();
-		BoardData.getInstance().setCurrentTeam(currentTeam);
+		gameBoard.getBoardData().setCurrentTeam(currentTeam);
 		//Reset TraitValues of all pieces on board to base value
-		BoardData.getInstance().resetPieceTraitValueToBase();
+		gameBoard.getBoardData().resetPieceTraitValueToBase(gamePiecesList);
 		//Update UI
 		controlPanel.setCurrentTeam(currentTeam);		
 		controlPanel.doUIEndTurn();
@@ -159,9 +157,7 @@ public class GameController implements Observer {
 				}				
 			}
 		}
-	}	
-	
-
+	}
 
 	public void setControlObjects() {
 		setControlPanel(gameBoard.getBoardFrame().getControlPanel());
@@ -199,8 +195,8 @@ public class GameController implements Observer {
 		this.gameBoard = gameBoard;
 	}
 	
-	public void setPieceActionController(ActionController pieceController) {
-		this.pieceController = pieceController;
+	public void setPieceActionController(ActionController actionController) {
+		this.actionController = actionController;
 	}
 	
 	public Team getCurrentTeam() {

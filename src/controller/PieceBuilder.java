@@ -33,6 +33,5 @@ public class PieceBuilder {
 		newPiece.setTraitSet(getTraitSet);
 		newPiece.setSkillSet(getSkillSet);
 		newPiece.setTeam(team);
-
 	}
 }

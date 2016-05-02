@@ -57,6 +57,9 @@ public class GameUtils {
 				count++;
 			}
 		}
+		
+		System.out.println("All pieces: " + pieceList.size());
+		
 		return count;
 	}
 	
@@ -74,16 +77,6 @@ public class GameUtils {
 		Object gameState = loadGameData();
 		if (gameState != null) {
 			BoardData data = (BoardData) gameState;
-			
-			/*Team teamColor = data.getCurrentTeam();
-			System.out.println("---------team color from save file = " + teamColor);
-			
-			// set team color from save file
-			if (teamColor != null) {
-				BoardData.getInstance().setCurrentTeam(teamColor);
-				setCurrentTeam(teamColor);
-			}*/
-			
 			GameConfig.setROW_COL(data.getBoardArray().length);
 			return data;
 		} else {

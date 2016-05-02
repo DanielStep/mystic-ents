@@ -30,7 +30,7 @@ public class BoardUtils {
 		Square[][] updateData = boardData;
 		for(int i = 0; i < updateData.length; i++) {
 			for(int j = 0; j < updateData.length; j++) {
-				updateData[i][j].setInrange(false);
+				updateData[i][j].setInRange(false);
 			}
 		}
 		return updateData;
@@ -75,7 +75,7 @@ public class BoardUtils {
 					for(int j = y-crange; j < y+(crange+1); j++) {
 						if (i > -1 && j > -1 && i < this.boardData.length && j < this.boardData.length) {
 							//checkRangeCriteria(origin, crange, check)
-							boardData[i][j].setInrange(checkRangeCriteria(boardData[i][j]));
+							boardData[i][j].setInRange(checkRangeCriteria(boardData[i][j]));
 							//getSquares.add(boardData[i][j]);
 						}
 					}

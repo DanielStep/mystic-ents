@@ -10,6 +10,8 @@ public abstract class Piece implements IAttack, Serializable {
 	protected TraitSet traitSet;
 	protected SkillSet skillSet;
 	
+	protected String pieceIcon;
+	
 	protected Boolean isUsurper = false;
 	protected Boolean inPlay = false;
 	protected Boolean inMove = false;
@@ -22,6 +24,14 @@ public abstract class Piece implements IAttack, Serializable {
 
 	// Team color
 	protected Enum<Team> team;
+	
+	public String getIcon() {
+		return pieceIcon;
+	}
+	
+	public void setIcon(String icon) {
+		this.pieceIcon = icon;
+	}
 	
 	public SkillSet getSkillSet() {
 		return skillSet;

@@ -53,7 +53,7 @@ public class PieceView extends JPanel implements Serializable{
 	}
 
 	private void addPieceIcon() {
-    	String icon = piece.getSkillSet().getCurrentSkill().getIcon();
+    	String icon = piece.getIcon();
 		try {                
 			image = ImageIO.read(new File("./src/view/icons/"+icon));
 		} catch (IOException ex) {
