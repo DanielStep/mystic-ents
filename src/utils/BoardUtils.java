@@ -1,18 +1,14 @@
 package utils;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import model.board.Square;
 import model.piece.Piece;
 
 public class BoardUtils {
 
-	private static final long serialVersionUID = 1L;
-	
 	private static BoardUtils instance;
 	
 	private RangeChecker checker = new RangeChecker();

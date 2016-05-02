@@ -58,8 +58,6 @@ public class ActionController {
 		Square sqrObj = sqr.getSqrObj();
 		Piece ocpt = sqrObj.getOccupant();
 
-//		System.out.println("-------- piece = " + ocpt + "tower = " + sqrObj.getTeamTower());
-		
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
 			//Check for piece
@@ -132,7 +130,7 @@ public class ActionController {
 		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
-			gameController.updatePieceInformation(pce);
+			//gameController.updatePieceInformation(pce);
 			gameController.getGamePiecesList().remove(pce);
 			boardController.getBoardData().doCellsUpdate();
 		}

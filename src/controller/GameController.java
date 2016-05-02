@@ -179,11 +179,11 @@ public class GameController implements Observer {
 		o.addObserver(this);
 	}
 
-	public static ArrayList<Piece> getGamePiecesList() {
+	public ArrayList<Piece> getGamePiecesList() {
 		return gamePiecesList;
 	}
 
-	public static void setGamePiecesList(ArrayList<Piece> piecesList) {
+	public void setGamePiecesList(ArrayList<Piece> piecesList) {
 		gamePiecesList = piecesList;
 	}	
 	
