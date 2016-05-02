@@ -9,15 +9,15 @@ import model.board.Square;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
-import utils.GameConfig;
 import utils.GameUtils;
 import view.ControlPanel;
 import view.DialogView;
 import view.MainMenuFrame;
 
 /**
- * Responsible for turn handling Via Timer and end turn handling And managing UI
- * view
+ * Responsible for turn handling
+ * Via Timer and end turn handling
+ * And managing UI view
  * 
  * Generate game pieces that will be passed to the Board
  *
@@ -27,20 +27,17 @@ import view.MainMenuFrame;
 
 public class GameController implements Observer {
 
-	// GAME CONTROL
+	//GAME CONTROL
 	private GameTurn gameTimer;
 	private BoardController gameBoard;
-	private ActionController pieceController;
-
-	// UI
-	private ControlPanel controlPanel;
-
-	// BOARD OBJECTS
-	private Team currentTeam;
-	private int currentTeamIndex = 0;
+	private ActionController actionController;
 	
-	private static int fullTurnCounter=0;
-
+	//UI
+	private ControlPanel controlPanel;
+	
+	//BOARD OBJECTS
+	private Team currentTeam;
+	
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 
 	public GameController() {
@@ -53,34 +50,28 @@ public class GameController implements Observer {
 		continueGame();
 	}
 	
-
 	public void continueGame() {
 		gameBoard.buildBoard();
 		gameBoard.getBoardFrame().setVisible(true);
-		generateGamePieces();
+		collectGamePieces();
 		setControlObjects();
-		currentTeam = Team.values()[currentTeamIndex];
-		controlPanel.setCurrentTeam(currentTeam.name());
+		currentTeam = setCurrentTeam();
 		startTimer();
-		loadTeamColorFromSaveGame();
 	}
-
+	
 	/**
-	 * The update method of the Observer pattern Watches the GameTurn timer to
-	 * handle end turns, team change, And to update the UI
-	 */
-
+	 * The update method of the Observer pattern
+	 * Watches the GameTurn timer to handle end turns, team change,
+	 * And to update the UI
+	 */	
+	
 	@Override
 	public void update(Observable o, Object arg) {
-
 		GameTurn gameTurn = (GameTurn) o;
-		// Post condition exception if GameTurn is null, return (exit?)
-		if (gameTurn == null)
-			return;
-
+		//Post condition exception if GameTurn is null, return (exit?)
+		if (gameTurn == null) return;		
 		controlPanel.setPieceCount(getAvailablePieceCount());
 		controlPanel.doUIUpdate(gameTurn);
-
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
@@ -88,76 +79,33 @@ public class GameController implements Observer {
 	}
 
 	/**
-	 * EndTurn handler Called via update method when GameTurn.getGameTimer = 0 A
-	 * turn is ended via the timer value rather than calling a set function
+	 * EndTurn handler
+	 * Called via update method when GameTurn.getGameTimer = 0
+	 * A turn is ended via the timer value rather than calling a set function
 	 * Gives better adherence to MVC pattern.
 	 * 
-	 */
-	private void handleEndTurn() {		
-		
-//		increaseFullTurnCounter();
-//		// add game state to memento after each turn TODO: where to place
-//		if(GameController.fullTurnCounter==2){
-//			
-//			resetFullTurnCounter();
-//		}	
-		
-		// reset action counter
-		pieceController.getInstance().resetActionCount();
-
+	 */		
+	private void handleEndTurn() {
+		//reset action counter
+		ActionController.getInstance().resetActionCount();
 		// set game turn count;
-		int newCount = gameTimer.getCount();
-		newCount++;
-		gameTimer.setCount(newCount);
-
-		// Change teams
-		currentTeam = changeTeams();
-
-		// Reset Board
+		gameTimer.setCount(gameTimer.getCount()+1);		
+		//Reset Board
 		gameBoard.clearRangeCells();
-
-		// Update save data for current team
-		BoardData.getInstance().setCurrentTeam(currentTeam);
-		
+		//Change teams
+		currentTeam = changeTeams();
+		gameBoard.getBoardData().setCurrentTeam(currentTeam);
 		//Reset TraitValues of all pieces on board to base value
-		BoardData.getInstance().resetPieceTraitValueToBase();
-		
+		gameBoard.getBoardData().resetPieceTraitValueToBase(gamePiecesList);
 		//Update UI
-		controlPanel.setCurrentTeam(currentTeam.name());	
-
+		controlPanel.setCurrentTeam(currentTeam);		
 		controlPanel.doUIEndTurn();
-		
-		gameBoard.saveToMemento();
-
 	}
-
-	private Team changeTeams() {
-		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList());
-		// int a = tList.indexOf(currentTeam);
-		if (currentTeamIndex == tList.size() - 1) {
-			currentTeamIndex = 0;
-		} else {
-			currentTeamIndex++;
-		}
-
-		System.out.println("New team: " + currentTeamIndex + " of " + tList.size());
-		return Team.values()[currentTeamIndex];
-	}
-
-	public Boolean loadGame() {
-		Object gameState = GameUtils.getInstance().loadGameData();
-		if (gameState != null) {
-			BoardData data = (BoardData) gameState;
-			Team teamColor = data.getCurrentTeam();
-			System.out.println("---------team color from save file = " + teamColor);
-
-			// set team color from save file
-			if (teamColor != null) {
-				BoardData.getInstance().setCurrentTeam(teamColor);
-				setCurrentTeam(teamColor);
-			}
-
-			GameConfig.setROW_COL(data.getBoardArray().length);
+	
+	public Boolean loadGame(){
+		BoardData data = GameUtils.getInstance().loadGame();
+		if (GameUtils.getInstance().loadGame() != null) {
+			gameBoard.getBoardData().setCurrentTeam(data.getCurrentTeam());
 			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
 			gameBoard.getBoardData().doCellsUpdate();
 			return true;
@@ -166,93 +114,83 @@ public class GameController implements Observer {
 			return false;
 		}
 	}
-
-	public void loadTeamColorFromSaveGame() {
-		Team teamEnum = BoardData.getInstance().getCurrentTeam();
-		if (teamEnum != null) {
-			// load current team from save data
-			controlPanel.setCurrentTeam(teamEnum.name());
-		}
+	
+	private Team changeTeams() {
+		return GameUtils.getInstance().getNextTeam(gamePiecesList, currentTeam);
+		
+	}
+	
+	private Team setCurrentTeam() {
+		Team team = gameBoard.getBoardData().getCurrentTeam();
+		team = team == null ? Team.values()[0] : team;		
+		controlPanel.setCurrentTeam(team);
+		return team;
 	}
 
-	private ArrayList<Team> getAvailableTeamList() {
-		ArrayList<Team> tList = new ArrayList<Team>();
-		for (Piece piece : gamePiecesList) {
-			if (!tList.contains(piece.getTeam())) {
-				tList.add((Team) piece.getTeam());
-			}
-		}
-		return tList;
-	}
-
+	/*private ArrayList<Team> getAvailableTeamList() {
+		return GameUtils.getInstance().getAvailableTeamList(gamePiecesList);
+	}*/
+	
 	private int getAvailablePieceCount() {
-		int count = 0;
-		for (Piece piece : gamePiecesList) {
-			if (currentTeam == piece.getTeam()) {
-				count++;
-			}
-		}
-		return count;
+		return GameUtils.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
 	}
-
+		
 	public void updatePieceInformation(Piece pce) {
 		// Update Piece Statistics on Selection
 		controlPanel.getPieceInfoPanel().updatePieceInformation(pce);
 	}
-
-	private void generateGamePieces() {
+	
+	private void collectGamePieces() {
 		Square[][] gameData = gameBoard.getBoardData().getBoardArray();
-		for (int i = 0; i < gameData.length; i++) {
-			for (int j = 0; j < gameData[i].length; j++) {
+		for (int i=0; i<gameData.length; i++) {
+			for (int j=0; j<gameData[i].length; j++) {
 				if (gameData[i][j].getOccupant() != null) {
 					gamePiecesList.add(gameData[i][j].getOccupant());
-				}
+				}				
 			}
 		}
-
 	}
 
 	public void setControlObjects() {
 		setControlPanel(gameBoard.getBoardFrame().getControlPanel());
-	}
-
+	}	
+	
 	private void buildTimer() {
 		gameTimer = new GameTurn();
 		observe(gameTimer);
 	}
-
+	
 	public void startTimer() {
 		gameTimer.start();
 	}
-
 	public void stopTimer() {
 		gameTimer.stop();
 	}
-
+	
 	public void observe(Observable o) {
 		o.addObserver(this);
 	}
 
-	public static ArrayList<Piece> getGamePiecesList() {
+	public ArrayList<Piece> getGamePiecesList() {
 		return gamePiecesList;
 	}
 
-	public static void setGamePiecesList(ArrayList<Piece> piecesList) {
+	public void setGamePiecesList(ArrayList<Piece> piecesList) {
 		gamePiecesList = piecesList;
-	}
-
+	}	
+	
 	public void setControlPanel(ControlPanel controlPanel) {
 		this.controlPanel = controlPanel;
 	}
-
+	
 	public void setBoardController(BoardController gameBoard) {
 		this.gameBoard = gameBoard;
 	}
-
-	public void setPieceActionController(ActionController pieceController) {
-		this.pieceController = pieceController;
+	
+	public void setPieceActionController(ActionController actionController) {
+		this.actionController = actionController;
 	}
-
+	
 	public Team getCurrentTeam() {
 		return currentTeam;
 	}
@@ -267,14 +205,6 @@ public class GameController implements Observer {
 
 	public BoardController getGameBoard() {
 		return gameBoard;
-	}
-	
-	public void increaseFullTurnCounter(){
-		GameController.fullTurnCounter++;
-	}
-	
-	public void resetFullTurnCounter(){
-		GameController.fullTurnCounter=0;
-	}
+	}	
 
 }

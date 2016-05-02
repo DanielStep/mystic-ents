@@ -87,11 +87,11 @@ public class Square implements Serializable {
 		this.bgColor = bgColor;
 	}
 
-	public Boolean getInrange() {
+	public Boolean getInRange() {
 		return inrange;
 	}
 
-	public void setInrange(Boolean inrange) {
+	public void setInRange(Boolean inrange) {
 		this.inrange = inrange;
 	}
 

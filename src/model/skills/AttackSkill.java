@@ -16,6 +16,7 @@ public class AttackSkill extends Skill implements IPerformTraitSkill, Serializab
 	public AttackSkill() {
 		// TODO Auto-generated constructor stub
 		super.setName("Attack");
+		super.setIcon("barbute.png");
 	}
 	
 	@Override

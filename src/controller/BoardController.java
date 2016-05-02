@@ -49,16 +49,16 @@ public class BoardController implements Observer {
 	}
 
 	public void init() {
-		// boardFrame.getBoardPanel().setPac(pieceController);
-		boardState.init();// this needs to change - get pieces process is
-							// causing a loss of saved properties
-		
+
 		boardCareTaker.addMemento(boardData.saveToMemento());
+
+		boardState.init();
+		// this needs to change - get pieces process is
+		// causing a loss of saved properties
 	}
 
 	public void buildBoard() {
 		System.out.println("Building board...");
-		// boardFrame.getBoardPanel().setPac(pieceController);
 		boardFrame.pack();
 		boardFrame.getBoardPanel().setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
 	}
@@ -78,7 +78,7 @@ public class BoardController implements Observer {
 		Square[][] data = ((BoardData) o).getBoardArray();
 		if (data == null)
 			return;
-		System.out.println("Updating Board...");
+		// System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
 
 		// set game piece list to board data for save file

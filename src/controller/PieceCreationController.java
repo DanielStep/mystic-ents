@@ -30,7 +30,7 @@ public class PieceCreationController {
 		
 		ArrayList<Piece> piecesArrayList = new ArrayList<Piece>();
 		
-		for(int i = 0; i < GameConfig.getUsurpersInTeam(); i++){
+		/*for(int i = 0; i < GameConfig.getUsurpersInTeam(); i++){
 			piecesArrayList.add(createUsurpPiece(Team.BLUE));
 			piecesArrayList.add(createUsurpPiece(Team.RED));
 		}
@@ -38,7 +38,7 @@ public class PieceCreationController {
 		for(int i = 0; i < GameConfig.getRegularpiecesInTeam(); i++){
 			piecesArrayList.add(createRegPiece(Team.BLUE));
 			piecesArrayList.add(createRegPiece(Team.RED));	
-		}
+		}*/
 		
 		return piecesArrayList;
 

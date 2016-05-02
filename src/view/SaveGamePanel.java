@@ -40,6 +40,9 @@ public class SaveGamePanel extends JPanel implements Serializable {
 	
 	private void doSave(){
 		boardData = BoardData.getInstance();
+		
+		System.out.println("SAVING TEAM: " + boardData.getCurrentTeam());
+		
 		if (GameUtils.getInstance().saveGameData(boardData)) {
 			DialogView.getInstance().showInformation("Save game successfully!");			
 		};

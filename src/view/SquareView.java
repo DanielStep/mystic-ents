@@ -43,13 +43,15 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		if (o.getOccupant() == null) {
 			return;
 		}
+		
 		PieceView pce = new PieceView(o.getOccupant());
+		
 		this.add(pce);
 	}
 
 	private Color getBackgroundColor(Square o) {
 		Color bg = defaultBg;
-		bg = o.getInrange() ? Color.YELLOW : bg;
+		bg = o.getInRange() ? Color.YELLOW : bg;
 		bg = !o.getAccessible() ? Color.BLACK : bg;
 		bg = o.getTeamTower() != null ? Color.GREEN : bg;
 		return bg;

@@ -5,12 +5,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.piece.Piece;
+import model.piece.Team;
 import utils.BoardUtils;
 import utils.GameConfig;
 
@@ -27,18 +33,35 @@ public class PieceView extends JPanel implements Serializable{
 	// Represents team.
 	private Color color;
 	private Piece piece;
+	private BufferedImage image;
 	private BoardUtils boardUtils;
-	private int size = 40;
+	private int size;
 	private JLabel label;
 
 	public PieceView(Piece pce) {
 		boardUtils = BoardUtils.getInstance();
-		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()) - 3.5);
+		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()));
 		this.piece = pce;
-		this.color = boardUtils.stringToColor(pce.getTeam().name(), Color.WHITE);
-		addPieceLabel();
+		
+		//Get color details from Piece's Team class
+		Team team = (Team) pce.getTeam();
+		this.color = new Color(team.getRed(),team.getGreen(),team.getBlue());
+
+		addPieceIcon();
+		
+		//addPieceLabel();
 	}
 
+	private void addPieceIcon() {
+    	String icon = piece.getIcon();
+		try {                
+			image = ImageIO.read(new File("./src/view/icons/"+icon));
+		} catch (IOException ex) {
+			// handle exception...
+			System.out.println("Piece icon not found");
+		}		
+	}
+	
 	private void addPieceLabel() {
 		label = new JLabel(buildLabelString(), JLabel.LEFT);
 		label.setFont(new Font("Sans-serif", Font.PLAIN, (int) (size / 2.5)));
@@ -58,11 +81,21 @@ public class PieceView extends JPanel implements Serializable{
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		
+		g2.setPaint(this.color);
+		g2.fillRect(0, 0, size, size);
+
+		int isize = 210;		
+        Double scale = ((double) size) / isize;
+        
+        AffineTransform oldXform = g2.getTransform(); 
+        g2.scale(scale, scale); 
+        g2.drawImage(image, 0, 0, null);   
+        
 		//Need to do this polymorphically
 		
-		if (piece.getIsUsurper()) {
+		/*if (piece.getIsUsurper()) {
 			g2.setPaint(Color.white);
 			g2.fillOval(0, 0, size, size);
 			g2.setPaint(this.color);
@@ -71,7 +104,7 @@ public class PieceView extends JPanel implements Serializable{
 		} else {
 			g2.setPaint(this.color);
 			g2.fillOval(0, 0, size, size);
-		}
+		}*/
 	}
 
 }

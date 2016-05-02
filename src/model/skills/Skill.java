@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public abstract class Skill implements Serializable {
 	private String name;
+	private String icon;
 	
 	public void setName(String name){
 		this.name = name;
@@ -17,4 +18,12 @@ public abstract class Skill implements Serializable {
 	public String getName(){
 		return this.name;
 	}
+	
+	public void setIcon(String icon){
+		this.icon = icon;
+	}
+	
+	public String getIcon(){
+		return this.icon;
+	}	
 }
