@@ -73,7 +73,7 @@ public class BoardController implements Observer {
 		Square[][] data = ((BoardData) o).getBoardArray();
 		if (data == null)
 			return;
-		System.out.println("Updating Board...");
+		//System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
 
 		// add game state to memento after each turn

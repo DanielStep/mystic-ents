@@ -58,12 +58,19 @@ public class GameUtils {
 			}
 		}
 		
-		System.out.println("All pieces: " + pieceList.size());
+		//System.out.println("All pieces: " + pieceList.size());
 		
 		return count;
 	}
 	
-	public ArrayList<Team> getAvailableTeamList(ArrayList<Piece> pieceList) {
+	public Team getNextTeam (ArrayList<Piece> pieceList, Team currentTeam) {
+		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList(pieceList));
+		int a = tList.indexOf(currentTeam);
+		a = ++a == tList.size() ? 0 : a;
+		return tList.get(a);
+	}
+	
+	private ArrayList<Team> getAvailableTeamList(ArrayList<Piece> pieceList) {
 		ArrayList<Team> tList = new ArrayList<Team>();
 		for (Piece piece : pieceList) {
 			if(!tList.contains(piece.getTeam())) {

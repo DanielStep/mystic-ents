@@ -38,7 +38,6 @@ public class GameController implements Observer {
 	
 	//BOARD OBJECTS
 	private Team currentTeam;
-	private int currentTeamIndex = 0;
 	
 	private static ArrayList<Piece> gamePiecesList = new ArrayList<Piece>();
 
@@ -89,7 +88,7 @@ public class GameController implements Observer {
 	 */		
 	private void handleEndTurn() {
 		//reset action counter
-		actionController.getInstance().resetActionCount();
+		ActionController.getInstance().resetActionCount();
 		// set game turn count;
 		gameTimer.setCount(gameTimer.getCount()+1);		
 		//Reset Board
@@ -118,26 +117,20 @@ public class GameController implements Observer {
 	}
 	
 	private Team changeTeams() {
-		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList());
-		//int a = tList.indexOf(currentTeam);//not sure why this doesn't work (??)
-		if (currentTeamIndex == tList.size()-1) {
-			currentTeamIndex = 0;
-		} else {
-			currentTeamIndex++;		
-		}
-		return Team.values()[currentTeamIndex];	
+		return GameUtils.getInstance().getNextTeam(gamePiecesList, currentTeam);
+		
 	}
 	
 	private Team setCurrentTeam() {
 		Team team = gameBoard.getBoardData().getCurrentTeam();
-		team = team == null ? Team.values()[currentTeamIndex] : team;		
+		team = team == null ? Team.values()[0] : team;		
 		controlPanel.setCurrentTeam(team);
 		return team;
 	}
 
-	private ArrayList<Team> getAvailableTeamList() {
+	/*private ArrayList<Team> getAvailableTeamList() {
 		return GameUtils.getInstance().getAvailableTeamList(gamePiecesList);
-	}
+	}*/
 	
 	private int getAvailablePieceCount() {
 		return GameUtils.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
