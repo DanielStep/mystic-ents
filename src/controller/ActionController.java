@@ -1,6 +1,9 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
+
+import javax.swing.border.LineBorder;
 
 import model.board.Square;
 import model.piece.Piece;
@@ -126,15 +129,14 @@ public class ActionController {
 		
 	private void attackPiece(Square sqrObj, Piece pce) {
 		activePiece.attackOut(pce);
-		
 		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
 			//gameController.updatePieceInformation(pce);
-			gameController.getGamePiecesList().remove(pce);
+			//gameController.getGamePiecesList().remove(pce);
+			pce.setInPlay(false);
 			boardController.getBoardData().doCellsUpdate();
-		}
-		
+		}		
 		checkActionCount();
 		//endTurn();
 	}
@@ -144,14 +146,16 @@ public class ActionController {
 		Skill currentSkill = activePiece.getSkillSet().getCurrentSkill();
 		
 		if (currentSkill instanceof IPerformTraitSkill){
-			((IPerformTraitSkill) currentSkill).performSkill(activePiece);
+			((IPerformTraitSkill) currentSkill).performSkill(activePiece);		
+			boardController.clearRangeCells();
+			boardController.getBoardData().doCellsUpdate();
+			boardController.getRangeCells(sqrObj);
+			gameController.updatePieceInformation(pce);
 		}else if (currentSkill instanceof IPerformSquareSkill){
 			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, sqrObj);
+			boardController.getBoardData().doCellsUpdate();
 		}
-		boardController.clearRangeCells();
-		boardController.getBoardData().doCellsUpdate();
-		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
-		gameController.updatePieceInformation(pce);
+
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {
@@ -174,7 +178,7 @@ public class ActionController {
 		pce.setInMove(true);
 		activeSquare = sqrObj;
 		activePiece = pce;		
-		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
+		boardController.getRangeCells(sqrObj);
 		gameController.updatePieceInformation(pce);
 	}
 	

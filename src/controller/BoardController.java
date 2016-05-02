@@ -63,8 +63,8 @@ public class BoardController implements Observer {
 		boardData.doCellsUpdate();
 	}
 
-	public void getRangeCells(int x, int y) {
-		boardData.setBoardArray(boardUtils.getRangeCells(x, y, boardData.getBoardArray()));
+	public void getRangeCells(Square origin) {
+		boardData.setBoardArray(boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
 		boardData.doCellsUpdate();
 	}
 

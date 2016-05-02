@@ -16,8 +16,8 @@ public class GameConfig {
 	private static final int DEFAULT_CONTROL_PANEL_WIDTH = 200;
     
     //BOARD
-	private static final int DEFAULT_WIDTH = 700;
-	private static final int DEFAULT_HEIGHT = 700;
+	private static final int DEFAULT_WIDTH = 800;
+	private static final int DEFAULT_HEIGHT = 800;
 	
 	//TEAMS
 	private static final int REGULARPIECES_IN_TEAM = 7;
@@ -25,7 +25,7 @@ public class GameConfig {
 	
 	//MAP
 //	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
-	private static String fileMapName = "map_tst";		// default map
+	private static String fileMapName = "map3";		// default map
     private static int ROW_COL;
     
     //SKILLS

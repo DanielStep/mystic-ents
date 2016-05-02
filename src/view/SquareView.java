@@ -23,7 +23,7 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		super();
 		this.setSqrObj(o);
 		this.setLayout(new BorderLayout());
-		this.setBorder(new LineBorder(Color.BLACK, 1));
+		this.setBorder(new LineBorder(new Color(212, 212, 212), 1));
 		this.setBackground(getBackgroundColor(o));
 
 		/*
@@ -42,17 +42,19 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 	private void addTeamPiece(Square o) {
 		if (o.getOccupant() == null) {
 			return;
+		} else if (o.getOccupant().getInPlay() == true) {
+			PieceView pce = new PieceView(o.getOccupant());			
+			this.add(pce);
 		}
-		
-		PieceView pce = new PieceView(o.getOccupant());
-		
-		this.add(pce);
 	}
 
 	private Color getBackgroundColor(Square o) {
 		Color bg = defaultBg;
 		bg = o.getInRange() ? Color.YELLOW : bg;
-		bg = !o.getAccessible() ? Color.BLACK : bg;
+		if (!o.getAccessible()) {
+			bg = Color.BLACK;
+			this.setBorder(new LineBorder(Color.BLACK, 1));
+		}
 		bg = o.getTeamTower() != null ? Color.GREEN : bg;
 		return bg;
 	}
@@ -66,13 +68,17 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
+		if (this.sqrObj.getAccessible()) {
+			this.setBorder(new LineBorder(new Color(255, 0, 0), 1));
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
+		if (this.sqrObj.getAccessible()) {
+			this.setBorder(new LineBorder(new Color(212, 212, 212), 1));
+		}
 	}
 
 	@Override
