@@ -18,7 +18,7 @@ public class AvailablePiecePanel extends JPanel{
 		
 	    tfPieceRemaining = new JTextField(12);
 	    tfPieceRemaining.setHorizontalAlignment(JTextField.CENTER);
-	    tfPieceRemaining.setText("0");
+	    tfPieceRemaining.setText("-");
 	    tfPieceRemaining.setEditable(false);
 
 	    TitledBorder titled = new TitledBorder("Available pieces");
