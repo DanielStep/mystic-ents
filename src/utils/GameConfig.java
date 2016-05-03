@@ -25,7 +25,7 @@ public class GameConfig {
 	
 	//MAP
 //	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
-	private static String fileMapName = "map_tst";		// default map
+	private static String fileMapName = "map2";		// default map
     private static int ROW_COL;
     
     //SKILLS

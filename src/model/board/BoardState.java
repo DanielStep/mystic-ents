@@ -21,6 +21,9 @@ public class BoardState {
 		boardGenerator = new BoardGenerator();
 		boardGenerator.loadMapData();
 		boardData.setBoardArray(boardGenerator.processMapData());
+		
+		BoardCareTaker.getInstance().addMemento(boardData.saveToMemento());
+		
 		boardData.doCellsUpdate();
 	}
 	

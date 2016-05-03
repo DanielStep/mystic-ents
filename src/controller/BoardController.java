@@ -33,8 +33,7 @@ public class BoardController implements Observer {
 	private BoardState boardState;
 	private BoardData boardData;
 
-	// CareTaker for board data
-	private BoardCareTaker boardCareTaker;
+	// CareTaker for board data	
 	private BoardMemento boardMemento = new BoardMemento();
 
 	private BoardUtils boardUtils = BoardUtils.getInstance();
@@ -44,13 +43,10 @@ public class BoardController implements Observer {
 		boardState = new BoardState();
 		boardFrame = new BoardFrame(this);
 		boardData = BoardData.getInstance();
-		observe(boardData);
-		boardCareTaker = new BoardCareTaker();
+		observe(boardData);		
 	}
 
-	public void init() {
-
-		boardCareTaker.addMemento(boardData.saveToMemento());
+	public void init() {		
 
 		boardState.init();
 		// this needs to change - get pieces process is
@@ -109,15 +105,15 @@ public class BoardController implements Observer {
 	// Saving game state
 	public void saveToMemento() {
 		boardMemento = boardData.saveToMemento();
-		boardCareTaker.addMemento(boardMemento);
+		BoardCareTaker.getInstance().addMemento(boardMemento);
 	}
 
 	// Undo from game state
 	public boolean undo(int undoNumber) {
-		if (boardCareTaker.getMementosSize() >= undoNumber * 2) {
+		if (BoardCareTaker.getInstance().getMementosSize() >= undoNumber * 2) {
 			BoardMemento boardMemento = null;
 			for (int i = 0; i < undoNumber; i++) {
-				boardMemento = boardCareTaker.getMemento();
+				boardMemento = BoardCareTaker.getInstance().getMemento();
 			}
 			boardData.undoFromMemento(boardMemento);
 			return true;

@@ -86,6 +86,10 @@ public class GameController implements Observer {
 	 * 
 	 */		
 	private void handleEndTurn() {
+		
+		// save each state
+		gameBoard.saveToMemento();
+		
 		//reset action counter
 		ActionController.getInstance().resetActionCount();
 		// set game turn count;

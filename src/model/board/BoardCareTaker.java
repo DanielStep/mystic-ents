@@ -13,7 +13,13 @@ public class BoardCareTaker {
 
 	final LinkedList<BoardMemento> mementos = new LinkedList<>();
 
-	public BoardCareTaker() {
+	private static BoardCareTaker instance;
+
+	public static synchronized BoardCareTaker getInstance() {
+		if (instance == null) {
+			instance = new BoardCareTaker();
+		}
+		return instance;
 	}
 
 	public int getMementosSize() {
@@ -23,12 +29,13 @@ public class BoardCareTaker {
 	public BoardMemento getMemento() {
 		// System.out.println("Undoing - getMemento dummy: " + mementos.size());
 
-		//mementos.pollLast();
+		if (mementos.size() > 2)
+			mementos.pollLast();
 		mementos.pollLast();
 		// boardMemento.print();
 		System.out.println("Undoing - getMemento: " + mementos.size());
 		BoardMemento boardMemento = mementos.pollLast();
-		boardMemento.print();
+		// boardMemento.print();
 		return boardMemento;
 	}
 
