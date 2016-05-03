@@ -65,15 +65,19 @@ public class UndoPanel extends JPanel {
 		this.boardController = boardController;
 	}
 
+	public JButton getUndoButton() {
+		return btUndo;
+	}
+
 	private void doUndo() {
+
 		// TODO undo method here
 		System.out.println("Undo " + cbNumberOfTurns.getSelectedItem().toString() + " moves");
-		
+
 		int undoTimes = Integer.parseInt(cbNumberOfTurns.getSelectedItem().toString());
-		if(!boardController.undo(undoTimes)){
+		if (!boardController.undo(undoTimes)) {
 			DialogView.getInstance().showInformation("Undo move number invalid.");
 		}
-			
 
 	}
 }

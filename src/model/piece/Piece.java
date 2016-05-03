@@ -13,7 +13,7 @@ public abstract class Piece implements IAttack, Serializable {
 	protected String pieceIcon;
 	
 	protected Boolean isUsurper = false;
-	protected Boolean inPlay = false;
+	protected Boolean inPlay = true;
 	protected Boolean inMove = false;
 
 	protected int id;

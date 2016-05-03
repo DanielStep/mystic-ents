@@ -39,6 +39,10 @@ public class EndTurnPanel extends JPanel {
 		this.add(btnEndTurn);
 	}
 
+	public JButton getEndTurnButton(){
+		return btnEndTurn;
+	}
+	
 	public void executeEndTurn() {
 		if (gameTurn != null) {
 			System.out.println("Starting turn: " + gameTurn.getCount());

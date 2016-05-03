@@ -1,12 +1,18 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
+
+import javax.swing.border.LineBorder;
 
 import model.board.Square;
 import model.piece.Piece;
 import model.skills.IPerformSquareSkill;
 import model.skills.IPerformTraitSkill;
 import model.skills.Skill;
+import view.BoardPanel;
+import view.ControlPanel;
 import view.DialogView;
 import view.SquareView;
 
@@ -57,7 +63,7 @@ public class ActionController {
 		//Minimize calls to sqr by getting square obj and occupant;
 		Square sqrObj = sqr.getSqrObj();
 		Piece ocpt = sqrObj.getOccupant();
-
+		
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
 			//Check for piece
@@ -76,7 +82,7 @@ public class ActionController {
 							attackPiece(sqr.getSqrObj(),ocpt);
 							String msg = "Attack!";
 							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());						
-						}					
+						}
 					} else if (!ocpt.getInMove()) {
 						// display dialog message if picking the wrong team piece
 						String msg = "It is Team " + gameController.getCurrentTeam() + "'s turn!";
@@ -86,13 +92,17 @@ public class ActionController {
 				}
 			} else {
 				if (sqrObj.getInRange()) {
-					// Check if an active piece lands on the opponent's base
-					if (sqrObj.getTeamTower() != null) {
+					// Check if an active Usurper piece lands on the opponent's base
+					if (sqrObj.getTeamTower() != null && activePiece != null) {
 						// if the landing square is of the opponent's base, it is a win
-						if (sqrObj.getTeamTower() != gameController.getCurrentTeam()) {
+						if (activePiece.getIsUsurper() == true && 
+								sqrObj.getTeamTower() != gameController.getCurrentTeam()) {
 							movePiece(sqr.getSqrObj(), ocpt);
 							String msg = "Team " + gameController.getCurrentTeam() + " win!";
 							DialogView.getInstance().showInformation(msg);
+							
+							// if a team win, the current game finishes
+							handleEndGameUI();
 						}
 					} else {
 						// if not, just move to the accessible target square
@@ -126,15 +136,14 @@ public class ActionController {
 		
 	private void attackPiece(Square sqrObj, Piece pce) {
 		activePiece.attackOut(pce);
-		
 		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
 		if(targetHealthValue < 1){
 			sqrObj.setOccupant(null);
 			//gameController.updatePieceInformation(pce);
-			gameController.getGamePiecesList().remove(pce);
+			//gameController.getGamePiecesList().remove(pce);
+			pce.setInPlay(false);
 			boardController.getBoardData().doCellsUpdate();
-		}
-		
+		}		
 		checkActionCount();
 		//endTurn();
 	}
@@ -144,14 +153,16 @@ public class ActionController {
 		Skill currentSkill = activePiece.getSkillSet().getCurrentSkill();
 		
 		if (currentSkill instanceof IPerformTraitSkill){
-			((IPerformTraitSkill) currentSkill).performSkill(activePiece);
+			((IPerformTraitSkill) currentSkill).performSkill(activePiece);		
+			boardController.clearRangeCells();
+			boardController.getBoardData().doCellsUpdate();
+			boardController.getRangeCells(sqrObj);
+			gameController.updatePieceInformation(pce);
 		}else if (currentSkill instanceof IPerformSquareSkill){
 			((IPerformSquareSkill) currentSkill).performSkill(activeSquare, sqrObj);
+			boardController.getBoardData().doCellsUpdate();
 		}
-		boardController.clearRangeCells();
-		boardController.getBoardData().doCellsUpdate();
-		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
-		gameController.updatePieceInformation(pce);
+
 	}
 	
 	private void movePiece(Square sqrObj, Piece pce) {
@@ -174,7 +185,7 @@ public class ActionController {
 		pce.setInMove(true);
 		activeSquare = sqrObj;
 		activePiece = pce;		
-		boardController.getRangeCells(sqrObj.getID()[0], sqrObj.getID()[1]);
+		boardController.getRangeCells(sqrObj);
 		gameController.updatePieceInformation(pce);
 	}
 	
@@ -205,6 +216,24 @@ public class ActionController {
 		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
 	}
 	
+	private void handleEndGameUI(){
+		// disable board game interactions
+		BoardPanel boardPanel = boardController.getBoardFrame().getBoardPanel();
+		for (Component com : boardPanel.getComponents()) {
+			if (com instanceof SquareView) {
+				SquareView sv = (SquareView)com;
+				sv.removeMouseListener(sv);
+			}
+		}
+		
+		// disable timer
+		gameController.getGameTurn().stop();
+		
+		// disable buttons in control panel
+		ControlPanel controlPanel = boardController.getBoardFrame().getControlPanel();
+		controlPanel.disableAllButtons();
+	}
+	
 	private void clearActivePieceRange() {
 		// reset board
 		boardController.clearRangeCells();
@@ -224,4 +253,5 @@ public class ActionController {
 	public void resetActionCount(){
 		actionCount = 0;
 	}
+	
 }

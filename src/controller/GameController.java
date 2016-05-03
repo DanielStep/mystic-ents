@@ -121,7 +121,6 @@ public class GameController implements Observer {
 	
 	private Team changeTeams() {
 		return GameUtils.getInstance().getNextTeam(gamePiecesList, currentTeam);
-		
 	}
 	
 	private Team setCurrentTeam() {
@@ -131,10 +130,6 @@ public class GameController implements Observer {
 		return team;
 	}
 
-	/*private ArrayList<Team> getAvailableTeamList() {
-		return GameUtils.getInstance().getAvailableTeamList(gamePiecesList);
-	}*/
-	
 	private int getAvailablePieceCount() {
 		return GameUtils.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
 	}

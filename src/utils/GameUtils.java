@@ -53,13 +53,10 @@ public class GameUtils {
 	public int getAvailablePieceCount(ArrayList<Piece> pieceList, Team currentTeam) {
 		int count = 0;
 		for (Piece piece : pieceList) {
-			if (currentTeam == piece.getTeam()) {
+			if (currentTeam == piece.getTeam() && piece.getInPlay()) {
 				count++;
 			}
 		}
-		
-		//System.out.println("All pieces: " + pieceList.size());
-		
 		return count;
 	}
 	
