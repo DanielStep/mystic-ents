@@ -35,7 +35,7 @@ public class BoardCareTaker {
 		// boardMemento.print();
 		System.out.println("Undoing - getMemento: " + mementos.size());
 		BoardMemento boardMemento = mementos.getLast();
-		// boardMemento.print();
+		boardMemento.print();
 		return boardMemento;
 	}
 
