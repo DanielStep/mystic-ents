@@ -1,6 +1,5 @@
 package model.board;
 
-import model.piece.Team;
 import utils.GameConfig;
 
 /**
@@ -12,7 +11,6 @@ import utils.GameConfig;
 
 public class BoardMemento {
 	private final Square[][] boardData = new Square[GameConfig.getROW_COL()][GameConfig.getROW_COL()];
-	private Team currentTeam = null;
 
 	public BoardMemento() {
 	}
