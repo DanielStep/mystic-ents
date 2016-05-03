@@ -60,7 +60,7 @@ public class ActionController {
 		//Minimize calls to sqr by getting square obj and occupant;
 		Square sqrObj = sqr.getSqrObj();
 		Piece ocpt = sqrObj.getOccupant();
-
+		
 		//USING SKILLS
 		if (e.getButton() == MouseEvent.BUTTON1) {			
 			//Check for piece
@@ -79,7 +79,7 @@ public class ActionController {
 							attackPiece(sqr.getSqrObj(),ocpt);
 							String msg = "Attack!";
 							DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());						
-						}					
+						}
 					} else if (!ocpt.getInMove()) {
 						// display dialog message if picking the wrong team piece
 						String msg = "It is Team " + gameController.getCurrentTeam() + "'s turn!";
@@ -89,10 +89,11 @@ public class ActionController {
 				}
 			} else {
 				if (sqrObj.getInRange()) {
-					// Check if an active piece lands on the opponent's base
-					if (sqrObj.getTeamTower() != null) {
+					// Check if an active Usurper piece lands on the opponent's base
+					if (sqrObj.getTeamTower() != null && activePiece != null) {
 						// if the landing square is of the opponent's base, it is a win
-						if (sqrObj.getTeamTower() != gameController.getCurrentTeam()) {
+						if (activePiece.getIsUsurper() == true && 
+								sqrObj.getTeamTower() != gameController.getCurrentTeam()) {
 							movePiece(sqr.getSqrObj(), ocpt);
 							String msg = "Team " + gameController.getCurrentTeam() + " win!";
 							DialogView.getInstance().showInformation(msg);
