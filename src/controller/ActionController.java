@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import javax.swing.border.LineBorder;
@@ -10,6 +11,8 @@ import model.piece.Piece;
 import model.skills.IPerformSquareSkill;
 import model.skills.IPerformTraitSkill;
 import model.skills.Skill;
+import view.BoardPanel;
+import view.ControlPanel;
 import view.DialogView;
 import view.SquareView;
 
@@ -97,6 +100,9 @@ public class ActionController {
 							movePiece(sqr.getSqrObj(), ocpt);
 							String msg = "Team " + gameController.getCurrentTeam() + " win!";
 							DialogView.getInstance().showInformation(msg);
+							
+							// if a team win, the current game finishes
+							handleEndGameUI();
 						}
 					} else {
 						// if not, just move to the accessible target square
@@ -213,6 +219,24 @@ public class ActionController {
 		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
 	}
 	
+	private void handleEndGameUI(){
+		// disable board game interactions
+		BoardPanel boardPanel = boardController.getBoardFrame().getBoardPanel();
+		for (Component com : boardPanel.getComponents()) {
+			if (com instanceof SquareView) {
+				SquareView sv = (SquareView)com;
+				sv.removeMouseListener(sv);
+			}
+		}
+		
+		// disable timer
+		gameController.getGameTurn().stop();
+		
+		// disable buttons in control panel
+		ControlPanel controlPanel = boardController.getBoardFrame().getControlPanel();
+		controlPanel.disableAllButtons();
+	}
+	
 	private void clearActivePieceRange() {
 		// reset board
 		boardController.clearRangeCells();
@@ -232,4 +256,5 @@ public class ActionController {
 	public void resetActionCount(){
 		actionCount = 0;
 	}
+	
 }

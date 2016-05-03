@@ -56,8 +56,7 @@ public class ControlPanel extends JPanel{
 	    this.add(pnSaveGame);
 	    
 	    pnEndTurn = new EndTurnPanel();
-	    this.add(pnEndTurn);
-	    
+	    this.add(pnEndTurn);	    
 	}
 	
 	public void doUIEndTurn() {
@@ -76,6 +75,12 @@ public class ControlPanel extends JPanel{
 		pnEndTurn.setGameTurn(gameTurn);
 	}	
 	
+	public void disableAllButtons() {
+		pnSaveGame.getSaveButton().setEnabled(false);
+		pnUndo.getUndoButton().setEnabled(false);
+		pnEndTurn.getEndTurnButton().setEnabled(false);
+	}
+	
 	public TimePanel getTimePanel() {
 		return pnTime;
 	}
@@ -86,6 +91,10 @@ public class ControlPanel extends JPanel{
 	
 	public EndTurnPanel getEndTurnPanel() {
 		return pnEndTurn;
+	}
+	
+	public SaveGamePanel getSaveGamePanel() {
+		return pnSaveGame;
 	}
 	
 	public AvailablePiecePanel getAvailablePiecePanel() {

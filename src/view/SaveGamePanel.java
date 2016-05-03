@@ -38,6 +38,10 @@ public class SaveGamePanel extends JPanel implements Serializable {
 		this.add(btnSaveGame);
 	}
 	
+	public JButton getSaveButton(){
+		return btnSaveGame;
+	}
+	
 	private void doSave(){
 		boardData = BoardData.getInstance();		
 		if (GameUtils.getInstance().saveGameData(boardData)) {

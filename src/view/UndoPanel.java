@@ -65,6 +65,10 @@ public class UndoPanel extends JPanel{
 	    this.boardController = boardController;
 	}
 	
+	public JButton getUndoButton(){
+		return btUndo;
+	}
+	
 	private void doUndo(){
 		// TODO undo method here
 		System.out.println("Undo " + 
