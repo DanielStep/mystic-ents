@@ -8,6 +8,10 @@ public class RegularPiece extends Piece implements Serializable {
 		super();
 	}
 	
+	public RegularPiece(Piece occupyingPiece) {
+		super(occupyingPiece);
+	}
+	
 	public String getIcon() {
 		return this.getSkillSet().getCurrentSkill().getIcon();
 	}

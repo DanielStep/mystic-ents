@@ -52,14 +52,13 @@ public class BoardData extends Observable implements Serializable {
 		notifyObservers();
 	}
 
-	public BoardMemento saveToMemento() {
-		BoardMemento boardMemento = new BoardMemento(this.boardArray);
-		return boardMemento;
-	}
-
 	public void undoFromMemento(BoardMemento boardMemento) {
-		this.setBoardArray(boardMemento.getBoardData());
-		doCellsUpdate();
+		// TODO: Directly set the squares, because they are old states
+		this.boardArray[boardMemento.getFromSquare().getID()[0]][boardMemento.getFromSquare().getID()[1]] = boardMemento
+				.getFromSquare();
+		this.boardArray[boardMemento.getToSquare().getID()[0]][boardMemento.getToSquare().getID()[1]] = boardMemento
+				.getToSquare().getOccupant() == null ? new Square() : boardMemento.getToSquare();
+		this.print();
 	}
 
 	// For debugging
@@ -72,22 +71,22 @@ public class BoardData extends Observable implements Serializable {
 		}
 	}
 
-	
-	public void resetPieceTraitValueToBase(ArrayList<Piece> pieceList){
-		
-		for (int i = 0; i < pieceList.size(); i++){
+	public void resetPieceTraitValueToBase(ArrayList<Piece> pieceList) {
+
+		for (int i = 0; i < pieceList.size(); i++) {
 			pieceList.get(i).getTraitSet().getDamageTrait().setTraitValueToBase();
 			pieceList.get(i).getTraitSet().getRangeTrait().setTraitValueToBase();
 		}
-		
-		/*for (int row = 0; row < boardArray.length; row++){ 
-			for (int col = 0; col < boardArray[row].length; col++){ 
-				if (boardArray[row][col].getOccupant() != null){
-					boardArray[row][col].getOccupant().getTraitSet().getDamageTrait().setTraitValueToBase();
-					boardArray[row][col].getOccupant().getTraitSet().getRangeTrait().setTraitValueToBase();
-				}
-			}
-		}*/
+
+		/*
+		 * for (int row = 0; row < boardArray.length; row++){ for (int col = 0;
+		 * col < boardArray[row].length; col++){ if
+		 * (boardArray[row][col].getOccupant() != null){
+		 * boardArray[row][col].getOccupant().getTraitSet().getDamageTrait().
+		 * setTraitValueToBase();
+		 * boardArray[row][col].getOccupant().getTraitSet().getRangeTrait().
+		 * setTraitValueToBase(); } } }
+		 */
 	}
-	
+
 }

@@ -9,6 +9,11 @@ public class UsurperPiece extends Piece  implements Serializable{
 		super.isUsurper = true;
 	}
 	
+	public UsurperPiece(Piece other) {
+		super(other);
+		super.isUsurper = true;
+	}
+	
 	public String getIcon() {
 		return "grim-reaper.png";
 	}	

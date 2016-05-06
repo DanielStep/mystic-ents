@@ -33,9 +33,6 @@ public class BoardController implements Observer {
 	private BoardState boardState;
 	private BoardData boardData;
 
-	// CareTaker for board data	
-	private BoardMemento boardMemento = new BoardMemento();
-
 	private BoardUtils boardUtils = BoardUtils.getInstance();
 
 	public BoardController() {
@@ -43,10 +40,10 @@ public class BoardController implements Observer {
 		boardState = new BoardState();
 		boardFrame = new BoardFrame(this);
 		boardData = BoardData.getInstance();
-		observe(boardData);		
+		observe(boardData);
 	}
 
-	public void init() {		
+	public void init() {
 
 		boardState.init();
 		// this needs to change - get pieces process is
@@ -65,7 +62,8 @@ public class BoardController implements Observer {
 	}
 
 	public void getRangeCells(Square origin) {
-		boardData.setBoardArray(boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
+		boardData.setBoardArray(
+				boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
 		boardData.doCellsUpdate();
 	}
 
@@ -102,20 +100,17 @@ public class BoardController implements Observer {
 	}
 
 	/** UNDO functionality **/
-	// Saving game state
-	public void saveToMemento() {
-		boardMemento = boardData.saveToMemento();
-		BoardCareTaker.getInstance().addMemento(boardMemento);
-	}
 
 	// Undo from game state
 	public boolean undo(int undoNumber) {
-		if (BoardCareTaker.getInstance().getMementosSize() >= undoNumber * 2) {
+		if (BoardCareTaker.getInstance().getMementosSize() >= undoNumber * 4) {
 			BoardMemento boardMemento = null;
-			for (int i = 0; i < undoNumber; i++) {
+			for (int i = 0; i < undoNumber * 4; i++) {
 				boardMemento = BoardCareTaker.getInstance().getMemento();
+				boardData.undoFromMemento(boardMemento);
 			}
-			boardData.undoFromMemento(boardMemento);
+			boardData.print();
+			boardData.doCellsUpdate();
 			return true;
 		}
 		return false;

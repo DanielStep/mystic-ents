@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import controller.ActionController;
-import main.GameMain;
 import model.board.Square;
 
 public class SquareView extends JPanel implements MouseListener, Serializable {
@@ -31,10 +30,10 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		 * accessing the model not the view properties throughout the game So
 		 * only need to assign MouseListener to the 'parent' and update the
 		 * Model.
-		 */		
+		 */
 
 		pac = ActionController.getInstance();
-				
+
 		addTeamPiece(o);
 		addMouseListener(this);
 	}
@@ -43,7 +42,7 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		if (o.getOccupant() == null) {
 			return;
 		} else if (o.getOccupant().getInPlay() == true) {
-			PieceView pce = new PieceView(o.getOccupant());			
+			PieceView pce = new PieceView(o.getOccupant());
 			this.add(pce);
 		}
 	}
@@ -67,7 +66,6 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		if (this.sqrObj.getAccessible()) {
 			this.setBorder(new LineBorder(new Color(255, 0, 0), 1));
 		}

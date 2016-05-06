@@ -2,11 +2,9 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-import controller.ActionController;
 import model.board.Square;
 import utils.GameConfig;
 

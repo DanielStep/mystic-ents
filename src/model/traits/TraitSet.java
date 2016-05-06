@@ -21,7 +21,8 @@ public class TraitSet implements Serializable{
 	public Trait getHealthTrait() {
 		return healthTrait;
 	}
-
+	
+	
 
 	public void setHealthTrait(Trait healthTrait) {
 		this.healthTrait = healthTrait;

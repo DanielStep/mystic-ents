@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.io.Serializable;
 
 import model.piece.Piece;
+import model.piece.RegularPiece;
 import model.piece.Team;
+import model.piece.UsurperPiece;
 
 /**
  * Contained inside board, can contain piece or become wall
@@ -28,18 +30,22 @@ public class Square implements Serializable {
 
 	/**
 	 * Copy constructor used for saving game state in UNDO functionality
+	 * 
 	 * @param other
-	 * 			Square being copied
+	 *            Square being copied
 	 */
 	public Square(Square other) {
 		super();
-		this.occupyingPiece = other.occupyingPiece;
-		ID = other.ID;
-		this.inrange = other.inrange;
-		this.accessible = other.accessible;
-		this.teamPiece = other.teamPiece;
-		this.teamTower = other.teamTower;
-		this.bgColor = other.bgColor;
+		if (other != null) {
+			this.occupyingPiece = other.occupyingPiece instanceof RegularPiece ? new RegularPiece(other.occupyingPiece)
+					: new UsurperPiece(other.occupyingPiece);
+			ID = other.ID;
+			this.inrange = other.inrange;
+			this.accessible = other.accessible;
+			this.teamPiece = other.teamPiece;
+			this.teamTower = other.teamTower;
+			this.bgColor = other.bgColor;
+		}
 	}
 
 	public int[] getID() {

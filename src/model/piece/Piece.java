@@ -9,9 +9,9 @@ public abstract class Piece implements IAttack, Serializable {
 
 	protected TraitSet traitSet;
 	protected SkillSet skillSet;
-	
+
 	protected String pieceIcon;
-	
+
 	protected Boolean isUsurper = false;
 	protected Boolean inPlay = true;
 	protected Boolean inMove = false;
@@ -20,19 +20,34 @@ public abstract class Piece implements IAttack, Serializable {
 	/** Current x coordinate **/
 	protected int cX;
 	/** Current y coordinate **/
-	protected int cY;	
+	protected int cY;
 
 	// Team color
 	protected Enum<Team> team;
-	
+
+	public Piece() {
+	}
+
+	public Piece(Piece other) {
+		this.traitSet = other.traitSet;
+		this.skillSet = other.skillSet;
+		this.pieceIcon = other.pieceIcon;
+		this.isUsurper = other.isUsurper;
+		this.inMove = other.inMove;
+		this.id = other.id;
+		this.cX = other.cX;
+		this.cY = other.cY;
+		this.team = other.team;
+	}
+
 	public String getIcon() {
 		return pieceIcon;
 	}
-	
+
 	public void setIcon(String icon) {
 		this.pieceIcon = icon;
 	}
-	
+
 	public SkillSet getSkillSet() {
 		return skillSet;
 	}
@@ -71,7 +86,7 @@ public abstract class Piece implements IAttack, Serializable {
 
 	public void setTeam(Enum<Team> team) {
 		this.team = team;
-	}	
+	}
 
 	public void attackIn(int att) {
 		// TODO Auto-generated method stub
@@ -79,16 +94,15 @@ public abstract class Piece implements IAttack, Serializable {
 	}
 
 	public void attackOut(Piece piece) {
-		
+
 		int damageValue = this.getTraitSet().getDamageTrait().getTraitValue();
 		piece.getTraitSet().getHealthTrait().modifyValue(-damageValue);
-		
-		System.out.println(this.getTraitSet().getDamageTrait().getTraitValue() + " : Attack on : " + piece.getTraitSet().getHealthTrait().getTraitValue());
-		
-		// TODO Auto-generated method stub
+
+		System.out.println(this.getTraitSet().getDamageTrait().getTraitValue() + " : Attack on : "
+				+ piece.getTraitSet().getHealthTrait().getTraitValue());
 
 	}
-	
+
 	public Boolean getInMove() {
 		return inMove;
 	}

@@ -28,14 +28,8 @@ public class BoardCareTaker {
 
 	public BoardMemento getMemento() {
 		// System.out.println("Undoing - getMemento dummy: " + mementos.size());
-
-		if (mementos.size() > 2)
-			mementos.pollLast();
-		mementos.pollLast();
-		// boardMemento.print();
-		System.out.println("Undoing - getMemento: " + mementos.size());
-		BoardMemento boardMemento = mementos.getLast();
-		boardMemento.print();
+		BoardMemento boardMemento = mementos.pollLast();
+		System.out.println("Occupant to square: "+boardMemento.getToSquare().getOccupant());
 		return boardMemento;
 	}
 
