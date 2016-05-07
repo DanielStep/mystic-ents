@@ -36,16 +36,16 @@ public class Square implements Serializable {
 	 */
 	public Square(Square other) {
 		super();
-		if (other != null) {
+		if (other.getOccupant() != null) {
 			this.occupyingPiece = other.occupyingPiece instanceof RegularPiece ? new RegularPiece(other.occupyingPiece)
 					: new UsurperPiece(other.occupyingPiece);
-			ID = other.ID;
-			this.inrange = other.inrange;
-			this.accessible = other.accessible;
-			this.teamPiece = other.teamPiece;
-			this.teamTower = other.teamTower;
-			this.bgColor = other.bgColor;
 		}
+		ID = other.ID;
+		this.inrange = other.inrange;
+		this.accessible = other.accessible;
+		this.teamPiece = other.teamPiece;
+		this.teamTower = other.teamTower;
+
 	}
 
 	public int[] getID() {

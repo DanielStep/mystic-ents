@@ -111,6 +111,7 @@ public class BoardController implements Observer {
 			}
 			boardData.print();
 			boardData.doCellsUpdate();
+			clearRangeCells();
 			return true;
 		}
 		return false;

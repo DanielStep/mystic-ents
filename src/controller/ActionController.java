@@ -136,6 +136,7 @@ public class ActionController {
 	 */
 
 	private void attackPiece(Square sqrObj, Piece pce) {
+		saveToMemento(activeSquare, sqrObj);
 		activePiece.attackOut(pce);
 		int targetHealthValue = pce.getTraitSet().getHealthTrait().getTraitValue();
 		if (targetHealthValue < 1) {
@@ -150,6 +151,7 @@ public class ActionController {
 	}
 
 	private void performPieceSkill(Square sqrObj, Piece pce) {
+		saveToMemento(activeSquare, sqrObj);
 
 		Skill currentSkill = activePiece.getSkillSet().getCurrentSkill();
 
@@ -167,7 +169,7 @@ public class ActionController {
 	}
 
 	private void movePiece(Square sqrObj, Piece pce) {
-		saveToMemento(activeSquare, targetSquare);
+		saveToMemento(activeSquare, sqrObj);
 		targetSquare = sqrObj;
 		activePiece.setInMove(false);
 		targetSquare.setOccupant(activePiece);

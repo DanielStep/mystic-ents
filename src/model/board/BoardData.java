@@ -54,10 +54,10 @@ public class BoardData extends Observable implements Serializable {
 
 	public void undoFromMemento(BoardMemento boardMemento) {
 		// TODO: Directly set the squares, because they are old states
+		this.boardArray[boardMemento.getToSquare().getID()[0]][boardMemento.getToSquare().getID()[1]] = boardMemento
+				.getToSquare();
 		this.boardArray[boardMemento.getFromSquare().getID()[0]][boardMemento.getFromSquare().getID()[1]] = boardMemento
 				.getFromSquare();
-		this.boardArray[boardMemento.getToSquare().getID()[0]][boardMemento.getToSquare().getID()[1]] = boardMemento
-				.getToSquare().getOccupant() == null ? new Square() : boardMemento.getToSquare();
 		this.print();
 	}
 
