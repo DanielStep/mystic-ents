@@ -3,7 +3,12 @@ import java.util.ArrayList;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
+import model.skills.AttackSkill;
+import model.skills.BuildSkill;
+import model.skills.HealSkill;
+import model.skills.RangeSkill;
 import model.skills.Skill;
 import model.skills.SkillRandomizer;
 import model.skills.SkillSet;
@@ -15,32 +20,37 @@ import model.skills.SkillSet;
  * @modified, Mark - moved SkillSet to model
  * 
  */
-public class SkillBuilder implements Observer {
+public class SkillBuilder {
 
-	private SkillSet skillSet;
-
-	public SkillBuilder() {
-		skillSet = new SkillSet();
-		observe(skillSet);
-		skillSet.init();
-	}
-
-	private void generateSkillSetFromSkills(ArrayList<Skill> data) {
+ 	private SkillSet skillSet;
+ 	
+ 	public SkillBuilder() {
+ 
+ 		generateSkillSetFromSkills();
+ 	}
+ 
+ 	private void generateSkillSetFromSkills() {
+ 		
+ 		AbstractFactory skillFactory = FactoryProducer.getFactory("SKILL");
+ 		
+ 		Skill healSkill = skillFactory.makeSkill("HEAL");
+ 		Skill buildSkill = skillFactory.makeSkill("BUILD");
+ 		Skill rangeSkill = skillFactory.makeSkill("RANGE");
+ 		Skill attackSkill = skillFactory.makeSkill("ATTACK");
+ 		
+		ArrayList<Skill> listOfSkills = new ArrayList<Skill>();
+ 		
+		listOfSkills.add(healSkill);
+		listOfSkills.add(buildSkill);
+		listOfSkills.add(rangeSkill);
+		listOfSkills.add(attackSkill);
+		
 		SkillRandomizer skillRandomizer = new SkillRandomizer();
-		skillSet.setCurrentSkill(skillRandomizer.randomAllocationToSet(data));
-	}
+		Skill chosenSkill = skillRandomizer.randomAllocationToSet(listOfSkills);
+		this.skillSet = new SkillSet(chosenSkill);
+ 	}
 	
 	public SkillSet getSkillSet() {
 		return skillSet;
 	}
-
-	public void observe(Observable o) {
-		o.addObserver(this);
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		ArrayList<Skill> data = ((SkillSet) o).getListOfSkills();
-		generateSkillSetFromSkills(data);
-	}
-}
+ }
