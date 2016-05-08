@@ -15,7 +15,7 @@ import model.board.Square;
 
 public class SquareView extends JPanel implements MouseListener, Serializable {
 
-	private ActionController pac;
+	private ActionController _ac;
 	private Color defaultBg = Color.WHITE;
 	private Square sqrObj;
 
@@ -33,10 +33,10 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		 * Model.
 		 */		
 
-		pac = ActionController.getInstance();
-				
+		_ac = ActionController.getInstance();
 		addTeamPiece(o);
 		addMouseListener(this);
+		
 	}
 
 	private void addTeamPiece(Square o) {
@@ -83,7 +83,26 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		pac.performAction(arg0, this);
+		
+		_ac.setActionButton((Integer) arg0.getButton());
+		
+		if (_ac.getActivePiece() == null && this.sqrObj.getOccupant() == null) {
+			return;
+		}
+		
+		if (this.sqrObj.getOccupant() != null && _ac.getActivePiece() == null) {
+			if (this.sqrObj.getOccupant().getTeam() != _ac.getGameController().getCurrentTeam()) {
+				_ac.showDialog(arg0, "It is Team " + _ac.getGameController().getCurrentTeam() + "'s turn!");
+				return;
+			}
+		}
+		
+		if (_ac.getActivePiece() == null) {
+			_ac.startAction(_ac, this.sqrObj);
+		} else {
+			_ac.endAction(_ac, this.sqrObj);
+		}
+
 	}
 
 	@Override

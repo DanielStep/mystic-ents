@@ -60,11 +60,15 @@ public class BoardController implements Observer {
 
 	public void clearRangeCells() {
 		boardData.setBoardArray(boardUtils.clearRangeCells(boardData.getBoardArray()));
-		boardData.doCellsUpdate();
+		updateBoard();
 	}
 
 	public void getRangeCells(Square origin) {
 		boardData.setBoardArray(boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
+		updateBoard();
+	}
+	
+	public void updateBoard() {
 		boardData.doCellsUpdate();
 	}
 
