@@ -29,11 +29,13 @@ public class TraitBuilder {
 	 */
 
 	private void generateTraitSetfromTraits() {
+		
+		AbstractFactory traitFactory = FactoryProducer.getFactory("TRAIT");
 
-		HealthTrait healthTrait = new HealthTrait(INITIALTRAITVALUE);
-		RangeTrait rangeTrait = new RangeTrait(INITIALTRAITVALUE);
-		AttackTrait attackTrait = new AttackTrait(INITIALTRAITVALUE);
-		DamageTrait damageTrait = new DamageTrait(INITIALTRAITVALUE);
+		Trait healthTrait = traitFactory.makeTrait("HEALTH");
+		Trait rangeTrait = traitFactory.makeTrait("RANGE");
+		Trait attackTrait = traitFactory.makeTrait("ATTACK");
+		Trait damageTrait = traitFactory.makeTrait("DAMAGE");
 
 		allocateTraitValues(healthTrait, damageTrait, rangeTrait);
 		
@@ -49,7 +51,7 @@ public class TraitBuilder {
 	 * @param damageTrait
 	 * @param rangeTrait
 	 */
-	private void allocateTraitValues(HealthTrait healthTrait, DamageTrait damageTrait, RangeTrait rangeTrait) {
+	private void allocateTraitValues(Trait healthTrait, Trait damageTrait, Trait rangeTrait) {
 
 		ArrayList<Trait> listOfTraits = new ArrayList<Trait>();
 
