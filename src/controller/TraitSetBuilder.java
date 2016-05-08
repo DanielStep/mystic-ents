@@ -5,7 +5,7 @@ import java.util.Random;
 
 import model.traits.*;
 
-public class TraitBuilder {
+public class TraitSetBuilder {
 
 	private Random randomNumGen;
 	private TraitSet traitSet;
@@ -18,7 +18,7 @@ public class TraitBuilder {
 	 *            - Seeded Random generator
 	 */
 
-	public TraitBuilder(Random randomNumGen) {
+	public TraitSetBuilder(Random randomNumGen) {
 		this.randomNumGen = randomNumGen;
 		generateTraitSetfromTraits();
 	}

@@ -20,11 +20,11 @@ import model.skills.SkillSet;
  * @modified, Mark - moved SkillSet to model
  * 
  */
-public class SkillBuilder {
+public class SkillSetBuilder {
 
  	private SkillSet skillSet;
  	
- 	public SkillBuilder() {
+ 	public SkillSetBuilder() {
  
  		generateSkillSetFromSkills();
  	}

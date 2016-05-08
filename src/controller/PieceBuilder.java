@@ -27,8 +27,8 @@ public class PieceBuilder {
 	 */
 	public void buildPiece (Piece newPiece, Enum<Team> team){
 		
-		TraitSet getTraitSet = new TraitBuilder(randomNumGen).getTraitSet();
-		SkillSet getSkillSet = new SkillBuilder().getSkillSet();
+		TraitSet getTraitSet = new TraitSetBuilder(randomNumGen).getTraitSet();
+		SkillSet getSkillSet = new SkillSetBuilder().getSkillSet();
 
 		newPiece.setTraitSet(getTraitSet);
 		newPiece.setSkillSet(getSkillSet);
