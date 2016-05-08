@@ -18,14 +18,11 @@ public class GameConfig {
     //BOARD
 	private static final int DEFAULT_WIDTH = 800;
 	private static final int DEFAULT_HEIGHT = 800;
-	
-	//TEAMS
-	private static final int REGULARPIECES_IN_TEAM = 7;
-	private static final int USURPERS_IN_TEAM = 1;
-	
+		
 	//MAP
 //	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
-	private static String fileMapName = "map2";		// default map
+
+	private static String DEFAULTMAP = "map2";		// default map
 
     private static int ROW_COL;
     
@@ -68,15 +65,15 @@ public class GameConfig {
 	
 	//MAP
 	public static String getMapTextfile() {
-		return "./src/model/maps/" + fileMapName + ".txt";
+		return "./src/model/maps/" + DEFAULTMAP + ".txt";
 	}
 	
 	public static void setFileMapName(String fileName) {
-		fileMapName = fileName;
+		DEFAULTMAP = fileName;
 	}
 	
 	public static String getFileMapName() {
-		return fileMapName;
+		return DEFAULTMAP;
 	}
 	
 	public static int getROW_COL() {
@@ -87,15 +84,6 @@ public class GameConfig {
 		ROW_COL = val;
 	}
 
-	//TEAMS
-	public static int getRegularpiecesInTeam() {
-		return REGULARPIECES_IN_TEAM;
-	}
-
-	public static int getUsurpersInTeam() {
-		return USURPERS_IN_TEAM;
-	}
-	
     //SKILLS
 	public static int getDamagetraitmultiplier() {
 		return DAMAGETRAITMULTIPLIER;

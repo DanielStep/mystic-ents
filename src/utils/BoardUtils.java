@@ -21,29 +21,16 @@ public class BoardUtils {
 		}
 		return instance;
 	}
-
-	public Square[][] clearRangeCells(Square[][] boardData) {
-		Square[][] updateData = boardData;
-		for(int i = 0; i < updateData.length; i++) {
-			for(int j = 0; j < updateData.length; j++) {
-				updateData[i][j].setInRange(false);
-			}
-		}
-		return updateData;
-	}
 	
 	public Square[][] getRangeCells(int x, int y, Square[][] boardData) {
 
-		/*if (pce.getSkillSet().getCurrentSkill().getName() == "range") {
-			
-			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);			
-			
-		};*/
+		boardData = clearRangeCells(boardData);
+
+		/*if (pce.getSkillSet().getCurrentSkill().getName() == "range") {	
+			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);		
+		};*/		
 		
-		
-		
-		Piece pce = boardData[x][y].getOccupant();
-		
+		Piece pce = boardData[x][y].getOccupant();		
 		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
 
 		checker.setBoardData(boardData);
@@ -54,6 +41,15 @@ public class BoardUtils {
 		return boardData;
 	}
 	
+	public Square[][] clearRangeCells(Square[][] boardData) {
+		Square[][] updateData = boardData;
+		for(int i = 0; i < updateData.length; i++) {
+			for(int j = 0; j < updateData.length; j++) {
+				updateData[i][j].setInRange(false);
+			}
+		}
+		return updateData;
+	}
 	
 	class RangeChecker {
 		
