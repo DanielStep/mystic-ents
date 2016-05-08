@@ -102,9 +102,8 @@ public class ActionController {
 	
 	private void endTurn() {		
 		// automatically switch player when finishing a move
-		gameController.getGameTurn().setGameTimer(0);		
-		// saving game board for undo
-		boardController.saveToMemento();
+		gameController.getGameTurn().setGameTimer(0);
+
 		//reset actionCount;
 		actionCount = 0;
 	}
