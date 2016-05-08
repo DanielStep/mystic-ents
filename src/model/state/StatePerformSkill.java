@@ -3,7 +3,6 @@ package model.state;
 import controller.ActionController;
 import model.board.BoardMemento;
 import model.board.Square;
-import model.piece.Piece;
 import model.skills.IPerformSquareSkill;
 import model.skills.IPerformTraitSkill;
 import model.skills.Skill;

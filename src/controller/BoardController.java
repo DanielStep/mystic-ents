@@ -113,7 +113,6 @@ public class BoardController implements Observer {
 				boardMemento = BoardCareTaker.getInstance().getMemento();
 				boardData.undoFromMemento(boardMemento);
 			}
-			boardData.print();
 			boardData.doCellsUpdate();
 			clearRangeCells();
 			return true;
