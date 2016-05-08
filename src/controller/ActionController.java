@@ -5,9 +5,6 @@ import java.awt.event.MouseEvent;
 
 import model.board.Square;
 import model.piece.Piece;
-import model.skills.IPerformSquareSkill;
-import model.skills.IPerformTraitSkill;
-import model.skills.Skill;
 import model.state.IGameState;
 import model.state.StateMove;
 import view.BoardPanel;

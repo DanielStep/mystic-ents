@@ -84,12 +84,15 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		
+		//Get mouse event button as integer
 		_ac.setActionButton((Integer) arg0.getButton());
 		
+		//No piece active, move is void
 		if (_ac.getActivePiece() == null && this.sqrObj.getOccupant() == null) {
 			return;
 		}
 		
+		//Check team
 		if (this.sqrObj.getOccupant() != null && _ac.getActivePiece() == null) {
 			if (this.sqrObj.getOccupant().getTeam() != _ac.getGameController().getCurrentTeam()) {
 				_ac.showDialog(arg0, "It is Team " + _ac.getGameController().getCurrentTeam() + "'s turn!");
@@ -97,6 +100,7 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 			}
 		}
 		
+		//Continue or commence current state
 		if (_ac.getActivePiece() == null) {
 			_ac.startAction(_ac, this.sqrObj);
 		} else {
