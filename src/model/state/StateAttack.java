@@ -1,6 +1,7 @@
 package model.state;
 
 import controller.ActionController;
+import model.board.BoardMemento;
 import model.board.Square;
 
 public class StateAttack implements IGameState {
@@ -20,6 +21,10 @@ public class StateAttack implements IGameState {
 	public void startAction(ActionController a, Square s) {
 		if (!s.getInRange()) return;
 		System.out.println("Start attack");
+		
+		//Save state before making action
+		a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
+		
 		a.getActivePiece().attackOut(s.getOccupant());
 		int targetHealthValue = s.getOccupant().getTraitSet().getHealthTrait().getTraitValue();
 		if(targetHealthValue < 1){

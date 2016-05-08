@@ -3,6 +3,8 @@ package controller;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 
+import model.board.BoardCareTaker;
+import model.board.BoardMemento;
 import model.board.Square;
 import model.piece.Piece;
 import model.state.IGameState;
@@ -35,8 +37,11 @@ public class ActionController {
 
 	private static ActionController instance;
 	
+	private BoardCareTaker careTaker;
+	
 	private ActionController(){
 		gameState = StateMove.getInstance(this);
+		careTaker = BoardCareTaker.getInstance();
 	}
 	
 	public static synchronized ActionController getInstance() {
@@ -167,6 +172,10 @@ public class ActionController {
 	}	
 	public void setTargetSquare(Square targetSquare) {
 		this.targetSquare = targetSquare;
+	}
+	
+	public void saveToMemento(BoardMemento memento){
+		careTaker.addMemento(memento);
 	}
 	
 }

@@ -1,6 +1,7 @@
 package model.state;
 
 import controller.ActionController;
+import model.board.BoardMemento;
 import model.board.Square;
 import model.piece.Piece;
 import model.skills.IPerformSquareSkill;
@@ -23,6 +24,7 @@ public class StatePerformSkill implements IGameState {
 	@Override
 	public void startAction(ActionController a, Square s) {
 		System.out.println("Start Perform Skill.");
+		a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
 		Skill currentSkill = a.getActivePiece().getSkillSet().getCurrentSkill();		
 		if (currentSkill instanceof IPerformTraitSkill){
 			((IPerformTraitSkill) currentSkill).performSkill(a.getActivePiece());		

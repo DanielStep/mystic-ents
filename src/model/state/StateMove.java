@@ -1,6 +1,7 @@
 package model.state;
 
 import controller.ActionController;
+import model.board.BoardMemento;
 import model.board.Square;
 
 public class StateMove implements IGameState {
@@ -29,6 +30,10 @@ public class StateMove implements IGameState {
 		if (checkGameRules(a, s)) {
 			if (!s.getInRange()) return;
 			System.out.println("End move");
+
+			//
+			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
+			
 			a.getBoardController().clearRangeCells();
 			a.getActiveSquare().setOccupant(null);
 			s.setOccupant(a.getActivePiece());			
