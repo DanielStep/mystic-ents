@@ -118,7 +118,7 @@ public class ActionController {
 		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
 	}
 	
-	private void handleEndGameUI(){
+	public void handleEndGameUI(){
 		// disable board game interactions
 		BoardPanel boardPanel = boardController.getBoardFrame().getBoardPanel();
 		for (Component com : boardPanel.getComponents()) {

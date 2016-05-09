@@ -3,6 +3,7 @@ package model.state;
 import controller.ActionController;
 import model.board.BoardMemento;
 import model.board.Square;
+import view.DialogView;
 
 public class StateMove implements IGameState {
 	
@@ -30,7 +31,25 @@ public class StateMove implements IGameState {
 	public void endAction(ActionController a, Square s) {
 		if (checkGameRules(a, s)) {
 			if (!s.getInRange()) return;
+			System.out.println("------ my team color: " + a.getActivePiece().getTeam());
+			System.out.println("------ target square team towser: " + s.getTeamTower());
+			System.out.println("------ target square accisible: " + s.getAccessible());
+			
+			if (s.getTeamTower() != null) {
+				if (a.getActivePiece().getTeam() != s.getTeamTower()) {
+					DialogView.getInstance().showInformation
+							("Team " + a.getActivePiece().getTeam() + " win!");
+					a.handleEndGameUI();
+				} else {
+					return;
+				}
+			}
+			
+			
+			
 			System.out.println("End move");
+			
+			
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
 			s.setOccupant(a.getActivePiece());	
 			updateAction(a);
