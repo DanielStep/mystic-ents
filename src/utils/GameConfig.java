@@ -13,7 +13,7 @@ public class GameConfig {
     private static final int TIMER_PERIOD = 1000;
     
 	//CONTROL PANEL
-	private static final int DEFAULT_CONTROL_PANEL_WIDTH = 200;
+	private static final int CONTROLS_WIDTH = 180;
     
     //BOARD
 	private static final int DEFAULT_WIDTH = 800;
@@ -50,8 +50,8 @@ public class GameConfig {
 	}
 	
 	//CONTROL PANEL	
-	public static int getDefaultControlPanelWidth() {
-		return DEFAULT_CONTROL_PANEL_WIDTH;
+	public static int getControlsWidth() {
+		return CONTROLS_WIDTH;
 	}
 	
     //BOARD

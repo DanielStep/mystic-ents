@@ -21,7 +21,7 @@ public class BoardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	/** Draws the shape. */
 	private BoardPanel gamePanel;
-	private ControlPanel controlPanel;
+	private GameControls controlPanel;
 
 	public BoardFrame(BoardController boardController) {
 		super(GameConfig.GAME_TITLE);
@@ -38,7 +38,7 @@ public class BoardFrame extends JFrame {
 		Container c = this.getContentPane();
 		c.setBackground(Color.YELLOW);
 
-		int totalGameWidth = GameConfig.getDefaultWidth() + GameConfig.getDefaultControlPanelWidth();
+		int totalGameWidth = GameConfig.getDefaultWidth() + GameConfig.getControlsWidth();
 
 		// adjust size using Dimension.
 		c.setPreferredSize(new Dimension(totalGameWidth, GameConfig.getDefaultHeight()));
@@ -55,7 +55,7 @@ public class BoardFrame extends JFrame {
 		gamePanel = new BoardPanel();
 		this.add(gamePanel, BorderLayout.CENTER);
 
-		controlPanel = new ControlPanel(boardController);
+		controlPanel = new GameControls(boardController);
 		this.add(controlPanel, BorderLayout.EAST);
 	}
 
@@ -63,7 +63,7 @@ public class BoardFrame extends JFrame {
 		return gamePanel;
 	}
 
-	public ControlPanel getControlPanel() {
+	public GameControls getControlPanel() {
 		return controlPanel;
 	}
 

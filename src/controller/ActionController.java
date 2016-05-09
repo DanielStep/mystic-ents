@@ -10,7 +10,7 @@ import model.piece.Piece;
 import model.state.IGameState;
 import model.state.StateMove;
 import view.BoardPanel;
-import view.ControlPanel;
+import view.GameControls;
 import view.DialogView;
 import view.SquareView;
 
@@ -132,7 +132,7 @@ public class ActionController {
 		gameController.getGameTurn().stop();
 		
 		// disable buttons in control panel
-		ControlPanel controlPanel = boardController.getBoardFrame().getControlPanel();
+		GameControls controlPanel = boardController.getBoardFrame().getControlPanel();
 		controlPanel.disableAllButtons();
 	}
 	

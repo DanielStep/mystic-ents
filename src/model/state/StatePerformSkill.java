@@ -40,7 +40,7 @@ public class StatePerformSkill implements IGameState {
 		a.getBoardController().getBoardData().doCellsUpdate();		
 		a.getGameController().updatePieceInformation(a.getActivePiece());
 		System.out.println("End Perform Skill.");
-		updateAction(a);	
+		updateAction(a);
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import model.piece.Piece;
+import utils.GameConfig;
 
 /**
  * A component of ControlPanel: Display essential piece info in selection
@@ -24,7 +25,7 @@ public class PieceInfoPanel extends JPanel{
 		// TODO Auto-generated constructor stub
 		super();
 		JPanel pane = new JPanel(new GridLayout(0, 2));
-		pane.setPreferredSize(new Dimension(160, 160));
+		pane.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-20));
 		
 		lblHealth = new JLabel("Health: ");
 		lblHealthValue = new JLabel("-");

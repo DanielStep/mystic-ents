@@ -18,7 +18,10 @@ import utils.GameConfig;
  * @author Phan Vo
  *
  */
-public class ControlPanel extends JPanel{
+public class GameControls extends JPanel{
+	
+	private int panelWidth;
+	
 	private TimePanel pnTime;
 	private TeamColorPanel pnTeamColor;
 	private AvailablePiecePanel pnAvailablePiece;
@@ -29,14 +32,13 @@ public class ControlPanel extends JPanel{
 
 	private BoardUtils boardUtils;
 	
-	public ControlPanel(BoardController boardController) {
+	public GameControls(BoardController boardController) {
 		
 		super();
-		
-		boardUtils = BoardUtils.getInstance();
+		boardUtils = BoardUtils.getInstance();		
 		
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-		this.setPreferredSize(new Dimension(GameConfig.getDefaultControlPanelWidth(), GameConfig.getDefaultHeight()));
+		this.setPreferredSize(new Dimension(GameConfig.getControlsWidth(), GameConfig.getDefaultHeight()));
 	    
 		pnTime = new TimePanel();
 	    this.add(pnTime);
@@ -44,8 +46,8 @@ public class ControlPanel extends JPanel{
 	    pnTeamColor = new TeamColorPanel();
 	    this.add(pnTeamColor);
 	    
-	    pnAvailablePiece = new AvailablePiecePanel();
-	    this.add(pnAvailablePiece);
+	    //pnAvailablePiece = new AvailablePiecePanel();
+	    //this.add(pnAvailablePiece);
 	    
 	    pnPieceInfo = new PieceInfoPanel();
 	    this.add(pnPieceInfo);
@@ -108,16 +110,20 @@ public class ControlPanel extends JPanel{
 	
 	public void setPieceCount(int count) {
 		// update available pieces for the current team 
-		pnAvailablePiece.setAvailablePieces(count);
+		pnTeamColor.setAvailablePieces(count);
 	}	
 
 	public void setCurrentTeam(Team team) {
 		// update team color on ControlPanel view based on current team enum
 		pnTeamColor.setTeamColor(new Color(team.getRed(),team.getGreen(),team.getBlue()));
-	}	
-	
-	public void updatePieceInformation(Piece pce) {
-		
+	}
+
+	public int getPanelWidth() {
+		return panelWidth;
+	}
+
+	public void setPanelWidth(int panelWidth) {
+		this.panelWidth = panelWidth;
 	}
 	
 }

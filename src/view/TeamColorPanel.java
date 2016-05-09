@@ -3,13 +3,16 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import model.piece.Team;
+import utils.GameConfig;
 
 /**
  * A component of ControlPanel: Display the current team color
@@ -17,6 +20,7 @@ import model.piece.Team;
  *
  */
 public class TeamColorPanel extends JPanel{
+	
 	private JTextField tfColor;
 	
 	public TeamColorPanel() {
@@ -24,9 +28,11 @@ public class TeamColorPanel extends JPanel{
 		super();
 		
 		tfColor = new JTextField();
-		tfColor.setHorizontalAlignment(JTextField.CENTER);
-		tfColor.setPreferredSize(new Dimension(50, 50));
+		tfColor.setHorizontalAlignment(JTextField.CENTER);		
+		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, GameConfig.getControlsWidth()-40));
 		tfColor.setEditable(false);
+		tfColor.setForeground(Color.WHITE);
+		tfColor.setFont(new Font("Sans-serif", Font.BOLD, 80));
 
 		JPanel pnContainer = new JPanel(new FlowLayout());
 		pnContainer.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
@@ -34,12 +40,17 @@ public class TeamColorPanel extends JPanel{
 		
 	    TitledBorder titled = new TitledBorder("Team");
 	    pnContainer.setBorder(titled);
-	    
-	    this.add(pnContainer);
+
+		this.add(pnContainer);
+
 	}
 	
 	public void setTeamColor(Color c) {
 		tfColor.setBackground(c);
+	}
+	
+	public void setAvailablePieces(int num) {
+		tfColor.setText(String.valueOf(num));
 	}
 
 }

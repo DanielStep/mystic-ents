@@ -10,7 +10,7 @@ import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
 import utils.GameUtils;
-import view.ControlPanel;
+import view.GameControls;
 import view.DialogView;
 import view.MainMenuFrame;
 
@@ -33,7 +33,7 @@ public class GameController implements Observer {
 	private ActionController actionController;
 	
 	//UI
-	private ControlPanel controlPanel;
+	private GameControls controlPanel;
 	
 	//BOARD OBJECTS
 	private Team currentTeam;
@@ -70,8 +70,8 @@ public class GameController implements Observer {
 		GameTurn gameTurn = (GameTurn) o;
 		//Post condition exception if GameTurn is null, return (exit?)
 		if (gameTurn == null) return;		
-		controlPanel.setPieceCount(getAvailablePieceCount());
-		controlPanel.doUIUpdate(gameTurn);
+			controlPanel.setPieceCount(getAvailablePieceCount());
+			controlPanel.doUIUpdate(gameTurn);
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
@@ -86,12 +86,10 @@ public class GameController implements Observer {
 	 * 
 	 */		
 	private void handleEndTurn() {
-			
-		
 		//reset action counter
 		ActionController.getInstance().resetActionCount();
 		// set game turn count;
-		gameTimer.setCount(gameTimer.getCount()+1);		
+		gameTimer.setCount(gameTimer.getCount()+1);
 		//Reset Board
 		gameBoard.clearRangeCells();
 		//Change teams
@@ -100,7 +98,8 @@ public class GameController implements Observer {
 		//Reset TraitValues of all pieces on board to base value
 		gameBoard.getBoardData().resetPieceTraitValueToBase(gamePiecesList);
 		//Update UI
-		controlPanel.setCurrentTeam(currentTeam);		
+		controlPanel.setCurrentTeam(currentTeam);
+		controlPanel.setPieceCount(getAvailablePieceCount());
 		controlPanel.doUIEndTurn();
 	}
 	
@@ -176,7 +175,7 @@ public class GameController implements Observer {
 		gamePiecesList = piecesList;
 	}	
 	
-	public void setControlPanel(ControlPanel controlPanel) {
+	public void setControlPanel(GameControls controlPanel) {
 		this.controlPanel = controlPanel;
 	}
 	
