@@ -31,21 +31,23 @@ public class StateMove implements IGameState {
 		if (checkGameRules(a, s)) {
 			if (!s.getInRange()) return;
 			System.out.println("End move");
-
-			
-			
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
-			
-			
-			
-			a.getBoardController().clearRangeCells();
-			a.getActiveSquare().setOccupant(null);
-			s.setOccupant(a.getActivePiece());			
-			a.setActivePiece(null);
+			s.setOccupant(a.getActivePiece());	
+			updateAction(a);
 		} else {
 			a.startAction(a, s);
 		}		
 	}
+	
+	@Override
+	public void updateAction(ActionController a) {
+		// TODO Auto-generated method stub
+		a.getBoardController().clearRangeCells();
+		a.getActiveSquare().setOccupant(null);
+		a.setActivePiece(null);
+		a.checkActionCount();
+	}
+	
 	
 	private Boolean checkGameRules(ActionController a, Square s) {
 
@@ -58,7 +60,6 @@ public class StateMove implements IGameState {
 		
 		//Swap piece so restart this State
 		if (a.getActivePiece().getTeam() == s.getOccupant().getTeam()) {
-			//a.startAction(a, s);
 			return false;
 		}
 		
@@ -72,10 +73,5 @@ public class StateMove implements IGameState {
 		
 	}
 
-	@Override
-	public void updateTurn(ActionController a) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

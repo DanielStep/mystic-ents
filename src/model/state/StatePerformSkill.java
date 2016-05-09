@@ -40,12 +40,13 @@ public class StatePerformSkill implements IGameState {
 		a.getBoardController().getBoardData().doCellsUpdate();		
 		a.getGameController().updatePieceInformation(a.getActivePiece());
 		System.out.println("End Perform Skill.");
-		a.changeState(StateMove.getInstance(a));		
+		updateAction(a);	
 	}
 
 	@Override
-	public void updateTurn(ActionController a) {
+	public void updateAction(ActionController a) {
 		// TODO Auto-generated method stub
+		a.changeState(StateMove.getInstance(a));
 		a.checkActionCount();
 	}
 

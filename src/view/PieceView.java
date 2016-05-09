@@ -46,8 +46,7 @@ public class PieceView extends JPanel implements Serializable{
 		Team team = (Team) pce.getTeam();
 		this.color = new Color(team.getRed(),team.getGreen(),team.getBlue());
 
-		addPieceIcon();
-		
+		addPieceIcon();		
 		//addPieceLabel();
 	}
 
@@ -61,7 +60,7 @@ public class PieceView extends JPanel implements Serializable{
 		}		
 	}
 	
-	private void addPieceLabel() {
+	/*private void addPieceLabel() {
 		label = new JLabel(buildLabelString(), JLabel.LEFT);
 		label.setFont(new Font("Sans-serif", Font.PLAIN, (int) (size / 2.5)));
 		if (piece.getIsUsurper()) {
@@ -70,7 +69,7 @@ public class PieceView extends JPanel implements Serializable{
 			label.setForeground(Color.white);
 		}
 		this.add(label);
-	}
+	}*/
 
 	private String buildLabelString() {
 		StringBuilder str = new StringBuilder();

@@ -9,6 +9,6 @@ public interface IGameState {
    
    public abstract void endAction(ActionController a, Square s);
    
-   public abstract void updateTurn(ActionController a);
+   public abstract void updateAction(ActionController a);
 	
 }

@@ -65,7 +65,7 @@ public class ActionController {
 	public void endAction(ActionController a, Square sqr)
 	{
 		gameState.endAction(this, sqr);
-		checkActionCount();
+		//checkActionCount();
 		boardController.getBoardData().doCellsUpdate();
 	}	
 	
@@ -97,7 +97,7 @@ public class ActionController {
 	 * @author DS
 	 */
 	public void checkActionCount(){
-		if (actionCount >=2){
+		if (actionCount >=1){
 			endTurn();
 			activePiece = null;
 		}else{
