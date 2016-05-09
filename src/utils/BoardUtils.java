@@ -30,6 +30,7 @@ public class BoardUtils {
 			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);		
 		};*/		
 		
+
 		Piece pce = boardData[x][y].getOccupant();		
 		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
 

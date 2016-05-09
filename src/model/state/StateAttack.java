@@ -43,5 +43,11 @@ public class StateAttack implements IGameState {
 		a.changeState(StateMove.getInstance(a));		
 	}
 
+	@Override
+	public void updateTurn(ActionController a) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

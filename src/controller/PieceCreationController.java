@@ -5,7 +5,6 @@ import model.piece.Piece;
 import model.piece.RegularPiece;
 import model.piece.Team;
 import model.piece.UsurperPiece;
-import utils.GameConfig;
 
 /**
  * PieceCreationController coordinates creation of Piece instances,

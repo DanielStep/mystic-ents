@@ -60,12 +60,6 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		if (this.sqrObj.getAccessible()) {
 			this.setBorder(new LineBorder(new Color(255, 0, 0), 1));
@@ -105,14 +99,14 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		} else {
 			_ac.endAction(_ac, this.sqrObj);
 		}
-
+		
 	}
-
+	
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseClicked(MouseEvent arg0) {}
+	
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
 
 	public Square getSqrObj() {
 		return sqrObj;

@@ -59,8 +59,7 @@ public class ActionController {
 	
 	public void startAction(ActionController a, Square sqr)
 	{
-		activeSquare = sqr;
-		gameState.startAction(this, sqr);		
+		gameState.startAction(this, sqr);
 	}
 
 	public void endAction(ActionController a, Square sqr)
@@ -97,9 +96,10 @@ public class ActionController {
 	 * 
 	 * @author DS
 	 */
-	private void checkActionCount(){
-		if (actionCount >=1){
+	public void checkActionCount(){
+		if (actionCount >=2){
 			endTurn();
+			activePiece = null;
 		}else{
 			actionCount++;
 		}

@@ -6,7 +6,7 @@ import model.board.Square;
 import view.DialogView;
 
 /**
- * Make square inaccessible
+ * Toggle square accessibility
  * @author skh
  *
  */
@@ -25,7 +25,10 @@ public class BuildSkill extends Skill implements IPerformSquareSkill, Serializab
 		if (tSqr.getOccupant()==null && tSqr.getAccessible()) {
 			tSqr.setAccessible(false);
 			DialogView.getInstance().showInformation("Wall built!");
-		} else{
+		} else if (!tSqr.getAccessible()) {
+			tSqr.setAccessible(true);
+			DialogView.getInstance().showInformation("Wall removed!");
+		} else {
 			DialogView.getInstance().showInformation("Build failed!");	
 		}
 		return !tSqr.getAccessible();

@@ -7,14 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import controller.ActionController;
 import model.board.BoardData;
-import model.board.BoardState;
-import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
-import model.state.StateAttack;
-import model.state.StatePerformSkill;
+
 import view.DialogView;
 
 public class GameUtils {

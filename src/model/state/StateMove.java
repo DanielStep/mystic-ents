@@ -20,6 +20,7 @@ public class StateMove implements IGameState {
 	@Override
 	public void startAction(ActionController a, Square s) {
 		System.out.println("Start move.");
+		a.setActiveSquare(s);
 		a.setActivePiece(s.getOccupant());
 		a.getBoardController().getRangeCells(s);
 		a.getGameController().updatePieceInformation(s.getOccupant());
@@ -31,8 +32,11 @@ public class StateMove implements IGameState {
 			if (!s.getInRange()) return;
 			System.out.println("End move");
 
-			//
+			
+			
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
+			
+			
 			
 			a.getBoardController().clearRangeCells();
 			a.getActiveSquare().setOccupant(null);
@@ -44,17 +48,17 @@ public class StateMove implements IGameState {
 	}
 	
 	private Boolean checkGameRules(ActionController a, Square s) {
-		
-		if (s.getOccupant() == null) { return true; }
-		
-		if (a.getActionButton() == 3) {
+
+		if (a.getActionButton() == (Integer) 3) {
 			a.changeState(StatePerformSkill.getInstance(a));
 			return false;			
 		}
 		
+		if (s.getOccupant() == null) { return true; }		
+		
 		//Swap piece so restart this State
 		if (a.getActivePiece().getTeam() == s.getOccupant().getTeam()) {
-			a.startAction(a, s);
+			//a.startAction(a, s);
 			return false;
 		}
 		
@@ -63,8 +67,14 @@ public class StateMove implements IGameState {
 			a.changeState(StateAttack.getInstance(a));
 			return false;
 		}		
-		
+
 		return true;
+		
+	}
+
+	@Override
+	public void updateTurn(ActionController a) {
+		// TODO Auto-generated method stub
 		
 	}
 

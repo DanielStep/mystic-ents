@@ -44,10 +44,7 @@ public class BoardController implements Observer {
 	}
 
 	public void init() {
-
 		boardState.init();
-		// this needs to change - get pieces process is
-		// causing a loss of saved properties
 	}
 
 	public void buildBoard() {
