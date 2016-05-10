@@ -30,9 +30,9 @@ public class StateMove implements IGameState {
 	@Override
 	public void endAction(ActionController a, Square s) {
 		
-		if (!s.getInRange()) return;		
 		if (checkGameRules(a, s)) {
 			
+			if (!s.getInRange()) return;
 
 			System.out.println("------ my team color: " + a.getActivePiece().getTeam());
 			System.out.println("------ target square team towser: " + s.getTeamTower());
@@ -77,7 +77,7 @@ public class StateMove implements IGameState {
 			a.changeState(StatePerformSkill.getInstance(a));
 			return false;			
 		}
-		
+
 		if (s.getOccupant() == null) { return true; }		
 		
 		//Swap piece so restart this State
