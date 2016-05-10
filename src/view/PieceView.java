@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
 import utils.BoardUtils;
@@ -46,8 +47,7 @@ public class PieceView extends JPanel implements Serializable{
 		Team team = (Team) pce.getTeam();
 		this.color = new Color(team.getRed(),team.getGreen(),team.getBlue());
 
-		addPieceIcon();		
-		//addPieceLabel();
+		addPieceIcon();
 	}
 
 	private void addPieceIcon() {
@@ -59,17 +59,6 @@ public class PieceView extends JPanel implements Serializable{
 			System.out.println("Piece icon not found");
 		}		
 	}
-	
-	/*private void addPieceLabel() {
-		label = new JLabel(buildLabelString(), JLabel.LEFT);
-		label.setFont(new Font("Sans-serif", Font.PLAIN, (int) (size / 2.5)));
-		if (piece.getIsUsurper()) {
-			label.setForeground(this.color);
-		} else {
-			label.setForeground(Color.white);
-		}
-		this.add(label);
-	}*/
 
 	private String buildLabelString() {
 		StringBuilder str = new StringBuilder();
@@ -90,19 +79,7 @@ public class PieceView extends JPanel implements Serializable{
         AffineTransform oldXform = g2.getTransform(); 
         g2.scale(scale, scale); 
         g2.drawImage(image, 0, 0, null);   
-        
-		//Need to do this polymorphically
-		
-		/*if (piece.getIsUsurper()) {
-			g2.setPaint(Color.white);
-			g2.fillOval(0, 0, size, size);
-			g2.setPaint(this.color);
-			g2.setStroke(new BasicStroke(4));
-			g.drawOval(2, 2, size - 4, size - 4);
-		} else {
-			g2.setPaint(this.color);
-			g2.fillOval(0, 0, size, size);
-		}*/
 	}
+
 
 }

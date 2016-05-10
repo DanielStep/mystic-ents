@@ -65,6 +65,7 @@ public class Square implements Serializable {
 	}
 
 	public void setOccupant(Piece pm) {
+		if (pm != null) { pm.setParentSquare(this); }
 		occupyingPiece = pm;
 	}
 

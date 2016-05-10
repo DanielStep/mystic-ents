@@ -32,7 +32,7 @@ public class GameController implements Observer {
 	private BoardController gameBoard;
 	private ActionController actionController;
 	private AIController gameAI;
-	private Boolean aiTurn;
+	private Boolean aiTurn = false;
 
 	//UI
 	private GameControls controlPanel;
@@ -47,7 +47,7 @@ public class GameController implements Observer {
 		new MainMenuFrame(this);
 	}
 
-	public void startGame() {
+	public void newGame() {
 		gameBoard.init();
 		continueGame();
 	}
@@ -57,14 +57,20 @@ public class GameController implements Observer {
 		gameBoard.getBoardFrame().setVisible(true);
 		collectGamePieces();
 		setControlObjects();
-		buildAI();
 		currentTeam = setCurrentTeam();
-		startTimer();
+		startGame();
 	}
+	
+	public void startGame() {
+		buildAI();
+		startTimer();
+	}	
 	
 	private void buildAI() {
 		// TODO Auto-generated method stub
-		gameAI = new AIController(gamePiecesList);
+		gameAI = new AIController();
+		//Check AI Status
+		aiTurn = checkAIStatus();
 	}
 
 	/**
@@ -77,9 +83,15 @@ public class GameController implements Observer {
 	public void update(Observable o, Object arg) {
 		GameTurn gameTurn = (GameTurn) o;
 		//Post condition exception if GameTurn is null, return (exit?)
-		if (gameTurn == null) return;		
-			controlPanel.setPieceCount(getAvailablePieceCount());
-			controlPanel.doUIUpdate(gameTurn);
+		if (gameTurn == null) return;
+		controlPanel.setPieceCount(getAvailablePieceCount());
+		controlPanel.doUIUpdate(gameTurn);
+		
+		//AI Turn
+		if (aiTurn) {
+			gameAI.handleGameTurn(currentTeam);
+		}		
+		
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
@@ -110,7 +122,7 @@ public class GameController implements Observer {
 		controlPanel.setPieceCount(getAvailablePieceCount());
 		controlPanel.doUIEndTurn();
 		//Check AI Status
-		aiTurn = gameAI.checkAIStatus(currentTeam);
+		aiTurn = checkAIStatus();
 	}
 	
 	public Boolean loadGame(){
@@ -130,6 +142,11 @@ public class GameController implements Observer {
 		return GameUtils.getInstance().getNextTeam(gamePiecesList, currentTeam);
 	}
 	
+	private Boolean checkAIStatus() {
+		//Check AI Status
+		return gameAI.checkAIStatus(currentTeam);
+	}
+	
 	private Team setCurrentTeam() {
 		Team team = gameBoard.getBoardData().getCurrentTeam();
 		team = team == null ? Team.values()[0] : team;		
@@ -137,7 +154,7 @@ public class GameController implements Observer {
 		return team;
 	}
 
-	private int getAvailablePieceCount() {
+	private int getAvailablePieceCount() {		
 		return GameUtils.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
 	}
 		
@@ -146,15 +163,19 @@ public class GameController implements Observer {
 		controlPanel.getPieceInfoPanel().updatePieceInformation(pce);
 	}
 	
-	private void collectGamePieces() {
-		Square[][] gameData = gameBoard.getBoardData().getBoardArray();
-		for (int i=0; i<gameData.length; i++) {
-			for (int j=0; j<gameData[i].length; j++) {
-				if (gameData[i][j].getOccupant() != null) {
-					gamePiecesList.add(gameData[i][j].getOccupant());
-				}				
-			}
-		}
+	private void collectGamePieces() {		
+		gamePiecesList = GameUtils.getInstance().getGamePieces(gameBoard.getBoardData().getBoardArray());
+	}
+	
+	public ArrayList <Square> getTowerList() {		
+		ArrayList<Square> tl = new ArrayList <Square>();
+		tl = GameUtils.getInstance().getTowerList(gameBoard.getBoardData().getBoardArray());
+		return tl;
+	}
+	public ArrayList <Square> getRangeList() {		
+		ArrayList<Square> tl = new ArrayList <Square>();
+		tl = GameUtils.getInstance().getRangeList(gameBoard.getBoardData().getBoardArray());
+		return tl;
 	}
 
 	public void setControlObjects() {

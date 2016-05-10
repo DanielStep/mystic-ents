@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import model.board.BoardData;
+import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
 
@@ -48,6 +49,41 @@ public class GameUtils {
 		}
 		return maps;
 	}
+	
+	public ArrayList <Piece> getGamePieces(Square[][] data) {		
+		ArrayList <Piece> p = new ArrayList <Piece>();
+		for (int i=0; i<data.length; i++) {
+			for (int j=0; j<data[i].length; j++) {
+				if (data[i][j].getOccupant() != null) {
+					p.add(data[i][j].getOccupant());
+				}				
+			}
+		}
+		return p;
+	}
+	public ArrayList <Square> getTowerList(Square[][] data) {		
+		ArrayList <Square> s = new ArrayList <Square>();
+		for (int i=0; i<data.length; i++) {
+			for (int j=0; j<data[i].length; j++) {
+				if (data[i][j].getTeamTower() != null) {
+					s.add(data[i][j]);
+				}				
+			}
+		}
+		return s;
+	}
+	
+	public ArrayList <Square> getRangeList(Square[][] data) {		
+		ArrayList <Square> s = new ArrayList <Square>();
+		for (int i=0; i<data.length; i++) {
+			for (int j=0; j<data[i].length; j++) {
+				if (data[i][j].getInRange()) {
+					s.add(data[i][j]);
+				}				
+			}
+		}
+		return s;
+	}	
 	
 	public int getAvailablePieceCount(ArrayList<Piece> pieceList, Team currentTeam) {
 		int count = 0;

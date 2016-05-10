@@ -2,6 +2,7 @@ package model.piece;
 
 import java.io.Serializable;
 
+import model.board.Square;
 import model.skills.SkillSet;
 import model.traits.TraitSet;
 
@@ -16,14 +17,17 @@ public abstract class Piece implements IAttack, Serializable {
 	protected Boolean inPlay = true;
 	protected Boolean inMove = false;
 
-	protected int id;
+	//protected int id;
 	/** Current x coordinate **/
-	protected int cX;
+	//protected int cX;
 	/** Current y coordinate **/
-	protected int cY;
+	//protected int cY;
 
 	// Team color
 	protected Enum<Team> team;
+	
+	//Keep reference to parent Square for AI 
+	protected Square parentSquare;
 
 	public Piece() {
 	}
@@ -34,12 +38,18 @@ public abstract class Piece implements IAttack, Serializable {
 		this.pieceIcon = other.pieceIcon;
 		this.isUsurper = other.isUsurper;
 		this.inMove = other.inMove;
-		this.id = other.id;
-		this.cX = other.cX;
-		this.cY = other.cY;
+		//this.id = other.id;
+		//this.cX = other.cX;
+		//this.cY = other.cY;
 		this.team = other.team;
 	}
 
+	public Square getParentSquare() {
+		return parentSquare;
+	}
+	public void setParentSquare(Square parentSquare) {
+		this.parentSquare = parentSquare;
+	}
 	public String getIcon() {
 		return pieceIcon;
 	}
@@ -64,7 +74,7 @@ public abstract class Piece implements IAttack, Serializable {
 		this.traitSet = traitSet;
 	}
 
-	public int getcX() {
+	/*public int getcX() {
 		return cX;
 	}
 
@@ -78,7 +88,7 @@ public abstract class Piece implements IAttack, Serializable {
 
 	public void setcY(int cY) {
 		this.cY = cY;
-	}
+	}*/
 
 	public Enum<Team> getTeam() {
 		return team;
@@ -103,13 +113,13 @@ public abstract class Piece implements IAttack, Serializable {
 
 	}
 
-	public Boolean getInMove() {
+	/*public Boolean getInMove() {
 		return inMove;
 	}
 
 	public void setInMove(Boolean inMove) {
 		this.inMove = inMove;
-	}
+	}*/
 
 	public Boolean getInPlay() {
 		return inPlay;

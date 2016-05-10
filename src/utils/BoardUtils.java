@@ -57,22 +57,18 @@ public class BoardUtils {
 		private int x;
 		private int y;
 		private Square[][] boardData;
-		private int range;		
-		
+		private int range;
+		private ArrayList <Square> rangeList = new ArrayList <Square>();
+
 		public Square[][] gatherCheckSquaresByRange() {
-			
 			ArrayList<Square> getSquares = new ArrayList<Square>();
-			
-			System.out.println("FROM: " + x + " : " + y);
-			
 			int crange = 0-range;
 			for(int h = (x-range); h < (x+(range+1)); h++) {
 				for(int i = x-crange; i < x+(crange+1); i++) {
 					for(int j = y-crange; j < y+(crange+1); j++) {
 						if (i > -1 && j > -1 && i < this.boardData.length && j < this.boardData.length) {
-							//checkRangeCriteria(origin, crange, check)
 							boardData[i][j].setInRange(checkRangeCriteria(boardData[i][j]));
-							//getSquares.add(boardData[i][j]);
+							rangeList.add(boardData[i][j]);
 						}
 					}
 				}			
@@ -88,17 +84,21 @@ public class BoardUtils {
 					return false;
 				}			
 			}
-//			if (!check.getAccessible() || check.getTeamTower() != null) {
-//				return false;
-//			}
 			
 			if (!check.getAccessible()) {
 				return false;
 			}
 			
 			return true;
+		}		
+		
+		public ArrayList<Square> getRangeList() {
+			return rangeList;
 		}
 		
+		public void setRangeList(ArrayList<Square> rangeList) {
+			rangeList = rangeList;
+		}
 		public int getX() {
 			return x;
 		}

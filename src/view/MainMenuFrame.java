@@ -74,7 +74,7 @@ public class MainMenuFrame extends JFrame{
 				 * Start a new Game.
 				 */
 				doCloseFrame();
-				gameController.startGame();
+				gameController.newGame();
 			}
 		});
 		menuPanel.add(btNewGame);

@@ -9,6 +9,7 @@ import model.board.Square;
 import model.piece.Piece;
 import model.state.IGameState;
 import model.state.StateMove;
+
 import view.BoardPanel;
 import view.GameControls;
 import view.DialogView;
