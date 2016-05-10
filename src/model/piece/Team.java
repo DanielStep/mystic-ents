@@ -13,8 +13,17 @@ public enum Team {
 	}
 	
 	private final Integer red, green, blue;
+	private Boolean AI = false;
 	
-    public int getRed(){
+    public Boolean getAI() {
+		return AI;
+	}
+
+	public void setAI(Boolean aI) {
+		AI = aI;
+	}
+
+	public int getRed(){
         return red;
     }
 

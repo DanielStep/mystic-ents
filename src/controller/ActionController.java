@@ -65,7 +65,6 @@ public class ActionController {
 	public void endAction(ActionController a, Square sqr)
 	{
 		gameState.endAction(this, sqr);
-		//checkActionCount();
 		boardController.getBoardData().doCellsUpdate();
 	}	
 	

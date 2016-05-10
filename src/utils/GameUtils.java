@@ -76,6 +76,11 @@ public class GameUtils {
 		return tList;
 	}
 	
+	public ArrayList<Team> getTeamList(ArrayList<Piece> pieceList) {
+		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList(pieceList));
+		return tList; 
+	}
+	
 	public BoardData loadGame() {
 		Object gameState = loadGameData();
 		if (gameState != null) {

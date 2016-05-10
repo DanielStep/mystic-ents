@@ -1,10 +1,13 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import model.piece.Piece;
@@ -12,56 +15,49 @@ import utils.GameConfig;
 
 /**
  * A component of ControlPanel: Display essential piece info in selection
- * @author Phan Vo
- *
+ * @author Phan Vo, Mark
+ * 
  */
 public class PieceInfoPanel extends JPanel{
-	private JLabel lblHealth, lblHealthValue;
-	private JLabel lblAttackDamage, lblAttackDamageValue;
-	private JLabel lblMove, lblMoveValue;
-	private JLabel lblSkill, lblSkillValue;
+
+	private JTextField[] tArray = new JTextField[4];
 	
 	public PieceInfoPanel() {
 		// TODO Auto-generated constructor stub
-		super();
-		JPanel pane = new JPanel(new GridLayout(0, 2));
-		pane.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-20));
+		super();		
 		
-		lblHealth = new JLabel("Health: ");
-		lblHealthValue = new JLabel("-");
-
-		lblAttackDamage = new JLabel("Attack: ");
-		lblAttackDamageValue = new JLabel("-");
+		JPanel pnContainer = new JPanel(new GridLayout(4, 1));
+		pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-20));
+		pnContainer.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
 		
-		lblMove = new JLabel("Move: ");
-		lblMoveValue = new JLabel("-");
+		TitledBorder titled = new TitledBorder("Selected piece");
+		pnContainer.setBorder(titled);
+			
+		for(int i=0; i< tArray.length; i++) {			
+			tArray[i] = new JTextField();
+			tArray[i].setHorizontalAlignment(JTextField.CENTER);		
+			tArray[i].setPreferredSize(new Dimension(GameConfig.getControlsWidth()-60, 20));
+			tArray[i].setEditable(false);
+			tArray[i].setBackground(Color.WHITE);
+			tArray[i].setForeground(Color.WHITE);
+			tArray[i].setFont(new Font("Sans-serif", Font.BOLD, 16));	
+			pnContainer.add(tArray[i]);
+		}
 		
-		lblSkill = new JLabel("Skill: ");
-		lblSkillValue = new JLabel("-");
-		
-		pane.add(lblHealth);
-		pane.add(lblHealthValue);
-		pane.add(lblAttackDamage);
-		pane.add(lblAttackDamageValue);
-		pane.add(lblMove);
-		pane.add(lblMoveValue);
-		pane.add(lblSkill);
-		pane.add(lblSkillValue);
-		
-	    TitledBorder titled = new TitledBorder("Selected piece");
-	    pane.setBorder(titled);
-
-	    this.add(pane);
+		tArray[3].setForeground(Color.BLACK);
+	    this.add(pnContainer);
+	    
 	}
+	
 	
 	/**
 	 * Reset piece info value by default if no piece is selected/ change player turn
 	 */
 	public void resetPieceInformation() {	
-		lblHealthValue.setText("-");
-		lblAttackDamageValue.setText("-");		
-		lblMoveValue.setText("-");
-		lblSkillValue.setText("-");
+		for(int i=0; i< tArray.length; i++) {
+			tArray[i].setText("-");
+			tArray[i].setBackground(Color.WHITE);
+		}
 	}
 	
 	/**
@@ -69,9 +65,37 @@ public class PieceInfoPanel extends JPanel{
 	 * @param pce
 	 */
 	public void updatePieceInformation(Piece pce) {
-		lblHealthValue.setText(String.valueOf(pce.getTraitSet().getHealthTrait().getTraitValue()));
-		lblAttackDamageValue.setText(String.valueOf(pce.getTraitSet().getDamageTrait().getTraitValue()));		
-		lblMoveValue.setText(String.valueOf(pce.getTraitSet().getRangeTrait().getTraitValue()));
-		lblSkillValue.setText(pce.getSkillSet().getCurrentSkill().getName());
+		
+		String[] gtl = new String[3];		
+		gtl[0] = "Health:  ";
+		gtl[1] = "Attack:  ";
+		gtl[2] = "Move:  ";
+		
+		int[] gtv = new int[3];		
+		gtv[0] = pce.getTraitSet().getHealthTrait().getTraitValue();
+		gtv[1] = pce.getTraitSet().getDamageTrait().getTraitValue();
+		gtv[2] = pce.getTraitSet().getRangeTrait().getTraitValue();
+		
+		for(int i=0; i< gtl.length; i++) {			
+			tArray[i].setText(gtl[i] + String.valueOf(gtv[i]));
+			tArray[i].setBackground(setValueColor(gtv[i]));			
+		}
+		
+		tArray[3].setText(pce.getSkillSet().getCurrentSkill().getName());
+		
 	}
+	
+	/**
+	 * Set color of Value based on 'strength'
+	 * @param i
+	 */
+	public Color setValueColor(int i) {
+		
+		if (i >= 4) {return Color.GREEN; }
+		if (i >= 2 ) {return Color.ORANGE; }
+		if (i < 2 ) {return Color.RED; }		
+		return Color.BLACK;
+		
+	}	
+	
 }

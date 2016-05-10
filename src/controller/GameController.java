@@ -31,7 +31,9 @@ public class GameController implements Observer {
 	private GameTurn gameTimer;
 	private BoardController gameBoard;
 	private ActionController actionController;
-	
+	private AIController gameAI;
+	private Boolean aiTurn;
+
 	//UI
 	private GameControls controlPanel;
 	
@@ -55,10 +57,16 @@ public class GameController implements Observer {
 		gameBoard.getBoardFrame().setVisible(true);
 		collectGamePieces();
 		setControlObjects();
+		buildAI();
 		currentTeam = setCurrentTeam();
 		startTimer();
 	}
 	
+	private void buildAI() {
+		// TODO Auto-generated method stub
+		gameAI = new AIController(gamePiecesList);
+	}
+
 	/**
 	 * The update method of the Observer pattern
 	 * Watches the GameTurn timer to handle end turns, team change,
@@ -101,6 +109,8 @@ public class GameController implements Observer {
 		controlPanel.setCurrentTeam(currentTeam);
 		controlPanel.setPieceCount(getAvailablePieceCount());
 		controlPanel.doUIEndTurn();
+		//Check AI Status
+		aiTurn = gameAI.checkAIStatus(currentTeam);
 	}
 	
 	public Boolean loadGame(){
@@ -202,5 +212,12 @@ public class GameController implements Observer {
 	public BoardController getGameBoard() {
 		return gameBoard;
 	}	
+	
+	public Boolean getAiTurn() {
+		return aiTurn;
+	}
 
+	public void setAiTurn(Boolean aiTurn) {
+		this.aiTurn = aiTurn;
+	}
 }

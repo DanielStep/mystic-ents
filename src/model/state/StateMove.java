@@ -29,8 +29,11 @@ public class StateMove implements IGameState {
 
 	@Override
 	public void endAction(ActionController a, Square s) {
+		
+		if (!s.getInRange()) return;		
 		if (checkGameRules(a, s)) {
-			if (!s.getInRange()) return;
+			
+
 			System.out.println("------ my team color: " + a.getActivePiece().getTeam());
 			System.out.println("------ target square team towser: " + s.getTeamTower());
 			System.out.println("------ target square accisible: " + s.getAccessible());
@@ -69,7 +72,7 @@ public class StateMove implements IGameState {
 	
 	
 	private Boolean checkGameRules(ActionController a, Square s) {
-
+		
 		if (a.getActionButton() == (Integer) 3) {
 			a.changeState(StatePerformSkill.getInstance(a));
 			return false;			
