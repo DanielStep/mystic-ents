@@ -51,7 +51,7 @@ public class AIController {
 		SelectNextAction(p);
 		
 		Square t = getOpponentTower();
-		Square v = getOpponentPiece();
+		//Square v = getOpponentPiece();
 		
 		Square s = getNextSquare(t);
 		_ac.endAction(_ac, s);		
