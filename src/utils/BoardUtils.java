@@ -77,19 +77,17 @@ public class BoardUtils {
 			return boardData;			
 		}
 
-		private Boolean checkRangeCriteria(Square check) {
-
+		private Boolean checkRangeCriteria(Square check) {			
+			Boolean setRange = true;
 			if (check.getOccupant() != null) {
 				if (check.getOccupant().getTeam() == boardData[x][y].getOccupant().getTeam() ) {
-					return false;
+					setRange = false;
 				}			
-			}
-			
+			}			
 			if (!check.getAccessible()) {
-				return false;
-			}
-			
-			return true;
+				setRange =  false;
+			}			
+			return setRange;
 		}		
 		
 		public ArrayList<Square> getRangeList() {

@@ -29,17 +29,13 @@ public class StateMove implements IGameState {
 
 	@Override
 	public void endAction(ActionController a, Square s) {
+		// check the game win condition
+		if (!isWinCondition(a, s)) return;
+		
+		if (!s.getInRange()) return;
 		
 		if (checkBasicGameRules(a, s)) {
-			// check wall blocking
-			if (!s.getAccessible()) return;
-			
-			// check the game win condition
-			if (!isWinCondition(a, s)) return;
-			
 			System.out.println("End move");
-			
-			
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
 			s.setOccupant(a.getActivePiece());	
 			updateAction(a);
@@ -77,8 +73,6 @@ public class StateMove implements IGameState {
 			a.changeState(StateAttack.getInstance(a));
 			return false;
 		}		
-
-		if (!s.getInRange()) return false;
 		
 		return true;
 		
