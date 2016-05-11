@@ -68,6 +68,9 @@ public class GameController implements Observer {
 			buildAI();
 		}
 		startTimer();
+		
+		// save AI variable for save game
+		gameBoard.getBoardData().setIsWithAI(isWithAI);
 	}	
 	
 	private void buildAI() {
@@ -135,6 +138,7 @@ public class GameController implements Observer {
 	public Boolean loadGame(){
 		BoardData data = GameUtils.getInstance().loadGame();
 		if (GameUtils.getInstance().loadGame() != null) {
+			gameBoard.getBoardData().setIsWithAI(data.getIsWithAI());
 			gameBoard.getBoardData().setCurrentTeam(data.getCurrentTeam());
 			gameBoard.getBoardData().setBoardArray(data.getBoardArray());
 			gameBoard.getBoardData().doCellsUpdate();

@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.GameController;
+import model.board.BoardData;
 import utils.GameConfig;
 
 /**
@@ -104,7 +105,9 @@ public class MainMenuFrame extends JFrame{
 				 * Otherwise, keep panel open
 				 */				
 				if (gameController.loadGame()) {
-					gameController.continueGame(false);
+					boolean isWithAI = BoardData.getInstance().getIsWithAI();
+					System.out.println("-------- AI = " + isWithAI);
+					gameController.continueGame(isWithAI);
 					doCloseFrame();
 				}
 			}
