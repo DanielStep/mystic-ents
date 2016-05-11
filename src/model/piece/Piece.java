@@ -1,103 +1,44 @@
 package model.piece;
 
-import java.io.Serializable;
-
 import model.board.Square;
 import model.skills.SkillSet;
 import model.traits.TraitSet;
 
-public abstract class Piece implements IAttack, Serializable {
+public interface Piece {
 
-	protected TraitSet traitSet;
-	protected SkillSet skillSet;
 
-	protected String pieceIcon;
-
-	protected Boolean isUsurper = false;
-	protected Boolean inPlay = true;
-	protected Boolean inMove = false;
-
-	// Team color
-	protected Enum<Team> team;
+	public Square getParentSquare();
 	
-	//Keep reference to parent Square for AI 
-	protected Square parentSquare;
+	public void setParentSquare(Square parentSquare);
+	
+	public String getIcon();
 
-	public Piece() {
-	}
+	public void setIcon(String icon);
 
-	public Piece(Piece other) {
-		this.traitSet = other.traitSet;
-		this.skillSet = other.skillSet;
-		this.pieceIcon = other.pieceIcon;
-		this.isUsurper = other.isUsurper;
-		this.inMove = other.inMove;
-		this.team = other.team;
-	}
+	public SkillSet getSkillSet();
 
-	public Square getParentSquare() {
-		return parentSquare;
-	}
-	public void setParentSquare(Square parentSquare) {
-		this.parentSquare = parentSquare;
-	}
-	public String getIcon() {
-		return pieceIcon;
-	}
+	public void setSkillSet(SkillSet skillSet);
 
-	public void setIcon(String icon) {
-		this.pieceIcon = icon;
-	}
+	public TraitSet getTraitSet();
 
-	public SkillSet getSkillSet() {
-		return skillSet;
-	}
+	public void setTraitSet(TraitSet traitSet);
 
-	public void setSkillSet(SkillSet skillSet) {
-		this.skillSet = skillSet;
-	}
+	public Enum<Team> getTeam();
 
-	public TraitSet getTraitSet() {
-		return traitSet;
-	}
+	public void setTeam(Enum<Team> team);
 
-	public void setTraitSet(TraitSet traitSet) {
-		this.traitSet = traitSet;
-	}
+	public void attackOut(Piece piece);
 
-	public Enum<Team> getTeam() {
-		return team;
-	}
+	public Boolean getInPlay();
 
-	public void setTeam(Enum<Team> team) {
-		this.team = team;
-	}
+	public void setInPlay(Boolean inPlay);
+	
+	public void setInMove(Boolean inMove);
+	
+	public Boolean getInMove();
 
+	public Boolean getIsUsurper();
 
-	public void attackOut(Piece piece) {
-
-		int damageValue = this.getTraitSet().getDamageTrait().getTraitValue();
-		piece.getTraitSet().getHealthTrait().modifyValue(-damageValue);
-
-		System.out.println(this.getTraitSet().getDamageTrait().getTraitValue() + " : Attack on : "
-				+ piece.getTraitSet().getHealthTrait().getTraitValue());
-
-	}
-
-	public Boolean getInPlay() {
-		return inPlay;
-	}
-
-	public void setInPlay(Boolean inPlay) {
-		this.inPlay = inPlay;
-	}
-
-	public Boolean getIsUsurper() {
-		return isUsurper;
-	}
-
-	public void setIsUsurper(Boolean isUsurper) {
-		this.isUsurper = isUsurper;
-	}
+	public void setIsUsurper(Boolean isUsurper);
 
 }

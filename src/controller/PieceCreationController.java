@@ -54,7 +54,7 @@ public class PieceCreationController {
 	 */
 	public Piece createRegPiece(Enum<Team> team){
 		
-		RegularPiece newRegPiece = new RegularPiece();
+		Piece newRegPiece = new RegularPiece();
 		pieceBuilder.buildPiece(newRegPiece, team);
 		
 		return newRegPiece;
@@ -71,7 +71,7 @@ public class PieceCreationController {
 	 */
 	public Piece createUsurpPiece(Enum<Team> team){
 		
-		UsurperPiece newUsurpPiece = new UsurperPiece();
+		Piece newUsurpPiece = new UsurperPiece(new RegularPiece());
 		pieceBuilder.buildPiece(newUsurpPiece, team);
 		
 		return newUsurpPiece;

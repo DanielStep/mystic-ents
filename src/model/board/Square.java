@@ -38,7 +38,7 @@ public class Square implements Serializable {
 		super();
 		if (other.getOccupant() != null) {
 			this.occupyingPiece = other.occupyingPiece instanceof RegularPiece ? new RegularPiece(other.occupyingPiece)
-					: new UsurperPiece(other.occupyingPiece);
+					: new UsurperPiece(new RegularPiece(other.occupyingPiece));
 		}
 		ID = other.ID;
 		this.inrange = other.inrange;
