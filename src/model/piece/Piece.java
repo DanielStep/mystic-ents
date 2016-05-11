@@ -17,12 +17,6 @@ public abstract class Piece implements IAttack, Serializable {
 	protected Boolean inPlay = true;
 	protected Boolean inMove = false;
 
-	//protected int id;
-	/** Current x coordinate **/
-	//protected int cX;
-	/** Current y coordinate **/
-	//protected int cY;
-
 	// Team color
 	protected Enum<Team> team;
 	
@@ -38,9 +32,6 @@ public abstract class Piece implements IAttack, Serializable {
 		this.pieceIcon = other.pieceIcon;
 		this.isUsurper = other.isUsurper;
 		this.inMove = other.inMove;
-		//this.id = other.id;
-		//this.cX = other.cX;
-		//this.cY = other.cY;
 		this.team = other.team;
 	}
 
@@ -74,22 +65,6 @@ public abstract class Piece implements IAttack, Serializable {
 		this.traitSet = traitSet;
 	}
 
-	/*public int getcX() {
-		return cX;
-	}
-
-	public void setcX(int cX) {
-		this.cX = cX;
-	}
-
-	public int getcY() {
-		return cY;
-	}
-
-	public void setcY(int cY) {
-		this.cY = cY;
-	}*/
-
 	public Enum<Team> getTeam() {
 		return team;
 	}
@@ -98,10 +73,6 @@ public abstract class Piece implements IAttack, Serializable {
 		this.team = team;
 	}
 
-	public void attackIn(int att) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void attackOut(Piece piece) {
 
@@ -112,14 +83,6 @@ public abstract class Piece implements IAttack, Serializable {
 				+ piece.getTraitSet().getHealthTrait().getTraitValue());
 
 	}
-
-	/*public Boolean getInMove() {
-		return inMove;
-	}
-
-	public void setInMove(Boolean inMove) {
-		this.inMove = inMove;
-	}*/
 
 	public Boolean getInPlay() {
 		return inPlay;
