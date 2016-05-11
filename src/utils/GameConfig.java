@@ -13,7 +13,7 @@ public class GameConfig {
     private static final int TIMER_PERIOD = 1000;
     
 	//CONTROL PANEL
-	private static final int CONTROLS_WIDTH = 180;
+	private static final int CONTROLS_WIDTH = 250;
     
     //BOARD
 	private static final int DEFAULT_WIDTH = 800;

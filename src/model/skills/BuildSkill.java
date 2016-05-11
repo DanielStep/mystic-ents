@@ -24,12 +24,12 @@ public class BuildSkill extends Skill implements IPerformSquareSkill, Serializab
 		// If the square is empty and is accessible then build
 		if (tSqr.getOccupant()==null && tSqr.getAccessible()) {
 			tSqr.setAccessible(false);
-			DialogView.getInstance().showInformation("Wall built!");
+			super.setSkillMessage("Wall built!");
 		} else if (!tSqr.getAccessible()) {
 			tSqr.setAccessible(true);
-			DialogView.getInstance().showInformation("Wall removed!");
+			super.setSkillMessage("Wall removed!");
 		} else {
-			DialogView.getInstance().showInformation("Build failed!");	
+			super.setSkillMessage("Build failed!");
 		}
 		return !tSqr.getAccessible();
 		

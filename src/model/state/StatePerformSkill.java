@@ -24,12 +24,14 @@ public class StatePerformSkill implements IGameState {
 	public void startAction(ActionController a, Square s) {
 		System.out.println("Start Perform Skill.");
 		a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
-		Skill currentSkill = a.getActivePiece().getSkillSet().getCurrentSkill();		
+		Skill currentSkill = a.getActivePiece().getSkillSet().getCurrentSkill();
 		if (currentSkill instanceof IPerformTraitSkill){
 			((IPerformTraitSkill) currentSkill).performSkill(a.getActivePiece());		
 		}else if (currentSkill instanceof IPerformSquareSkill){
 			((IPerformSquareSkill) currentSkill).performSkill(a.getActiveSquare(), s);
 		}
+		a.getGameController().setMessage(currentSkill.getSkillMessage());
+		//System.out.println("MESSAGE: " + currentSkill.getSkillMessage());
 		endAction(a, s);
 	}
 

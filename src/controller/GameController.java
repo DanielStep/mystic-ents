@@ -194,7 +194,11 @@ public class GameController implements Observer {
 
 	public void setControlObjects() {
 		setControlPanel(gameBoard.getBoardFrame().getControlPanel());
-	}	
+	}
+	
+	public void setMessage(String msg) {
+		controlPanel.getMoveInfoPanel().setMessage(msg);
+	}
 	
 	private void buildTimer() {
 		gameTimer = new GameTurn();

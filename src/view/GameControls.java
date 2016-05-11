@@ -113,11 +113,11 @@ public class GameControls extends JPanel{
 		return pnPieceInfo;
 	}	
 
-	public MoveInfoPanel getPnMoveInfo() {
+	public MoveInfoPanel getMoveInfoPanel() {
 		return pnMoveInfo;
 	}
 	
-	public void setPnMoveInfo(MoveInfoPanel pnMoveInfo) {
+	public void setMoveInfoPanel(MoveInfoPanel pnMoveInfo) {
 		this.pnMoveInfo = pnMoveInfo;
 	}
 	

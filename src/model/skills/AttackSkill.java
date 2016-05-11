@@ -22,7 +22,7 @@ public class AttackSkill extends Skill implements IPerformTraitSkill, Serializab
 	@Override
 	public void performSkill(Piece skillOwner) {		
 		skillOwner.getTraitSet().getDamageTrait().modifyValue(GameConfig.getDamagetraitmultiplier());
-		DialogView.getInstance().showInformation("Attack damage increased!");
+		super.setSkillMessage("Attack damage increased!");
 	}
 	
 }

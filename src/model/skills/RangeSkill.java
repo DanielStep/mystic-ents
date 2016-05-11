@@ -23,7 +23,7 @@ public class RangeSkill extends Skill implements IPerformTraitSkill, Serializabl
 	@Override
 	public void performSkill(Piece skillOwner) {
 		skillOwner.getTraitSet().getRangeTrait().modifyValue(GameConfig.getRangemultiplier());
-		DialogView.getInstance().showInformation("Range increased!");
+		super.setSkillMessage("Range increased!");
 	}
 
 }

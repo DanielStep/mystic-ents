@@ -47,7 +47,7 @@ public class MoveInfoPanel extends JPanel{
 		tfColor.setHorizontalAlignment(JTextField.CENTER);		
 		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 60));
 		tfColor.setEditable(false);
-		tfColor.setForeground(Color.WHITE);
+		tfColor.setForeground(Color.BLACK);
 		tfColor.setBackground(Color.WHITE);
 		tfColor.setFont(new Font("Sans-serif", Font.BOLD, 10));
 

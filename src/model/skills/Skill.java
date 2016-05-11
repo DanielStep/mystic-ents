@@ -10,6 +10,7 @@ import java.io.Serializable;
 public abstract class Skill implements Serializable {
 	private String name;
 	private String icon;
+	private String msg;
 	
 	public void setName(String name){
 		this.name = name;
@@ -25,5 +26,12 @@ public abstract class Skill implements Serializable {
 	
 	public String getIcon(){
 		return this.icon;
-	}	
+	}
+	
+	public String getSkillMessage() {
+		return msg;
+	}
+	public void setSkillMessage(String msg) {
+		this.msg = msg;
+	}
 }

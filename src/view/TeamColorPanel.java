@@ -28,7 +28,7 @@ public class TeamColorPanel extends JPanel{
 		
 		tfColor = new JTextField();
 		tfColor.setHorizontalAlignment(JTextField.CENTER);		
-		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, GameConfig.getControlsWidth()-40));
+		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 100));
 		tfColor.setEditable(false);
 		tfColor.setForeground(Color.WHITE);
 		tfColor.setFont(new Font("Sans-serif", Font.BOLD, 80));
