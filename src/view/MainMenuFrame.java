@@ -65,19 +65,33 @@ public class MainMenuFrame extends JFrame{
 		lbTitle.setFont(new Font("Serif", Font.BOLD, 22));
 		menuPanel.add(lbTitle);
 		
-		JButton btNewGame = new JButton("New Game");
-		btNewGame.addActionListener(new ActionListener() {
+		JButton btNormalGame = new JButton("Play Normal Game");
+		btNormalGame.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				/*
-				 * Start a new Game.
+				 * Start a new Normal Game.
 				 */
 				doCloseFrame();
-				gameController.newGame();
+				gameController.newGame(false);
 			}
 		});
-		menuPanel.add(btNewGame);
+		menuPanel.add(btNormalGame);
+		
+		JButton btAIGame = new JButton("Play Game with AI");
+		btAIGame.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * Start a new AI Game.
+				 */
+				doCloseFrame();
+				gameController.newGame(true);
+			}
+		});
+		menuPanel.add(btAIGame);
 		
 		JButton btContinue = new JButton("Continue");
 		btContinue.addActionListener(new ActionListener() {
@@ -90,7 +104,7 @@ public class MainMenuFrame extends JFrame{
 				 * Otherwise, keep panel open
 				 */				
 				if (gameController.loadGame()) {
-					gameController.continueGame();
+					gameController.continueGame(false);
 					doCloseFrame();
 				}
 			}

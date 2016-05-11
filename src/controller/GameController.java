@@ -47,22 +47,26 @@ public class GameController implements Observer {
 		new MainMenuFrame(this);
 	}
 
-	public void newGame() {
+	public void newGame(boolean isWithAI) {
 		gameBoard.init();
-		continueGame();
+		
+		continueGame(isWithAI);
 	}
 	
-	public void continueGame() {
+	public void continueGame(boolean isWithAI) {
 		gameBoard.buildBoard();
 		gameBoard.getBoardFrame().setVisible(true);
 		collectGamePieces();
 		setControlObjects();
 		currentTeam = setCurrentTeam();
-		startGame();
+		
+		startGame(isWithAI);
 	}
 	
-	public void startGame() {
-		buildAI();
+	public void startGame(boolean isWithAI) {
+		if (isWithAI) {
+			buildAI();
+		}
 		startTimer();
 	}	
 	
@@ -123,7 +127,9 @@ public class GameController implements Observer {
 		controlPanel.setPieceCount(getAvailablePieceCount());
 		controlPanel.doUIEndTurn();
 		//Check AI Status
-		aiTurn = checkAIStatus();
+		if (gameAI != null) {
+			aiTurn = checkAIStatus();
+		}
 	}
 	
 	public Boolean loadGame(){
