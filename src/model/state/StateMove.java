@@ -80,8 +80,9 @@ public class StateMove implements IGameState {
 
 	private boolean isWinCondition(ActionController a, Square s){
 		if (s.getTeamTower() != null) {
-			// if the player's own piece lands on the opponent tower base square
-			if (a.getActivePiece().getTeam() != s.getTeamTower()) {
+			// if the player's own Usurper piece lands on the opponent tower
+			if (a.getActivePiece().getIsUsurper() &&
+					a.getActivePiece().getTeam() != s.getTeamTower()) {
 				// it is a win
 				DialogView.getInstance().showInformation
 						("Team " + a.getActivePiece().getTeam() + " win!");

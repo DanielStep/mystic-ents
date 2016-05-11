@@ -45,7 +45,7 @@ public class MoveInfoPanel extends JPanel{
 
 		tfColor = new JTextField();
 		tfColor.setHorizontalAlignment(JTextField.CENTER);		
-		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 60));
+		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 30));
 		tfColor.setEditable(false);
 		tfColor.setForeground(Color.BLACK);
 		tfColor.setBackground(Color.WHITE);
@@ -55,7 +55,7 @@ public class MoveInfoPanel extends JPanel{
 		pnContainer.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
 		pnContainer.add(tfColor);
 		
-	    TitledBorder titled = new TitledBorder("Team");
+	    TitledBorder titled = new TitledBorder("Move status");
 	    pnContainer.setBorder(titled);
 
 		this.add(pnContainer);
