@@ -30,25 +30,12 @@ public class StateMove implements IGameState {
 	@Override
 	public void endAction(ActionController a, Square s) {
 		
-		if (checkGameRules(a, s)) {
+		if (checkBasicGameRules(a, s)) {
+			// check wall blocking
+			if (!s.getAccessible()) return;
 			
-			if (!s.getInRange()) return;
-
-			System.out.println("------ my team color: " + a.getActivePiece().getTeam());
-			System.out.println("------ target square team towser: " + s.getTeamTower());
-			System.out.println("------ target square accisible: " + s.getAccessible());
-			
-			if (s.getTeamTower() != null) {
-				if (a.getActivePiece().getTeam() != s.getTeamTower()) {
-					DialogView.getInstance().showInformation
-							("Team " + a.getActivePiece().getTeam() + " win!");
-					a.handleEndGameUI();
-				} else {
-					return;
-				}
-			}
-			
-			
+			// check the game win condition
+			if (!isWinCondition(a, s)) return;
 			
 			System.out.println("End move");
 			
@@ -71,14 +58,14 @@ public class StateMove implements IGameState {
 	}
 	
 	
-	private Boolean checkGameRules(ActionController a, Square s) {
+	private Boolean checkBasicGameRules(ActionController a, Square s) {
 		
 		if (a.getActionButton() == (Integer) 3) {
 			a.changeState(StatePerformSkill.getInstance(a));
 			return false;			
 		}
-
-		if (s.getOccupant() == null) { return true; }		
+		
+		if (s.getOccupant() == null) return true;	
 		
 		//Swap piece so restart this State
 		if (a.getActivePiece().getTeam() == s.getOccupant().getTeam()) {
@@ -91,9 +78,25 @@ public class StateMove implements IGameState {
 			return false;
 		}		
 
+		if (!s.getInRange()) return false;
+		
 		return true;
 		
 	}
 
-
+	private boolean isWinCondition(ActionController a, Square s){
+		if (s.getTeamTower() != null) {
+			// if the player's own piece lands on the opponent tower base square
+			if (a.getActivePiece().getTeam() != s.getTeamTower()) {
+				// it is a win
+				DialogView.getInstance().showInformation
+						("Team " + a.getActivePiece().getTeam() + " win!");
+				a.handleEndGameUI();
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
 }
