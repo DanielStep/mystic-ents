@@ -162,7 +162,7 @@ public class AIController {
 	}
 	
 	private ArrayList<Piece> getActivePieces(ArrayList<Piece> piecesList) {
-		ArrayList<Piece> aP = new ArrayList<Piece>(getActivePieces(piecesList));
+		ArrayList<Piece> aP = new ArrayList<Piece>();
 		for (Piece p : piecesList) {
 			if (p.getInPlay() && p.getTeam() == _ac.getGameController().getCurrentTeam()) {
 				aP.add(p);
