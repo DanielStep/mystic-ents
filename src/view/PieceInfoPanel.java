@@ -55,7 +55,7 @@ public class PieceInfoPanel extends JPanel{
 	 */
 	public void resetPieceInformation() {	
 		for(int i=0; i< tArray.length; i++) {
-			tArray[i].setText("-");
+			tArray[i].setText("");
 			tArray[i].setBackground(Color.WHITE);
 		}
 	}

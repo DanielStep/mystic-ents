@@ -20,6 +20,8 @@ public class BoardData extends Observable implements Serializable {
 	private static BoardData instance;
 
 	private Team currentTeam = null;
+	
+	private boolean isWithAI = false;
 
 	private BoardData() {
 	}
@@ -39,6 +41,14 @@ public class BoardData extends Observable implements Serializable {
 		return boardArray;
 	}
 
+	public void setIsWithAI(boolean isWithAI) {
+		this.isWithAI = isWithAI;
+	}
+
+	public boolean getIsWithAI() {
+		return isWithAI;
+	}
+
 	public void setCurrentTeam(Team team) {
 		this.currentTeam = team;
 	}
@@ -46,7 +56,7 @@ public class BoardData extends Observable implements Serializable {
 	public Team getCurrentTeam() {
 		return currentTeam;
 	}
-
+	
 	public void doCellsUpdate() {
 		setChanged();
 		notifyObservers();
