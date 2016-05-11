@@ -45,32 +45,34 @@ public class AIController {
 	}
 	
 	public void handleGameTurn(Team ct) {
-		Piece p = getNextPiece();	
-		_ac.startAction(_ac, p.getParentSquare());
-		//This will eventually be populated on boarddata redraw - rather than iterating twice
-		ArrayList<Square> rangeList = new ArrayList<Square>(_ac.getGameController().getRangeList());
-		
-		System.out.println("AI PIECE USURPER: " + p.getIsUsurper());
-		
-		Square ts;
-		ArrayList<Square> sqrs = new ArrayList<Square>();
-		
-		/**
-		 * These need to be added polymorphically from Piece type
-		 * Need to ask how to send back class type as 'target'
-		 * 
-		 */
-		
-		if (p.getIsUsurper()) {			
-			sqrs = getOpponentTowers(p);
-		} else {
-			sqrs = getOpponentPieces(p);
-			SelectNextAction(p);
-		}		
-		if (sqrs.size() == 0) _ac.endAction(_ac, p.getParentSquare());
-		
-		ts = getNextSquare(sqrs, rangeList);
-		_ac.endAction(_ac, ts);
+		Piece p = getNextPiece();
+		if (p != null) {			
+			_ac.startAction(_ac, p.getParentSquare());
+			//This will eventually be populated on boarddata redraw - rather than iterating twice
+			ArrayList<Square> rangeList = new ArrayList<Square>(_ac.getGameController().getRangeList());
+			
+			System.out.println("AI PIECE USURPER: " + p.getIsUsurper());
+			
+			Square ts;
+			ArrayList<Square> sqrs = new ArrayList<Square>();
+			
+			/**
+			 * These need to be added polymorphically from Piece type
+			 * Need to ask how to send back class type as 'target'
+			 * 
+			 */
+			
+			if (p.getIsUsurper()) {			
+				sqrs = getOpponentTowers(p);
+			} else {
+				sqrs = getOpponentPieces(p);
+				SelectNextAction(p);
+			}		
+			if (sqrs.size() == 0) _ac.endAction(_ac, p.getParentSquare());
+			
+			ts = getNextSquare(sqrs, rangeList);
+			_ac.endAction(_ac, ts);
+		}
 	}
 	
 	private void SelectNextAction(Piece p) {
@@ -150,15 +152,23 @@ public class AIController {
 	 * @return Piece
 	 */
 	private Piece getNextPiece() {
-		ArrayList<Piece> aP = new ArrayList<Piece>();
+		ArrayList<Piece> aP = new ArrayList<Piece>(getActivePieces(piecesList));
+		if (aP.size() > 0) {
+			int rI = rN.nextInt(aP.size());
+			Piece rP = aP.get(rI);
+			return rP;		
+		}
+		return null;
+	}
+	
+	private ArrayList<Piece> getActivePieces(ArrayList<Piece> piecesList) {
+		ArrayList<Piece> aP = new ArrayList<Piece>(getActivePieces(piecesList));
 		for (Piece p : piecesList) {
 			if (p.getInPlay() && p.getTeam() == _ac.getGameController().getCurrentTeam()) {
 				aP.add(p);
 			}
 		}
-		int rI = rN.nextInt(aP.size());
-		Piece rP = aP.get(rI);
-		return rP;
+		return aP;
 	}
 
 	private ArrayList<Square> getOpponentTowers(Piece p) {
