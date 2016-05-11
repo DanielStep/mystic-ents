@@ -8,14 +8,16 @@ import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
 import model.state.StateAttack;
+import utils.GameConfig;
 import utils.GameUtils;
 
 /**
- * GHame AI
+ * This is the main class which handles AI Team movement
+ * It is coupled only with the ActionController and GameUtils Singletons.
+ * Allows ActionController take orders from this class and send to State Machine.
+ * Besides the methods required to inform decision making, no extra game functionality has been added 
  * 
- * Game AI --- need to add notes...
- *
- * @author mark
+ * @author Mark
  *
  */
 
@@ -28,7 +30,6 @@ public class AIController {
 	private GameUtils gameUtils;
 	private ActionController _ac;
 	
-	private Boolean pAttack = false;
 	private Random rN = new Random();
 	
 	public AIController() {
@@ -44,40 +45,89 @@ public class AIController {
 	}
 	
 	public void handleGameTurn(Team ct) {
-		Piece p = getNextPiece();
-		pAttack = false;
+		Piece p = getNextPiece();	
 		_ac.startAction(_ac, p.getParentSquare());
-
-		SelectNextAction(p);
+		//This will eventually be populated on boarddata redraw - rather than iterating twice
+		ArrayList<Square> rangeList = new ArrayList<Square>(_ac.getGameController().getRangeList());
 		
-		Square t = getOpponentTower();
-		//Square v = getOpponentPiece();
+		System.out.println("AI PIECE USURPER: " + p.getIsUsurper());
 		
-		Square s = getNextSquare(t);
-		_ac.endAction(_ac, s);		
+		Square ts;
+		ArrayList<Square> sqrs = new ArrayList<Square>();
+		
+		/**
+		 * These need to be added polymorphically from Piece type
+		 * Need to ask how to send back class type as 'target'
+		 * 
+		 */
+		
+		if (p.getIsUsurper()) {			
+			sqrs = getOpponentTowers(p);
+		} else {
+			sqrs = getOpponentPieces(p);
+			SelectNextAction(p);
+		}		
+		if (sqrs.size() == 0) _ac.endAction(_ac, p.getParentSquare());
+		
+		ts = getNextSquare(sqrs, rangeList);
+		_ac.endAction(_ac, ts);
 	}
 	
 	private void SelectNextAction(Piece p) {
 		float chance = rN.nextFloat();
-		if (chance < 0.50f) {
+		if (chance < 0.80f) {
 		    return;
-		} else if (chance < 0.80f) {
-			_ac.changeState(StateAttack.getInstance(_ac));
 		} else {
 			_ac.setActionButton(3);
 		}
 	}	
 	
-	private Square getNextSquare(Square t) {
-		ArrayList<Square> rangeList = new ArrayList<Square>(_ac.getGameController().getRangeList());
-		ArrayList<Integer> distanceList = new ArrayList<Integer>();
-		for (Square r : rangeList) {
-			distanceList.add(getDistance(r, t));
-		}		
-		int minIndex = distanceList.indexOf(Collections.min(distanceList));
-		return rangeList.get(minIndex);
-	}	
+	/** 
+	 * Select a square from those currently in range 
+	 * Piece will prioritize according to type
+	 * 
+	 * @author Mark
+	 * 
+	 * @param sqrs
+	 * The assigned target squares
+	 * based on the Piece's preference - e.g. Usurper should head for enemy Tower.
+	 * 
+	 * @param rangeList
+	 * Is re-populated on every startAction State.
+	 * Only squares which are in range may be selected as targets.
+	 * 
+	 * @return
+	 * Returns move square based on selection criteria
+	 * 
+	 */
+	private Square getNextSquare(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {		
+		Square s = getClosestInRange(sqrs, rangeList);
+		return s;
+	}
+	
+	private Square getClosestInRange(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {
+		Square cSquare = null;
+		int shortestDistance = GameConfig.getROW_COL()*2;
+		for (Square o : sqrs) {
+			for (Square r : rangeList) {
+				int d = getDistance(r, o);
+				if (d < shortestDistance) {
+					cSquare = r;
+					shortestDistance = d;
+				}
+			}
+		}
+		return cSquare;
+	}
 
+	/** 
+	 * Standard Euclidian Distance method
+	 * Returns the (integer) distance between two points
+	 * 
+	 * @author Mark
+	 * 
+	 * @return Piece
+	 */
 	private int getDistance(Square a, Square t) {
 		int dx = Math.abs(t.getID()[0] - a.getID()[0]);
 	    int dy = Math.abs(t.getID()[1] - a.getID()[1]);
@@ -89,6 +139,15 @@ public class AIController {
 	    return (int) Math.abs(r);		
 	}
 	
+	/**
+	 * 
+	 * Randomly select next piece from list
+	 * Could be refined by some logic
+	 * 
+	 * @author Mark
+	 * 
+	 * @return Piece
+	 */
 	private Piece getNextPiece() {
 		ArrayList<Piece> aP = new ArrayList<Piece>();
 		for (Piece p : piecesList) {
@@ -101,13 +160,23 @@ public class AIController {
 		return rP;
 	}
 
-	private Square getOpponentTower() {
+	private ArrayList<Square> getOpponentTowers(Piece p) {
+		ArrayList<Square> sqrs = new ArrayList<Square>();
 		for (Square s : towersList) {
-			if (s.getTeamTower() != _ac.getGameController().getCurrentTeam()) {
-				return s;
+			if (s.getTeamTower() != p.getTeam()) {
+				sqrs.add(s);
 			}
 		}
-		return null;
+		return sqrs;
+	}	
+	private ArrayList<Square> getOpponentPieces(Piece p) {
+		ArrayList<Square> sqrs = new ArrayList<Square>();
+		for (Piece s : piecesList) {
+			if (p.getTeam() != s.getTeam()) {
+				sqrs.add(s.getParentSquare());
+			}
+		}
+		return sqrs;
 	}	
 	
 	public Boolean checkAIStatus(Team ct) {

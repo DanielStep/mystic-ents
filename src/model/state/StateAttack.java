@@ -3,6 +3,7 @@ package model.state;
 import controller.ActionController;
 import model.board.BoardMemento;
 import model.board.Square;
+import view.DialogView;
 
 public class StateAttack implements IGameState {
 
@@ -26,6 +27,7 @@ public class StateAttack implements IGameState {
 		a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
 		
 		a.getActivePiece().attackOut(s.getOccupant());
+		DialogView.getInstance().showInformation(a.getActivePiece().getTeam() + " attacked " + s.getOccupant().getTeam());
 		int targetHealthValue = s.getOccupant().getTraitSet().getHealthTrait().getTraitValue();
 		if(targetHealthValue < 1){
 			s.getOccupant().setInPlay(false);

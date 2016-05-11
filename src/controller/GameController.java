@@ -167,6 +167,9 @@ public class GameController implements Observer {
 		gamePiecesList = GameUtils.getInstance().getGamePieces(gameBoard.getBoardData().getBoardArray());
 	}
 	
+	
+	//These are unnecessary - should be populated during creation process - will fix
+	//They are just here for testing
 	public ArrayList <Square> getTowerList() {		
 		ArrayList<Square> tl = new ArrayList <Square>();
 		tl = GameUtils.getInstance().getTowerList(gameBoard.getBoardData().getBoardArray());
