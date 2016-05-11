@@ -39,9 +39,9 @@ public class AIController {
 		towersList = _ac.getGameController().getTowerList();
 		updateTeamList();
 		
-		if (teamList.get(0).toString() == "BLUE") {
-			teamList.get(0).setAI(true);
-		}
+		teamList.get(0).setAI(true);
+		//teamList.get(1).setAI(true);
+
 	}
 	
 	public void handleGameTurn(Team ct) {
@@ -76,6 +76,7 @@ public class AIController {
 	private void SelectNextAction(Piece p) {
 		float chance = rN.nextFloat();
 		if (chance < 0.80f) {
+			_ac.setActionButton(1);
 		    return;
 		} else {
 			_ac.setActionButton(3);

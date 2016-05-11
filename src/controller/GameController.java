@@ -88,6 +88,7 @@ public class GameController implements Observer {
 		controlPanel.doUIUpdate(gameTurn);
 		
 		//AI Turn
+		//Set modulus turn count to slow AI down?
 		if (aiTurn) {
 			gameAI.handleGameTurn(currentTeam);
 		}		
