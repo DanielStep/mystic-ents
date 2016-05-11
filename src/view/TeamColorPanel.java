@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import model.piece.Team;
 import utils.GameConfig;
 
 /**

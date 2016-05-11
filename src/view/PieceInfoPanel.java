@@ -27,7 +27,7 @@ public class PieceInfoPanel extends JPanel{
 		super();		
 		
 		JPanel pnContainer = new JPanel(new GridLayout(4, 1));
-		pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-20));
+		pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-40));
 		pnContainer.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		
 		TitledBorder titled = new TitledBorder("Selected piece");
@@ -36,7 +36,7 @@ public class PieceInfoPanel extends JPanel{
 		for(int i=0; i< tArray.length; i++) {			
 			tArray[i] = new JTextField();
 			tArray[i].setHorizontalAlignment(JTextField.CENTER);		
-			tArray[i].setPreferredSize(new Dimension(GameConfig.getControlsWidth()-60, 20));
+			tArray[i].setPreferredSize(new Dimension(GameConfig.getControlsWidth()-60, 15));
 			tArray[i].setEditable(false);
 			tArray[i].setBackground(Color.WHITE);
 			tArray[i].setForeground(Color.WHITE);

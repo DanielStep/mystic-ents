@@ -29,6 +29,7 @@ public class GameControls extends JPanel{
 	private EndTurnPanel pnEndTurn;
 	private UndoPanel pnUndo;
 	private SaveGamePanel pnSaveGame;
+	private MoveInfoPanel pnMoveInfo;
 
 	private BoardUtils boardUtils;
 	
@@ -59,7 +60,11 @@ public class GameControls extends JPanel{
 	    this.add(pnSaveGame);
 	    
 	    pnEndTurn = new EndTurnPanel();
-	    this.add(pnEndTurn);	    
+	    this.add(pnEndTurn);
+	    
+	    pnMoveInfo = MoveInfoPanel.getInstance();
+	    this.add(pnMoveInfo);
+	    
 	}
 	
 	public void doUIEndTurn() {
@@ -107,6 +112,14 @@ public class GameControls extends JPanel{
 	public PieceInfoPanel getPieceInfoPanel() {
 		return pnPieceInfo;
 	}	
+
+	public MoveInfoPanel getPnMoveInfo() {
+		return pnMoveInfo;
+	}
+	
+	public void setPnMoveInfo(MoveInfoPanel pnMoveInfo) {
+		this.pnMoveInfo = pnMoveInfo;
+	}
 	
 	public void setPieceCount(int count) {
 		// update available pieces for the current team 
