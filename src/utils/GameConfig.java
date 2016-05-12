@@ -16,7 +16,7 @@ public class GameConfig {
 	private static final int CONTROLS_WIDTH = 180;
     
     //BOARD
-	private static final int DEFAULT_WIDTH = 800;
+	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
 		
 	//MAP
