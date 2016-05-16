@@ -164,7 +164,7 @@ public class GameController implements Observer {
 	private Team setCurrentTeam() {
 		Team team = gameBoard.getBoardData().getCurrentTeam();
 		team = team == null ? Team.values()[0] : team;		
-		controlPanel.setCurrentTeam(team);
+		controlPanel.setCurrentTeam(team);		
 		return team;
 	}
 
