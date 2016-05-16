@@ -26,7 +26,7 @@ public class TimePanel extends JPanel{
 		
 	    tfTime = new JTextField();
 	    tfTime.setHorizontalAlignment(JTextField.CENTER);
-	    tfTime.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 40));
+	    tfTime.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 25));
 	    tfTime.setText("...");
 	    tfTime.setEditable(false);
 	    tfTime.setBackground(Color.WHITE);

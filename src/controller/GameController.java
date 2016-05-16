@@ -48,8 +48,7 @@ public class GameController implements Observer {
 	}
 
 	public void newGame(boolean isWithAI) {
-		gameBoard.init();
-		
+		gameBoard.init();		
 		continueGame(isWithAI);
 	}
 	
@@ -58,8 +57,7 @@ public class GameController implements Observer {
 		gameBoard.getBoardFrame().setVisible(true);
 		collectGamePieces();
 		setControlObjects();
-		currentTeam = setCurrentTeam();
-		
+		currentTeam = setCurrentTeam();		
 		startGame(isWithAI);
 	}
 	

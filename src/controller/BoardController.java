@@ -52,7 +52,7 @@ public class BoardController implements Observer {
 		System.out.println("Building board...");
 		boardFrame.pack();
 		boardFrame.getBoardPanel().setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
-		boardFrame.getBoardPanel().buildStartBoard(boardData.getBoardArray());
+		boardFrame.getBoardPanel().buildFullBoard(boardData.getBoardArray());
 	}
 
 	public void clearRangeCells() {
@@ -108,8 +108,9 @@ public class BoardController implements Observer {
 				boardMemento = BoardCareTaker.getInstance().getMemento();
 				boardData.undoFromMemento(boardMemento);
 			}
-			boardData.doCellsUpdate();
+			boardFrame.getBoardPanel().buildFullBoard(boardData.getBoardArray());
 			clearRangeCells();
+			boardData.doCellsUpdate();
 			return true;
 		}
 		return false;

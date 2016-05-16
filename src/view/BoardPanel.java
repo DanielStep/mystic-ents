@@ -18,7 +18,7 @@ import utils.GameConfig;
  */
 public class BoardPanel extends JPanel {
 	
-	SquareView[][] squareViewArray;// = new SquareView[GameConfig.getROW_COL()][GameConfig.getROW_COL()];
+	SquareView[][] squareViewArray;
 
 	public BoardPanel() {
 		super();
@@ -38,15 +38,19 @@ public class BoardPanel extends JPanel {
 		}		
 	}
 	
-	public void buildStartBoard(Square[][] board) {
+	public void buildFullBoard(Square[][] board) {
+		this.removeAll();
+		ArrayList <Square> rangeList = new ArrayList <Square>();
 		squareViewArray = new SquareView[board.length][board.length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				SquareView sqr = new SquareView(board[i][j]);
 				squareViewArray[i][j] = sqr;
+				rangeList.add(sqr.getSqrObj());
 				this.add(sqr);
 			}
-		}	
+		}
+		BoardUtils.getInstance().setRangeList(rangeList);
 	}
 	
 	public void refreshBoard(Square[][] boardData) {
