@@ -10,131 +10,65 @@ import model.piece.Piece;
 public class BoardUtils {
 
 	private static BoardUtils instance;
-	
-	private RangeChecker checker = new RangeChecker();
-	
-	private BoardUtils(){}
-	
+	private ArrayList<Square> rangeList = new ArrayList<Square>();
+
+	private BoardUtils() {
+	}
+
 	public static synchronized BoardUtils getInstance() {
 		if (instance == null) {
 			instance = new BoardUtils();
 		}
 		return instance;
 	}
-	
+
 	public Square[][] getRangeCells(int x, int y, Square[][] boardData) {
 
-		boardData = clearRangeCells(boardData);
-
-		/*if (pce.getSkillSet().getCurrentSkill().getName() == "range") {	
-			//pce.getSkillSet().getCurrentSkill(). //applyModifier(pce);		
-		};*/		
-		
-
-		Piece pce = boardData[x][y].getOccupant();		
+		Piece pce = boardData[x][y].getOccupant();
 		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
+		int bSize = (GameConfig.getROW_COL());
 
-		checker.setBoardData(boardData);
-		checker.setRange(range);
-		checker.setX(x);
-		checker.setY(y);
-		boardData = checker.gatherCheckSquaresByRange();
+		rangeList.clear();
+		rangeList.add(boardData[x][y]);
+		for (int i = (x - range > -1 ? x - range : 0); i < (x + (range + 1) < bSize ? x + (range + 1) : bSize); i++) {
+			for (int j = (y - range > -1 ? y - range : 0); j < (y + (range + 1) < bSize ? y + (range + 1)
+					: bSize); j++) {
+				boardData[i][j].setInRange(checkRangeCriteria(boardData[i][j]));
+				rangeList.add(boardData[i][j]);
+			}
+		}
+
 		return boardData;
 	}
-	
+
+	private Boolean checkRangeCriteria(Square check) {
+		Boolean setRange = true;
+		if (!check.getAccessible()) {
+			setRange = false;
+		}
+		return setRange;
+	}
+
 	public Square[][] clearRangeCells(Square[][] boardData) {
 		Square[][] updateData = boardData;
-		for(int i = 0; i < updateData.length; i++) {
-			for(int j = 0; j < updateData.length; j++) {
-				updateData[i][j].setInRange(false);
-			}
+		ArrayList<Square> rangeList = new ArrayList<Square>(getRangeList());
+		for (int i = 0; i < rangeList.size(); i++) {
+			updateData[rangeList.get(i).getID()[0]][rangeList.get(i).getID()[1]].setInRange(false);
 		}
 		return updateData;
 	}
-	
-	class RangeChecker {
-		
-		private int x;
-		private int y;
-		private Square[][] boardData;
-		private int range;
-		private ArrayList <Square> rangeList = new ArrayList <Square>();
 
-		public Square[][] gatherCheckSquaresByRange() {
-			ArrayList<Square> getSquares = new ArrayList<Square>();
-			int crange = 0-range;
-			for(int h = (x-range); h < (x+(range+1)); h++) {
-				for(int i = x-crange; i < x+(crange+1); i++) {
-					for(int j = y-crange; j < y+(crange+1); j++) {
-						if (i > -1 && j > -1 && i < this.boardData.length && j < this.boardData.length) {
-							boardData[i][j].setInRange(checkRangeCriteria(boardData[i][j]));
-							rangeList.add(boardData[i][j]);
-						}
-					}
-				}			
-				crange++;			
-			}
-			return boardData;			
-		}
-
-		private Boolean checkRangeCriteria(Square check) {			
-			Boolean setRange = true;
-			if (check.getOccupant() != null) {
-				if (check.getOccupant().getTeam() == boardData[x][y].getOccupant().getTeam() ) {
-					setRange = false;
-				}			
-			}			
-			if (!check.getAccessible()) {
-				setRange =  false;
-			}			
-			return setRange;
-		}		
-		
-		public ArrayList<Square> getRangeList() {
-			return rangeList;
-		}
-		
-		public void setRangeList(ArrayList<Square> rangeList) {
-			rangeList = rangeList;
-		}
-		public int getX() {
-			return x;
-		}
-		public void setX(int x) {
-			this.x = x;
-		}
-		public int getY() {
-			return y;
-		}
-		public void setY(int y) {
-			this.y = y;
-		}
-		public int getRange() {
-			return range;
-		}
-		public void setRange(int range) {
-			this.range = range;
-		}
-		public Square[][] getBoardData() {
-			return boardData;
-		}
-		public void setBoardData(Square[][] boardData) {
-			this.boardData = boardData;
-		}
-		
-	}  
-	
 	/**
-	* Converts a given string into a color.
-	* 
-	* @param value
-	* 	the team name corresponding to a color.	
-	* @param dft
-	* 	is sent as a fallback (default) if the parsing fails.
-	* @return the color.
-	*/
+	 * Converts a given string into a color.
+	 * 
+	 * @param value
+	 *            the team name corresponding to a color.
+	 * @param dft
+	 *            is sent as a fallback (default) if the parsing fails.
+	 * @return the color.
+	 */
 	public Color stringToColor(final String value, Color dft) {
-		//null value is handled by returning default; 
+		// null value is handled by returning default;
 		if (value == null) {
 			return dft;
 		}
@@ -147,5 +81,13 @@ public class BoardUtils {
 			return dft;
 		}
 	}
-	
+
+	public ArrayList<Square> getRangeList() {
+		return rangeList;
+	}
+
+	public void setRangeList(ArrayList<Square> r) {
+		rangeList = r;
+	}
+
 }

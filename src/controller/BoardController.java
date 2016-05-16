@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -51,6 +52,7 @@ public class BoardController implements Observer {
 		System.out.println("Building board...");
 		boardFrame.pack();
 		boardFrame.getBoardPanel().setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
+		boardFrame.getBoardPanel().buildStartBoard(boardData.getBoardArray());
 	}
 
 	public void clearRangeCells() {
@@ -59,8 +61,8 @@ public class BoardController implements Observer {
 	}
 
 	public void getRangeCells(Square origin) {
-		boardData.setBoardArray(
-				boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
+		clearRangeCells();
+		boardData.setBoardArray(boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
 		updateBoard();
 	}
 
@@ -73,11 +75,7 @@ public class BoardController implements Observer {
 		Square[][] data = ((BoardData) o).getBoardArray();
 		if (data == null)
 			return;
-		// System.out.println("Updating Board...");
 		boardFrame.getBoardPanel().refreshBoard(data);
-
-		// set game piece list to board data for save file
-
 	}
 
 	public BoardData getBoardData() {

@@ -95,9 +95,11 @@ public class GameController implements Observer {
 		controlPanel.doUIUpdate(gameTurn);
 		
 		//AI Turn
-		//Set modulus turn count to slow AI down?
+		//Modulus turn count to slow AI down
 		if (aiTurn) {
-			gameAI.handleGameTurn(currentTeam);
+			if (gameTurn.getGameTimer() % 2 == 0) {
+				gameAI.handleGameTurn(currentTeam);				
+			}
 		}		
 		
 		// when time is up
@@ -114,8 +116,9 @@ public class GameController implements Observer {
 	 * 
 	 */		
 	private void handleEndTurn() {
-		//reset action counter
+		//reset ActionController
 		ActionController.getInstance().resetActionCount();
+		ActionController.getInstance().setActivePiece(null);
 		// set game turn count;
 		gameTimer.setCount(gameTimer.getCount()+1);
 		//Reset Board
@@ -177,10 +180,7 @@ public class GameController implements Observer {
 	private void collectGamePieces() {		
 		gamePiecesList = GameUtils.getInstance().getGamePieces(gameBoard.getBoardData().getBoardArray());
 	}
-	
-	
-	//These are unnecessary - should be populated during creation process - will fix
-	//They are just here for testing
+
 	public ArrayList <Square> getTowerList() {		
 		ArrayList<Square> tl = new ArrayList <Square>();
 		tl = GameUtils.getInstance().getTowerList(gameBoard.getBoardData().getBoardArray());

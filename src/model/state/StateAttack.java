@@ -30,7 +30,7 @@ public class StateAttack implements IGameState {
 		a.getGameController().setMessage(a.getActivePiece().getTeam() + " attacked " + s.getOccupant().getTeam());
 
 		int targetHealthValue = s.getOccupant().getTraitSet().getHealthTrait().getTraitValue();
-		if(targetHealthValue < 1){
+		if ( targetHealthValue < 1) {
 			s.getOccupant().setInPlay(false);
 			s.setOccupant(null);
 			a.getBoardController().getBoardData().doCellsUpdate();
@@ -41,7 +41,6 @@ public class StateAttack implements IGameState {
 	@Override
 	public void endAction(ActionController a, Square s) {
 		a.setActivePiece(null);
-		a.getBoardController().clearRangeCells();
 		updateAction(a);
 	}
 
@@ -49,6 +48,7 @@ public class StateAttack implements IGameState {
 	public void updateAction(ActionController a) {
 		System.out.println("End attack");
 		a.changeState(StateMove.getInstance(a));
+		a.getBoardController().clearRangeCells();
 		a.checkActionCount();
 	}
 

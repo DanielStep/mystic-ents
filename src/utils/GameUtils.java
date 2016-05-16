@@ -7,11 +7,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import controller.ActionController;
 import model.board.BoardData;
 import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
-
+import model.state.StateAttack;
+import model.state.StatePerformSkill;
 import view.DialogView;
 
 public class GameUtils {
@@ -48,6 +50,44 @@ public class GameUtils {
 			System.out.println("File map errors: " + e.getMessage());
 		}
 		return maps;
+	}
+	
+	public Boolean checkBasicGameRules(ActionController a, Square s) {
+		
+		if (a.getActionButton() == (Integer) 3) {
+			a.changeState(StatePerformSkill.getInstance(a));
+			return false;			
+		}
+		if (s.getOccupant() == null) return true;		
+		//Swap piece so restart this State
+		if (a.getActivePiece().getTeam() == s.getOccupant().getTeam()) {
+			a.setActivePiece(s.getOccupant());
+			return false;
+		}		
+		//Attack piece so change State
+		if (a.getActivePiece().getTeam() != s.getOccupant().getTeam()) {
+			a.changeState(StateAttack.getInstance(a));
+			return false;
+		}
+		
+		return true;
+		
+	}
+
+	public boolean isWinCondition(ActionController a, Square s){
+		if (s.getTeamTower() != null) {
+			// if the player's own Usurper piece lands on the opponent tower
+			if (a.getActivePiece().getIsUsurper() &&
+				a.getActivePiece().getTeam() != s.getTeamTower()) {
+				// it is a win
+				a.handleEndGameUI();
+				DialogView.getInstance().showInformation("Team " + a.getActivePiece().getTeam() + " win!");
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public ArrayList <Piece> getGamePieces(Square[][] data) {		

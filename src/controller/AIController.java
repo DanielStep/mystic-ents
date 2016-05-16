@@ -47,34 +47,25 @@ public class AIController {
 	public void handleGameTurn(Team ct) {
 		Piece p = getNextPiece();
 		if (p != null) {			
+			//System.out.println("      AI PIECE : " + p);
 			_ac.startAction(_ac, p.getParentSquare());
-			//This will eventually be populated on boarddata redraw - rather than iterating twice
-			ArrayList<Square> rangeList = new ArrayList<Square>(_ac.getGameController().getRangeList());
-			
-			System.out.println("AI PIECE USURPER: " + p.getIsUsurper());
-			
 			Square ts;
 			ArrayList<Square> sqrs = new ArrayList<Square>();
-			
-			/**
-			 * These need to be added polymorphically from Piece type
-			 * Need to ask how to send back class type as 'target'
-			 * 
-			 */
-			
+			ArrayList<Square> rangeList = new ArrayList<Square>(_ac.getGameController().getRangeList());
 			if (p.getIsUsurper()) {			
 				sqrs = getOpponentTowers(p);
 			} else {
 				sqrs = getOpponentPieces(p);
 				SelectNextAction(p);
-			}		
-			if (sqrs.size() == 0) _ac.endAction(_ac, p.getParentSquare());
-			
+			}
+			if (sqrs.size() == 0) {
+				_ac.endAction(_ac, p.getParentSquare());
+			}
 			ts = getNextSquare(sqrs, rangeList);
 			_ac.endAction(_ac, ts);
 		}
 	}
-	
+
 	private void SelectNextAction(Piece p) {
 		float chance = rN.nextFloat();
 		if (chance < 0.80f) {
@@ -107,6 +98,11 @@ public class AIController {
 		Square s = getClosestInRange(sqrs, rangeList);
 		return s;
 	}
+	
+	private Square getRandomSquare(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {		
+		Square s = getClosestInRange(sqrs, rangeList);
+		return s;
+	}	
 	
 	private Square getClosestInRange(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {
 		Square cSquare = null;

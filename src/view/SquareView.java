@@ -23,7 +23,6 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		this.setSqrObj(o);
 		this.setLayout(new BorderLayout());
 		this.setBorder(new LineBorder(new Color(212, 212, 212), 1));
-		this.setBackground(getBackgroundColor(o));
 
 		/*
 		 * Extensibility of MVC decoupling of Square model with View We are
@@ -33,10 +32,15 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		 */
 
 		_ac = ActionController.getInstance();
-
+		buildView(o);
+		addMouseListener(this);		
+	}
+	
+	public void buildView(Square o) {
+		this.removeAll();
+		this.setBackground(Color.WHITE);
+		this.setBackground(getBackgroundColor(o));
 		addTeamPiece(o);
-		addMouseListener(this);
-		
 	}
 
 	private void addTeamPiece(Square o) {

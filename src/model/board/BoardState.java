@@ -20,8 +20,7 @@ public class BoardState {
 	public void init() {
 		boardGenerator = new BoardGenerator();
 		boardGenerator.loadMapData();
-		boardData.setBoardArray(boardGenerator.processMapData());
-		
+		boardData.setBoardArray(boardGenerator.processMapData());		
 		boardData.doCellsUpdate();
 	}
 	

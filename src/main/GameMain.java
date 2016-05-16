@@ -1,5 +1,8 @@
 package main;
 
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import controller.*;
 
 public class GameMain {
@@ -20,7 +23,7 @@ public class GameMain {
 		pieceActionController.setBoardController(boardController);
 		gameController.setBoardController(boardController);
 		System.out.println("All Controllers constructed");
-				
+
 	}
 	
 	

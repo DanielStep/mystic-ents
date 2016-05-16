@@ -31,17 +31,15 @@ public class StatePerformSkill implements IGameState {
 			((IPerformSquareSkill) currentSkill).performSkill(a.getActiveSquare(), s);
 		}
 		a.getGameController().setMessage(currentSkill.getSkillMessage());
-		//System.out.println("MESSAGE: " + currentSkill.getSkillMessage());
 		endAction(a, s);
 	}
 
 	@Override
 	public void endAction(ActionController a, Square s) {
-		a.getBoardController().clearRangeCells();
-		a.getBoardController().getRangeCells(a.getActiveSquare());
-		a.getBoardController().getBoardData().doCellsUpdate();		
-		a.getGameController().updatePieceInformation(a.getActivePiece());
 		System.out.println("End Perform Skill.");
+		a.getBoardController().getRangeCells(a.getActiveSquare());
+		a.getBoardController().getBoardData().doCellsUpdate();
+		a.getGameController().updatePieceInformation(a.getActivePiece());
 		updateAction(a);
 	}
 
