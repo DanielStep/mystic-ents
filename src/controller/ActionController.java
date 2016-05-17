@@ -14,8 +14,8 @@ import model.state.IGameState;
 import model.state.StateMove;
 
 import view.BoardPanel;
-import view.GameControls;
 import view.DialogView;
+import view.MediatorView;
 import view.SquareView;
 
 /**
@@ -88,8 +88,21 @@ public class ActionController {
 		this.gameState = gameState;
 	}
 	
-	public void showDialog(MouseEvent e, String msg) {
-		DialogView.getInstance().showInformation(msg, e.getXOnScreen(), e.getYOnScreen());
+	public void handleEndGameUI(){
+		// disable board game interactions
+		BoardPanel boardPanel = boardController.getBoardFrame().getBoardPanel();
+		for (Component com : boardPanel.getComponents()) {
+			if (com instanceof SquareView) {
+				SquareView sv = (SquareView)com;
+				sv.removeMouseListener(sv);
+			}
+		}
+		
+		// disable timer
+		gameController.getGameTurn().stop();
+		
+		// disable buttons in control panel
+		gameController.getUiMediator().disableAllButtons();
 	}
 	
 	/**
@@ -119,24 +132,6 @@ public class ActionController {
 	public void resetTraitValuesToBase(){
 		activePiece.getTraitSet().getDamageTrait().setTraitValueToBase();
 		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
-	}
-	
-	public void handleEndGameUI(){
-		// disable board game interactions
-		BoardPanel boardPanel = boardController.getBoardFrame().getBoardPanel();
-		for (Component com : boardPanel.getComponents()) {
-			if (com instanceof SquareView) {
-				SquareView sv = (SquareView)com;
-				sv.removeMouseListener(sv);
-			}
-		}
-		
-		// disable timer
-		gameController.getGameTurn().stop();
-		
-		// disable buttons in control panel
-		GameControls controlPanel = boardController.getBoardFrame().getControlPanel();
-		controlPanel.disableAllButtons();
 	}
 	
 	private void clearActivePieceRange() {

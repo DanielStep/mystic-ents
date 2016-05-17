@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import controller.BoardController;
+import controller.UIMediator;
 
 /**
  * A component of ControlPanel: undo a certain number of moves for both players
@@ -27,7 +28,7 @@ public class UndoPanel extends JPanel {
 
 	private BoardController boardController;
 
-	public UndoPanel(BoardController boardController) {
+	public UndoPanel() {
 		// TODO Auto-generated constructor stub
 		super();
 
@@ -61,8 +62,6 @@ public class UndoPanel extends JPanel {
 
 		this.add(pnMain);
 
-		// FOR undo
-		this.boardController = boardController;
 	}
 
 	public JButton getUndoButton() {
@@ -75,6 +74,11 @@ public class UndoPanel extends JPanel {
 		System.out.println("Undo " + cbNumberOfTurns.getSelectedItem().toString() + " moves");
 
 		int undoTimes = Integer.parseInt(cbNumberOfTurns.getSelectedItem().toString());
+		
+		// FOR undo
+		if (this.boardController != null) {
+			this.boardController = UIMediator.getInstance().getBoardController();
+		}
 		if (!boardController.undo(undoTimes)) {
 			DialogView.getInstance().showInformation("Undo move number invalid.");
 		}

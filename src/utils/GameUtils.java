@@ -90,7 +90,7 @@ public class GameUtils {
 		return true;
 	}
 	
-	public ArrayList <Piece> getGamePieces(Square[][] data) {		
+	public ArrayList <Piece> getGamePieces(Square[][] data) {
 		ArrayList <Piece> p = new ArrayList <Piece>();
 		for (int i=0; i<data.length; i++) {
 			for (int j=0; j<data[i].length; j++) {
@@ -106,18 +106,6 @@ public class GameUtils {
 		for (int i=0; i<data.length; i++) {
 			for (int j=0; j<data[i].length; j++) {
 				if (data[i][j].getTeamTower() != null) {
-					s.add(data[i][j]);
-				}				
-			}
-		}
-		return s;
-	}
-	
-	public ArrayList <Square> getRangeList(Square[][] data) {		
-		ArrayList <Square> s = new ArrayList <Square>();
-		for (int i=0; i<data.length; i++) {
-			for (int j=0; j<data[i].length; j++) {
-				if (data[i][j].getInRange()) {
 					s.add(data[i][j]);
 				}				
 			}
@@ -181,7 +169,7 @@ public class GameUtils {
 	        oos.close();
 	        fileOut.close();
 	        return true;
-	    } catch(Exception e) {	    	
+	    } catch(Exception e) {
 	        System.out.println("Error saving game: " + e.getMessage());
 	        e.printStackTrace();
 	        return false;

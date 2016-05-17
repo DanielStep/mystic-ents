@@ -37,7 +37,6 @@ public class BoardUtils {
 				rangeList.add(boardData[i][j]);
 			}
 		}
-
 		return boardData;
 	}
 
@@ -58,6 +57,18 @@ public class BoardUtils {
 		return updateData;
 	}
 
+	public ArrayList <Square> getRangeList(Square[][] data) {		
+		ArrayList <Square> s = new ArrayList <Square>();
+		for (int i=0; i<data.length; i++) {
+			for (int j=0; j<data[i].length; j++) {
+				if (data[i][j].getInRange()) {
+					s.add(data[i][j]);
+				}				
+			}
+		}
+		return s;
+	}	
+	
 	/**
 	 * Converts a given string into a color.
 	 * 

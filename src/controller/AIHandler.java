@@ -21,7 +21,7 @@ import utils.GameUtils;
  *
  */
 
-public class AIController {
+public class AIHandler {
 	
 	private ArrayList <Team> teamList;
 	private ArrayList <Piece> piecesList;
@@ -32,7 +32,7 @@ public class AIController {
 	
 	private Random rN = new Random();
 	
-	public AIController() {
+	public AIHandler() {
 		_ac = ActionController.getInstance();
 		gameUtils = GameUtils.getInstance();
 		piecesList = _ac.getGameController().getGamePiecesList();
@@ -148,6 +148,9 @@ public class AIController {
 	 * 
 	 * @return Piece
 	 */
+	
+	
+	
 	private Piece getNextPiece() {
 		ArrayList<Piece> aP = new ArrayList<Piece>(getActivePieces(piecesList));
 		if (aP.size() > 0) {
