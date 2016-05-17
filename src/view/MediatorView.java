@@ -24,17 +24,6 @@ import utils.GameConfig;
  */
 public class MediatorView extends JPanel {
 	
-	private int panelWidth;
-	
-	private TimePanel pnTime;
-	private TeamColorPanel pnTeamColor;
-	private AvailablePiecePanel pnAvailablePiece;
-	private PieceInfoPanel pnPieceInfo;
-	private EndTurnPanel pnEndTurn;
-	private UndoPanel pnUndo;
-	private SaveGamePanel pnSaveGame;
-	private MoveInfoPanel pnMoveInfo;
-	
 	public MediatorView() {
 		
 		super();		

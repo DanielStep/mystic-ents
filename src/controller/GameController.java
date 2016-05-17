@@ -171,7 +171,7 @@ public class GameController implements Observer {
 	
 	private Team setCurrentTeam() {
 		Team team = boardController.getBoardData().getCurrentTeam();
-		team = team == null ? Team.values()[0] : team;		
+		team = team == null ? Team.values()[0] : team;
 		uiMediator.setCurrentTeam(team);
 		return team;
 	}

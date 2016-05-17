@@ -62,7 +62,8 @@ public class BoardController implements Observer {
 
 	public void getRangeCells(Square origin) {
 		clearRangeCells();
-		boardData.setBoardArray(boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
+		boardData.setBoardArray(
+				boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
 		updateBoard();
 	}
 
@@ -108,6 +109,7 @@ public class BoardController implements Observer {
 				boardMemento = BoardCareTaker.getInstance().getMemento();
 				boardData.undoFromMemento(boardMemento);
 			}
+			boardData.getCurrentTeam().decreaseUndoNum();
 			boardFrame.getBoardPanel().buildFullBoard(boardData.getBoardArray());
 			clearRangeCells();
 			boardData.doCellsUpdate();
