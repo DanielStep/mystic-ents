@@ -40,7 +40,8 @@ public class AIController {
 		updateTeamList();
 		
 		teamList.get(0).setAI(true);
-		teamList.get(1).setAI(true);
+		teamList.get(1).setAI(false);
+		//teamList.get(2).setAI(true);
 
 	}
 	
