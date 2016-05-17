@@ -1,10 +1,6 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.MouseEvent;
-
-import javax.swing.border.LineBorder;
 
 import model.board.BoardCareTaker;
 import model.board.BoardMemento;
@@ -15,8 +11,6 @@ import model.state.StateMove;
 
 import view.BoardPanel;
 import view.SquareView;
-import view.mediator.DialogView;
-import view.mediator.MediatorView;
 
 /**
  * This is main handler for selecting pieces and controlling their moves

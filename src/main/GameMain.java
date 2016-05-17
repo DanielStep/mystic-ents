@@ -17,14 +17,13 @@ public class GameMain {
 		//INSTANTIATE ALL CONTROLLERS 
 		boardController = new BoardController();
 		pieceActionController = ActionController.getInstance();
-		uiMediator = UIMediator.getInstance();
 		gameController = new GameController();		
 		
 		//Assign Controllers 
 		pieceActionController.setGameController(gameController);
 		pieceActionController.setBoardController(boardController);
 		gameController.setBoardController(boardController);
-		uiMediator.setBoardController(boardController);
+		
 		System.out.println("All Controllers constructed");
 
 	}

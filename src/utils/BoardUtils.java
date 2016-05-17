@@ -27,7 +27,7 @@ public class BoardUtils {
 		Piece pce = boardData[x][y].getOccupant();
 		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
 		int bSize = (GameConfig.getROW_COL());
-
+		
 		rangeList.clear();
 		rangeList.add(boardData[x][y]);
 		for (int i = (x - range > -1 ? x - range : 0); i < (x + (range + 1) < bSize ? x + (range + 1) : bSize); i++) {

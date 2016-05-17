@@ -52,22 +52,29 @@ public class GameUtils {
 		return maps;
 	}
 	
-	public Boolean checkBasicGameRules(ActionController a, Square s) {
+	public Boolean checkMoveRules(ActionController a, Square s) {
 		
+		//Perform skill. Change State, restart;
 		if (a.getActionButton() == (Integer) 3) {
 			a.changeState(StatePerformSkill.getInstance(a));
-			return false;			
+			return false;
 		}
-		if (s.getOccupant() == null) return true;		
-		//Swap piece so restart this State
-		if (a.getActivePiece().getTeam() == s.getOccupant().getTeam()) {
-			a.setActivePiece(s.getOccupant());
-			return false;
-		}		
-		//Attack piece so change State
-		if (a.getActivePiece().getTeam() != s.getOccupant().getTeam()) {
-			a.changeState(StateAttack.getInstance(a));
-			return false;
+
+		if (s.getOccupant() == null) {
+			if  (s.getInRange()) {
+				return true;		
+			}
+		} else {
+			//Swap piece so restart this State
+			if (a.getActivePiece().getTeam() == s.getOccupant().getTeam()) {
+				a.setActivePiece(s.getOccupant());
+				return false;
+			}		
+			//Attack piece so change State
+			if (a.getActivePiece().getTeam() != s.getOccupant().getTeam() && s.getInRange()) {
+				a.changeState(StateAttack.getInstance(a));
+				return false;
+			}			
 		}
 		
 		return true;
@@ -101,17 +108,30 @@ public class GameUtils {
 		}
 		return p;
 	}
+	
 	public ArrayList <Square> getTowerList(Square[][] data) {		
 		ArrayList <Square> s = new ArrayList <Square>();
 		for (int i=0; i<data.length; i++) {
 			for (int j=0; j<data[i].length; j++) {
 				if (data[i][j].getTeamTower() != null) {
 					s.add(data[i][j]);
-				}				
+				}
 			}
 		}
 		return s;
 	}	
+	
+	public ArrayList<Piece> getActivePieces(ArrayList<Piece> piecesList, Team team) {
+		ArrayList<Piece> aP = new ArrayList<Piece>();
+		for (Piece p : piecesList) {
+			
+			if (p.getInPlay() && p.getTeam() == team) {
+				aP.add(p);
+			}
+			
+		}
+		return aP;
+	}
 	
 	public int getAvailablePieceCount(ArrayList<Piece> pieceList, Team currentTeam) {
 		int count = 0;

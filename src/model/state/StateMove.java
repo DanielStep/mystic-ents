@@ -32,8 +32,8 @@ public class StateMove implements IGameState {
 	public void endAction(ActionController a, Square s) {
 		// check the game win condition
 		if (!GameUtils.getInstance().isWinCondition(a, s)) return;
-		if (!s.getInRange()) return;
-		if (GameUtils.getInstance().checkBasicGameRules(a, s)) {
+		if (GameUtils.getInstance().checkMoveRules(a, s)) {
+			if (!s.getInRange()) return;
 			System.out.println("End move");
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
 			s.setOccupant(a.getActivePiece());

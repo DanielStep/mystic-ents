@@ -33,7 +33,7 @@ public class GameController implements Observer {
 	private BoardController boardController;
 	private ActionController actionController;
 	private AIHandler gameAI;
-	private Boolean aiTurn = false;
+	private Boolean isAITurn = false;
 
 	//UI
 	private UIMediator uiMediator;
@@ -58,8 +58,9 @@ public class GameController implements Observer {
 	public void continueGame(boolean isWithAI) {
 		boardController.buildBoard();
 		boardController.getBoardFrame().setVisible(true);
+		uiMediator.setBoardController(boardController);
 		collectGamePieces();
-		currentTeam = setCurrentTeam();		
+		currentTeam = loadCurrentTeam();
 		startGame(isWithAI);
 	}
 	
@@ -77,7 +78,7 @@ public class GameController implements Observer {
 	private void buildAI() {
 		gameAI = new AIHandler();
 		//Check AI Status
-		aiTurn = checkAIStatus();
+		isAITurn = checkAIStatus();
 	}
 
 	/**
@@ -97,7 +98,7 @@ public class GameController implements Observer {
 		
 		//AI Turn
 		//Modulus turn count to slow AI down
-		if (aiTurn) {
+		if (isAITurn) {
 			if (gameTurn.getGameTimer() % 2 == 0) {
 				gameAI.handleGameTurn(currentTeam);				
 			}
@@ -141,7 +142,7 @@ public class GameController implements Observer {
 		
 		//Check AI Status
 		if (gameAI != null) {
-			aiTurn = checkAIStatus();
+			isAITurn = checkAIStatus();
 		}
 		
 	}
@@ -169,13 +170,12 @@ public class GameController implements Observer {
 		return gameAI.checkAIStatus(currentTeam);
 	}
 	
-	private Team setCurrentTeam() {
+	private Team loadCurrentTeam() {
 		Team team = boardController.getBoardData().getCurrentTeam();
 		team = team == null ? Team.values()[0] : team;
 		uiMediator.setCurrentTeam(team);
 		return team;
-	}
-	
+	}	
 
 	private int getAvailablePieceCount() {		
 		return GameUtils.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
@@ -252,10 +252,10 @@ public class GameController implements Observer {
 	}	
 	
 	public Boolean getAiTurn() {
-		return aiTurn;
+		return isAITurn;
 	}
 
 	public void setAiTurn(Boolean aiTurn) {
-		this.aiTurn = aiTurn;
+		this.isAITurn = aiTurn;
 	}
 }
