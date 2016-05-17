@@ -14,7 +14,7 @@ import model.piece.Piece;
 import model.piece.Team;
 import model.state.StateAttack;
 import model.state.StatePerformSkill;
-import view.DialogView;
+import view.mediator.DialogView;
 
 public class GameUtils {
 	

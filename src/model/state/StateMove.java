@@ -4,7 +4,7 @@ import controller.ActionController;
 import model.board.BoardMemento;
 import model.board.Square;
 import utils.GameUtils;
-import view.DialogView;
+import view.mediator.DialogView;
 
 public class StateMove implements IGameState {
 	

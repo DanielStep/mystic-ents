@@ -11,9 +11,9 @@ import model.piece.Piece;
 import model.piece.Team;
 import utils.BoardUtils;
 import utils.GameUtils;
-import view.DialogView;
 import view.MainMenuFrame;
-import view.MediatorView;
+import view.mediator.DialogView;
+import view.mediator.MediatorView;
 
 /**
  * Responsible for turn handling

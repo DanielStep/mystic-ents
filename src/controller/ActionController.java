@@ -14,9 +14,9 @@ import model.state.IGameState;
 import model.state.StateMove;
 
 import view.BoardPanel;
-import view.DialogView;
-import view.MediatorView;
 import view.SquareView;
+import view.mediator.DialogView;
+import view.mediator.MediatorView;
 
 /**
  * This is main handler for selecting pieces and controlling their moves

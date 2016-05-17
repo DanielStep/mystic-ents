@@ -1,20 +1,11 @@
-package view;
+package view.mediator;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import controller.BoardController;
 import controller.UIMediator;
 
-import model.game.GameTurn;
-import model.piece.Piece;
-import model.piece.Team;
-import utils.BoardUtils;
 import utils.GameConfig;
 /**
  * Display board game info: timer, team color in play, remaining pieces
@@ -37,7 +28,7 @@ public class MediatorView extends JPanel {
 		UndoPanel pnUndo = new UndoPanel();
 		SaveGamePanel pnSaveGame = new SaveGamePanel();
 		EndTurnPanel pnEndTurn = new EndTurnPanel();
-		MoveInfoPanel pnMoveInfo = MoveInfoPanel.getInstance();	    
+		MoveInfoPanel pnMoveInfo = MoveInfoPanel.getInstance();
 	    
 	    this.add(pnTime);
 	    this.add(pnTeamColor);
@@ -55,7 +46,7 @@ public class MediatorView extends JPanel {
 	    		pnSaveGame,
 	    		pnEndTurn,
 	    		pnMoveInfo
-	            );	    
+	    );	    
 	    
 	}
 	

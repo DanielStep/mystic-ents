@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import model.piece.Piece;
 import utils.GameConfig;
-import view.DialogView;
+import view.mediator.DialogView;
 
 /**
  * Class that increases the piece's range trait by constant multiplier

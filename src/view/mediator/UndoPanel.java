@@ -1,4 +1,4 @@
-package view;
+package view.mediator;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -76,10 +76,10 @@ public class UndoPanel extends JPanel {
 		int undoTimes = Integer.parseInt(cbNumberOfTurns.getSelectedItem().toString());
 		
 		// FOR undo
-		if (this.boardController != null) {
+		/*if (this.boardController == null) {
 			this.boardController = UIMediator.getInstance().getBoardController();
-		}
-		if (!boardController.undo(undoTimes)) {
+		}*/
+		if (!UIMediator.getInstance().getBoardController().undo(undoTimes)) {
 			DialogView.getInstance().showInformation("Undo move number invalid.");
 		}
 

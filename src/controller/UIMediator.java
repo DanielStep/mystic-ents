@@ -3,22 +3,19 @@ package controller;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JComponent;
-import javax.swing.JTextField;
-
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
 import utils.BoardUtils;
-import view.AvailablePiecePanel;
-import view.DialogView;
-import view.EndTurnPanel;
-import view.MoveInfoPanel;
-import view.PieceInfoPanel;
-import view.SaveGamePanel;
-import view.TeamColorPanel;
-import view.TimePanel;
-import view.UndoPanel;
+
+import view.mediator.DialogView;
+import view.mediator.EndTurnPanel;
+import view.mediator.MoveInfoPanel;
+import view.mediator.PieceInfoPanel;
+import view.mediator.SaveGamePanel;
+import view.mediator.TeamColorPanel;
+import view.mediator.TimePanel;
+import view.mediator.UndoPanel;
 
 public class UIMediator {
 	
@@ -57,7 +54,13 @@ public class UIMediator {
 			
 	)
 	{
-
+		
+		/**
+		 * Just a question:
+		 * Wouldn't it be better if we used getters and setters for this kind of thing?
+		 * The example was done this way, but it feels really unwieldy.
+		 * 
+		 */
 		this.pnTime = pnTime;
 		this.pnTeamColor = pnTeamColor;
 		this.pnPieceInfo = pnPieceInfo;

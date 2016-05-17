@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import controller.BoardController;
 import utils.GameConfig;
+import view.mediator.MediatorView;
 
 /**
  * Outer container of the board.
