@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import controller.BoardController;
 import utils.GameConfig;
+import view.mediator.MediatorView;
 
 /**
  * Outer container of the board.
@@ -21,7 +22,7 @@ public class BoardFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	/** Draws the shape. */
 	private BoardPanel gamePanel;
-	private GameControls controlPanel;
+	private MediatorView controlView;
 
 	public BoardFrame(BoardController boardController) {
 		super(GameConfig.GAME_TITLE);
@@ -38,12 +39,10 @@ public class BoardFrame extends JFrame {
 		Container c = this.getContentPane();
 		c.setBackground(Color.YELLOW);
 
-		int totalGameWidth = GameConfig.getDefaultWidth() + GameConfig.getControlsWidth();
-
 		// adjust size using Dimension.
-		c.setPreferredSize(new Dimension(totalGameWidth, GameConfig.getDefaultHeight()));
-		// resize the panel so objects fit in.
-		// pack();
+		c.setPreferredSize(new Dimension(GameConfig.getDefaultWidth() + GameConfig.getControlsWidth(), GameConfig.getDefaultHeight()));
+		
+		// standard JFrame startup...
 		this.setResizable(false);
 		this.setVisible(false);
 	}
@@ -55,20 +54,16 @@ public class BoardFrame extends JFrame {
 		gamePanel = new BoardPanel();
 		this.add(gamePanel, BorderLayout.CENTER);
 
-		controlPanel = new GameControls(boardController);
-		this.add(controlPanel, BorderLayout.EAST);
+		controlView = new MediatorView();
+		this.add(controlView, BorderLayout.EAST);
 	}
 
 	public BoardPanel getBoardPanel() {
 		return gamePanel;
 	}
 
-	public GameControls getControlPanel() {
-		return controlPanel;
-	}
-
-	public void refreshBoard(Object[][] data) {
-		// gamePanel.refreshBoard(data);
+	public MediatorView getControlView() {
+		return controlView;
 	}
 
 }

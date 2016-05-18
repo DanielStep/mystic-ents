@@ -94,9 +94,10 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 		}
 		
 		//Check team
-		if (this.sqrObj.getOccupant() != null && _ac.getActivePiece() == null) {
+		if (_ac.getActivePiece() == null && this.sqrObj.getOccupant() != null) {
 			if (this.sqrObj.getOccupant().getTeam() != _ac.getGameController().getCurrentTeam()) {
-				_ac.showDialog(arg0, "It is Team " + _ac.getGameController().getCurrentTeam() + "'s turn!");
+				String msg = "It is Team " + _ac.getGameController().getCurrentTeam() + "'s turn!";
+				_ac.getGameController().getUiMediator().showDialog(arg0, msg);
 				return;
 			}
 		}

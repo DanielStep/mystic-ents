@@ -3,7 +3,7 @@ package model.state;
 import controller.ActionController;
 import model.board.BoardMemento;
 import model.board.Square;
-import view.DialogView;
+import view.mediator.DialogView;
 
 public class StateAttack implements IGameState {
 

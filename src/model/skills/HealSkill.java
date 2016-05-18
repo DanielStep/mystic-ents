@@ -6,7 +6,7 @@ import java.io.Serializable;
 import model.board.Square;
 import model.piece.Piece;
 import utils.GameConfig;
-import view.DialogView;
+import view.mediator.DialogView;
 
 /**
  * Class contains logic to increase the value of health trait of another piece of the same team by constant

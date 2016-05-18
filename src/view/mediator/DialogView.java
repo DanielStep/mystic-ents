@@ -1,4 +1,4 @@
-package view;
+package view.mediator;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;

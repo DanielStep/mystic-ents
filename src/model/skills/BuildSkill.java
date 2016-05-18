@@ -3,7 +3,7 @@ package model.skills;
 import java.io.Serializable;
 
 import model.board.Square;
-import view.DialogView;
+import view.mediator.DialogView;
 
 /**
  * Toggle square accessibility

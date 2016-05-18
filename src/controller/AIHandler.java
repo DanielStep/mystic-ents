@@ -1,13 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
-import model.state.StateAttack;
 import utils.GameConfig;
 import utils.GameUtils;
 
@@ -21,7 +19,7 @@ import utils.GameUtils;
  *
  */
 
-public class AIController {
+public class AIHandler {
 	
 	private ArrayList <Team> teamList;
 	private ArrayList <Piece> piecesList;
@@ -29,14 +27,16 @@ public class AIController {
 	
 	private GameUtils gameUtils;
 	private ActionController _ac;
+	private GameController _gc;
 	
 	private Random rN = new Random();
 	
-	public AIController() {
+	public AIHandler() {
 		_ac = ActionController.getInstance();
+		_gc = _ac.getGameController();
 		gameUtils = GameUtils.getInstance();
-		piecesList = _ac.getGameController().getGamePiecesList();
-		towersList = _ac.getGameController().getTowerList();
+		piecesList = _gc.getGamePiecesList();
+		towersList = _gc.getTowerList();
 		updateTeamList();
 		
 		teamList.get(0).setAI(true);
@@ -52,7 +52,7 @@ public class AIController {
 			_ac.startAction(_ac, p.getParentSquare());
 			Square ts;
 			ArrayList<Square> sqrs = new ArrayList<Square>();
-			ArrayList<Square> rangeList = new ArrayList<Square>(_ac.getGameController().getRangeList());
+			ArrayList<Square> rangeList = new ArrayList<Square>(_gc.getRangeList());
 			if (p.getIsUsurper()) {			
 				sqrs = getOpponentTowers(p);
 			} else {
@@ -66,6 +66,27 @@ public class AIController {
 			_ac.endAction(_ac, ts);
 		}
 	}
+	
+	public ArrayList<Square> getOpponentTowers(Piece p) {
+		ArrayList<Square> sqrs = new ArrayList<Square>();
+		for (Square s : towersList) {
+			if (p.getTeam() != s.getTeamTower()) {
+				sqrs.add(s);
+			}
+		}
+		return sqrs;
+	}
+	
+	public ArrayList<Square> getOpponentPieces(Piece p) {
+		ArrayList<Square> sqrs = new ArrayList<Square>();
+		for (Piece s : piecesList) {
+			if (p.getTeam() != s.getTeam()) {
+				sqrs.add(s.getParentSquare());
+			}
+		}
+		return sqrs;
+	}	
+	
 
 	private void SelectNextAction(Piece p) {
 		float chance = rN.nextFloat();
@@ -99,12 +120,7 @@ public class AIController {
 		Square s = getClosestInRange(sqrs, rangeList);
 		return s;
 	}
-	
-	private Square getRandomSquare(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {		
-		Square s = getClosestInRange(sqrs, rangeList);
-		return s;
-	}	
-	
+
 	private Square getClosestInRange(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {
 		Square cSquare = null;
 		int shortestDistance = GameConfig.getROW_COL()*2;
@@ -148,8 +164,10 @@ public class AIController {
 	 * 
 	 * @return Piece
 	 */
+	
 	private Piece getNextPiece() {
-		ArrayList<Piece> aP = new ArrayList<Piece>(getActivePieces(piecesList));
+		ArrayList<Piece> aP = new ArrayList<Piece>();
+		aP = gameUtils.getActivePieces(piecesList, _gc.getCurrentTeam());
 		if (aP.size() > 0) {
 			int rI = rN.nextInt(aP.size());
 			Piece rP = aP.get(rI);
@@ -157,35 +175,6 @@ public class AIController {
 		}
 		return null;
 	}
-	
-	private ArrayList<Piece> getActivePieces(ArrayList<Piece> piecesList) {
-		ArrayList<Piece> aP = new ArrayList<Piece>();
-		for (Piece p : piecesList) {
-			if (p.getInPlay() && p.getTeam() == _ac.getGameController().getCurrentTeam()) {
-				aP.add(p);
-			}
-		}
-		return aP;
-	}
-
-	private ArrayList<Square> getOpponentTowers(Piece p) {
-		ArrayList<Square> sqrs = new ArrayList<Square>();
-		for (Square s : towersList) {
-			if (s.getTeamTower() != p.getTeam()) {
-				sqrs.add(s);
-			}
-		}
-		return sqrs;
-	}	
-	private ArrayList<Square> getOpponentPieces(Piece p) {
-		ArrayList<Square> sqrs = new ArrayList<Square>();
-		for (Piece s : piecesList) {
-			if (p.getTeam() != s.getTeam()) {
-				sqrs.add(s.getParentSquare());
-			}
-		}
-		return sqrs;
-	}	
 	
 	public Boolean checkAIStatus(Team ct) {
 		updateTeamList();

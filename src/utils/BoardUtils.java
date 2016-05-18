@@ -27,7 +27,7 @@ public class BoardUtils {
 		Piece pce = boardData[x][y].getOccupant();
 		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
 		int bSize = (GameConfig.getROW_COL());
-
+		
 		rangeList.clear();
 		rangeList.add(boardData[x][y]);
 		for (int i = (x - range > -1 ? x - range : 0); i < (x + (range + 1) < bSize ? x + (range + 1) : bSize); i++) {
@@ -37,7 +37,6 @@ public class BoardUtils {
 				rangeList.add(boardData[i][j]);
 			}
 		}
-
 		return boardData;
 	}
 
@@ -58,6 +57,18 @@ public class BoardUtils {
 		return updateData;
 	}
 
+	public ArrayList <Square> getRangeList(Square[][] data) {		
+		ArrayList <Square> s = new ArrayList <Square>();
+		for (int i=0; i<data.length; i++) {
+			for (int j=0; j<data[i].length; j++) {
+				if (data[i][j].getInRange()) {
+					s.add(data[i][j]);
+				}				
+			}
+		}
+		return s;
+	}	
+	
 	/**
 	 * Converts a given string into a color.
 	 * 

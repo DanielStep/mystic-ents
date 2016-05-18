@@ -5,7 +5,7 @@ import java.io.Serializable;
 import model.board.Square;
 import model.piece.Piece;
 import utils.GameConfig;
-import view.DialogView;
+import view.mediator.DialogView;
 /**
  * Class that increases damage of piece's attack action
  * @author Daniel

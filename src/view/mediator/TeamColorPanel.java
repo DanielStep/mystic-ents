@@ -1,4 +1,4 @@
-package view;
+package view.mediator;
 
 import java.awt.Color;
 import java.awt.Dimension;
