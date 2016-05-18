@@ -12,31 +12,30 @@ import model.traits.RangeTrait;
 import model.traits.Trait;
 
 public class SkillFactory extends AbstractFactory {
-	
-	
+
 	@Override
-	public Trait makeTrait(String traitType){
+	public Trait makeTrait(String traitType) {
 		return null;
 	}
-	
+
 	@Override
-	public Skill makeSkill(String skillType){
-		
-		if(skillType == null){
+	public Skill makeSkill(String skillType) {
+
+		if (skillType == null) {
 			return null;
 		}
-		
-		if(skillType.equalsIgnoreCase("ATTACK")){
+
+		if (skillType.equalsIgnoreCase("ATTACK")) {
 			return new AttackSkill();
-		}else if(skillType.equalsIgnoreCase("RANGE")){
+		} else if (skillType.equalsIgnoreCase("RANGE")) {
 			return new RangeSkill();
-		}else if(skillType.equalsIgnoreCase("BUILD")){
+		} else if (skillType.equalsIgnoreCase("BUILD")) {
 			return new BuildSkill();
-		}else if(skillType.equalsIgnoreCase("HEAL")){
+		} else if (skillType.equalsIgnoreCase("HEAL")) {
 			return new HealSkill();
 		}
-		
-		return null;	
+
+		return null;
 	}
 
 }
