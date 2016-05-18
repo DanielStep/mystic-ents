@@ -1,10 +1,7 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
-
-import javax.swing.border.LineBorder;
 
 import model.board.BoardCareTaker;
 import model.board.BoardMemento;
@@ -12,10 +9,9 @@ import model.board.Square;
 import model.piece.Piece;
 import model.state.IGameState;
 import model.state.StateMove;
-
 import view.BoardPanel;
-import view.GameControls;
 import view.DialogView;
+import view.GameControls;
 import view.SquareView;
 
 /**
@@ -127,7 +123,7 @@ public class ActionController {
 		for (Component com : boardPanel.getComponents()) {
 			if (com instanceof SquareView) {
 				SquareView sv = (SquareView)com;
-				sv.removeMouseListener(sv);
+				sv.removeMouseListener(sv);	
 			}
 		}
 		
