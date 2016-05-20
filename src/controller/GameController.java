@@ -150,11 +150,18 @@ public class GameController implements Observer {
 	
 	public Boolean loadGame(){
 		BoardData data = GameUtils.getInstance().loadGame();
-		if (GameUtils.getInstance().loadGame() != null) {
+		if (data != null) {
 			boardController.getBoardData().setIsWithAI(data.getIsWithAI());
 			boardController.getBoardData().setCurrentTeam(data.getCurrentTeam());
 			boardController.getBoardData().setBoardArray(data.getBoardArray());
 			boardController.getBoardData().doCellsUpdate();
+			
+			for (Team t : data.getTeamUndo().keySet()) {
+				Boolean isUndo = data.getTeamUndo().get(t);
+				boardController.getBoardData().setTeamUndo(t, isUndo);
+			}
+			if(uiMediator != null) uiMediator.checkUndoButton();
+			
 			return true;
 		} else {
 			DialogView.getInstance().showInformation("Save game not found!");

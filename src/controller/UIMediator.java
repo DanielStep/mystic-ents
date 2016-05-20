@@ -3,11 +3,10 @@ package controller;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
+import model.board.BoardData;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
-import utils.BoardUtils;
-
 import view.mediator.DialogView;
 import view.mediator.EndTurnPanel;
 import view.mediator.MoveInfoPanel;
@@ -75,6 +74,11 @@ public class UIMediator {
 			DialogView.getInstance().showInformation("Undo move number invalid.");
 		} else {
 			checkUndoButton();
+			
+			// set undo value in save game for the team who used undo feature
+			BoardData data = boardController.getBoardData();
+			Team t = data.getCurrentTeam();
+			data.setTeamUndo(t, Boolean.valueOf(true));
 		}
 	}	
 	
@@ -99,7 +103,16 @@ public class UIMediator {
 	// each team has only one chance to undo
 	public void checkUndoButton(){
 		Team t = boardController.getBoardData().getCurrentTeam();
-		pnUndo.getUndoButton().setEnabled((t.getUndoNum() == 0) ? false : true);
+		Boolean isUndo = boardController.getBoardData().getTeamUndo().get(t);
+		// enable/disable undo button
+		if (isUndo != null) {
+			// if this is a continue game
+			pnUndo.getUndoButton().setEnabled(!isUndo.booleanValue());
+		} else {
+			// else, check the allowed undo number
+			pnUndo.getUndoButton().setEnabled((t.getUndoNum() == 0) ? false : true);
+		}
+		
 	}
 	
 	public void disableAllButtons() {
