@@ -62,29 +62,14 @@ public class BoardData extends Observable implements Serializable {
 		notifyObservers();
 	}
 
-	public void undoFromMemento(BoardMemento boardMemento) {
-		this.boardArray[boardMemento.getToSquare().getID()[0]][boardMemento.getToSquare().getID()[1]] = boardMemento
-				.getToSquare();
-		this.boardArray[boardMemento.getFromSquare().getID()[0]][boardMemento.getFromSquare().getID()[1]] = boardMemento
-				.getFromSquare();
-		this.print();
-	}
-
 	// For debugging
 	public void print() {
-		for (int i = 0; i < GameConfig.getROW_COL(); i++) {
+		/*for (int i = 0; i < GameConfig.getROW_COL(); i++) {
 			for (int j = 0; j < GameConfig.getROW_COL(); j++) {
 				System.out.print(boardArray[i][j] + " ");
 			}
 			System.out.println();
-		}
-	}
-
-	public void resetPieceTraitValueToBase(ArrayList<Piece> pieceList) {
-		for (int i = 0; i < pieceList.size(); i++) {
-			pieceList.get(i).getTraitSet().getDamageTrait().setTraitValueToBase();
-			pieceList.get(i).getTraitSet().getRangeTrait().setTraitValueToBase();
-		}
+		}*/
 	}
 
 }

@@ -37,7 +37,6 @@ public class GameUtils {
 		ArrayList<String> maps = new ArrayList<>();
 		try {
 			File f = new File("./src/model/maps/"); // maps directory
-
 			File[] files = f.listFiles();
 			for (File file : files) {
 				String fullPath = file.getCanonicalPath();
@@ -53,13 +52,11 @@ public class GameUtils {
 	}
 	
 	public Boolean checkMoveRules(ActionController a, Square s) {
-		
 		//Perform skill. Change State, restart;
 		if (a.getActionButton() == (Integer) 3) {
 			a.changeState(StatePerformSkill.getInstance(a));
 			return false;
 		}
-
 		if (s.getOccupant() == null) {
 			if  (s.getInRange()) {
 				return true;		
@@ -75,12 +72,10 @@ public class GameUtils {
 				a.changeState(StateAttack.getInstance(a));
 				return false;
 			}			
-		}
-		
+		}		
 		return true;
-		
 	}
-
+	
 	public boolean isWinCondition(ActionController a, Square s){
 		if (s.getTeamTower() != null) {
 			// if the player's own Usurper piece lands on the opponent tower
@@ -123,12 +118,10 @@ public class GameUtils {
 	
 	public ArrayList<Piece> getActivePieces(ArrayList<Piece> piecesList, Team team) {
 		ArrayList<Piece> aP = new ArrayList<Piece>();
-		for (Piece p : piecesList) {
-			
+		for (Piece p : piecesList) {			
 			if (p.getInPlay() && p.getTeam() == team) {
 				aP.add(p);
-			}
-			
+			}			
 		}
 		return aP;
 	}
@@ -158,6 +151,13 @@ public class GameUtils {
 			}
 		}
 		return tList;
+	}
+	
+	public void resetPieceTraitValueToBase(ArrayList<Piece> pieceList) {
+		for (int i = 0; i < pieceList.size(); i++) {
+			pieceList.get(i).getTraitSet().getDamageTrait().setTraitValueToBase();
+			pieceList.get(i).getTraitSet().getRangeTrait().setTraitValueToBase();
+		}
 	}
 	
 	public ArrayList<Team> getTeamList(ArrayList<Piece> pieceList) {

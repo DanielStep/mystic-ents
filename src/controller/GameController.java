@@ -118,24 +118,25 @@ public class GameController implements Observer {
 	 * 
 	 */		
 	private void handleEndTurn() {
-		//reset ActionController
-		actionController.resetActionCount();
-		actionController.setActivePiece(null);
 		
 		//Change teams
 		currentTeam = changeTeams();		
 		boardController.getBoardData().setCurrentTeam(currentTeam);
 		
-		//Clear Board
-		boardController.clearRangeCells();
-		
-		//Reset TraitValues of all pieces on board to base value
-		boardController.getBoardData().resetPieceTraitValueToBase(gamePiecesList);		
-		
 		//Update UI
 		uiMediator.setCurrentTeam(currentTeam);
 		uiMediator.setPieceCount(getAvailablePieceCount());
 		uiMediator.doUIEndTurn();
+		
+		//Clear Board
+		boardController.clearRangeCells();
+		
+		//Reset TraitValues of all pieces on board to base value
+		GameUtils.getInstance().resetPieceTraitValueToBase(gamePiecesList);		
+		
+		//reset ActionController
+		actionController.resetActionCount();
+		actionController.setActivePiece(null);
 
 		// set game turn count;
 		gameTimer.setCount(gameTimer.getCount()+1);

@@ -29,6 +29,7 @@ public class StateAttack implements IGameState {
 		a.getActivePiece().attackOut(s.getOccupant());
 		a.getGameController().setMessage(a.getActivePiece().getTeam() + " attacked " + s.getOccupant().getTeam());
 
+		//move to gameutils
 		int targetHealthValue = s.getOccupant().getTraitSet().getHealthTrait().getTraitValue();
 		if ( targetHealthValue < 1) {
 			s.getOccupant().setInPlay(false);

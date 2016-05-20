@@ -10,7 +10,6 @@ public class GameMain {
 	static GameController gameController;
 	static BoardController boardController;
 	static ActionController pieceActionController;	
-	static UIMediator uiMediator;	
 
 	public static void main(String[] args) {
 

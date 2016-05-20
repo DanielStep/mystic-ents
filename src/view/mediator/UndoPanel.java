@@ -49,7 +49,7 @@ public class UndoPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				doUndo();
+				UIMediator.getInstance().doUndo(cbNumberOfTurns.getSelectedItem());
 			}
 		});
 
@@ -68,20 +68,4 @@ public class UndoPanel extends JPanel {
 		return btUndo;
 	}
 
-	private void doUndo() {
-
-		// TODO undo method here
-		System.out.println("Undo " + cbNumberOfTurns.getSelectedItem().toString() + " moves");
-
-		int undoTimes = Integer.parseInt(cbNumberOfTurns.getSelectedItem().toString());
-		
-		// FOR undo
-		/*if (this.boardController == null) {
-			this.boardController = UIMediator.getInstance().getBoardController();
-		}*/
-		if (!UIMediator.getInstance().getBoardController().undo(undoTimes)) {
-			DialogView.getInstance().showInformation("Undo move number invalid.");
-		}
-
-	}
 }
