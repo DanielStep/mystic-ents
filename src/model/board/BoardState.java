@@ -1,5 +1,7 @@
 package model.board;
 
+import utils.BoardGenerator;
+
 /**
  * BoardState manages the creation of BoardData
  * Contains the generator, squares, pieces, 

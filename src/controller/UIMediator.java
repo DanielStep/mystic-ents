@@ -19,7 +19,6 @@ import view.mediator.UndoPanel;
 
 public class UIMediator {
 	
-	private BoardUtils boardUtils;
 	private BoardController boardController;
 	private DialogView dialogView;
 	
@@ -50,8 +49,7 @@ public class UIMediator {
 			UndoPanel pnUndo,
 			SaveGamePanel pnSaveGame,
 			EndTurnPanel pnEndTurn,
-			MoveInfoPanel pnMoveInfo
-			
+			MoveInfoPanel pnMoveInfo			
 	)
 	{
 		
@@ -67,12 +65,16 @@ public class UIMediator {
 		this.pnUndo = pnUndo;
 		this.pnSaveGame = pnSaveGame;
 		this.pnEndTurn = pnEndTurn;
-		this.pnMoveInfo = pnMoveInfo;
-		
-		dialogView  = DialogView.getInstance();	      
-		boardUtils = BoardUtils.getInstance();
+		this.pnMoveInfo = pnMoveInfo;		
+		this.dialogView  = DialogView.getInstance();
 
 	}
+	
+	public void doUndo(Object o) {
+		if (!boardController.undo(Integer.parseInt(o.toString()))) {
+			DialogView.getInstance().showInformation("Undo move number invalid.");
+		}
+	}	
 	
 	public void doUIEndTurn() {
 		//reset the Piece info panel on switch team.

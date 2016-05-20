@@ -18,8 +18,6 @@ import utils.GameConfig;
  */
 public class BoardPanel extends JPanel {
 	
-	SquareView[][] squareViewArray;
-
 	public BoardPanel() {
 		super();
 		this.setPreferredSize(new Dimension(GameConfig.getDefaultWidth(), GameConfig.getDefaultHeight()));
@@ -33,24 +31,12 @@ public class BoardPanel extends JPanel {
 	private void updateBoard(Square[][] board) {
 		ArrayList <Square> rangeList = new ArrayList <Square>();
 		rangeList = BoardUtils.getInstance().getRangeList();
-		for(int i = 0; i < rangeList.size(); i++) {
-			squareViewArray[ rangeList.get(i).getID()[0] ][ rangeList.get(i).getID()[1] ].buildView(rangeList.get(i));
-		}		
+		BoardUtils.getInstance().updateBoard();
 	}
 	
 	public void buildFullBoard(Square[][] board) {
 		this.removeAll();
-		ArrayList <Square> rangeList = new ArrayList <Square>();
-		squareViewArray = new SquareView[board.length][board.length];
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				SquareView sqr = new SquareView(board[i][j]);
-				squareViewArray[i][j] = sqr;
-				rangeList.add(sqr.getSqrObj());
-				this.add(sqr);
-			}
-		}
-		BoardUtils.getInstance().setRangeList(rangeList);
+		BoardUtils.getInstance().buildFullBoard(this, board);
 	}
 	
 	public void refreshBoard(Square[][] boardData) {

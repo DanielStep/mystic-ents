@@ -1,14 +1,13 @@
-package model.board;
+package utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import controller.PieceCreationController;
+import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
-import utils.GameConfig;
-import utils.MapLoader;
 
 /**
  * Factory method to Generate board data for view to draw

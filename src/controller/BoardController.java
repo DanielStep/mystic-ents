@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.board.BoardCareTaker;
 import model.board.BoardData;
-import model.board.BoardMemento;
 import model.board.BoardState;
 import model.board.Square;
+import model.piece.Piece;
 import utils.BoardUtils;
 import utils.GameConfig;
 import view.BoardFrame;
@@ -25,7 +24,7 @@ import view.BoardFrame;
 public class BoardController implements Observer {
 
 	// PIECE CONTROLLER
-	private ActionController pieceController;
+	private ActionController actionController;
 
 	// VIEW
 	private BoardFrame boardFrame;
@@ -52,7 +51,7 @@ public class BoardController implements Observer {
 		System.out.println("Building board...");
 		boardFrame.pack();
 		boardFrame.getBoardPanel().setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
-		boardFrame.getBoardPanel().buildFullBoard(boardData.getBoardArray());
+		BoardUtils.getInstance().buildFullBoard(boardFrame.getBoardPanel(), boardData.getBoardArray());
 	}
 
 	public void clearRangeCells() {
@@ -78,6 +77,15 @@ public class BoardController implements Observer {
 			return;
 		boardFrame.getBoardPanel().refreshBoard(data);
 	}
+	
+	public void observe(Observable o) {
+		o.addObserver(this);
+	}
+	
+	/** UNDO functionality **/
+	public boolean undo(int i) {
+		return BoardUtils.getInstance().undoMove(i, this);
+	}
 
 	public BoardData getBoardData() {
 		return boardData;
@@ -87,35 +95,13 @@ public class BoardController implements Observer {
 		return boardFrame;
 	}
 
-	public void setPieceActionController(ActionController pieceController) {
-		this.pieceController = pieceController;
+	public void setPieceActionController(ActionController a) {
+		this.actionController = a;
 	}
 
 	public ActionController getPieceActionController() {
-		return pieceController;
+		return actionController;
 	}
 
-	public void observe(Observable o) {
-		o.addObserver(this);
-	}
-
-	/** UNDO functionality **/
-
-	// Undo from game state
-	public boolean undo(int undoNumber) {
-		if (BoardCareTaker.getInstance().getMementosSize() >= undoNumber * 4) {
-			BoardMemento boardMemento = null;
-			for (int i = 0; i < undoNumber * 4; i++) {
-				boardMemento = BoardCareTaker.getInstance().getMemento();
-				boardData.undoFromMemento(boardMemento);
-			}
-			boardData.getCurrentTeam().decreaseUndoNum();
-			boardFrame.getBoardPanel().buildFullBoard(boardData.getBoardArray());
-			clearRangeCells();
-			boardData.doCellsUpdate();
-			return true;
-		}
-		return false;
-	}
 
 }
