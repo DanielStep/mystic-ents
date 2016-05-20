@@ -73,6 +73,8 @@ public class UIMediator {
 	public void doUndo(Object o) {
 		if (!boardController.undo(Integer.parseInt(o.toString()))) {
 			DialogView.getInstance().showInformation("Undo move number invalid.");
+		} else {
+			checkUndoButton();
 		}
 	}	
 	
@@ -82,6 +84,8 @@ public class UIMediator {
 		
 		// auto end the current player's turn
 		pnEndTurn.executeEndTurn();
+		
+		checkUndoButton();
 	}
 	
 	public void doUIUpdate(GameTurn gameTurn) {
@@ -91,6 +95,12 @@ public class UIMediator {
 		// set end turn conditions
 		pnEndTurn.setGameTurn(gameTurn);
 	}	
+	
+	// each team has only one chance to undo
+	public void checkUndoButton(){
+		Team t = boardController.getBoardData().getCurrentTeam();
+		pnUndo.getUndoButton().setEnabled((t.getUndoNum() == 0) ? false : true);
+	}
 	
 	public void disableAllButtons() {
 		pnSaveGame.getSaveButton().setEnabled(false);
