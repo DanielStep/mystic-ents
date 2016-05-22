@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import model.board.Square;
-import utils.BoardUtils;
+import utils.CFacade;
 import utils.GameConfig;
 
 /**
@@ -30,13 +30,13 @@ public class BoardPanel extends JPanel {
 	 */
 	private void updateBoard(Square[][] board) {
 		ArrayList <Square> rangeList = new ArrayList <Square>();
-		rangeList = BoardUtils.getInstance().getRangeList();
-		BoardUtils.getInstance().updateBoard();
+		rangeList = CFacade.getInstance().getRangeList();
+		CFacade.getInstance().updateBoard();
 	}
 	
 	public void buildFullBoard(Square[][] board) {
 		this.removeAll();
-		BoardUtils.getInstance().buildFullBoard(this, board);
+		CFacade.getInstance().buildFullBoard(this, board);
 	}
 	
 	public void refreshBoard(Square[][] boardData) {

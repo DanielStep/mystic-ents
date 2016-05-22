@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
-import utils.BoardUtils;
+import utils.CFacade;
 
 import view.mediator.DialogView;
 import view.mediator.EndTurnPanel;
@@ -73,7 +73,11 @@ public class UIMediator {
 	public void doUndo(Object o) {
 		if (!boardController.undo(Integer.parseInt(o.toString()))) {
 			DialogView.getInstance().showInformation("Undo move number invalid.");
+			return;
 		}
+		CFacade.getInstance().buildFullBoard(boardController.getBoardFrame().getBoardPanel(), boardController.getBoardData().getBoardArray());
+		boardController.clearRangeCells();
+		boardController.updateBoard();
 	}	
 	
 	public void doUIEndTurn() {

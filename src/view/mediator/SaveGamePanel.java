@@ -10,8 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.board.BoardData;
-import model.board.Square;
-import utils.GameUtils;
+import utils.CFacade;
 
 /**
  * A component of Control Panel: display save game button to save the current game
@@ -44,7 +43,7 @@ public class SaveGamePanel extends JPanel implements Serializable {
 	
 	private void doSave(){
 		boardData = BoardData.getInstance();		
-		if (GameUtils.getInstance().saveGameData(boardData)) {
+		if (CFacade.getInstance().saveGameData(boardData)) {
 			DialogView.getInstance().showInformation("Save game successfully!");			
 		};
 

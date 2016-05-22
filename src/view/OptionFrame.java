@@ -14,8 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import utils.CFacade;
 import utils.GameConfig;
-import utils.GameUtils;
 
 /**
  * Option component within MainMenuFrame
@@ -61,7 +61,7 @@ public class OptionFrame extends JFrame{
 		JLabel lbSelect = new JLabel("Select map: ");
 		final JComboBox<String> cbMapList = new JComboBox<String>();
 		
-		for (String item : GameUtils.getInstance().getAllGameMaps()) {
+		for (String item : CFacade.getInstance().getAllGameMaps()) {
 			cbMapList.addItem(item);
 		}
 		

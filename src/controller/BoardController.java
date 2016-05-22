@@ -9,7 +9,7 @@ import model.board.BoardData;
 import model.board.BoardState;
 import model.board.Square;
 import model.piece.Piece;
-import utils.BoardUtils;
+import utils.CFacade;
 import utils.GameConfig;
 import view.BoardFrame;
 
@@ -33,10 +33,9 @@ public class BoardController implements Observer {
 	private BoardState boardState;
 	private BoardData boardData;
 
-	private BoardUtils boardUtils = BoardUtils.getInstance();
+	private CFacade systemUtils = CFacade.getInstance();
 
 	public BoardController() {
-		System.out.println("New board state...");
 		boardState = new BoardState();
 		boardFrame = new BoardFrame(this);
 		boardData = BoardData.getInstance();
@@ -48,27 +47,30 @@ public class BoardController implements Observer {
 	}
 
 	public void buildBoard() {
-		System.out.println("Building board...");
 		boardFrame.pack();
 		boardFrame.getBoardPanel().setLayout(new GridLayout(GameConfig.getROW_COL(), GameConfig.getROW_COL()));
-		BoardUtils.getInstance().buildFullBoard(boardFrame.getBoardPanel(), boardData.getBoardArray());
-	}
-
-	public void clearRangeCells() {
-		boardData.setBoardArray(boardUtils.clearRangeCells(boardData.getBoardArray()));
-		updateBoard();
+		CFacade.getInstance().buildFullBoard(boardFrame.getBoardPanel(), boardData.getBoardArray());
 	}
 
 	public void getRangeCells(Square origin) {
 		clearRangeCells();
-		boardData.setBoardArray(
-				boardUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
+		boardData.setBoardArray(systemUtils.getRangeCells(origin.getID()[0], origin.getID()[1], boardData.getBoardArray()));
+		updateBoard();
+	}
+
+	public void clearRangeCells() {
+		systemUtils.clearRangeCells();
 		updateBoard();
 	}
 
 	public void updateBoard() {
 		boardData.doCellsUpdate();
 	}
+	
+	public void disableBoard() {
+		CFacade.getInstance().disableBoard(getBoardFrame().getBoardPanel());	
+	}
+	
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -84,7 +86,7 @@ public class BoardController implements Observer {
 	
 	/** UNDO functionality **/
 	public boolean undo(int i) {
-		return BoardUtils.getInstance().undoMove(i, this);
+		return CFacade.getInstance().undoMove(i, this);
 	}
 
 	public BoardData getBoardData() {
