@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
-import utils.BoardUtils;
+import utils.CFacade;
 import utils.GameConfig;
 
 /**
@@ -34,12 +34,12 @@ public class PieceView extends JPanel implements Serializable{
 	private Color color;
 	private Piece piece;
 	private BufferedImage image;
-	private BoardUtils boardUtils;
+	private CFacade boardUtils;
 	private int size;
 	private JLabel label;
 
 	public PieceView(Piece pce) {
-		boardUtils = BoardUtils.getInstance();
+		boardUtils = CFacade.getInstance();
 		size = (int) ((GameConfig.getDefaultHeight() / GameConfig.getROW_COL()));
 		this.piece = pce;
 		

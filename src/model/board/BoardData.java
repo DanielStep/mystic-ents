@@ -2,6 +2,7 @@ package model.board;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 
 import model.piece.Piece;
@@ -22,6 +23,8 @@ public class BoardData extends Observable implements Serializable {
 	private Team currentTeam = null;
 	
 	private boolean isWithAI = false;
+	
+	private HashMap<Team, Boolean> teamUndo = new HashMap<Team, Boolean>();
 
 	private BoardData() {
 	}
@@ -49,6 +52,14 @@ public class BoardData extends Observable implements Serializable {
 		return isWithAI;
 	}
 
+	public void setTeamUndo(Team t, Boolean isUndo) {
+		teamUndo.put(t, isUndo);
+	}
+
+	public HashMap<Team, Boolean> getTeamUndo() {
+		return teamUndo;
+	}
+	
 	public void setCurrentTeam(Team team) {
 		this.currentTeam = team;
 	}

@@ -1,13 +1,15 @@
-package controller;
+package utils.subsystem;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import controller.ActionController;
+import controller.GameController;
 import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
+import utils.CFacade;
 import utils.GameConfig;
-import utils.GameUtils;
 
 /**
  * This is the main class which handles AI Team movement
@@ -19,55 +21,39 @@ import utils.GameUtils;
  *
  */
 
-public class AIHandler {
+public class AISystem {
 	
 	private ArrayList <Team> teamList;
 	private ArrayList <Piece> piecesList;
 	private ArrayList <Square> towersList;
-	
-	private GameUtils gameUtils;
-	private ActionController _ac;
-	private GameController _gc;
-	
+
 	private Random rN = new Random();
 	
-	public AIHandler() {
-		_ac = ActionController.getInstance();
-		_gc = _ac.getGameController();
-		gameUtils = GameUtils.getInstance();
-		piecesList = _gc.getGamePiecesList();
-		towersList = _gc.getTowerList();
-		updateTeamList();
+	public void initialiseAI() {
+
+		System.out.println("      Teams : " + teamList);
 		
 		teamList.get(0).setAI(true);
-		teamList.get(1).setAI(false);
-		//teamList.get(2).setAI(true);
+		teamList.get(1).setAI(true);		
+	}
 
-	}
-	
-	public void handleGameTurn(Team ct) {
-		Piece p = getNextPiece();
-		if (p != null) {			
-			//System.out.println("      AI PIECE : " + p);
-			_ac.startAction(_ac, p.getParentSquare());
-			Square ts;
-			ArrayList<Square> sqrs = new ArrayList<Square>();
-			ArrayList<Square> rangeList = new ArrayList<Square>(_gc.getRangeList());
-			if (p.getIsUsurper()) {			
-				sqrs = getOpponentTowers(p);
-			} else {
-				sqrs = getOpponentPieces(p);
-				SelectNextAction(p);
-			}
-			if (sqrs.size() == 0) {
-				_ac.endAction(_ac, p.getParentSquare());
-			}
-			ts = getNextSquare(sqrs, rangeList);
-			_ac.endAction(_ac, ts);
+	public void goGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
+		Square ts;
+		ArrayList<Square> sqrs = new ArrayList<Square>();
+		if (p.getIsUsurper()) {			
+			sqrs = getOpponentTowers(p);
+		} else {
+			sqrs = getOpponentPieces(p);
+			
 		}
-	}
+		if (sqrs.size() == 0) {
+			a.endAction(a, p.getParentSquare());
+		}
+		ts = getNextSquare(sqrs, rangeList);
+		a.endAction(a, ts);
+	}	
 	
-	public ArrayList<Square> getOpponentTowers(Piece p) {
+	private ArrayList<Square> getOpponentTowers(Piece p) {
 		ArrayList<Square> sqrs = new ArrayList<Square>();
 		for (Square s : towersList) {
 			if (p.getTeam() != s.getTeamTower()) {
@@ -77,7 +63,7 @@ public class AIHandler {
 		return sqrs;
 	}
 	
-	public ArrayList<Square> getOpponentPieces(Piece p) {
+	private ArrayList<Square> getOpponentPieces(Piece p) {
 		ArrayList<Square> sqrs = new ArrayList<Square>();
 		for (Piece s : piecesList) {
 			if (p.getTeam() != s.getTeam()) {
@@ -88,14 +74,13 @@ public class AIHandler {
 	}	
 	
 
-	private void SelectNextAction(Piece p) {
+	public int SelectNextAction(Piece p) {
 		float chance = rN.nextFloat();
-		if (chance < 0.80f) {
-			_ac.setActionButton(1);
-		    return;
-		} else {
-			_ac.setActionButton(3);
+		int i = 1;
+		if (chance > 0.80f) {
+			i = 3;
 		}
+		return i;
 	}	
 	
 	/** 
@@ -165,9 +150,9 @@ public class AIHandler {
 	 * @return Piece
 	 */
 	
-	private Piece getNextPiece() {
+	public Piece getNextPiece(Team t) {
 		ArrayList<Piece> aP = new ArrayList<Piece>();
-		aP = gameUtils.getActivePieces(piecesList, _gc.getCurrentTeam());
+		aP = CFacade.getInstance().getActivePieces(piecesList, t);
 		if (aP.size() > 0) {
 			int rI = rN.nextInt(aP.size());
 			Piece rP = aP.get(rI);
@@ -177,17 +162,45 @@ public class AIHandler {
 	}
 	
 	public Boolean checkAIStatus(Team ct) {
-		updateTeamList();
+		
+		return ct.getAI();
+		
+		/*updateTeamList();
 		for (Team t : teamList) {
 			if (t == ct) {
 				return ct.getAI();
 			}
 		}		
-		return false;
+		return false;*/
 	}
 	
 	private void updateTeamList() {
-		teamList = gameUtils.getTeamList(piecesList);
+		//teamList = GameUtils.getInstance().getTeamList(piecesList);
+	}
+	
+	public ArrayList<Team> getTeamList() {
+		return teamList;
+	}
+	
+	public void setTeamList(ArrayList<Team> teamList) {
+		this.teamList = teamList;
+	}
+	
+	public ArrayList<Piece> getPiecesList() {
+		return piecesList;
+	}
+	
+	public void setPiecesList(ArrayList<Piece> piecesList) {
+		this.piecesList = piecesList;
+	}
+	
+	public ArrayList<Square> getTowersList() {
+		return towersList;
+	}
+	
+	public void setTowersList(ArrayList<Square> towersList) {
+		this.towersList = towersList;
 	}
 
 }
+

@@ -9,9 +9,6 @@ import model.board.Square;
 import model.piece.Piece;
 import model.state.IGameState;
 import model.state.StateMove;
-import view.BoardPanel;
-
-import view.SquareView;
 
 /**
  * This is main handler for selecting pieces and controlling their moves
@@ -51,18 +48,15 @@ public class ActionController {
 	}
 	
 	// state change
-	public void changeState(IGameState s)
-	{
+	public void changeState(IGameState s) {
 		gameState = s;
 	}
 	
-	public void startAction(ActionController a, Square sqr)
-	{
+	public void startAction(ActionController a, Square sqr)	{
 		gameState.startAction(this, sqr);
 	}
 
-	public void endAction(ActionController a, Square sqr)
-	{
+	public void endAction(ActionController a, Square sqr) {
 		gameState.endAction(this, sqr);
 		boardController.getBoardData().doCellsUpdate();
 	}	
@@ -85,17 +79,9 @@ public class ActionController {
 	
 	public void handleEndGameUI(){
 		// disable board game interactions
-		BoardPanel boardPanel = boardController.getBoardFrame().getBoardPanel();
-		for (Component com : boardPanel.getComponents()) {
-			if (com instanceof SquareView) {
-				SquareView sv = (SquareView)com;
-				sv.removeMouseListener(sv);
-			}
-		}
-		
+		boardController.disableBoard();
 		// disable timer
-		gameController.getGameTurn().stop();
-		
+		gameController.getGameTurn().stop();		
 		// disable buttons in control panel
 		gameController.getUiMediator().disableAllButtons();
 	}
@@ -127,11 +113,6 @@ public class ActionController {
 	public void resetTraitValuesToBase(){
 		activePiece.getTraitSet().getDamageTrait().setTraitValueToBase();
 		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
-	}
-	
-	private void clearActivePieceRange() {
-		// reset board
-		boardController.clearRangeCells();
 	}
 	public GameController getGameController() {
 		return gameController;

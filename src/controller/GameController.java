@@ -5,15 +5,13 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.board.BoardData;
-import model.board.Square;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
-import utils.BoardUtils;
-import utils.GameUtils;
+
+import utils.CFacade;
 import view.MainMenuFrame;
 import view.mediator.DialogView;
-import view.mediator.MediatorView;
 
 /**
  * Responsible for turn handling
@@ -32,7 +30,7 @@ public class GameController implements Observer {
 	private GameTurn gameTimer;
 	private BoardController boardController;
 	private ActionController actionController;
-	private AIHandler gameAI;
+	//private AISystem gameAI;
 	private Boolean isAITurn = false;
 
 	//UI
@@ -59,7 +57,7 @@ public class GameController implements Observer {
 		boardController.buildBoard();
 		boardController.getBoardFrame().setVisible(true);
 		uiMediator.setBoardController(boardController);
-		collectGamePieces();
+		gamePiecesList = CFacade.getInstance().getGamePieces();
 		currentTeam = loadCurrentTeam();
 		startGame(isWithAI);
 	}
@@ -70,15 +68,13 @@ public class GameController implements Observer {
 		}
 		//Start Game running
 		gameTimer.start();
-		
 		// save AI variable for save game
 		boardController.getBoardData().setIsWithAI(isWithAI);
 	}	
 	
 	private void buildAI() {
-		gameAI = new AIHandler();
-		//Check AI Status
-		isAITurn = checkAIStatus();
+		CFacade.getInstance().populateAIObjects(boardController.getBoardData().getBoardArray());
+		CFacade.getInstance().initialiseAI();
 	}
 
 	/**
@@ -98,9 +94,9 @@ public class GameController implements Observer {
 		
 		//AI Turn
 		//Modulus turn count to slow AI down
-		if (isAITurn) {
-			if (gameTurn.getGameTimer() % 2 == 0) {
-				gameAI.handleGameTurn(currentTeam);				
+		if (gameTurn.getGameTimer() % 2 == 0) {
+			if (CFacade.getInstance().checkAIStatus(currentTeam)) {
+				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
 			}
 		}		
 		
@@ -118,43 +114,48 @@ public class GameController implements Observer {
 	 * 
 	 */		
 	private void handleEndTurn() {
-		
 		//Change teams
-		currentTeam = changeTeams();		
-		boardController.getBoardData().setCurrentTeam(currentTeam);
-		
+		currentTeam = changeTeams();
 		//Update UI
-		uiMediator.setCurrentTeam(currentTeam);
-		uiMediator.setPieceCount(getAvailablePieceCount());
-		uiMediator.doUIEndTurn();
-		
+		updateUI();
 		//Clear Board
 		boardController.clearRangeCells();
-		
 		//Reset TraitValues of all pieces on board to base value
-		GameUtils.getInstance().resetPieceTraitValueToBase(gamePiecesList);		
-		
+		CFacade.getInstance().resetPieceTraitValueToBase(gamePiecesList);
 		//reset ActionController
-		actionController.resetActionCount();
-		actionController.setActivePiece(null);
-
+		resetActionController();
 		// set game turn count;
-		gameTimer.setCount(gameTimer.getCount()+1);
-		
+		gameTimer.setCount(gameTimer.getCount()+1);		
 		//Check AI Status
-		if (gameAI != null) {
-			isAITurn = checkAIStatus();
-		}
+		isAITurn = currentTeam.getAI();
 		
 	}
 	
+	private void updateUI() {
+		uiMediator.setCurrentTeam(currentTeam);
+		uiMediator.setPieceCount(getAvailablePieceCount());
+		uiMediator.doUIEndTurn();		
+	}
+	
+	private void resetActionController() {
+		actionController.resetActionCount();
+		actionController.setActivePiece(null);	
+	}
+	
 	public Boolean loadGame(){
-		BoardData data = GameUtils.getInstance().loadGame();
-		if (GameUtils.getInstance().loadGame() != null) {
+		BoardData data = CFacade.getInstance().loadGame();
+		if (CFacade.getInstance().loadGame() != null) {
 			boardController.getBoardData().setIsWithAI(data.getIsWithAI());
 			boardController.getBoardData().setCurrentTeam(data.getCurrentTeam());
 			boardController.getBoardData().setBoardArray(data.getBoardArray());
 			boardController.getBoardData().doCellsUpdate();
+			
+			for (Team t : data.getTeamUndo().keySet()) {
+				Boolean isUndo = data.getTeamUndo().get(t);
+				boardController.getBoardData().setTeamUndo(t, isUndo);
+			}
+			if(uiMediator != null) uiMediator.checkUndoButton();
+			
 			return true;
 		} else {
 			DialogView.getInstance().showInformation("Save game not found!");
@@ -163,12 +164,9 @@ public class GameController implements Observer {
 	}
 	
 	private Team changeTeams() {
-		return GameUtils.getInstance().getNextTeam(gamePiecesList, currentTeam);
-	}
-	
-	private Boolean checkAIStatus() {
-		//Check AI Status
-		return gameAI.checkAIStatus(currentTeam);
+		Team t = CFacade.getInstance().getNextTeam(gamePiecesList, currentTeam);
+		boardController.getBoardData().setCurrentTeam(t);
+		return t;
 	}
 	
 	private Team loadCurrentTeam() {
@@ -179,24 +177,12 @@ public class GameController implements Observer {
 	}	
 
 	private int getAvailablePieceCount() {		
-		return GameUtils.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
+		return CFacade.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
 	}
 		
 	public void updatePieceInformation(Piece pce) {
 		// Update Piece Statistics on Selection
 		uiMediator.updatePieceInformation(pce);
-	}
-	
-	private void collectGamePieces() {		
-		gamePiecesList = GameUtils.getInstance().getGamePieces(boardController.getBoardData().getBoardArray());
-	}
-	
-	//ALL these need to added to Command Pattern
-	public ArrayList <Square> getTowerList() {		
-		return GameUtils.getInstance().getTowerList(boardController.getBoardData().getBoardArray());
-	}
-	public ArrayList <Square> getRangeList() {		
-		return BoardUtils.getInstance().getRangeList(boardController.getBoardData().getBoardArray());
 	}
 
 	public void setMessage(String msg) {

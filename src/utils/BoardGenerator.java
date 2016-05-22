@@ -117,13 +117,16 @@ public class BoardGenerator  {
 			char ct = cell.charAt(0);	
 			if (ct == 'R') {			
 				Piece rNew = pieceCreator.createRegPiece(Team.values()[it-1]);
+				CFacade.getInstance().addGamePiece(rNew);
 				gsqr.setOccupant(rNew);
 			}
 			if (ct == 'U') {
 				Piece uNew = pieceCreator.createUsurpPiece(Team.values()[it-1]);
+				CFacade.getInstance().addGamePiece(uNew);
 				gsqr.setOccupant(uNew);
 			}
 			if (ct == 'T') {
+				CFacade.getInstance().addGameTower(gsqr);
 				gsqr.setTeamTower(Team.values()[it-1]);
 			}			
 		}

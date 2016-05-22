@@ -3,8 +3,7 @@ package model.state;
 import controller.ActionController;
 import model.board.BoardMemento;
 import model.board.Square;
-import utils.GameUtils;
-import view.mediator.DialogView;
+import utils.CFacade;
 
 public class StateMove implements IGameState {
 	
@@ -31,8 +30,8 @@ public class StateMove implements IGameState {
 	@Override
 	public void endAction(ActionController a, Square s) {
 		// check the game win condition
-		if (!GameUtils.getInstance().isWinCondition(a, s)) return;
-		if (GameUtils.getInstance().checkMoveRules(a, s)) {
+		if (!CFacade.getInstance().isWinCondition(a, s)) return;
+		if (CFacade.getInstance().checkMoveRules(a, s)) {
 			if (!s.getInRange()) return;
 			System.out.println("End move");
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
