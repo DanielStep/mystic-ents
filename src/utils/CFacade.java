@@ -37,7 +37,6 @@ public class CFacade {
 	}
 
 	public Square[][] getRangeCells(int x, int y, Square[][] data) {
-		System.out.println("getRangeCells");
 		return rangeSystem.getRangeCells(x, y, data);
 	}
 
@@ -46,7 +45,6 @@ public class CFacade {
 	}
 
 	public ArrayList <Square> getRangeList(Square[][] data) {
-		System.out.println("getRangeList");
 		return rangeSystem.populateRangeList(data);
 	}
 	

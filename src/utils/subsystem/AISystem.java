@@ -27,45 +27,16 @@ public class AISystem {
 	private ArrayList <Piece> piecesList;
 	private ArrayList <Square> towersList;
 
-	//private ActionController _ac;
-	//private GameController _gc;
-	
 	private Random rN = new Random();
 	
 	public void initialiseAI() {
-		//_ac = a;
-		//updateTeamList();
-		
+
 		System.out.println("      Teams : " + teamList);
-		
 		
 		teamList.get(0).setAI(true);
 		teamList.get(1).setAI(true);		
 	}
-	
-	/*public void startGameTurn(Team ct, ArrayList<Square> rangeList) {
-		//Piece p = getNextPiece(ct);
-		if (p != null) {			
-			//System.out.println("      AI PIECE : " + p);
-			//_ac.startAction(_ac, p.getParentSquare());
-			Square ts;
-			ArrayList<Square> sqrs = new ArrayList<Square>();
 
-			
-			if (sqrs.size() == 0) {
-				_ac.endAction(_ac, p.getParentSquare());
-			}
-			
-			
-			ts = getNextSquare(sqrs, rangeList);
-			_ac.endAction(_ac, ts);
-		}
-	}*/
-	
-	
-	
-	
-	
 	public void goGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
 		Square ts;
 		ArrayList<Square> sqrs = new ArrayList<Square>();
@@ -80,8 +51,7 @@ public class AISystem {
 		}
 		ts = getNextSquare(sqrs, rangeList);
 		a.endAction(a, ts);
-	}
-	
+	}	
 	
 	private ArrayList<Square> getOpponentTowers(Piece p) {
 		ArrayList<Square> sqrs = new ArrayList<Square>();
