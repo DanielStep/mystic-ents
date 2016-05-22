@@ -22,6 +22,7 @@ public class GameMain {
 		pieceActionController.setGameController(gameController);
 		pieceActionController.setBoardController(boardController);
 		gameController.setBoardController(boardController);
+		UIMediator.getInstance().setBoardController(boardController);
 		
 		System.out.println("All Controllers constructed");
 

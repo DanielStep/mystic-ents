@@ -106,7 +106,7 @@ public class MainMenuFrame extends JFrame{
 				 */				
 				if (gameController.loadGame()) {
 					boolean isWithAI = BoardData.getInstance().getIsWithAI();
-					System.out.println("-------- AI = " + isWithAI);
+//					System.out.println("-------- AI = " + isWithAI);
 					gameController.continueGame(isWithAI);
 					doCloseFrame();
 				}
