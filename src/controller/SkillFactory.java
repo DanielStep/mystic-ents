@@ -29,14 +29,19 @@ public class SkillFactory extends AbstractFactory {
 
 		if (sk == null) {
 
-			if (skillType.equalsIgnoreCase("ATTACK")) {
+			switch (skillType) {
+			case "ATTACK":
 				sk = new AttackSkill();
-			} else if (skillType.equalsIgnoreCase("RANGE")) {
+				break;
+			case "RANGE":
 				sk = new RangeSkill();
-			} else if (skillType.equalsIgnoreCase("BUILD")) {
+				break;
+			case "BUILD":
 				sk = new BuildSkill();
-			} else if (skillType.equalsIgnoreCase("HEAL")) {
+				break;
+			case "HEAL":
 				sk = new HealSkill();
+				break;
 			}
 			skills.put(skillType, sk);
 		}
