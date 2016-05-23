@@ -43,8 +43,7 @@ public class AISystem {
 		if (p.getIsUsurper()) {			
 			sqrs = getOpponentTowers(p);
 		} else {
-			sqrs = getOpponentPieces(p);
-			
+			sqrs = getOpponentPieces(p);			
 		}
 		if (sqrs.size() == 0) {
 			a.endAction(a, p.getParentSquare());

@@ -9,6 +9,7 @@ import model.board.BoardData;
 import model.board.BoardState;
 import model.board.Square;
 import model.piece.Piece;
+import model.piece.Team;
 import utils.CFacade;
 import utils.GameConfig;
 import view.BoardFrame;
@@ -58,6 +59,19 @@ public class BoardController implements Observer {
 		updateBoard();
 	}
 
+	public void restoreValuesFromSave(BoardData data) {
+		getBoardData().setIsWithAI(data.getIsWithAI());
+		getBoardData().setCurrentTeam(data.getCurrentTeam());
+		getBoardData().setBoardArray(data.getBoardArray());
+	}
+	
+	public void restoreUndoStateFromSave(BoardData data) {		
+		for (Team t : data.getTeamUndo().keySet()) {
+			Boolean isUndo = data.getTeamUndo().get(t);
+			getBoardData().setTeamUndo(t, isUndo);
+		}
+	}
+	
 	public void clearRangeCells() {
 		systemUtils.clearRangeCells();
 		updateBoard();

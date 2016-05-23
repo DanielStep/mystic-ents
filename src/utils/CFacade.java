@@ -76,6 +76,10 @@ public class CFacade {
 		return fileSystem.loadGame();
 	}	
 	
+	public ArrayList<Piece> setUpGameFromLoad(BoardData boardData) {
+		return boardSystem.setUpGameFromLoad(boardData);
+	}
+	
 	public Boolean saveGameData(BoardData boardData) {
 		return fileSystem.saveGameData(boardData);
 	}

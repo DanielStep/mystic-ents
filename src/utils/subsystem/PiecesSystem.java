@@ -54,6 +54,9 @@ public class PiecesSystem {
 				tList.add((Team) piece.getTeam());
 			}
 		}
+		
+		System.out.println("TEAMS: " + tList);
+		
 		return tList;
 	}
 	

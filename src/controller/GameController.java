@@ -5,12 +5,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.board.BoardData;
+import model.board.Square;
 import model.game.GameTurn;
 import model.piece.Piece;
 import model.piece.Team;
 
 import utils.CFacade;
 import view.MainMenuFrame;
+import view.SquareView;
 import view.mediator.DialogView;
 
 /**
@@ -49,20 +51,21 @@ public class GameController implements Observer {
 	}
 
 	public void newGame(boolean isWithAI) {
-		boardController.init();		
-		continueGame(isWithAI);
+		boardController.init();
+		gamePiecesList = CFacade.getInstance().getGamePieces();
+		startGame(isWithAI);
 	}
 	
 	public void continueGame(boolean isWithAI) {
-		boardController.buildBoard();
-		boardController.getBoardFrame().setVisible(true);
-		uiMediator.setBoardController(boardController);
-		gamePiecesList = CFacade.getInstance().getGamePieces();
-		currentTeam = loadCurrentTeam();
+		gamePiecesList = CFacade.getInstance().setUpGameFromLoad(boardController.getBoardData());
 		startGame(isWithAI);
 	}
 	
 	public void startGame(boolean isWithAI) {
+		currentTeam = loadCurrentTeam();
+		boardController.buildBoard();
+		boardController.getBoardFrame().setVisible(true);
+		uiMediator.setBoardController(boardController);			
 		if (isWithAI) {
 			buildAI();
 		}
@@ -94,11 +97,11 @@ public class GameController implements Observer {
 		
 		//AI Turn
 		//Modulus turn count to slow AI down
-		if (gameTurn.getGameTimer() % 2 == 0) {
+		//if (gameTurn.getGameTimer() % 2 == 0) {
 			if (CFacade.getInstance().checkAIStatus(currentTeam)) {
 				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
 			}
-		}		
+		//}		
 		
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
@@ -144,18 +147,10 @@ public class GameController implements Observer {
 	
 	public Boolean loadGame(){
 		BoardData data = CFacade.getInstance().loadGame();
-		if (CFacade.getInstance().loadGame() != null) {
-			boardController.getBoardData().setIsWithAI(data.getIsWithAI());
-			boardController.getBoardData().setCurrentTeam(data.getCurrentTeam());
-			boardController.getBoardData().setBoardArray(data.getBoardArray());
-			boardController.getBoardData().doCellsUpdate();
-			
-			for (Team t : data.getTeamUndo().keySet()) {
-				Boolean isUndo = data.getTeamUndo().get(t);
-				boardController.getBoardData().setTeamUndo(t, isUndo);
-			}
+		if (data != null) {
+			boardController.restoreValuesFromSave(data);
+			boardController.restoreUndoStateFromSave(data);
 			if(uiMediator != null) uiMediator.checkUndoButton();
-			
 			return true;
 		} else {
 			DialogView.getInstance().showInformation("Save game not found!");
