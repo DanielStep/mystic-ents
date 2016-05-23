@@ -34,7 +34,7 @@ public class AISystem {
 		System.out.println("      Teams : " + teamList);
 		
 		teamList.get(0).setAI(true);
-		teamList.get(1).setAI(true);		
+		teamList.get(1).setAI(false);		
 	}
 
 	public void goGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
