@@ -13,10 +13,6 @@ public class SkillFactory extends AbstractFactory {
 
 	private static HashMap<String, Skill> skills = new HashMap<>();
 
-	@Override
-	public Trait makeTrait(String traitType) {
-		return null;
-	}
 
 	@Override
 	public Skill makeSkill(String skillType) {
@@ -49,4 +45,9 @@ public class SkillFactory extends AbstractFactory {
 		return sk;
 	}
 
+	
+	@Override
+	public Trait makeTrait(String traitType) {
+		return null;
+	}
 }
