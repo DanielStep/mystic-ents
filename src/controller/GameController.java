@@ -56,7 +56,7 @@ public class GameController implements Observer {
 	public void continueGame(boolean isWithAI) {
 		boardController.buildBoard();
 		boardController.getBoardFrame().setVisible(true);
-		uiMediator.setBoardController(boardController);
+//		uiMediator.setBoardController(boardController);
 		gamePiecesList = CFacade.getInstance().getGamePieces();
 		currentTeam = loadCurrentTeam();
 		startGame(isWithAI);
