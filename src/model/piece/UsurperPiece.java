@@ -110,18 +110,5 @@ public class UsurperPiece extends PieceDecorator  implements Serializable{
 	public Boolean getInMove() {
 		return decoratedPiece.getInMove();
 	}
-	
-	
-	
-	
-//	public UsurperPiece() {
-//		super();
-//		super.isUsurper = true;
-//	}
-//	
-//	public UsurperPiece(Piece other) {
-//		super(other);
-//		super.isUsurper = true;
-//	}
 
 }

@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="controller.TraitSetBuilder" project="OurGame" 
     file="/OurGame/src/controller/TraitSetBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1317" y="676"/>    
+    <position height="-1" width="-1" x="1275" y="639"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -138,7 +138,7 @@
   </class>  
   <class id="16" language="java" name="controller.SkillSetBuilder" project="OurGame" 
     file="/OurGame/src/controller/SkillSetBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1296" y="315"/>    
+    <position height="-1" width="-1" x="1284" y="325"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
