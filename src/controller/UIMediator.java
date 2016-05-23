@@ -36,10 +36,10 @@ public class UIMediator {
 
 	private UIMediator() { }
 
-	public static UIMediator getInstance()
+	public static synchronized UIMediator getInstance()
 	{
-		if(instance==null)
-			instance=new UIMediator();      
+		if(instance == null)
+			instance = new UIMediator();      
 		return instance;
 	}	   
 	
