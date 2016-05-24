@@ -50,16 +50,16 @@ public class GameController implements Observer {
 
 	public void newGame(boolean isWithAI) {
 		boardController.init();		
-		continueGame(isWithAI);
+		startGame(isWithAI);
 	}
 	
 	public void continueGame(boolean isWithAI) {
 		CFacade.getInstance().setUpGameFromLoad(boardController.getBoardData());
-		gamePiecesList = CFacade.getInstance().getGamePieces();
 		startGame(isWithAI);
 	}
 	
 	public void startGame(boolean isWithAI) {
+		gamePiecesList = CFacade.getInstance().getGamePieces();
 		currentTeam = loadCurrentTeam();
 		boardController.buildBoard();
 		boardController.getBoardFrame().setVisible(true);

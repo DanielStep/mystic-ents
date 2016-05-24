@@ -20,10 +20,8 @@ public class GameRulesSystem {
 			}
 		} else {
 			//Swap piece so restart this State
-			if (a.getActivePiece().getTeam() == s.getOccupant().getTeam()) {
-				
-				System.out.println("SWAPPING...");
-				
+			if (a.getActivePiece().getTeam() == s.getOccupant().getTeam() &&
+				a.getActivePiece() != s.getOccupant()) {
 				a.setActivePiece(s.getOccupant());
 				return false;
 			}		
