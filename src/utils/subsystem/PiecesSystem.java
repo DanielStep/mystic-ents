@@ -29,17 +29,7 @@ public class PiecesSystem {
 		}
 		return aP;
 	}
-	
-	public int getAvailablePieceCount(ArrayList<Piece> pieceList, Team currentTeam) {
-		int count = 0;
-		for (Piece piece : pieceList) {
-			if (currentTeam == piece.getTeam() && piece.getInPlay()) {
-				count++;
-			}
-		}
-		return count;
-	}
-	
+
 	public Team getNextTeam (ArrayList<Piece> pieceList, Team currentTeam) {
 		ArrayList<Team> tList = new ArrayList<Team>(getAvailableTeamList(pieceList));
 		int a = tList.indexOf(currentTeam);
@@ -54,11 +44,22 @@ public class PiecesSystem {
 				tList.add((Team) piece.getTeam());
 			}
 		}
-		
-		System.out.println("TEAMS: " + tList);
-		
 		return tList;
-	}
+	}	
+	
+	public void setUpGameFromLoad(Square[][] data) {
+		ArrayList<Piece> p = new ArrayList<Piece>();
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if (data[i][j].getOccupant() != null) {
+					addGamePiece(data[i][j].getOccupant());
+				}
+				if (data[i][j].getTeamTower() != null) {
+					addGameTower(data[i][j]);
+				}
+			}
+		}
+	}	
 	
 	public void resetPieceTraitValueToBase(ArrayList<Piece> pieceList) {
 		for (int i = 0; i < pieceList.size(); i++) {

@@ -37,21 +37,7 @@ public class BoardSystem {
 		return rangeList;
 	}
 	
-	public ArrayList<Piece> setUpGameFromLoad(BoardData data) {
-		Square[][] sqrs = data.getBoardArray();
-		ArrayList<Piece> p = new ArrayList<Piece>();
-		for (int i = 0; i < sqrs.length; i++) {
-			for (int j = 0; j < sqrs[i].length; j++) {
-				if (sqrs[i][j].getOccupant() != null) {
-					p.add(sqrs[i][j].getOccupant());
-				}
-			}
-		}
-		return p;		
-	}	
-	
 	public void disableBoard(BoardPanel boardPanel) {
-		//BoardPanel boardPanel = boardController.getBoardFrame().getBoardPanel();
 		for (Component com : boardPanel.getComponents()) {
 			if (com instanceof SquareView) {
 				SquareView sv = (SquareView)com;

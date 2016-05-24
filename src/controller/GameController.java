@@ -57,7 +57,8 @@ public class GameController implements Observer {
 	}
 	
 	public void continueGame(boolean isWithAI) {
-		gamePiecesList = CFacade.getInstance().setUpGameFromLoad(boardController.getBoardData());
+		CFacade.getInstance().setUpGameFromLoad(boardController.getBoardData());
+		gamePiecesList = CFacade.getInstance().getGamePieces();
 		startGame(isWithAI);
 	}
 	
@@ -65,9 +66,9 @@ public class GameController implements Observer {
 		currentTeam = loadCurrentTeam();
 		boardController.buildBoard();
 		boardController.getBoardFrame().setVisible(true);
-		uiMediator.setBoardController(boardController);			
+		uiMediator.setBoardController(boardController);
 		if (isWithAI) {
-			buildAI();
+			setupAI();
 		}
 		//Start Game running
 		gameTimer.start();
@@ -75,8 +76,8 @@ public class GameController implements Observer {
 		boardController.getBoardData().setIsWithAI(isWithAI);
 	}	
 	
-	private void buildAI() {
-		CFacade.getInstance().populateAIObjects(boardController.getBoardData().getBoardArray());
+	private void setupAI() {
+		CFacade.getInstance().populateAIObjects();
 		CFacade.getInstance().initialiseAI();
 	}
 
@@ -90,11 +91,9 @@ public class GameController implements Observer {
 	public void update(Observable o, Object arg) {
 		GameTurn gameTurn = (GameTurn) o;
 		//Post condition exception if GameTurn is null, return (exit?)
-		if (gameTurn == null) return;
-		
+		if (gameTurn == null) return;		
 		uiMediator.setPieceCount(getAvailablePieceCount());
-		uiMediator.doUIUpdate(gameTurn);
-		
+		uiMediator.doUIUpdate(gameTurn);		
 		//AI Turn
 		//Modulus turn count to slow AI down
 		//if (gameTurn.getGameTimer() % 2 == 0) {
@@ -102,7 +101,6 @@ public class GameController implements Observer {
 				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
 			}
 		//}		
-		
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
@@ -131,7 +129,6 @@ public class GameController implements Observer {
 		gameTimer.setCount(gameTimer.getCount()+1);		
 		//Check AI Status
 		isAITurn = currentTeam.getAI();
-		
 	}
 	
 	private void updateUI() {
@@ -171,8 +168,8 @@ public class GameController implements Observer {
 		return team;
 	}	
 
-	private int getAvailablePieceCount() {		
-		return CFacade.getInstance().getAvailablePieceCount(gamePiecesList, currentTeam);
+	private int getAvailablePieceCount() {
+		return CFacade.getInstance().getActivePieces(gamePiecesList, currentTeam).size();
 	}
 		
 	public void updatePieceInformation(Piece pce) {

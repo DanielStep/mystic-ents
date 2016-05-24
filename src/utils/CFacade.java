@@ -76,8 +76,8 @@ public class CFacade {
 		return fileSystem.loadGame();
 	}	
 	
-	public ArrayList<Piece> setUpGameFromLoad(BoardData boardData) {
-		return boardSystem.setUpGameFromLoad(boardData);
+	public void setUpGameFromLoad(BoardData boardData) {
+		piecesSystem.setUpGameFromLoad(boardData.getBoardArray());
 	}
 	
 	public Boolean saveGameData(BoardData boardData) {
@@ -95,17 +95,19 @@ public class CFacade {
 		return piecesSystem.getPiecesList();
 	}
 	
+	public ArrayList <Square> getGameTowers() {
+		return piecesSystem.getTowersList();
+	}
+	
 	public ArrayList<Piece> getActivePieces(ArrayList<Piece> pieces, Team team) {
 		return piecesSystem.getActivePieces(pieces, team);
 	}
-	
-	public int getAvailablePieceCount(ArrayList<Piece> pieces, Team team) {
-		return piecesSystem.getAvailablePieceCount(pieces, team);
-	}
+
 	public Boolean checkAIStatus(Team team) {
 		return aiSystem.checkAIStatus(team);
 	}
-	public void populateAIObjects(Square[][] data) {
+	
+	public void populateAIObjects() {
 		aiSystem.setTowersList(piecesSystem.getTowersList());
 		aiSystem.setPiecesList(piecesSystem.getPiecesList());
 		aiSystem.setTeamList(piecesSystem.getAvailableTeamList(piecesSystem.getPiecesList()));
