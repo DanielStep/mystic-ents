@@ -33,16 +33,23 @@ public class GameRulesSystem {
 		return true;
 	}
 	
-	public void checkTowerWin(ActionController a, Square s){
+	public Boolean checkTowerWin(ActionController a, Square s){
 		// if the player's own Usurper piece lands on the opponent tower
 		if (s.getTeamTower() != null && 
 			a.getActivePiece().getIsUsurper() &&
 			a.getActivePiece().getTeam() != s.getTeamTower()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Boolean checkSurvivorWin(ActionController a, int i){
+		// if the player's own Usurper piece lands on the opponent tower
+		if (i == 1) {
 			// it is a win
-			a.handleEndGameUI();
-			//DialogView.getInstance().showInformation("Team " + a.getActivePiece().getTeam() + " win!");
-			a.getGameController().setMessage("Team " + a.getActivePiece().getTeam() + " win!");
-		}		
+			return true;
+		}
+		return false;
 	}
 	
 }

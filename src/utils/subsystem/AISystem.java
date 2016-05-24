@@ -32,32 +32,34 @@ public class AISystem {
 	public void initialiseAI() {
 		
 		for (int i = 0 ; i<teamList.size(); i++) {
-			//teamList.get(i).setAI(true);			
+			//teamList.get(i).setAI(true);
 		}
-		
-		/*teamList.get(1).setAI(true);
-		teamList.get(1).setAI(true);
-		teamList.get(1).setAI(true);*/
-		
+
 	}
 
-	public void goGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
+	public void doGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
 		Square ts;
 		ArrayList<Square> sqrs = new ArrayList<Square>();
 		
 		if (p.getIsUsurper()) {			
 			sqrs = getOpponentTowers(p);
 		} else {
-			sqrs = getOpponentPieces(p);			
+			sqrs = getOpponentPieces(p);
 		}
 		
 		System.out.println("SQRS: " + sqrs.size());
 		
-		
 		if (sqrs.size() == 0) {
 			a.endAction(a, p.getParentSquare());
+			return;
 		}
+		
+		
 		ts = getNextSquare(sqrs, rangeList);
+		
+		
+		System.out.println("Target: " + ts.getID()[0] + " : " + ts.getID()[1] + " :: " + p.getParentSquare().getID()[0] + " : " + p.getParentSquare().getID()[1]);
+		
 		
 		a.endAction(a, ts);
 	}	

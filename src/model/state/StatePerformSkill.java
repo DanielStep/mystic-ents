@@ -31,7 +31,7 @@ public class StatePerformSkill implements IGameState {
 			((IPerformSquareSkill) currentSkill).performSkill(a.getActiveSquare(), s);
 		}
 		a.getGameController().setMessage(currentSkill.getSkillMessage());
-		endAction(a, s);
+		a.endAction(a, s);
 	}
 
 	@Override
@@ -40,7 +40,8 @@ public class StatePerformSkill implements IGameState {
 		a.getBoardController().getRangeCells(a.getActiveSquare());
 		a.getBoardController().getBoardData().doCellsUpdate();
 		a.getGameController().updatePieceInformation(a.getActivePiece());
-		updateAction(a);
+		//a.setTargetSquare(s);
+		a.updateAction(a);
 	}
 
 	@Override

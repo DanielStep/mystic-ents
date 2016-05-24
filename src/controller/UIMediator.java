@@ -160,5 +160,8 @@ public class UIMediator {
 	public void showDialog(MouseEvent arg0, String msg) {
 		dialogView.showInformation(msg, arg0.getXOnScreen(), arg0.getYOnScreen());
 	}	
+	public void showDialog(String msg) {
+		dialogView.showInformation(msg);
+	}	
 
 }

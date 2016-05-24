@@ -9,6 +9,7 @@ import model.board.Square;
 import model.piece.Piece;
 import model.state.IGameState;
 import model.state.StateMove;
+import utils.CFacade;
 
 /**
  * This is main handler for selecting pieces and controlling their moves
@@ -17,7 +18,7 @@ import model.state.StateMove;
  * @author mark
  *
  */
-public class ActionController {
+public class ActionController implements IGameState {
 
 	private GameController gameController;
 	private BoardController boardController;
@@ -57,10 +58,26 @@ public class ActionController {
 	}
 
 	public void endAction(ActionController a, Square sqr) {
+		setTargetSquare(sqr);
 		gameState.endAction(this, sqr);
 		boardController.getBoardData().doCellsUpdate();
-	}	
+	}
 	
+	public void updateAction(ActionController a) {
+		//check the game win condition before updating
+		checkWinConditions(this);
+		gameState.updateAction(this);
+	}
+	
+	public void checkWinConditions(ActionController a) {
+		Boolean win = false;
+		if(CFacade.getInstance().checkTowerWin(this, getTargetSquare()) ||
+				CFacade.getInstance().checkSurvivorWin(this)) {
+			handleEndGameUI();
+			//getGameController().setMessage("Team " + gameController.getCurrentTeam() + " win!");
+			UIMediator.getInstance().showDialog("Team " + gameController.getCurrentTeam() + " win!");
+		};
+	}
 	public void setActionButton(int i) {
 		this.actionButton = i;
 	}

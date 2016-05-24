@@ -20,7 +20,7 @@ public class GameConfig {
 	private static final int DEFAULT_HEIGHT = 700;
 		
 	//MAP
-	private static String DEFAULTMAP = "map2";
+	private static String DEFAULTMAP = "map_tst";
 
     private static int ROW_COL;
     

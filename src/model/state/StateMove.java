@@ -29,14 +29,13 @@ public class StateMove implements IGameState {
 
 	@Override
 	public void endAction(ActionController a, Square s) {
-		// check the game win condition
-		CFacade.getInstance().checkTowerWin(a, s);
 		if (CFacade.getInstance().checkMoveRules(a, s)) {
 			if (!s.getInRange()) return;
 			System.out.println("End move");
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
+			//a.setTargetSquare(s);
 			s.setOccupant(a.getActivePiece());
-			updateAction(a);
+			a.updateAction(a);
 		} else {
 			a.startAction(a, s);
 		}		

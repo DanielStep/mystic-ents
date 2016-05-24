@@ -40,7 +40,7 @@ public class PiecesSystem {
 	public ArrayList<Team> getAvailableTeamList(ArrayList<Piece> pieceList) {
 		ArrayList<Team> tList = new ArrayList<Team>();
 		for (Piece piece : pieceList) {
-			if(!tList.contains(piece.getTeam())) {
+			if(piece.getInPlay() && !tList.contains(piece.getTeam())) {
 				tList.add((Team) piece.getTeam());
 			}
 		}

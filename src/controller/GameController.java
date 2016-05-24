@@ -68,7 +68,7 @@ public class GameController implements Observer {
 		setupAI();
 		//Start Game running
 		gameTimer.start();
-		// save AI variable for save game
+		//save AI variable for save game
 		//boardController.getBoardData().setIsWithAI(isWithAI);
 	}	
 	
@@ -138,23 +138,18 @@ public class GameController implements Observer {
 	public Boolean loadGame(){
 		BoardData data = CFacade.getInstance().loadGame();
 		if (CFacade.getInstance().loadGame() != null) {
-			boardController.getBoardData().setIsWithAI(data.getIsWithAI());
-			boardController.getBoardData().setCurrentTeam(data.getCurrentTeam());
-			boardController.getBoardData().setBoardArray(data.getBoardArray());
-			boardController.getBoardData().doCellsUpdate();
-			
+			boardController.restoreValuesFromSave(data);			
 			for (Team t : data.getTeamUndo().keySet()) {
 				Boolean isUndo = data.getTeamUndo().get(t);
 				boardController.getBoardData().setTeamUndo(t, isUndo);
 			}
 			if(uiMediator != null) uiMediator.checkUndoButton();
-			
 			return true;
 		} else {
 			DialogView.getInstance().showInformation("Save game not found!");
 			return false;
 		}
-	}
+	}	
 	
 	private Team changeTeams() {
 		Team t = CFacade.getInstance().getNextTeam(gamePiecesList, currentTeam);

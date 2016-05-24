@@ -36,18 +36,19 @@ public class StateAttack implements IGameState {
 			s.setOccupant(null);
 			a.getBoardController().getBoardData().doCellsUpdate();
 		}		
-		endAction(a, s);
+		a.endAction(a, s);
 	}
 
 	@Override
 	public void endAction(ActionController a, Square s) {
-		a.setActivePiece(null);
-		updateAction(a);
+		//a.setTargetSquare(s);
+		a.updateAction(a);
 	}
 
 	@Override
 	public void updateAction(ActionController a) {
 		System.out.println("End attack");
+		a.setActivePiece(null);
 		a.changeState(StateMove.getInstance(a));
 		a.getBoardController().clearRangeCells();
 		a.checkActionCount();

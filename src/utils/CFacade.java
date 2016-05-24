@@ -64,8 +64,13 @@ public class CFacade {
 		return gameRulesSystem.checkMoveRules(a, s);
 	}
 	
-	public void checkTowerWin(ActionController a, Square s){
-		gameRulesSystem.checkTowerWin(a, s);
+	public Boolean checkTowerWin(ActionController a, Square s){
+		return gameRulesSystem.checkTowerWin(a, s);
+	}
+	
+	public Boolean checkSurvivorWin(ActionController a){
+		int c = piecesSystem.getAvailableTeamList(piecesSystem.getPiecesList()).size();
+		return gameRulesSystem.checkSurvivorWin(a, c);
 	}
 
 	public ArrayList<String> getAllGameMaps() {
@@ -122,7 +127,7 @@ public class CFacade {
 		if (p != null) {
 			a.startAction(a, p.getParentSquare());
 			a.setActionButton(aiSystem.SelectNextAction(p));
-			aiSystem.goGameTurn(a, getRangeList(), p);		
+			aiSystem.doGameTurn(a, getRangeList(), p);
 		}
 	}
 	
