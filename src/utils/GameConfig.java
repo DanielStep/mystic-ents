@@ -8,7 +8,7 @@ public class GameConfig {
 
 	//TIMER
     private static final int MAX_TURNS = 1000;
-    private static final int MAX_SECONDS = 5;
+    private static final int MAX_SECONDS = 25;
     private static final int START_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000;
     
@@ -22,7 +22,7 @@ public class GameConfig {
 	//MAP
 //	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
 
-	private static String DEFAULTMAP = "map3";		// default map
+	private static String DEFAULTMAP = "map2";		// default map
 
     private static int ROW_COL;
     
