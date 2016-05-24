@@ -15,6 +15,8 @@ public class BoardCareTaker {
 
 	private static BoardCareTaker instance;
 
+	private BoardCareTaker(){}
+	
 	public static synchronized BoardCareTaker getInstance() {
 		if (instance == null) {
 			instance = new BoardCareTaker();

@@ -25,8 +25,8 @@ public class GameTurn extends Observable {
         timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				setChanged();
-			    notifyObservers();
+					setChanged();
+				    notifyObservers();
 				if (gameTimer-- == 0)
 				{
 					//stop();

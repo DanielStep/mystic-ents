@@ -13,7 +13,7 @@ import javax.swing.border.TitledBorder;
 import utils.GameConfig;
 
 /**
- * A component of ControlPanel: Display the current team color
+ * A component of ControlPanel: Display the current move status
  * @author Mark
  *
  */

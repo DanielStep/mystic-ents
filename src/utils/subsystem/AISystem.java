@@ -30,13 +30,10 @@ public class AISystem {
 	private Random rN = new Random();
 	
 	public void initialiseAI() {
-
-		System.out.println("      Teams : " + teamList);
 		
 		teamList.get(0).setAI(true);
-		teamList.get(1).setAI(true);		
-		teamList.get(2).setAI(true);		
-		teamList.get(3).setAI(true);		
+		teamList.get(1).setAI(true);
+		
 	}
 
 	public void goGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
