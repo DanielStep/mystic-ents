@@ -7,8 +7,11 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultCaret;
 
 import utils.GameConfig;
 
@@ -22,7 +25,9 @@ public class MoveInfoPanel extends JPanel{
 	
 	private static MoveInfoPanel instance;
 	
-	private JTextField tfColor;
+	private JTextArea tfInfo;
+
+	private JScrollPane scrollbar = new JScrollPane();
 	
 	private MoveInfoPanel() {}	
 	
@@ -42,18 +47,38 @@ public class MoveInfoPanel extends JPanel{
 	private void buildPanel() {		
 		
 		//super();
+		
+		tfInfo = new JTextArea();
 
-		tfColor = new JTextField();
-		tfColor.setHorizontalAlignment(JTextField.CENTER);		
-		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 30));
+		scrollbar.setBorder(BorderFactory.createEmptyBorder());
+		scrollbar.getViewport().setBackground(Color.WHITE);
+		scrollbar.setViewportView(tfInfo);
+		scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollbar.getVerticalScrollBar().setUnitIncrement(50);
+		scrollbar.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-30, 100));
+		
+		tfInfo.setEditable(false);
+		tfInfo.setForeground(Color.BLACK);
+		tfInfo.setBackground(Color.WHITE);
+		tfInfo.setFont(new Font("Sans-serif", Font.BOLD, 14));
+		tfInfo.setLineWrap(true);
+		tfInfo.setWrapStyleWord(true);
+
+		/*tfColor = new JTextField();
+		tfColor.setHorizontalAlignment(JTextField.CENTER);
+		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 90));
 		tfColor.setEditable(false);
 		tfColor.setForeground(Color.BLACK);
 		tfColor.setBackground(Color.WHITE);
-		tfColor.setFont(new Font("Sans-serif", Font.BOLD, 10));
+		tfColor.setFont(new Font("Sans-serif", Font.BOLD, 16));*/
 
 		JPanel pnContainer = new JPanel(new FlowLayout());
 		pnContainer.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
-		pnContainer.add(tfColor);
+		pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, 130));
+		pnContainer.add(scrollbar);
+		
+		DefaultCaret caret2 = (DefaultCaret)tfInfo.getCaret();
+		caret2.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		
 	    TitledBorder titled = new TitledBorder("Move status");
 	    pnContainer.setBorder(titled);
@@ -63,7 +88,7 @@ public class MoveInfoPanel extends JPanel{
 	}
 	
 	public void setMessage(String msg) {
-		tfColor.setText(msg);
+		tfInfo.append(msg+"\n");
 	}
 
 }

@@ -82,27 +82,25 @@ public class UIMediator {
 			BoardData data = boardController.getBoardData();
 			Team t = data.getCurrentTeam();
 			data.setTeamUndo(t, Boolean.valueOf(true));
-
 		}
 		CFacade.getInstance().buildFullBoard(boardController.getBoardFrame().getBoardPanel(), boardController.getBoardData().getBoardArray());
 		boardController.clearRangeCells();
 		boardController.updateBoard();
 	}	
 	
-	public void doUIEndTurn() {
+	public void doUIEndTurn(Team t) {
 		//reset the Piece info panel on switch team.
 		pnPieceInfo.resetPieceInformation();
-		
 		// auto end the current player's turn
 		pnEndTurn.executeEndTurn();
-		
+		//reset AI status
+		pnTeamColor.setAIButtonToggle(t.getAI());
 		checkUndoButton();
 	}
 	
 	public void doUIUpdate(GameTurn gameTurn) {
 		// update time on ControlPanel view		
 		pnTime.setTime(gameTurn.getGameTimer());
-
 		// set end turn conditions
 		pnEndTurn.setGameTurn(gameTurn);
 	}	
@@ -120,6 +118,11 @@ public class UIMediator {
 			pnUndo.getUndoButton().setEnabled((t.getUndoNum() == 0) ? false : true);
 		}
 		
+	}
+	
+	public void setCurrentTeamAI() {
+		Team t = boardController.getBoardData().getCurrentTeam();
+		t.setAI(!t.getAI());
 	}
 	
 	public void disableAllButtons() {

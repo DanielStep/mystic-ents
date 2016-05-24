@@ -13,16 +13,14 @@ public class GameConfig {
     private static final int TIMER_PERIOD = 1000;
     
 	//CONTROL PANEL
-	private static final int CONTROLS_WIDTH = 180;
+	private static final int CONTROLS_WIDTH = 220;
     
     //BOARD
 	private static final int DEFAULT_WIDTH = 700;
 	private static final int DEFAULT_HEIGHT = 700;
 		
 	//MAP
-//	private static final String MAP_TEXTFILE = "./src/model/maps/map2.txt";
-
-	private static String DEFAULTMAP = "map2";		// default map
+	private static String DEFAULTMAP = "map2";
 
     private static int ROW_COL;
     

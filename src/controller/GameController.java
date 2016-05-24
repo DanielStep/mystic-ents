@@ -48,29 +48,28 @@ public class GameController implements Observer {
 		new MainMenuFrame(this);
 	}
 
-	public void newGame(boolean isWithAI) {
+	public void newGame() {
 		boardController.init();		
-		startGame(isWithAI);
+		startGame();
 	}
 	
-	public void continueGame(boolean isWithAI) {
+	public void continueGame() {
 		CFacade.getInstance().setUpGameFromLoad(boardController.getBoardData());
-		startGame(isWithAI);
+		startGame();
 	}
 	
-	public void startGame(boolean isWithAI) {
+	public void startGame() {
 		gamePiecesList = CFacade.getInstance().getGamePieces();
 		currentTeam = loadCurrentTeam();
+		boardController.getBoardData().setCurrentTeam(currentTeam);
 		boardController.buildBoard();
 		boardController.getBoardFrame().setVisible(true);
 		uiMediator.setBoardController(boardController);
-		if (isWithAI) {
-			setupAI();
-		}
+		setupAI();
 		//Start Game running
 		gameTimer.start();
 		// save AI variable for save game
-		boardController.getBoardData().setIsWithAI(isWithAI);
+		//boardController.getBoardData().setIsWithAI(isWithAI);
 	}	
 	
 	private void setupAI() {
@@ -92,13 +91,9 @@ public class GameController implements Observer {
 		uiMediator.setPieceCount(getAvailablePieceCount());
 		uiMediator.doUIUpdate(gameTurn);		
 		//AI Turn
-		//Modulus turn count to slow AI down
-		//if (gameTurn.getGameTimer() % 2 == 0) {
-			if (CFacade.getInstance().checkAIStatus(currentTeam)) {
-				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
-			}
-		//}
-
+		if (CFacade.getInstance().checkAIStatus(currentTeam)) {
+			CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
+		}
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
@@ -124,7 +119,7 @@ public class GameController implements Observer {
 		//reset ActionController
 		resetActionController();
 		// set game turn count;
-		gameTimer.setCount(gameTimer.getCount()+1);		
+		gameTimer.setCount(gameTimer.getCount()+1);
 		//Check AI Status
 		isAITurn = currentTeam.getAI();
 	}
@@ -132,7 +127,7 @@ public class GameController implements Observer {
 	private void updateUI() {
 		uiMediator.setCurrentTeam(currentTeam);
 		uiMediator.setPieceCount(getAvailablePieceCount());
-		uiMediator.doUIEndTurn();		
+		uiMediator.doUIEndTurn(currentTeam);		
 	}
 	
 	private void resetActionController() {

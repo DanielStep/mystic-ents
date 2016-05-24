@@ -27,12 +27,12 @@ public class StateAttack implements IGameState {
 		a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
 		
 		a.getActivePiece().attackOut(s.getOccupant());
-		a.getGameController().setMessage(a.getActivePiece().getTeam() + " attacked " + s.getOccupant().getTeam());
 
 		//move to gameutils
 		int targetHealthValue = s.getOccupant().getTraitSet().getHealthTrait().getTraitValue();
 		if ( targetHealthValue < 1) {
 			s.getOccupant().setInPlay(false);
+			a.getGameController().setMessage(a.getActivePiece().getTeam() + "  KILLED  " + s.getOccupant().getTeam() + "!");
 			s.setOccupant(null);
 			a.getBoardController().getBoardData().doCellsUpdate();
 		}		

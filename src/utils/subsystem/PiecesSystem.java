@@ -22,7 +22,7 @@ public class PiecesSystem {
 	
 	public ArrayList<Piece> getActivePieces(ArrayList<Piece> piecesList, Team team) {
 		ArrayList<Piece> aP = new ArrayList<Piece>();
-		for (Piece p : piecesList) {			
+		for (Piece p : piecesList) {
 			if (p.getInPlay() && p.getTeam() == team) {
 				aP.add(p);
 			}			

@@ -30,7 +30,7 @@ public class StateMove implements IGameState {
 	@Override
 	public void endAction(ActionController a, Square s) {
 		// check the game win condition
-		if (!CFacade.getInstance().isWinCondition(a, s)) return;
+		CFacade.getInstance().checkTowerWin(a, s);
 		if (CFacade.getInstance().checkMoveRules(a, s)) {
 			if (!s.getInRange()) return;
 			System.out.println("End move");

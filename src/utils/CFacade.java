@@ -64,8 +64,8 @@ public class CFacade {
 		return gameRulesSystem.checkMoveRules(a, s);
 	}
 	
-	public boolean isWinCondition(ActionController a, Square s){
-		return gameRulesSystem.isWinCondition(a, s);
+	public void checkTowerWin(ActionController a, Square s){
+		gameRulesSystem.checkTowerWin(a, s);
 	}
 
 	public ArrayList<String> getAllGameMaps() {

@@ -65,7 +65,8 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		if (this.sqrObj.getAccessible() && !_ac.getGameController().getAiTurn()) {
+		if (this.sqrObj.getAccessible() && !_ac.getGameController().getCurrentTeam().getAI()) {
+		//if (this.sqrObj.getAccessible() && !_ac.getGameController().getAiTurn()) {
 			this.setBorder(new LineBorder(new Color(255, 0, 0), 1));
 		}
 	}
@@ -81,7 +82,7 @@ public class SquareView extends JPanel implements MouseListener, Serializable {
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 
-		if (_ac.getGameController().getAiTurn()) { 
+		if (_ac.getGameController().getCurrentTeam().getAI()) { 
 			return; 
 		}
 		

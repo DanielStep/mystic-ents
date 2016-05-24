@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 
 import controller.BoardController;
 import controller.UIMediator;
+import utils.GameConfig;
 
 /**
  * A component of ControlPanel: undo a certain number of moves for both players
@@ -33,17 +34,19 @@ public class UndoPanel extends JPanel {
 		super();
 
 		JPanel pnMain = new JPanel(new FlowLayout());
-		pnMain.setPreferredSize(new Dimension(160, 100));
+		//pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-100));
+
+		pnMain.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, 100));
 
 		String[] turnsToUndo = { "1", "2", "3" };
 		cbNumberOfTurns = new JComboBox<String>(turnsToUndo);
-		cbNumberOfTurns.setPreferredSize(new Dimension(98, 26));
+		cbNumberOfTurns.setPreferredSize(new Dimension(60, 26));
 		((JLabel) cbNumberOfTurns.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
 		lbTurn = new JLabel("moves");
 
 		btUndo = new JButton("Accept");
-		btUndo.setPreferredSize(new Dimension(140, 36));
+		btUndo.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 30));
 		btUndo.addActionListener(new ActionListener() {
 
 			@Override

@@ -27,7 +27,7 @@ public class PieceInfoPanel extends JPanel{
 		super();		
 		
 		JPanel pnContainer = new JPanel(new GridLayout(4, 1));
-		pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-60));
+		pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, GameConfig.getControlsWidth()-100));
 		pnContainer.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		
 		TitledBorder titled = new TitledBorder("Selected piece");

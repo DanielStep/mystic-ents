@@ -33,10 +33,10 @@ public class MediatorView extends JPanel {
 	    this.add(pnTime);
 	    this.add(pnTeamColor);
 	    this.add(pnPieceInfo);	    
+	    this.add(pnMoveInfo);
 	    this.add(pnUndo);	    
 	    this.add(pnSaveGame);	    
 	    this.add(pnEndTurn);	    
-	    this.add(pnMoveInfo);
 	    
 	    UIMediator.getInstance().registerColleagues(
 	    		pnTime, 

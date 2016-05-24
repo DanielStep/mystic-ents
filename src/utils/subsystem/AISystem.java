@@ -31,23 +31,34 @@ public class AISystem {
 	
 	public void initialiseAI() {
 		
-		teamList.get(0).setAI(true);
+		for (int i = 0 ; i<teamList.size(); i++) {
+			//teamList.get(i).setAI(true);			
+		}
+		
+		/*teamList.get(1).setAI(true);
 		teamList.get(1).setAI(true);
+		teamList.get(1).setAI(true);*/
 		
 	}
 
 	public void goGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
 		Square ts;
 		ArrayList<Square> sqrs = new ArrayList<Square>();
+		
 		if (p.getIsUsurper()) {			
 			sqrs = getOpponentTowers(p);
 		} else {
 			sqrs = getOpponentPieces(p);			
 		}
+		
+		System.out.println("SQRS: " + sqrs.size());
+		
+		
 		if (sqrs.size() == 0) {
 			a.endAction(a, p.getParentSquare());
 		}
 		ts = getNextSquare(sqrs, rangeList);
+		
 		a.endAction(a, ts);
 	}	
 	
@@ -64,7 +75,7 @@ public class AISystem {
 	private ArrayList<Square> getOpponentPieces(Piece p) {
 		ArrayList<Square> sqrs = new ArrayList<Square>();
 		for (Piece s : piecesList) {
-			if (p.getTeam() != s.getTeam()) {
+			if (p.getTeam() != s.getTeam() && s.getInPlay()) {
 				sqrs.add(s.getParentSquare());
 			}
 		}
@@ -160,22 +171,9 @@ public class AISystem {
 	}
 	
 	public Boolean checkAIStatus(Team ct) {
-		
 		return ct.getAI();
-		
-		/*updateTeamList();
-		for (Team t : teamList) {
-			if (t == ct) {
-				return ct.getAI();
-			}
-		}		
-		return false;*/
 	}
-	
-	private void updateTeamList() {
-		//teamList = GameUtils.getInstance().getTeamList(piecesList);
-	}
-	
+
 	public ArrayList<Team> getTeamList() {
 		return teamList;
 	}

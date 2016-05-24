@@ -66,7 +66,7 @@ public class MainMenuFrame extends JFrame{
 		lbTitle.setFont(new Font("Serif", Font.BOLD, 22));
 		menuPanel.add(lbTitle);
 		
-		JButton btNormalGame = new JButton("Play Normal Game");
+		JButton btNormalGame = new JButton("Start New Game");
 		btNormalGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -75,24 +75,22 @@ public class MainMenuFrame extends JFrame{
 				 * Start a new Normal Game.
 				 */
 				doCloseFrame();
-				gameController.newGame(false);
+				gameController.newGame();
 			}
 		});
 		menuPanel.add(btNormalGame);
 		
-		JButton btAIGame = new JButton("Play Game with AI");
+		/*JButton btAIGame = new JButton("Play Game with AI");
 		btAIGame.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * Start a new AI Game.
-				 */
+
 				doCloseFrame();
-				gameController.newGame(true);
+				gameController.newGame();
 			}
 		});
-		menuPanel.add(btAIGame);
+		menuPanel.add(btAIGame);*/
 		
 		JButton btContinue = new JButton("Continue");
 		btContinue.addActionListener(new ActionListener() {
@@ -107,7 +105,7 @@ public class MainMenuFrame extends JFrame{
 				if (gameController.loadGame()) {
 					boolean isWithAI = BoardData.getInstance().getIsWithAI();
 //					System.out.println("-------- AI = " + isWithAI);
-					gameController.continueGame(isWithAI);
+					gameController.continueGame();
 					doCloseFrame();
 				}
 			}

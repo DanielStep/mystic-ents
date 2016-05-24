@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.game.GameTurn;
+import utils.GameConfig;
 
 /**
  * A component of ControlPanel: manually/automatically end the current turn
@@ -26,7 +27,7 @@ public class EndTurnPanel extends JPanel {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 		btnEndTurn = new JButton("End turn");
-		btnEndTurn.setPreferredSize(new Dimension(158, 50));
+		btnEndTurn.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, 40));
 		btnEndTurn.addActionListener(new ActionListener() {
 
 			@Override

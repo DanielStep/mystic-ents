@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import model.board.BoardData;
 import utils.CFacade;
+import utils.GameConfig;
 
 /**
  * A component of Control Panel: display save game button to save the current game
@@ -26,7 +27,7 @@ public class SaveGamePanel extends JPanel implements Serializable {
 		super();
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
 		btnSaveGame = new JButton("Save game");
-		btnSaveGame.setPreferredSize(new Dimension(158, 50));
+		btnSaveGame.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, 40));
 		btnSaveGame.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
