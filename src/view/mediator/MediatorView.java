@@ -28,7 +28,7 @@ public class MediatorView extends JPanel {
 		UndoPanel pnUndo = new UndoPanel();
 		SaveGamePanel pnSaveGame = new SaveGamePanel();
 		EndTurnPanel pnEndTurn = new EndTurnPanel();
-		MoveInfoPanel pnMoveInfo = MoveInfoPanel.getInstance();
+		MoveInfoPanel pnMoveInfo = new MoveInfoPanel();
 	    
 	    this.add(pnTime);
 	    this.add(pnTeamColor);
