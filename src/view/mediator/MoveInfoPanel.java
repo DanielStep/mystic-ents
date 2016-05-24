@@ -9,40 +9,41 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DefaultCaret;
 
 import utils.GameConfig;
 
 /**
- * A component of ControlPanel: Display the current move status
- * @author Mark
+ * A component of ControlPanel: Log all player/AI actions
+ * @author Mark, Phan Vo
  *
  */
 
 public class MoveInfoPanel extends JPanel{
 	
-	private static MoveInfoPanel instance;
+//	private static MoveInfoPanel instance;
 	
 	private JTextArea tfInfo;
 
 	private JScrollPane scrollbar = new JScrollPane();
 	
-	private MoveInfoPanel() {}	
+	public MoveInfoPanel() {
+		buildPanel();
+	}	
 	
 	/**
 	 * thread-safe for getting the only instance of the object
 	 * reuse the DialogView to display in-game message
 	 * @return
 	 */
-	public static synchronized MoveInfoPanel getInstance() {
-		if (instance == null) {
-			instance = new MoveInfoPanel();
-			instance.buildPanel();
-		}
-		return instance;
-	}
+//	public static synchronized MoveInfoPanel getInstance() {
+//		if (instance == null) {
+//			instance = new MoveInfoPanel();
+//			instance.buildPanel();
+//		}
+//		return instance;
+//	}
 	
 	private void buildPanel() {		
 		
@@ -80,7 +81,7 @@ public class MoveInfoPanel extends JPanel{
 		DefaultCaret caret2 = (DefaultCaret)tfInfo.getCaret();
 		caret2.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		
-	    TitledBorder titled = new TitledBorder("Move status");
+	    TitledBorder titled = new TitledBorder("Piece log");
 	    pnContainer.setBorder(titled);
 
 		this.add(pnContainer);
