@@ -65,14 +65,6 @@ public class MoveInfoPanel extends JPanel{
 		tfInfo.setLineWrap(true);
 		tfInfo.setWrapStyleWord(true);
 
-		/*tfColor = new JTextField();
-		tfColor.setHorizontalAlignment(JTextField.CENTER);
-		tfColor.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-40, 90));
-		tfColor.setEditable(false);
-		tfColor.setForeground(Color.BLACK);
-		tfColor.setBackground(Color.WHITE);
-		tfColor.setFont(new Font("Sans-serif", Font.BOLD, 16));*/
-
 		JPanel pnContainer = new JPanel(new FlowLayout());
 		pnContainer.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 5));
 		pnContainer.setPreferredSize(new Dimension(GameConfig.getControlsWidth()-20, 130));
