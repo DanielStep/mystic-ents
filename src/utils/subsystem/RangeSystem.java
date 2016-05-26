@@ -10,17 +10,22 @@ public class RangeSystem {
 	private ArrayList<Square> rangeList = new ArrayList<Square>();
 
 	public Square[][] getRangeCells(int x, int y, Square[][] boardData) {
-		Piece pce = boardData[x][y].getOccupant();
-		int range = pce.getTraitSet().getRangeTrait().getTraitValue();
-		int bSize = boardData.length;		
-		rangeList.clear();
-		rangeList.add(boardData[x][y]);
-		for (int i = (x - range > -1 ? x - range : 0); i < (x + (range + 1) < bSize ? x + (range + 1) : bSize); i++) {
-			for (int j = (y - range > -1 ? y - range : 0); j < (y + (range + 1) < bSize ? y + (range + 1)
-					: bSize); j++) {
-				boardData[i][j].setInRange(checkRangeCriteria(boardData[i][j]));
-				rangeList.add(boardData[i][j]);
+		try {
+			Piece pce = boardData[x][y].getOccupant();
+			int range = pce.getTraitSet().getRangeTrait().getTraitValue();
+			int bSize = boardData.length;		
+			rangeList.clear();
+			rangeList.add(boardData[x][y]);
+			for (int i = (x - range > -1 ? x - range : 0); i < (x + (range + 1) < bSize ? x + (range + 1) : bSize); i++) {
+				for (int j = (y - range > -1 ? y - range : 0); j < (y + (range + 1) < bSize ? y + (range + 1)
+						: bSize); j++) {
+					boardData[i][j].setInRange(checkRangeCriteria(boardData[i][j]));
+					rangeList.add(boardData[i][j]);
+				}
 			}
+			return boardData;
+		} catch (Exception e) {
+			System.out.println("Turn interrupted: " + e.getMessage());
 		}
 		return boardData;
 	}

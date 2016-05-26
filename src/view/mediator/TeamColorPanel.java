@@ -42,7 +42,7 @@ public class TeamColorPanel extends JPanel{
 		pnContainer.add(tfColor);
 		
 		AIButton = new JCheckBox("AI");
-		AIButton.addActionListener(new VotingListener(0));
+		AIButton.addActionListener(new AIListener(0));
 		pnContainer.add(AIButton);
 		
 	    TitledBorder titled = new TitledBorder("Team");
@@ -68,17 +68,15 @@ public class TeamColorPanel extends JPanel{
 	// ***************************************************************
 	// The listener for the CheckBoxes
 	// ***************************************************************
-	public class VotingListener implements ActionListener
+	public class AIListener implements ActionListener
 	{		
 		private int index;		
-		public VotingListener (int i) {
+		public AIListener (int i) {
 			this.index = i;
 		}		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			UIMediator.getInstance().setCurrentTeamAI();
-			//JCheckBox button = (JCheckBox) arg0.getSource();
-			//BallotController.getInstance().updateCandidateString(this.index);
 		}
 	}
 	

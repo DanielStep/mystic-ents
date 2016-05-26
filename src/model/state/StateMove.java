@@ -33,7 +33,6 @@ public class StateMove implements IGameState {
 			if (!s.getInRange()) return;
 			System.out.println("End move");
 			a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
-			//a.setTargetSquare(s);
 			s.setOccupant(a.getActivePiece());
 			a.updateAction(a);
 		} else {
@@ -47,7 +46,6 @@ public class StateMove implements IGameState {
 		a.getActiveSquare().setOccupant(null);
 		a.setActivePiece(null);
 		a.getBoardController().clearRangeCells();
-		a.checkActionCount();
 	}
 	
 	

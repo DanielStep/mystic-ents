@@ -22,6 +22,7 @@ import view.mediator.UndoPanel;
 public class UIMediator {
 	
 	private BoardController boardController;
+	private GameController gameController;
 	private DialogView dialogView;
 	
 	private TimePanel pnTime;
@@ -105,6 +106,18 @@ public class UIMediator {
 		pnEndTurn.setGameTurn(gameTurn);
 	}	
 	
+	public void handleEndGameUI(){
+		// disable board game interactions
+		boardController.disableBoard();
+		// disable timer
+		gameController.getGameTurn().stop();
+		// disable buttons in control panel
+		gameController.getUiMediator().disableAllButtons();
+		//Show victory banners...
+		gameController.setMessage("Team " + gameController.getCurrentTeam() + " wins!");
+		//showDialog("Team " + gameController.getCurrentTeam() + " wins!");
+	}
+	
 	// each team has only one chance to undo
 	public void checkUndoButton(){
 		Team t = boardController.getBoardData().getCurrentTeam();
@@ -116,8 +129,7 @@ public class UIMediator {
 		} else {
 			// else, check the allowed undo number
 			pnUndo.getUndoButton().setEnabled((t.getUndoNum() == 0) ? false : true);
-		}
-		
+		}		
 	}
 	
 	public void setCurrentTeamAI() {
@@ -155,6 +167,14 @@ public class UIMediator {
 
 	public void setBoardController(BoardController boardController) {
 		this.boardController = boardController;
+	}
+
+	public GameController getGameController() {
+		return gameController;
+	}
+	
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
 	}
 
 	public void showDialog(MouseEvent arg0, String msg) {

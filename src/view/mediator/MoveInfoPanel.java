@@ -61,7 +61,7 @@ public class MoveInfoPanel extends JPanel{
 		tfInfo.setEditable(false);
 		tfInfo.setForeground(Color.BLACK);
 		tfInfo.setBackground(Color.WHITE);
-		tfInfo.setFont(new Font("Sans-serif", Font.BOLD, 14));
+		tfInfo.setFont(new Font("Sans-serif", Font.BOLD, 12));
 		tfInfo.setLineWrap(true);
 		tfInfo.setWrapStyleWord(true);
 

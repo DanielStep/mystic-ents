@@ -72,7 +72,7 @@ public class CFacade {
 		int c = piecesSystem.getAvailableTeamList(piecesSystem.getPiecesList()).size();
 		return gameRulesSystem.checkSurvivorWin(a, c);
 	}
-
+	
 	public ArrayList<String> getAllGameMaps() {
 		return fileSystem.getAllGameMaps();
 	}
@@ -116,10 +116,6 @@ public class CFacade {
 		aiSystem.setTowersList(piecesSystem.getTowersList());
 		aiSystem.setPiecesList(piecesSystem.getPiecesList());
 		aiSystem.setTeamList(piecesSystem.getAvailableTeamList(piecesSystem.getPiecesList()));
-	}
-	
-	public void initialiseAI() {
-		aiSystem.initialiseAI();
 	}
 	
 	public void doAIGameTurn (ActionController a, Team team) {

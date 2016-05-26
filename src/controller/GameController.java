@@ -30,7 +30,6 @@ public class GameController implements Observer {
 	private GameTurn gameTimer;
 	private BoardController boardController;
 	private ActionController actionController;
-	//private AISystem gameAI;
 	private Boolean isAITurn = false;
 
 	//UI
@@ -65,17 +64,11 @@ public class GameController implements Observer {
 		boardController.buildBoard();
 		boardController.getBoardFrame().setVisible(true);
 		uiMediator.setBoardController(boardController);
-		setupAI();
+		uiMediator.setGameController(this);
+		CFacade.getInstance().populateAIObjects();
 		//Start Game running
 		gameTimer.start();
-		//save AI variable for save game
-		//boardController.getBoardData().setIsWithAI(isWithAI);
 	}	
-	
-	private void setupAI() {
-		CFacade.getInstance().populateAIObjects();
-		CFacade.getInstance().initialiseAI();
-	}
 
 	/**
 	 * The update method of the Observer pattern
@@ -91,9 +84,11 @@ public class GameController implements Observer {
 		uiMediator.setPieceCount(getAvailablePieceCount());
 		uiMediator.doUIUpdate(gameTurn);		
 		//AI Turn
-		if (CFacade.getInstance().checkAIStatus(currentTeam)) {
-			CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
-		}
+		//if (gameTurn.getGameTimer() % 2 == 0) {
+			if (CFacade.getInstance().checkAIStatus(currentTeam)) {
+				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
+			}
+		//}
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {
 			handleEndTurn();
@@ -174,7 +169,7 @@ public class GameController implements Observer {
 	}
 
 	public void setMessage(String msg) {
-		uiMediator.setMoveInfoMessage(msg);
+		uiMediator.setMoveInfoMessage(currentTeam + " : " + msg);
 	}
 	
 	private void buildTimer() {

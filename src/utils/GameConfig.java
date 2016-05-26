@@ -11,6 +11,7 @@ public class GameConfig {
     private static final int MAX_SECONDS = 25;
     private static final int START_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000;
+    private static final int MOVES_PER_TURN = 2;
     
 	//CONTROL PANEL
 	private static final int CONTROLS_WIDTH = 220;
@@ -20,8 +21,7 @@ public class GameConfig {
 	private static final int DEFAULT_HEIGHT = 700;
 		
 	//MAP
-	private static String DEFAULTMAP = "map_tst";
-
+	private static String DEFAULTMAP = "map2";
     private static int ROW_COL;
     
     //SKILLS
@@ -93,6 +93,10 @@ public class GameConfig {
 
 	public static int getHealamount() {
 		return HEALAMOUNT;
+	}
+
+	public static int getMovesPerTurn() {
+		return MOVES_PER_TURN;
 	}
 	
 }

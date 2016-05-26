@@ -11,21 +11,28 @@ public class GameRulesSystem {
 	public Boolean checkMoveRules(ActionController a, Square s) {
 		//Perform skill. Change State, restart;
 		if (a.getActionButton() == (Integer) 3) {
+			System.out.println("SKILL");
 			a.changeState(StatePerformSkill.getInstance(a));
 			return false;
 		}
 		if (s.getOccupant() == null) {
+			
+			System.out.println("MOVING: " + s.getInRange());
 			if (s.getInRange()) {
 				return true;		
 			}
 		} else {
 			//Swap piece so restart this State
 			if (a.getActivePiece().getTeam() == s.getOccupant().getTeam() ) {
+				
+				System.out.println("SWAPPING");
+				
 				a.setActivePiece(s.getOccupant());
 				return false;
 			}		
 			//Attack piece so change State
 			if (a.getActivePiece().getTeam() != s.getOccupant().getTeam() && s.getInRange()) {
+				System.out.println("ATTACKING");
 				a.changeState(StateAttack.getInstance(a));
 				return false;
 			}			

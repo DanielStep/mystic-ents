@@ -40,7 +40,6 @@ public class StatePerformSkill implements IGameState {
 		a.getBoardController().getRangeCells(a.getActiveSquare());
 		a.getBoardController().getBoardData().doCellsUpdate();
 		a.getGameController().updatePieceInformation(a.getActivePiece());
-		//a.setTargetSquare(s);
 		a.updateAction(a);
 	}
 
@@ -48,7 +47,6 @@ public class StatePerformSkill implements IGameState {
 	public void updateAction(ActionController a) {
 		// TODO Auto-generated method stub
 		a.changeState(StateMove.getInstance(a));
-		a.checkActionCount();
 	}
 
 }

@@ -21,27 +21,16 @@ public class StateAttack implements IGameState {
 	@Override
 	public void startAction(ActionController a, Square s) {
 		if (!s.getInRange()) return;
-		System.out.println("Start attack");
-		
+		System.out.println("Start attack");		
 		//Save state before making action
 		a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
-		
 		a.getActivePiece().attackOut(s.getOccupant());
-
-		//move to gameutils
-		int targetHealthValue = s.getOccupant().getTraitSet().getHealthTrait().getTraitValue();
-		if ( targetHealthValue < 1) {
-			s.getOccupant().setInPlay(false);
-			a.getGameController().setMessage(a.getActivePiece().getTeam() + "  KILLED  " + s.getOccupant().getTeam() + "!");
-			s.setOccupant(null);
-			a.getBoardController().getBoardData().doCellsUpdate();
-		}		
+		a.resolveAttack(a.getActivePiece(), s.getOccupant());	
 		a.endAction(a, s);
 	}
 
 	@Override
 	public void endAction(ActionController a, Square s) {
-		//a.setTargetSquare(s);
 		a.updateAction(a);
 	}
 
@@ -51,7 +40,6 @@ public class StateAttack implements IGameState {
 		a.setActivePiece(null);
 		a.changeState(StateMove.getInstance(a));
 		a.getBoardController().clearRangeCells();
-		a.checkActionCount();
 	}
 
 

@@ -10,7 +10,4 @@ public abstract class PieceDecorator implements Piece, Serializable{
 		this.decoratedPiece = decoratedPiece;
 	}
 	
-	
-	
-	
 }

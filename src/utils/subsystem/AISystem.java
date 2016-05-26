@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import controller.ActionController;
-import controller.GameController;
 import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
@@ -29,14 +28,6 @@ public class AISystem {
 
 	private Random rN = new Random();
 	
-	public void initialiseAI() {
-		
-		for (int i = 0 ; i<teamList.size(); i++) {
-			//teamList.get(i).setAI(true);
-		}
-
-	}
-
 	public void doGameTurn(ActionController a, ArrayList<Square> rangeList, Piece p) {
 		Square ts;
 		ArrayList<Square> sqrs = new ArrayList<Square>();
@@ -46,23 +37,27 @@ public class AISystem {
 		} else {
 			sqrs = getOpponentPieces(p);
 		}
-		
-		System.out.println("SQRS: " + sqrs.size());
-		
 		if (sqrs.size() == 0) {
 			a.endAction(a, p.getParentSquare());
 			return;
 		}
-		
-		
+		if (a.getActionButton() == 1) {
+			sqrs = filterAlliedPieces(p, sqrs);
+		}
 		ts = getNextSquare(sqrs, rangeList);
-		
-		
-		System.out.println("Target: " + ts.getID()[0] + " : " + ts.getID()[1] + " :: " + p.getParentSquare().getID()[0] + " : " + p.getParentSquare().getID()[1]);
-		
-		
 		a.endAction(a, ts);
 	}	
+	
+	private ArrayList<Square> filterAlliedPieces(Piece p, ArrayList<Square> sqrs) {		
+		for (Square s : sqrs) {
+			if (s.getOccupant() != null) {
+				if (p.getTeam() == s.getOccupant().getTeam()) {
+					sqrs.remove(s);
+				}				
+			}
+		}
+		return sqrs;
+	}
 	
 	private ArrayList<Square> getOpponentTowers(Piece p) {
 		ArrayList<Square> sqrs = new ArrayList<Square>();
@@ -73,7 +68,22 @@ public class AISystem {
 		}
 		return sqrs;
 	}
-	
+	/** 
+	 * Pieces need to repopulate existing adversaries.
+	 * The method returns a list of options, NOT the target,
+	 * as it may be out of range.
+	 * The list is then compared to their distance from the squares in range.
+	 * A suitable target square is then selected using getNextSquare();
+	 * 
+	 * @author Mark
+	 * 
+	 * @param p
+	 * The game piece searching
+	 * 
+	 * @return sqrs
+	 * An ArrayList potential long term targets. 
+	 * 
+	 */	
 	private ArrayList<Square> getOpponentPieces(Piece p) {
 		ArrayList<Square> sqrs = new ArrayList<Square>();
 		for (Piece s : piecesList) {
@@ -121,6 +131,7 @@ public class AISystem {
 		Square cSquare = null;
 		int shortestDistance = GameConfig.getROW_COL()*2;
 		for (Square o : sqrs) {
+			//System.out.println(o.getID()[0] + " : " + o.getID()[1]);
 			for (Square r : rangeList) {
 				int d = getDistance(r, o);
 				if (d < shortestDistance) {

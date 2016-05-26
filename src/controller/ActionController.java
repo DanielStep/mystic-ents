@@ -7,9 +7,11 @@ import model.board.BoardCareTaker;
 import model.board.BoardMemento;
 import model.board.Square;
 import model.piece.Piece;
+import model.piece.Team;
 import model.state.IGameState;
 import model.state.StateMove;
 import utils.CFacade;
+import utils.GameConfig;
 
 /**
  * This is main handler for selecting pieces and controlling their moves
@@ -67,16 +69,52 @@ public class ActionController implements IGameState {
 		//check the game win condition before updating
 		checkWinConditions(this);
 		gameState.updateAction(this);
+		checkActionCount();
 	}
 	
 	public void checkWinConditions(ActionController a) {
-		Boolean win = false;
 		if(CFacade.getInstance().checkTowerWin(this, getTargetSquare()) ||
 				CFacade.getInstance().checkSurvivorWin(this)) {
-			handleEndGameUI();
-			//getGameController().setMessage("Team " + gameController.getCurrentTeam() + " win!");
-			UIMediator.getInstance().showDialog("Team " + gameController.getCurrentTeam() + " win!");
+			UIMediator.getInstance().handleEndGameUI();
 		};
+	}
+	
+	public void resolveAttack(Piece a, Piece t) {
+		int targetHealthValue = t.getTraitSet().getHealthTrait().getTraitValue();
+		if ( targetHealthValue < 1) {
+			t.setInPlay(false);
+			t.getParentSquare().setOccupant(null);
+			getGameController().setMessage("  KILLED  " + t.getTeam() + "!");
+			boardController.getBoardData().doCellsUpdate();
+		}	
+	}
+	
+	/**
+	 * Method controls number of actions permitted per turn
+	 * Ends turn if at least 2 actions performed
+	 * If less than 2 actions performed, increments the action counter
+	 * 
+	 * @author DS
+	 */
+	public void checkActionCount(){
+		if (actionCount >= (GameConfig.getMovesPerTurn()-1)){
+			endTurn();
+			activePiece = null;
+		}else{
+			actionCount++;
+		}
+	}
+	
+	private void endTurn() {		
+		// automatically switch player when finishing a move
+		gameController.getGameTurn().setGameTimer(0);
+		//reset actionCount;
+		actionCount = 0;
+	}
+	
+	public void resetTraitValuesToBase(){
+		activePiece.getTraitSet().getDamageTrait().setTraitValueToBase();
+		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
 	}
 	public void setActionButton(int i) {
 		this.actionButton = i;
@@ -89,47 +127,9 @@ public class ActionController implements IGameState {
 	public IGameState getGameState() {
 		return gameState;
 	}
-
+	
 	public void setGameState(IGameState gameState) {
 		this.gameState = gameState;
-	}
-	
-	public void handleEndGameUI(){
-		// disable board game interactions
-		boardController.disableBoard();
-		// disable timer
-		gameController.getGameTurn().stop();		
-		// disable buttons in control panel
-		gameController.getUiMediator().disableAllButtons();
-	}
-	
-	/**
-	 * Method controls number of actions permitted per turn
-	 * Ends turn if at least 2 actions performed
-	 * If less than 2 actions performed, increments the action counter
-	 * 
-	 * @author DS
-	 */
-	public void checkActionCount(){
-		if (actionCount >=1){
-			endTurn();
-			activePiece = null;
-		}else{
-			actionCount++;
-		}
-	}
-	
-	private void endTurn() {		
-		// automatically switch player when finishing a move
-		gameController.getGameTurn().setGameTimer(0);
-
-		//reset actionCount;
-		actionCount = 0;
-	}
-	
-	public void resetTraitValuesToBase(){
-		activePiece.getTraitSet().getDamageTrait().setTraitValueToBase();
-		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
 	}
 	public GameController getGameController() {
 		return gameController;

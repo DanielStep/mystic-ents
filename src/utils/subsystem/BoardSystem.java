@@ -17,8 +17,12 @@ public class BoardSystem {
 	public BoardSystem () {}
 	
 	public void updateBoard(ArrayList<Square> rangeList) {
-		for(int i = 0; i < rangeList.size(); i++) {
-			squareViewArray[ rangeList.get(i).getID()[0] ][ rangeList.get(i).getID()[1] ].buildView(rangeList.get(i));
+		try {
+			for(int i = 0; i < rangeList.size(); i++) {
+				squareViewArray[ rangeList.get(i).getID()[0] ][ rangeList.get(i).getID()[1] ].buildView(rangeList.get(i));
+			}
+		} catch (Exception e) {
+			System.out.println("Update failed or interrupted: " + e.getMessage());
 		}
 	}
 	
