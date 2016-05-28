@@ -29,6 +29,11 @@ public class SkillSetBuilder {
  		generateSkillSetFromSkills();
  	}
  
+ 	/**
+ 	 * Method requests a Skill factory from factoryProducers, which creates appropriate
+ 	 * Skill on request, they are returned at Skill parent type.
+ 	 * Added to ArrayList for randomised selection and placement into set
+ 	 */
  	private void generateSkillSetFromSkills() {
  		
  		AbstractFactory skillFactory = FactoryProducer.getFactory("SKILL");

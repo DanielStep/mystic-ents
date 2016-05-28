@@ -16,8 +16,6 @@ public class PieceBuilder {
 	//Random is seeded by date long here and used throughout the piece gen process
 	Random randomNumGen = new Random(System.currentTimeMillis());
 	
-	//SkillBuilder skillBuilder = new SkillBuilder(randomNumGen);
-
 	/**
 	 * Method is passed empty Piece and team num,
 	 * and coordinates the aggregation of skill and trait sets into the piece,

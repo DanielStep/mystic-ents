@@ -26,6 +26,7 @@ public class TraitSetBuilder {
 	/**
 	 * All traits instantiated here, references passed to allocateTraitValues
 	 * then aggregated into a trait set
+	 * Trait factory is requested from FactoryProducers and is used to create and return the appropriate traits
 	 */
 
 	private void generateTraitSetfromTraits() {
