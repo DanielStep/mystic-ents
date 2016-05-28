@@ -9,9 +9,7 @@ import java.util.HashMap;
  *
  */
 public class TraitSet implements Serializable{
-	
-	//TODO Consider how to make more extensible, ie adding another trait subtype without modifying structure (open closed) but retaining accessability
-	
+		
 	private Trait healthTrait;
 	private Trait moveTrait;
 	private Trait attackTrait;

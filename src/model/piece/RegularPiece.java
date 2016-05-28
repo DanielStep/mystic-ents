@@ -1,11 +1,15 @@
 package model.piece;
-
 import java.io.Serializable;
 
 import model.board.Square;
 import model.skills.SkillSet;
 import model.traits.TraitSet;
 
+/**
+ * Concrete class implements all behaviours of regular piece
+ * @author Daniel
+ *
+ */
 public class RegularPiece implements Piece, Serializable {
 
 	protected TraitSet traitSet;
@@ -26,6 +30,10 @@ public class RegularPiece implements Piece, Serializable {
 	public RegularPiece() {
 	}
 
+	/**
+	 * Constructor used to clone piece for undo feature
+	 * @param other
+	 */
 	public RegularPiece(Piece other) {
 		this.traitSet = other.getTraitSet();
 		this.skillSet = other.getSkillSet();
@@ -41,9 +49,6 @@ public class RegularPiece implements Piece, Serializable {
 	public void setParentSquare(Square parentSquare) {
 		this.parentSquare = parentSquare;
 	}
-//	public String getIcon() {
-//		return pieceIcon;
-//	}
 
 	public void setIcon(String icon) {
 		this.pieceIcon = icon;

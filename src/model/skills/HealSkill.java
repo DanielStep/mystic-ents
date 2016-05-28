@@ -17,7 +17,6 @@ import view.mediator.DialogView;
 public class HealSkill extends Skill implements IPerformSquareSkill, Serializable {
 
 	public HealSkill() {
-		// TODO Auto-generated constructor stub
 		super.setName("Heal");
 		super.setIcon("hospital-cross.png");
 	}
@@ -58,8 +57,6 @@ public class HealSkill extends Skill implements IPerformSquareSkill, Serializabl
 		}
 		return true;
 	}
-	  
-
 }
 
 
@@ -72,8 +69,6 @@ class IncorrectSquareException extends RuntimeException {
 	public IncorrectSquareException(String message) {
 		super(message);
 	}
-	
-
 }
 
 

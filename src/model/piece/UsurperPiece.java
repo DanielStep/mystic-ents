@@ -1,11 +1,17 @@
 package model.piece;
-
 import java.io.Serializable;
 
 import model.board.Square;
 import model.skills.SkillSet;
 import model.traits.TraitSet;
 
+/**
+ * Concrete decorator class used as part of Decorator Pattern
+ * Implements all piece interface methods be directing classes to the aggregated decorated regular piece
+ * Usurpser functions have different implementation
+ * @author Daniel
+ *
+ */
 public class UsurperPiece extends PieceDecorator  implements Serializable{	
 	
 	public UsurperPiece(Piece decoratedPiece){

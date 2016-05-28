@@ -1,9 +1,12 @@
 package model.piece;
-
 import model.board.Square;
 import model.skills.SkillSet;
 import model.traits.TraitSet;
-
+/**
+ * Interface forms part of Piece Decorator Pattern, declaring all regular piece behaviour
+ * @author Daniel
+ *
+ */
 public interface Piece {
 
 
