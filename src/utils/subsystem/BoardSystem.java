@@ -45,7 +45,15 @@ public class BoardSystem {
 		for (Component com : boardPanel.getComponents()) {
 			if (com instanceof SquareView) {
 				SquareView sv = (SquareView)com;
-				sv.removeMouseListener(sv);
+				sv.removeListener();
+			}
+		}
+	}
+	public void enableBoard(BoardPanel boardPanel) {
+		for (Component com : boardPanel.getComponents()) {
+			if (com instanceof SquareView) {
+				SquareView sv = (SquareView)com;
+				sv.setListener();
 			}
 		}
 	}

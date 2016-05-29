@@ -10,51 +10,63 @@ import java.awt.Toolkit;
 
 public class GameTurn extends Observable {
 	
-    Toolkit toolkit;
-    Timer timer;
-    private int count = 1;
+	private Timer gameTimer;    
+    private Boolean isRunning;
+    private int keepTime;
 
-	public int gameTimer = GameConfig.getMaxSeconds();
+	private int count = 1;
+	
+	private int time;
 
     public GameTurn() {
-    	toolkit = Toolkit.getDefaultToolkit();
+    	//toolkit = Toolkit.getDefaultToolkit();
     }
     
-    private void buildTimer() {
-    	timer = new Timer();
-        timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-					setChanged();
-				    notifyObservers();
-				if (gameTimer-- == 0)
-				{
-					//stop();
-					setGameTimer(GameConfig.getMaxSeconds());
-				}
-			}
-    	}, GameConfig.getStartDelay(), GameConfig.getTimerPeriod());
-    }
-
-    public int getGameTimer() {
-    	return gameTimer;
-    }
-    
-    public void setGameTimer(int time) {
-    	gameTimer = time;
+    public void buildTimer() {
+    	isRunning = false;
+    	time = GameConfig.getMaxSeconds();
+    	setGameTime(GameConfig.getMaxSeconds());
+    	//keepTime = GameConfig.getMaxSeconds();
     }
     
     public void stop() {
-    	timer.cancel();
+    	gameTimer.cancel();
     }    
     
-    public void start() {
-    	buildTimer();
+    public void startTimer() {
+    	isRunning = true;
+    	gameTimer = new Timer();
+    	gameTimer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				setChanged();
+			    notifyObservers();
+			    if (time-- == 0)
+				{
+					setGameTime(GameConfig.getMaxSeconds());
+				}
+			}
+    	}, GameConfig.getStartDelay() , GameConfig.getTimerPeriod());
+    }
+
+    public void reset() {
+    	this.time = GameConfig.getMaxSeconds();
+    }    
+
+    public int getGameTime() {
+    	return time;
     }
     
-    public void reset() {
-    	gameTimer = GameConfig.getMaxSeconds();
-    }    
+    public void setGameTime(int time) {
+    	this.time = time;
+    }
+    public int getKeepTime() {
+    	return keepTime;
+    }
+    
+    public void setKeepTime(int keepTime) {
+    	this.keepTime = keepTime;
+    }
     
     public int getCount() {
 		return count;
@@ -63,5 +75,13 @@ public class GameTurn extends Observable {
     public void setCount(int c) {
 		count = c;
 	} 
+    
+    public Boolean getIsRunning() {
+    	return isRunning;
+    }
+    
+    public void setIsRunning(Boolean isRunning) {
+    	this.isRunning = isRunning;
+    }
     
 }

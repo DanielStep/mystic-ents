@@ -60,7 +60,6 @@ public class BoardController implements Observer {
 	}
 
 	public void restoreValuesFromSave(BoardData data) {
-		getBoardData().setIsWithAI(data.getIsWithAI());
 		getBoardData().setCurrentTeam(data.getCurrentTeam());
 		getBoardData().setBoardArray(data.getBoardArray());
 	}
@@ -83,6 +82,9 @@ public class BoardController implements Observer {
 	
 	public void disableBoard() {
 		CFacade.getInstance().disableBoard(getBoardFrame().getBoardPanel());	
+	}
+	public void enableBoard() {
+		CFacade.getInstance().enableBoard(getBoardFrame().getBoardPanel());	
 	}
 	
 

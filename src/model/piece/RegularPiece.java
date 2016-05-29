@@ -73,14 +73,9 @@ public class RegularPiece implements Piece, Serializable {
 		this.team = team;
 	}
 
-
 	public void attackOut(Piece piece) {
-
 		int damageValue = this.getTraitSet().getDamageTrait().getTraitValue();
 		piece.getTraitSet().getHealthTrait().modifyValue(-damageValue);
-
-		System.out.println(this.getTraitSet().getDamageTrait().getTraitValue() + " : Attack on : "
-				+ piece.getTraitSet().getHealthTrait().getTraitValue());
 	}
 
 	public Boolean getInPlay() {

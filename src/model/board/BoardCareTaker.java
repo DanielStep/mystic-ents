@@ -42,6 +42,6 @@ public class BoardCareTaker {
 		// boardMemento.print();
 		mementos.add(boardMemento);
 		System.out.println("Memento size:" + mementos.size());
-
+		
 	}
 }

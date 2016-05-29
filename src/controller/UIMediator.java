@@ -70,6 +70,8 @@ public class UIMediator {
 		this.pnEndTurn = pnEndTurn;
 		this.pnMoveInfo = pnMoveInfo;		
 		this.dialogView  = DialogView.getInstance();
+		
+		//this.pnEndTurn.setGameTurn(gameController.getGameTimer());
 
 	}
 	
@@ -101,18 +103,27 @@ public class UIMediator {
 	
 	public void doUIUpdate(GameTurn gameTurn) {
 		// update time on ControlPanel view		
-		pnTime.setTime(gameTurn.getGameTimer());
+		pnTime.setTime(gameTurn.getGameTime());
 		// set end turn conditions
 		pnEndTurn.setGameTurn(gameTurn);
-	}	
+	}
+	
+	public void disableBoard() {
+		boardController.disableBoard();
+	}
+	
+	public void enableBoard() {
+		boardController.enableBoard();
+	}
 	
 	public void handleEndGameUI(){
+		// disable buttons in control panel
+		disableAllButtons();
 		// disable board game interactions
 		boardController.disableBoard();
 		// disable timer
-		gameController.getGameTurn().stop();
-		// disable buttons in control panel
-		gameController.getUiMediator().disableAllButtons();
+		gameController.getGameTimer().setIsRunning(false);
+		gameController.getGameTimer().stop();
 		//Show victory banners...
 		gameController.setMessage("Team " + gameController.getCurrentTeam() + " wins!");
 		//showDialog("Team " + gameController.getCurrentTeam() + " wins!");
@@ -136,6 +147,20 @@ public class UIMediator {
 		Team t = boardController.getBoardData().getCurrentTeam();
 		t.setAI(!t.getAI());
 	}
+
+	public void pauseGame() {	
+		gameController.getGameTimer().setIsRunning(false);
+		gameController.getGameTimer().stop();
+	}
+	
+	public Boolean gameIsRunning() {
+		return gameController.getGameTimer().getIsRunning();
+	}
+	
+	public void unpauseGame() {
+		gameController.getGameTimer().setIsRunning(true);
+		gameController.getGameTimer().startTimer();
+	}	
 	
 	public void disableAllButtons() {
 		pnSaveGame.getSaveButton().setEnabled(false);

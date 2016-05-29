@@ -9,7 +9,7 @@ import model.board.Square;
 import model.piece.Piece;
 import model.piece.Team;
 import model.state.IGameState;
-import model.state.StateMove;
+import model.state.StateSelect;
 import utils.CFacade;
 import utils.GameConfig;
 
@@ -35,26 +35,32 @@ public class ActionController implements IGameState {
 	private IGameState gameState;
 
 	private static ActionController instance;
-	
+
 	private BoardCareTaker careTaker;
-	
+
 	private ActionController(){
-		gameState = StateMove.getInstance(this);
+		gameState = StateSelect.getInstance(this);
 		careTaker = BoardCareTaker.getInstance();
 	}
-	
+
 	public static synchronized ActionController getInstance() {
 		if (instance == null) {
 			instance = new ActionController();
 		}
 		return instance;
 	}
-	
-	// state change
+
+	/**
+	 * Method controls number of actions permitted per turn
+	 * Ends turn if at least 2 actions performed
+	 * If less than 2 actions performed, increments the action counter
+	 * 
+	 * @author DS
+	 */
 	public void changeState(IGameState s) {
 		gameState = s;
 	}
-	
+
 	public void startAction(ActionController a, Square sqr)	{
 		gameState.startAction(this, sqr);
 	}
@@ -64,21 +70,21 @@ public class ActionController implements IGameState {
 		gameState.endAction(this, sqr);
 		boardController.getBoardData().doCellsUpdate();
 	}
-	
+
 	public void updateAction(ActionController a) {
 		//check the game win condition before updating
 		checkWinConditions(this);
 		gameState.updateAction(this);
 		checkActionCount();
 	}
-	
+
 	public void checkWinConditions(ActionController a) {
 		if(CFacade.getInstance().checkTowerWin(this, getTargetSquare()) ||
 				CFacade.getInstance().checkSurvivorWin(this)) {
 			UIMediator.getInstance().handleEndGameUI();
 		};
 	}
-	
+
 	public void resolveAttack(Piece a, Piece t) {
 		int targetHealthValue = t.getTraitSet().getHealthTrait().getTraitValue();
 		if ( targetHealthValue < 1) {
@@ -88,7 +94,7 @@ public class ActionController implements IGameState {
 			boardController.getBoardData().doCellsUpdate();
 		}	
 	}
-	
+
 	/**
 	 * Method controls number of actions permitted per turn
 	 * Ends turn if at least 2 actions performed
@@ -104,14 +110,14 @@ public class ActionController implements IGameState {
 			actionCount++;
 		}
 	}
-	
+
 	private void endTurn() {		
 		// automatically switch player when finishing a move
-		gameController.getGameTurn().setGameTimer(0);
+		gameController.getGameTimer().setGameTime(0);
 		//reset actionCount;
 		actionCount = 0;
 	}
-	
+
 	public void resetTraitValuesToBase(){
 		activePiece.getTraitSet().getDamageTrait().setTraitValueToBase();
 		activePiece.getTraitSet().getRangeTrait().setTraitValueToBase();
@@ -119,15 +125,15 @@ public class ActionController implements IGameState {
 	public void setActionButton(int i) {
 		this.actionButton = i;
 	}
-	
+
 	public int getActionButton() {
 		return this.actionButton;
 	}
-	
+
 	public IGameState getGameState() {
 		return gameState;
 	}
-	
+
 	public void setGameState(IGameState gameState) {
 		this.gameState = gameState;
 	}
@@ -167,5 +173,5 @@ public class ActionController implements IGameState {
 	public void saveToMemento(BoardMemento memento){
 		careTaker.addMemento(memento);
 	}
-	
+
 }

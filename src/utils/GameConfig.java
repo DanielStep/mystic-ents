@@ -7,11 +7,13 @@ public class GameConfig {
 	public static final String SAVE_GAME_FILE = "savegame.dat";
 
 	//TIMER
-    private static final int MAX_TURNS = 1000;
-    private static final int MAX_SECONDS = 25;
+    private static final int MAX_SECONDS = 27;
     private static final int START_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000;
+    
+    //GAME
     private static final int MOVES_PER_TURN = 2;
+    private static final int MAX_TURNS = 1000;
     
 	//CONTROL PANEL
 	private static final int CONTROLS_WIDTH = 220;

@@ -42,7 +42,7 @@ public class TeamColorPanel extends JPanel{
 		pnContainer.add(tfColor);
 		
 		AIButton = new JCheckBox("AI");
-		AIButton.addActionListener(new AIListener(0));
+		AIButton.addActionListener(new AIListener());
 		pnContainer.add(AIButton);
 		
 	    TitledBorder titled = new TitledBorder("Team");
@@ -70,10 +70,8 @@ public class TeamColorPanel extends JPanel{
 	// ***************************************************************
 	public class AIListener implements ActionListener
 	{		
-		private int index;		
-		public AIListener (int i) {
-			this.index = i;
-		}		
+		public AIListener () {}
+		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			UIMediator.getInstance().setCurrentTeamAI();

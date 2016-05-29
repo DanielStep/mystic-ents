@@ -5,15 +5,15 @@ import model.board.BoardMemento;
 import model.board.Square;
 import utils.CFacade;
 
-public class StateMove implements IGameState {
+public class StateSelect implements IGameState {
 	
-	private StateMove() { }
+	private StateSelect() { }
 
-	private static StateMove instance;
+	private static StateSelect instance;
 
-	public static StateMove getInstance(ActionController a) {
+	public static StateSelect getInstance(ActionController a) {
 		if (instance == null) {
-			instance = new StateMove();
+			instance = new StateSelect();
 		}
 		return instance;
 	}	

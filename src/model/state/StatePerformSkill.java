@@ -46,7 +46,7 @@ public class StatePerformSkill implements IGameState {
 	@Override
 	public void updateAction(ActionController a) {
 		// TODO Auto-generated method stub
-		a.changeState(StateMove.getInstance(a));
+		a.changeState(StateSelect.getInstance(a));
 	}
 
 }

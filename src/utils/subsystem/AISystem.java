@@ -22,7 +22,7 @@ import utils.GameConfig;
 
 public class AISystem {
 	
-	private ArrayList <Team> teamList;
+	//private ArrayList <Team> teamList;
 	private ArrayList <Piece> piecesList;
 	private ArrayList <Square> towersList;
 
@@ -37,18 +37,18 @@ public class AISystem {
 		} else {
 			sqrs = getOpponentPieces(p);
 		}
-		if (sqrs.size() == 0) {
+		/*if (sqrs.size() == 0) {
 			a.endAction(a, p.getParentSquare());
 			return;
 		}
 		if (a.getActionButton() == 1) {
 			sqrs = filterAlliedPieces(p, sqrs);
-		}
+		}*/
 		ts = getNextSquare(sqrs, rangeList);
 		a.endAction(a, ts);
 	}	
 	
-	private ArrayList<Square> filterAlliedPieces(Piece p, ArrayList<Square> sqrs) {		
+	private ArrayList<Square> filterAlliedPieces(Piece p, ArrayList<Square> sqrs) {
 		for (Square s : sqrs) {
 			if (s.getOccupant() != null) {
 				if (p.getTeam() == s.getOccupant().getTeam()) {
@@ -94,7 +94,6 @@ public class AISystem {
 		return sqrs;
 	}	
 	
-
 	public int SelectNextAction(Piece p) {
 		float chance = rN.nextFloat();
 		int i = 1;
@@ -122,7 +121,7 @@ public class AISystem {
 	 * Returns move square based on selection criteria
 	 * 
 	 */
-	private Square getNextSquare(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {		
+	private Square getNextSquare(ArrayList<Square> sqrs, ArrayList<Square> rangeList) {
 		Square s = getClosestInRange(sqrs, rangeList);
 		return s;
 	}
@@ -187,13 +186,13 @@ public class AISystem {
 		return ct.getAI();
 	}
 
-	public ArrayList<Team> getTeamList() {
+	/*public ArrayList<Team> getTeamList() {
 		return teamList;
 	}
 	
 	public void setTeamList(ArrayList<Team> teamList) {
 		this.teamList = teamList;
-	}
+	}*/
 	
 	public ArrayList<Piece> getPiecesList() {
 		return piecesList;

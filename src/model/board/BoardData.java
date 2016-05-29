@@ -22,8 +22,6 @@ public class BoardData extends Observable implements Serializable {
 
 	private Team currentTeam = null;
 	
-	private boolean isWithAI = false;
-	
 	private HashMap<Team, Boolean> teamUndo = new HashMap<Team, Boolean>();
 
 	private BoardData() {
@@ -42,14 +40,6 @@ public class BoardData extends Observable implements Serializable {
 
 	public Square[][] getBoardArray() {
 		return boardArray;
-	}
-
-	public void setIsWithAI(boolean isWithAI) {
-		this.isWithAI = isWithAI;
-	}
-
-	public boolean getIsWithAI() {
-		return isWithAI;
 	}
 
 	public void setTeamUndo(Team t, Boolean isUndo) {
@@ -73,14 +63,5 @@ public class BoardData extends Observable implements Serializable {
 		notifyObservers();
 	}
 
-	// For debugging
-	public void print() {
-		/*for (int i = 0; i < GameConfig.getROW_COL(); i++) {
-			for (int j = 0; j < GameConfig.getROW_COL(); j++) {
-				System.out.print(boardArray[i][j] + " ");
-			}
-			System.out.println();
-		}*/
-	}
 
 }

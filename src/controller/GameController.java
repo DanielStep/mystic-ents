@@ -10,6 +10,7 @@ import model.piece.Piece;
 import model.piece.Team;
 
 import utils.CFacade;
+import utils.GameConfig;
 import view.MainMenuFrame;
 import view.mediator.DialogView;
 
@@ -28,6 +29,7 @@ public class GameController implements Observer {
 
 	//GAME CONTROL
 	private GameTurn gameTimer;
+
 	private BoardController boardController;
 	private ActionController actionController;
 	private Boolean isAITurn = false;
@@ -67,7 +69,7 @@ public class GameController implements Observer {
 		uiMediator.setGameController(this);
 		CFacade.getInstance().populateAIObjects();
 		//Start Game running
-		gameTimer.start();
+		gameTimer.startTimer();
 	}	
 
 	/**
@@ -78,19 +80,20 @@ public class GameController implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		GameTurn gameTurn = (GameTurn) o;
+		GameTurn gameTimer = (GameTurn) o;
 		//Post condition exception if GameTurn is null, return (exit?)
-		if (gameTurn == null) return;		
+		if (gameTimer == null) return;		
 		uiMediator.setPieceCount(getAvailablePieceCount());
-		uiMediator.doUIUpdate(gameTurn);		
+		uiMediator.doUIUpdate(gameTimer);
+		
 		//AI Turn
-		//if (gameTurn.getGameTimer() % 2 == 0) {
+		if (gameTimer.getGameTime() % 5 == 0) {
 			if (CFacade.getInstance().checkAIStatus(currentTeam)) {
 				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
 			}
-		//}
+		}
 		// when time is up
-		if (gameTurn.getGameTimer() == 0) {
+		if (gameTimer.getGameTime() == 0) {
 			handleEndTurn();
 		}
 	}
@@ -174,6 +177,7 @@ public class GameController implements Observer {
 	
 	private void buildTimer() {
 		gameTimer = new GameTurn();
+		gameTimer.buildTimer();
 		observe(gameTimer);
 	}	
 
@@ -213,7 +217,7 @@ public class GameController implements Observer {
 		this.currentTeam = currentTeam;
 	}
 
-	public GameTurn getGameTurn() {
+	public GameTurn getGameTimer() {
 		return gameTimer;
 	}
 

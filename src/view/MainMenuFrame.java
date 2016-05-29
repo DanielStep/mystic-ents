@@ -79,19 +79,7 @@ public class MainMenuFrame extends JFrame{
 			}
 		});
 		menuPanel.add(btNormalGame);
-		
-		/*JButton btAIGame = new JButton("Play Game with AI");
-		btAIGame.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
 
-				doCloseFrame();
-				gameController.newGame();
-			}
-		});
-		menuPanel.add(btAIGame);*/
-		
 		JButton btContinue = new JButton("Continue");
 		btContinue.addActionListener(new ActionListener() {
 			
@@ -103,8 +91,6 @@ public class MainMenuFrame extends JFrame{
 				 * Otherwise, keep panel open
 				 */				
 				if (gameController.loadGame()) {
-					boolean isWithAI = BoardData.getInstance().getIsWithAI();
-//					System.out.println("-------- AI = " + isWithAI);
 					gameController.continueGame();
 					doCloseFrame();
 				}

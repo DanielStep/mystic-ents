@@ -25,7 +25,7 @@ public class StateAttack implements IGameState {
 		//Save state before making action
 		a.saveToMemento(new BoardMemento(a.getActiveSquare(), s));
 		a.getActivePiece().attackOut(s.getOccupant());
-		a.resolveAttack(a.getActivePiece(), s.getOccupant());	
+		a.resolveAttack(a.getActivePiece(), s.getOccupant());
 		a.endAction(a, s);
 	}
 
@@ -38,7 +38,7 @@ public class StateAttack implements IGameState {
 	public void updateAction(ActionController a) {
 		System.out.println("End attack");
 		a.setActivePiece(null);
-		a.changeState(StateMove.getInstance(a));
+		a.changeState(StateSelect.getInstance(a));
 		a.getBoardController().clearRangeCells();
 	}
 
