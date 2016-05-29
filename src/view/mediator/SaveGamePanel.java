@@ -42,6 +42,9 @@ public class SaveGamePanel extends JPanel implements Serializable {
 		return btnSaveGame;
 	}
 	
+	/**
+	 * perform save feature
+	 */
 	private void doSave(){
 		boardData = BoardData.getInstance();		
 		if (CFacade.getInstance().saveGameData(boardData)) {

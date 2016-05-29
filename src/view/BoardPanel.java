@@ -29,8 +29,8 @@ public class BoardPanel extends JPanel {
 	 * Draw the squares
 	 */
 	private void updateBoard(Square[][] board) {
-		ArrayList <Square> rangeList = new ArrayList <Square>();
-		rangeList = CFacade.getInstance().getRangeList();
+//		ArrayList <Square> rangeList = new ArrayList <Square>();
+//		rangeList = CFacade.getInstance().getRangeList();
 		CFacade.getInstance().updateBoard();
 	}
 	

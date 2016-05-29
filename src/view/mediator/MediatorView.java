@@ -8,8 +8,9 @@ import controller.UIMediator;
 
 import utils.GameConfig;
 /**
- * Display board game info: timer, team color in play, remaining pieces
- * 							selected piece, end turn mechanism
+ * Display board game info in a central place: timer, team color in play, 
+ * 				remaining pieces, selected piece, end turn mechanism
+ * 							
  * @author Phan Vo
  *
  */

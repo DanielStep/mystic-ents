@@ -22,33 +22,14 @@ import utils.GameConfig;
 
 public class MoveInfoPanel extends JPanel{
 	
-//	private static MoveInfoPanel instance;
-	
 	private JTextArea tfInfo;
-
 	private JScrollPane scrollbar = new JScrollPane();
 	
 	public MoveInfoPanel() {
 		buildPanel();
-	}	
+	}
 	
-	/**
-	 * thread-safe for getting the only instance of the object
-	 * reuse the DialogView to display in-game message
-	 * @return
-	 */
-//	public static synchronized MoveInfoPanel getInstance() {
-//		if (instance == null) {
-//			instance = new MoveInfoPanel();
-//			instance.buildPanel();
-//		}
-//		return instance;
-//	}
-	
-	private void buildPanel() {		
-		
-		//super();
-		
+	private void buildPanel() {
 		tfInfo = new JTextArea();
 
 		scrollbar.setBorder(BorderFactory.createEmptyBorder());

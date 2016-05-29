@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.GameController;
-import model.board.BoardData;
 import utils.GameConfig;
 
 /**
@@ -66,7 +65,7 @@ public class MainMenuFrame extends JFrame{
 		lbTitle.setFont(new Font("Serif", Font.BOLD, 22));
 		menuPanel.add(lbTitle);
 		
-		JButton btNormalGame = new JButton("Start New Game");
+		JButton btNormalGame = new JButton("New Game");
 		btNormalGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -103,7 +102,7 @@ public class MainMenuFrame extends JFrame{
 				 * Otherwise, keep panel open
 				 */				
 				if (gameController.loadGame()) {
-					boolean isWithAI = BoardData.getInstance().getIsWithAI();
+//					boolean isWithAI = BoardData.getInstance().getIsWithAI();
 //					System.out.println("-------- AI = " + isWithAI);
 					gameController.continueGame();
 					doCloseFrame();

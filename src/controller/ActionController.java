@@ -1,13 +1,9 @@
 package controller;
 
-import java.awt.Component;
-
-
 import model.board.BoardCareTaker;
 import model.board.BoardMemento;
 import model.board.Square;
 import model.piece.Piece;
-import model.piece.Team;
 import model.state.IGameState;
 import model.state.StateMove;
 import utils.CFacade;
