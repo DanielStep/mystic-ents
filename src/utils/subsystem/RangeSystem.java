@@ -23,7 +23,6 @@ public class RangeSystem {
 					rangeList.add(boardData[i][j]);
 				}
 			}
-			return boardData;
 		} catch (Exception e) {
 			System.out.println("Turn interrupted: " + e.getMessage());
 		}

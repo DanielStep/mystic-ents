@@ -1,14 +1,12 @@
 package controller;
 
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 import model.board.BoardData;
 import model.board.BoardState;
 import model.board.Square;
-import model.piece.Piece;
 import model.piece.Team;
 import utils.CFacade;
 import utils.GameConfig;

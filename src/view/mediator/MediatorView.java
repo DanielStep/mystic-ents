@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import controller.UIMediator;
 
 import utils.GameConfig;
+
 /**
  * Display board game info: timer, team color in play, remaining pieces
  * 							selected piece, end turn mechanism

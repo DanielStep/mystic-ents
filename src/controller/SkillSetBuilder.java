@@ -1,14 +1,6 @@
 package controller;
 import java.util.ArrayList;
 
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Random;
-
-import model.skills.AttackSkill;
-import model.skills.BuildSkill;
-import model.skills.HealSkill;
-import model.skills.RangeSkill;
 import model.skills.Skill;
 import model.skills.SkillRandomizer;
 import model.skills.SkillSet;

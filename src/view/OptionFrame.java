@@ -26,7 +26,6 @@ import utils.GameConfig;
 public class OptionFrame extends JFrame{
 	
 	public OptionFrame() {
-		// TODO Auto-generated constructor stub
 		super();
 		buildFrame();
 		buildUI();		
@@ -73,7 +72,6 @@ public class OptionFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				// set the game map by selection
 				GameConfig.setFileMapName(cbMapList.getSelectedItem().toString());
 				System.out.println(cbMapList.getSelectedItem() + " loaded...");
@@ -86,7 +84,6 @@ public class OptionFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				doCloseFrame();
 			}
 		});

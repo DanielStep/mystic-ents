@@ -14,7 +14,7 @@ import model.piece.Piece;
 import utils.GameConfig;
 
 /**
- * A component of ControlPanel: Display essential piece info in selection
+ * A component of ControlPanel: Display essential info for the selected piece
  * @author Phan Vo, Mark
  * 
  */
