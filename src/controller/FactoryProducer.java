@@ -1,5 +1,10 @@
 package controller;
 
+/**
+ * Class receives request for factory, instantiates and returns it. 
+ * @author Daniel
+ *
+ */
 public class FactoryProducer {
 	public static AbstractFactory getFactory(String choice){
 		
