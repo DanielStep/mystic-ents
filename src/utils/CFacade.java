@@ -26,7 +26,15 @@ public class CFacade {
 	private PiecesSystem piecesSystem = new PiecesSystem();
 	private UndoSystem undoSystem = new UndoSystem();
 	private AISystem aiSystem = new AISystem();
-
+	
+	/*
+	 * Facade pattern to present a single interface from the client to the subsystems.
+	 * CFacade is an instance and acts as a utility front of house.
+	 * 
+	 * @author mark
+	 *    
+	 */
+	
 	private CFacade() {}
 
 	public static synchronized CFacade getInstance() {
@@ -119,8 +127,24 @@ public class CFacade {
 	public void populateAIObjects() {
 		aiSystem.setTowersList(piecesSystem.getTowersList());
 		aiSystem.setPiecesList(piecesSystem.getPiecesList());
-		//aiSystem.setTeamList(piecesSystem.getAvailableTeamList(piecesSystem.getPiecesList()));
 	}
+	
+	/*
+	 * AI game turn controller
+	 * ActionController is passed in and some preparatory operations happen here
+	 * to not break the Facade pattern by remaining unknown to subsystems
+	 * Try, catch used to allow for intervention into AI turn
+	 * which may fail if intervention occurs at mid move.
+	 * 
+	 * @author mark
+	 * 
+	 * @Param a
+	 * ActionController to manage State Machine
+	 * 
+	 * @Param team
+	 * The current team from which a target, adversity can be derived
+	 *    
+	 */
 
 	public void doAIGameTurn (ActionController a, Team team) {
 		Piece p = aiSystem.getNextPiece(team);

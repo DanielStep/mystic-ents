@@ -7,7 +7,7 @@ public class GameConfig {
 	public static final String SAVE_GAME_FILE = "savegame.dat";
 
 	//TIMER
-    private static final int MAX_SECONDS = 27;
+    private static final int MAX_SECONDS = 25;
     private static final int START_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000;
     

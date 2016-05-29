@@ -10,7 +10,6 @@ import model.piece.Piece;
 import model.piece.Team;
 
 import utils.CFacade;
-import utils.GameConfig;
 import view.MainMenuFrame;
 import view.mediator.DialogView;
 
@@ -19,7 +18,8 @@ import view.mediator.DialogView;
  * Via Timer and end turn handling
  * And managing UI view
  * 
- * Generate game pieces that will be passed to the Board
+ * Generate game data, pieces that will be passed to the Board
+ * Creates the Board, then manages game flow of control.
  *
  * @author skh, mark, pv
  *
@@ -59,6 +59,19 @@ public class GameController implements Observer {
 		startGame();
 	}
 	
+	/**
+	 * START THE GAME.
+	 * The Board Data will have been loaded or constructed at this point.
+	 * In which case, this is the point where the two start states converge.
+	 * We can now build the board, assign the controllers, build the AI.
+	 * As we have established the game assets and populated the gamePiecesList.
+	 * Mediator and Facade patterns come into play here, e.g. through the assigning controllers to the Mediator.
+	 * When all is set up, we start the game timer.
+	 * 
+	 * @author Mark
+	 * 
+	 */		
+	
 	public void startGame() {
 		gamePiecesList = CFacade.getInstance().getGamePieces();
 		currentTeam = loadCurrentTeam();
@@ -87,11 +100,11 @@ public class GameController implements Observer {
 		uiMediator.doUIUpdate(gameTimer);
 		
 		//AI Turn
-		if (gameTimer.getGameTime() % 5 == 0) {
+		//if (gameTimer.getGameTime() % 2 == 0) {
 			if (CFacade.getInstance().checkAIStatus(currentTeam)) {
 				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
 			}
-		}
+		//}
 		// when time is up
 		if (gameTimer.getGameTime() == 0) {
 			handleEndTurn();

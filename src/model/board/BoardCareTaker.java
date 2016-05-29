@@ -16,7 +16,7 @@ public class BoardCareTaker {
 	private static BoardCareTaker instance;
 
 	private BoardCareTaker(){}
-	
+
 	public static synchronized BoardCareTaker getInstance() {
 		if (instance == null) {
 			instance = new BoardCareTaker();
@@ -34,14 +34,12 @@ public class BoardCareTaker {
 
 	public void addMemento(BoardMemento boardMemento) {
 
-		// Only have to save up to 6 states, remove old states
-		// if (mementos.size() > 9) {
-		// mementos.poll();
-		// }
+		// Remove old states
+		if (mementos.size() > 12) {
+			mementos.poll();
+		}
 		System.out.println("Adding Memento:" + mementos.size());
-		// boardMemento.print();
 		mementos.add(boardMemento);
-		System.out.println("Memento size:" + mementos.size());
-		
+
 	}
 }

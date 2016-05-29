@@ -10,7 +10,7 @@ import utils.GameConfig;
 /**
  * Display board game info: timer, team color in play, remaining pieces
  * 							selected piece, end turn mechanism
- * @author Phan Vo
+ * @author Phan Vo, Mark (Mediator pattern)
  *
  */
 public class MediatorView extends JPanel {

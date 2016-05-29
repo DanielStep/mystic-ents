@@ -37,27 +37,13 @@ public class AISystem {
 		} else {
 			sqrs = getOpponentPieces(p);
 		}
-		/*if (sqrs.size() == 0) {
+		if (sqrs.size() == 0) {
 			a.endAction(a, p.getParentSquare());
 			return;
 		}
-		if (a.getActionButton() == 1) {
-			sqrs = filterAlliedPieces(p, sqrs);
-		}*/
 		ts = getNextSquare(sqrs, rangeList);
 		a.endAction(a, ts);
 	}	
-	
-	private ArrayList<Square> filterAlliedPieces(Piece p, ArrayList<Square> sqrs) {
-		for (Square s : sqrs) {
-			if (s.getOccupant() != null) {
-				if (p.getTeam() == s.getOccupant().getTeam()) {
-					sqrs.remove(s);
-				}				
-			}
-		}
-		return sqrs;
-	}
 	
 	private ArrayList<Square> getOpponentTowers(Piece p) {
 		ArrayList<Square> sqrs = new ArrayList<Square>();
