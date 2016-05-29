@@ -85,9 +85,14 @@ public class GameController implements Observer {
 		uiMediator.doUIUpdate(gameTurn);		
 		//AI Turn
 		//if (gameTurn.getGameTimer() % 2 == 0) {
+		try {
 			if (CFacade.getInstance().checkAIStatus(currentTeam)) {
 				CFacade.getInstance().doAIGameTurn(actionController, currentTeam);
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		//}
 		// when time is up
 		if (gameTurn.getGameTimer() == 0) {

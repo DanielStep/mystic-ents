@@ -8,7 +8,7 @@ public class GameConfig {
 
 	//TIMER
     private static final int MAX_TURNS = 1000;
-    private static final int MAX_SECONDS = 25;
+    private static final int MAX_SECONDS = 30;
     private static final int START_DELAY = 1000;
     private static final int TIMER_PERIOD = 1000;
     private static final int MOVES_PER_TURN = 2;
